@@ -1,6 +1,6 @@
 # 当前试验阶段交接（Qwen3 新服务器）
 
-日期：2026-09-09。本文件只服务 **Qwen3-30B-A3B** 实验机。Llama 与 DeepSeek 仍在 4090 实验室跑，不要在这边重做。协议与禁令以 [`AGENTS.md`](AGENTS.md) 为准；方法细节以 `paper/plan_2weeks_ICLR2027.md` 为准。
+日期：2026-09-09。本文件只服务 **Qwen3-30B-A3B** 实验机。Llama 与 DeepSeek 仍在 4090 实验室跑，不要在这边重做。协议与禁令以 [`AGENTS.md`](AGENTS.md) 为准。现行计划是 `paper/plan_2weeks_ICLR2027.md` **v4**（2026-09-09：默认 C=0.8，取消 \(C^\*\) 与 PVC 查找表；报告 §12.14）。
 
 若你按口头文件名找 `handsoff.md`，正文就是这份 `handoff.md`。
 
@@ -8,9 +8,9 @@
 
 ## 1. 这一阶段要完成什么
 
-**P0：Qwen3-30B-A3B × MATH-500 主统计 490 题，paired SC/PC，thinking on，C=0.8（临时，不是 \(C^\*\)）。**
+**P0：Qwen3-30B-A3B × MATH-500 主统计 490 题，paired SC/PC，thinking on，默认 C=0.8。**
 
-成功标准：490 题 JSONL 齐、SC 与 PC 配对、有 `generation_seconds` 与 decode token、manifest 标 complete。准确率相对 SC 的 paired 单侧 95% 下界用来对照 plan 的 −1.0 pp 界，但 **不得**用这 490 题回写选阈值。
+成功标准：490 题 JSONL 齐、SC 与 PC 配对、有 `generation_seconds` 与 decode token、manifest 标 complete。主表标签写 **PC (C=0.8)**（先验默认操作点）。不要从这 490 题回写「最优 C」。阈值 sweep 另做消融。
 
 做完 MATH-500 再开同一模型的 AIME 2024/2025 与 GPQA-Diamond（同一协议）。公平 DeepConf / DeepConf+PC / 官方 CPT 排在 A3B 主 SC/PC 之后。
 
@@ -136,7 +136,7 @@ export MATH500_JSONL="${HOME}/data/Datasets/math500_test.jsonl"
 303, 457, 359, 315, 316, 415, 407, 370, 151, 332
 ```
 
-剩下 **490** 题。这 10 题曾在 Llama 工程调试中看过，不能当作未见测试集，也不能用来选 \(C^\*\)。
+剩下 **490** 题。这 10 题曾在 Llama 工程调试中看过，不能当作未见测试集，也不能用来挑阈值。
 
 AIME / GPQA JSONL 用 `prepare_eval_datasets.py`（同样必须在 CUDA 之前）。GPQA 选项顺序冻结 `seed=2027`。题目全文不要提交到 git。
 
@@ -197,7 +197,7 @@ JSONL **按题 id 追加，可断点续跑**。同一 tag 改 flag 重跑必须�
 - 准确率：SC 与 PC 各 490；差值与 paired 单侧 95% 下界。
 - Token：decode tokens / 题，PC 相对 SC 的百分比。
 - 墙钟：**`generation_seconds`，含 PC 复用的 SC root**。禁止用 `actual_generation_seconds` 报加速。
-- 标签写 **PC (C=0.8, provisional)**，不要写 PC (\(C^\*\))。
+- 标签写 **PC (C=0.8)**（默认操作点），不要写 PC (\(C^\*\)) 或 dev-selected。
 - 不要和旧 `results/SC_seed0.json`（Sentence-PC，Llama-3-8B，B=20）混表。
 - 不要和 DeepSeek MATH-500 490（已完成：SC 87.76% / PC 87.35% / decode −34.5%）混成同一个模型格子。
 
@@ -212,14 +212,14 @@ JSONL **按题 id 追加，可断点续跑**。同一 tag 改 flag 重跑必须�
 
 ## 8. MATH-500 之后（仍在这台 Qwen 机器）
 
-保持同一套采样与门控，仍用 C=0.8 直到 Dev-Mix 选出 \(C^\*\)：
+保持同一套采样与门控，默认 C=0.8：
 
 1. AIME 2024（30）→ AIME 2025（30）→ GPQA-Diamond（198）
 2. 官方 DeepConf（不要用仓库里仅离线的 `deepconf_offline.py` 冒充 in-the-loop）
 3. DeepConf+PC
 4. 官方 CPT **Qwen 入口**（`code/qwen/math.py`）。禁止把 `scripts/run_cpt_llama_adapter.py` 的数字写进主表。
 
-Dev-Mix（GSM8K train 100 + MATH train 100，seed=2027）与 PVC 查找表都还没做；**测试集上的 C=0.8 不能当 \(C^\*\)。**
+不再做 Dev-Mix 选 \(C^\*\)，也不做 PVC 查找表。主实验默认 C=0.8；不同阈值的比较放消融。长度策略保持固定 20% 网格。
 
 ---
 
@@ -227,7 +227,7 @@ Dev-Mix（GSM8K train 100 + MATH train 100，seed=2027）与 PVC 查找表都还
 
 4090 机（2026-09-09 13:00 CST 起）GPU 1–3：Llama-3.1-8B MATH-500 / GPQA / AIME，`max_tokens=8192`。DeepSeek AIME/GPQA API 也在跑。结果在实验室 `~/data/path-consistency-results/`，不通过 git 同步。需要对照数字时向实验室拷 JSON summary，不要把带题目的 GPQA JSONL 推进 GitHub。
 
-控制台 http://127.0.0.1:8787/ 只部署在实验室。
+控制台 http://127.0.0.1:18787/ 只部署在实验室（不要用旧的 8787）。
 
 ---
 
@@ -238,5 +238,5 @@ Dev-Mix（GSM8K train 100 + MATH train 100，seed=2027）与 PVC 查找表都还
 - [ ] `math500_test.jsonl` 正好 500 行且 **未 shuffle**；工程 10 行号对得上
 - [ ] `QWEN_GPUS` / `QWEN_TP∈{1,2,4}` / 空的 `QWEN_GPU_BLOCKS` 已按显存设好
 - [ ] smoke 1 题：thinking 非空、有 `\boxed{}`、SC 与 PC 写出配对记录
-- [ ] 全量 tag `math500_qwen3_30b_a3b_b32_mt32768_c08_seed0`，thinking on，C=0.8 未标成 \(C^\*\)
+- [ ] 全量 tag `math500_qwen3_30b_a3b_b32_mt32768_c08_seed0`，thinking on，默认 C=0.8（不要写成 \(C^\*\)）
 - [ ] 日志与 JSONL 在数据盘，不在 home 小配额盘

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Local experiment console for the Path-Consistency ICLR 2027 project.
 
-    /home/26xyw/.conda/envs/PC/bin/python console/serve.py --port 8765
+    /home/26xyw/.conda/envs/PC/bin/python console/serve.py --port 18787
 """
 
 from __future__ import annotations
@@ -10,6 +10,7 @@ import argparse
 import json
 import os
 import re
+import socket
 import subprocess
 from datetime import datetime, timezone, timedelta
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -51,7 +52,7 @@ CATALOG = [
         "model": "Llama-3.1-8B-Instruct",
         "dataset": "MATH-500 engineering split",
         "methods": "SC + PC 配对根",
-        "note": "已查看，不得用于选 C*/PVC；主表排除这 10 题。",
+        "note": "已查看，不得用于选阈或 PVC；主表排除这 10 题。",
         "match": "pilot10_v2",
     },
     {
@@ -73,18 +74,18 @@ CATALOG = [
         "model": "Llama-3.1-8B-Instruct",
         "dataset": "GSM8K test · 1319",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
-        "note": "完整新协议：配对根、BLC、trial/commit/rollback。C=0.8 仍非 C*；PVC 查找表尚未启用。",
+        "note": "完整新协议：配对根、BLC、trial/commit/rollback。主表默认 C=0.8。",
         "match": "gsm8k_llama31",
     },
     {
         "id": "data-aime-gpqa-devmix",
         "wave": "9/6–9/8 数据",
         "priority": "P0",
-        "title": "准备 AIME24/25、GPQA-D、Dev-Mix JSONL",
+        "title": "准备 AIME24/25、GPQA-D JSONL",
         "model": "—",
-        "dataset": "AIME24 · AIME25 · GPQA-D · Dev-Mix 200",
+        "dataset": "AIME24 · AIME25 · GPQA-D",
         "methods": "数据转换",
-        "note": "CUDA 前转 JSONL。GPQA 需用户接受 gated 条款。",
+        "note": "CUDA 前转 JSONL。Dev-Mix 不再用于选 C*，不阻塞。GPQA 需用户接受 gated 条款。",
         "match": "datasets",
     },
     {
@@ -121,36 +122,47 @@ CATALOG = [
         "match": "deepconf_cpt_smoke",
     },
     {
+        "id": "protocol-v4",
+        "wave": "9/9 冻结",
+        "priority": "P0",
+        "title": "协议 v4：默认 C=0.8，取消 C* 与 PVC 查找表",
+        "model": "—",
+        "dataset": "—",
+        "methods": "决策",
+        "note": "主表 PC (C=0.8)；sweep 只进消融；长度固定 20% 网格。见 plan v4 / 报告 §12.14。",
+        "match": "protocol_v4",
+    },
+    {
         "id": "pvc-pilot",
-        "wave": "9/8–9/10 冻结",
-        "priority": "P0-C",
-        "title": "干预式 Prefix Value Curve pilot",
+        "wave": "可选分析",
+        "priority": "P1",
+        "title": "干预式 Prefix Value Curve（可选分析）",
         "model": "Llama-3.1 先，Qwen 后",
-        "dataset": "Dev-Mix / MATH subset",
+        "dataset": "子集即可",
         "methods": "r∈{0,0.2,0.4,0.6,0.8}",
-        "note": "独立 discovery/evaluation；拆 correct/wrong source。",
+        "note": "只做分析图，不做测试时查找表控制器（2026-09-09 已取消查找表）。",
         "match": "none",
     },
     {
         "id": "devmix-cstar",
-        "wave": "9/8–9/10 冻结",
-        "priority": "P0-C",
-        "title": "Dev-Mix 选择每模型 C*",
-        "model": "三模型各一次",
-        "dataset": "Dev-Mix 200",
-        "methods": "C∈{0.70,0.80,0.90,0.95,1.00}",
-        "note": "非劣约束下最少 token；测试前冻结。",
-        "match": "none",
+        "wave": "已取消",
+        "priority": "—",
+        "title": "Dev-Mix 选 C*（已取消）",
+        "model": "—",
+        "dataset": "—",
+        "methods": "—",
+        "note": "2026-09-09：C=0.8 为默认操作点；不再用 Dev-Mix 选 C*。",
+        "match": "cancelled",
     },
     {
         "id": "selector-ablation-pilot",
-        "wave": "9/8–9/10 冻结",
+        "wave": "9/14–9/17 消融",
         "priority": "P0-C",
         "title": "BLC vs random / medoid / mean-logprob",
         "model": "Llama-3.1 或 Qwen",
         "dataset": "50–100 题",
         "methods": "selector 消融",
-        "note": "G1：BLC 不得明显差于 shared-random。",
+        "note": "不再作为冻结 PC 的前提；representative subset 即可。",
         "match": "none",
     },
     {
@@ -161,7 +173,7 @@ CATALOG = [
         "model": "Llama-3.1-8B-Instruct",
         "dataset": "MATH-500 490（排除工程 10 题）",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
-        "note": "V1 CUDA-graph TP=1 GPU1；max_tokens=8192。C=0.8 仍非 C*。",
+        "note": "V1 CUDA-graph TP=1 GPU1；max_tokens=8192。默认 C=0.8。",
         "match": "llama31_math500",
     },
     {
@@ -172,7 +184,7 @@ CATALOG = [
         "model": "Llama-3.1-8B-Instruct",
         "dataset": "AIME 2024 · AIME 2025",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
-        "note": "V1 CUDA-graph TP=1 GPU3 顺序跑两年。C=0.8 仍非 C*。",
+        "note": "V1 CUDA-graph TP=1 GPU3 顺序跑两年。默认 C=0.8。",
         "match": "llama31_aime",
     },
     {
@@ -183,7 +195,7 @@ CATALOG = [
         "model": "Llama-3.1-8B-Instruct",
         "dataset": "GPQA-D · 198",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
-        "note": "V1 CUDA-graph TP=1 GPU2。C=0.8 仍非 C*。",
+        "note": "V1 CUDA-graph TP=1 GPU2。默认 C=0.8。",
         "match": "llama31_gpqa",
     },
     {
@@ -194,7 +206,7 @@ CATALOG = [
         "model": "Qwen3-30B-A3B",
         "dataset": "MATH-500 490（排除工程 10 题）",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
-        "note": "V1 CUDA-graph TP=4 + CUDA-12.2 NCCL；thinking on；物理窗口 4。C=0.8 仍非 C*。",
+        "note": "V1 CUDA-graph TP=4 + CUDA-12.2 NCCL；thinking on；物理窗口 4。默认 C=0.8。",
         "match": "qwen30_a3b_math500",
     },
     {
@@ -205,7 +217,7 @@ CATALOG = [
         "model": "Qwen3-30B-A3B",
         "dataset": "AIME24 · AIME25 · GPQA-D",
         "methods": "Pass@1 · SC · PC",
-        "note": "MATH-500 之后。JSONL 仍缺。",
+        "note": "MATH-500 之后。本机 JSONL 已有；新服务器需同样路径。默认 C=0.8，thinking on。",
         "match": "none",
     },
     {
@@ -216,7 +228,7 @@ CATALOG = [
         "model": "deepseek-v4-flash",
         "dataset": "MATH · AIME · GPQA",
         "methods": "SC · PC-medoid fallback 若无 logprob",
-        "note": "MATH-500 490 已完成。AIME/GPQA 为独立 tag。C=0.8 仍非 C*。",
+        "note": "MATH-500 490 已完成。AIME/GPQA 为独立 tag。默认 C=0.8。",
         "match": "deepseek_math500",
     },
     {
@@ -227,7 +239,7 @@ CATALOG = [
         "model": "deepseek-v4-flash",
         "dataset": "AIME 2024 · AIME 2025",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
-        "note": "配对根 v2；BLC；整数 0–999。C=0.8 仍非 C*。",
+        "note": "配对根 v2；BLC；整数 0–999。默认 C=0.8。",
         "match": "deepseek_aime",
     },
     {
@@ -238,7 +250,7 @@ CATALOG = [
         "model": "deepseek-v4-flash",
         "dataset": "GPQA-D · 198",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
-        "note": "选项 seed=2027 写入 JSONL。C=0.8 仍非 C*。",
+        "note": "选项 seed=2027 写入 JSONL。默认 C=0.8。",
         "match": "deepseek_gpqa",
     },
     {
@@ -264,15 +276,26 @@ CATALOG = [
         "match": "none",
     },
     {
+        "id": "p0c-threshold-sweep",
+        "wave": "9/14–9/17 消融",
+        "priority": "P0-C",
+        "title": "Beta 阈值 sweep（消融 A）",
+        "model": "Llama-3.1-8B 或 Qwen A3B",
+        "dataset": "GSM8K 或 representative subset",
+        "methods": "C∈{0.7, 0.8, 0.9, 0.95, 1.0}",
+        "note": "只进消融，不从测试集挑最优 C。C=0.8 与 SC 已有 Llama GSM8K；其余 C 待补。",
+        "match": "none",
+    },
+    {
         "id": "p0c-ablations",
         "wave": "9/14–9/17 消融",
         "priority": "P0-C",
-        "title": "Beta / 长度 / selector / rollback / PVC 消融",
-        "model": "Qwen3-30B-A3B 优先",
-        "dataset": "MATH 100 + AIME 60",
-        "methods": "Ablation A–G",
-        "note": "representative subset 即可。",
-        "match": "none",
+        "title": "Beta 阈值 sweep / 长度 / selector / rollback 消融",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "Ablation A–F",
+        "note": "C=0.8 默认操作点。主方法 / SC 已填入；A 的 {0.7,0.9,0.95} 与 selector 对照仍缺。PVC 查找表不做。",
+        "match": "ablations_llama31_gsm8k",
     },
     {
         "id": "p0d-repeats",
@@ -282,7 +305,7 @@ CATALOG = [
         "model": "主方法",
         "dataset": "主表行",
         "methods": "重复",
-        "note": "9/16 冻结数字。",
+        "note": "9/16 冻结数字。不靠测试集挑 C 补救主表。",
         "match": "none",
     },
     {
@@ -304,10 +327,117 @@ CATALOG = [
         "model": "—",
         "dataset": "—",
         "methods": "写作",
-        "note": "只写已冻结可复算数字。摘要 9/18 23:59 AOE。",
+        "note": "只写已冻结可复算数字。摘要 9/18 23:59 AOE。不要写 PC(C*) 或 adaptive PVC。",
         "match": "none",
     },
 ]
+
+
+PLAN = {
+    "version": "v4",
+    "frozen_at": "2026-09-09",
+    "source": "paper/plan_2weeks_ICLR2027.md · report §12.14",
+    "headline": (
+        "主表一律 PC (C=0.8)：先验默认操作点，不是 Dev-Mix C*。"
+        "长度固定 20% 网格（gate 通过则前进一档）。"
+        "不做 PVC 查找表控制器；干预式 PVC 只当分析图。"
+    ),
+    "decisions": [
+        {
+            "id": "threshold",
+            "title": "阈值 C=0.8",
+            "status": "frozen",
+            "text": "沿用原论文 / Adaptive-Consistency。禁止从任何测试集回写「最优 C」。已完成的 C=0.8 配对不必重跑。",
+        },
+        {
+            "id": "sweep",
+            "title": "阈值 sweep",
+            "status": "ablation",
+            "text": "{0.7, 0.8, 0.9, 0.95, 1.0} 只进消融。更低 C → 更大加速、更高错前缀风险；更高 C → 更接近 SC、更安全。C=1 即 SC。",
+        },
+        {
+            "id": "length",
+            "title": "长度策略",
+            "status": "frozen",
+            "text": "Relative-PC：20%→40%→60%→80%。gate 通过则前进一档。不要写成 adaptive PVC。",
+        },
+        {
+            "id": "core",
+            "title": "算法核心",
+            "status": "frozen",
+            "text": "Beta top-1 vs all-rest；每窗口一条共享前缀；BLC；trial/commit；单层回退；两击重置。B=32，m=4，paired-root v2。",
+        },
+        {
+            "id": "pvc",
+            "title": "PVC",
+            "status": "optional",
+            "text": "查找表控制器已取消。干预式曲线若做只进分析图，不是方法主贡献，也不作为 go/no-go。",
+        },
+        {
+            "id": "devmix",
+            "title": "Dev-Mix",
+            "status": "cancelled",
+            "text": "不再用来选 C* 或建查找表。MATH-500 工程 10 题仍排除出主统计。",
+        },
+    ],
+    "go_nogo": [
+        {"must": True, "text": "PC 相对同预算 SC：至少两模型、两现代数据集准确率非劣（ε=1.0 pp），并有稳定 token 或 latency 收益。"},
+        {"must": True, "text": "DeepConf+PC 相对同一 DeepConf parent：至少在 Qwen3-30B-A3B 的两个设置上有增量。"},
+        {"must": True, "text": "matched-budget / matched-latency 下 PC 不劣于最接近的 CPT。"},
+        {"must": True, "text": "代码、公式、门控、回退和表格口径完全一致。speedup 只报 generation_seconds（含复用 root）。"},
+        {"must": False, "text": "干预式 PVC 分析图与 Dev-Mix 选 C*：不再作为投稿 go/no-go。"},
+    ],
+    "schedule": [
+        {
+            "when": "9/6–9/8",
+            "status": "done",
+            "title": "协议与接口",
+            "items": "新协议 runner、Llama GSM8K 1319、DeepSeek MATH-500 490、AIME/GPQA JSONL。",
+        },
+        {
+            "when": "9/9",
+            "status": "running",
+            "title": "本机主表",
+            "items": "Llama MATH-500 490 / GPQA-D / AIME24→25（GPU 1–3，不要杀）。DeepSeek AIME/GPQA API。",
+        },
+        {
+            "when": "立即",
+            "status": "queued",
+            "title": "新服务器 Qwen",
+            "items": "Qwen3-30B-A3B × MATH-500 490，C=0.8，thinking on。随后 AIME/GPQA。不要在 4090 上开 A3B。",
+        },
+        {
+            "when": "9/10–9/14",
+            "status": "queued",
+            "title": "P0-B 现代对照",
+            "items": "A3B 上 DeepConf、DeepConf+PC、官方 CPT。不可用 Llama CPT adapter 填主表。",
+        },
+        {
+            "when": "9/14–9/17",
+            "status": "partial",
+            "title": "消融与重复",
+            "items": "阈值 {0.7,0.9,0.95}；selector / rollback 子集；主表 seed 1/2。PVC 查找表不做。",
+        },
+        {
+            "when": "9/15–9/18",
+            "status": "queued",
+            "title": "摘要",
+            "items": "只写已冻结可复算数字。不要写 PC(C*) 或 adaptive PVC。摘要 9/18 23:59 AOE。",
+        },
+        {
+            "when": "9/19–9/25",
+            "status": "queued",
+            "title": "全文缓冲",
+            "items": "P1、limitations、模板、审计。全文 9/25 23:59 AOE。",
+        },
+    ],
+    "cancelled": [
+        "Dev-Mix 选 C*",
+        "PVC 查找表控制器（测试时 adaptive PVC）",
+        "从测试集挑最优 C",
+        "Qwen3-32B 主表 / 续跑 paused eager 490",
+    ],
+}
 
 
 def now_cst() -> datetime:
@@ -380,6 +510,39 @@ def last_jsonl_row(path: Path) -> dict | None:
         return None
 
 
+def gpu_short_name(name: str) -> str:
+    text = name or ""
+    upper = text.upper()
+    rtx = re.search(r"RTX\s*(\d{3,4}\s*(?:TI|SUPER)?)", upper)
+    if rtx:
+        return re.sub(r"\s+", "", rtx.group(1))
+    chip = re.search(r"\b(B200|H200|H100|A100|A800|A6000|L40S|L40|V100|T4)\b", upper)
+    if chip:
+        return chip.group(1)
+    return re.sub(r"^(NVIDIA|GeForce)\s+", "", text, flags=re.I).strip() or text
+
+
+def host_info(gpu_rows: list[dict]) -> dict:
+    hostname = socket.gethostname()
+    shorts = [row.get("short") or "" for row in gpu_rows]
+    counts: dict[str, int] = {}
+    for short in shorts:
+        if short:
+            counts[short] = counts.get(short, 0) + 1
+    if len(counts) == 1:
+        chip, n = next(iter(counts.items()))
+        gpu_summary = f"{n}× {chip}"
+    elif counts:
+        gpu_summary = " / ".join(f"{n}× {chip}" for chip, n in counts.items())
+    else:
+        gpu_summary = ""
+    return {
+        "hostname": hostname,
+        "label": os.environ.get("PC_CONSOLE_HOST_LABEL", "").strip(),
+        "gpu_summary": gpu_summary,
+    }
+
+
 def gpus() -> list[dict]:
     text = run_cmd(
         [
@@ -399,6 +562,7 @@ def gpus() -> list[dict]:
             {
                 "index": int(parts[0]),
                 "name": parts[1],
+                "short": gpu_short_name(parts[1]),
                 "used_mib": used,
                 "free_mib": float(parts[3]),
                 "total_mib": total,
@@ -636,10 +800,10 @@ def dataset_status() -> list[dict]:
     specs = [
         ("GSM8K test", DATASETS / "gsm8k_test.jsonl", True),
         ("MATH-500 test", DATASETS / "math500_test.jsonl", True),
-        ("AIME 2024", DATASETS / "aime_2024.jsonl", False),
-        ("AIME 2025", DATASETS / "aime_2025.jsonl", False),
-        ("GPQA-Diamond", DATASETS / "gpqa_diamond.jsonl", False),
-        ("Dev-Mix", DATASETS / "devmix_2027.jsonl", False),
+        ("AIME 2024", DATASETS / "aime_2024.jsonl", True),
+        ("AIME 2025", DATASETS / "aime_2025.jsonl", True),
+        ("GPQA-Diamond", DATASETS / "gpqa_diamond.jsonl", True),
+        ("Dev-Mix（已不用于选 C*）", DATASETS / "devmix_2027.jsonl", False),
     ]
     rows = []
     for name, path, required in specs:
@@ -651,7 +815,10 @@ def dataset_status() -> list[dict]:
                 "exists": path.exists(),
                 "rows": n,
                 "required": required,
-                "status": "ready" if path.exists() and n else "missing",
+                "status": (
+                    "ready" if path.exists() and n
+                    else ("optional" if not required else "missing")
+                ),
             }
         )
     return rows
@@ -677,7 +844,6 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
         row["status"] == "ready" for row in datasets if row["name"].startswith("AIME")
     )
     gpqa_ready = any(row["name"].startswith("GPQA") and row["status"] == "ready" for row in datasets)
-    devmix_ready = any(row["name"].startswith("Dev-Mix") and row["status"] == "ready" for row in datasets)
 
     out = []
     for item in CATALOG:
@@ -720,10 +886,14 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
             else:
                 status = "queued"
         elif key == "datasets":
-            missing = [row["name"] for row in datasets if row["status"] != "ready" and not row["name"].startswith("GSM8K") and not row["name"].startswith("MATH")]
+            missing = [
+                row["name"]
+                for row in datasets
+                if row.get("required") and row["status"] != "ready"
+            ]
             if not missing:
                 status = "complete"
-            elif aime_ready or gpqa_ready or devmix_ready:
+            elif aime_ready or gpqa_ready:
                 status = "partial"
                 detail = "仍缺：" + "、".join(missing)
             else:
@@ -770,6 +940,17 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
                     )
                 else:
                     detail = f"已配对 {paired}/{planned}；{len(hits)} 个 shard"
+        elif key == "cancelled":
+            status = "cancelled"
+        elif key == "ablations_llama31_gsm8k":
+            status = "partial"
+            detail = (
+                "Llama-3.1-8B × GSM8K 1319；默认 C=0.8。"
+                "主方法 / SC 行已填入；阈值 {0.7,0.9,0.95} 与 PVC 查找表不做。"
+            )
+        elif key == "protocol_v4":
+            status = "complete"
+            detail = "2026-09-09 冻结。主表 PC (C=0.8)；不做 C* 与 PVC 查找表。"
         elif key == "qwen30_a3b_math500":
             hits = [
                 row
@@ -1025,6 +1206,7 @@ def collect_state() -> dict:
         },
         "counts": counts,
         "running_math": len(running),
+        "host": host_info(gpu_rows),
         "gpus": gpu_rows,
         "processes": procs,
         "running": running,
@@ -1033,6 +1215,7 @@ def collect_state() -> dict:
         "math": math,
         "datasets": datasets,
         "catalog": catalog,
+        "plan": PLAN,
         "paper": build_paper_tables(math),
     }
 
@@ -1063,6 +1246,8 @@ PAGE = r"""<!DOCTYPE html>
     font: 13px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
   .wrap { max-width: 1440px; margin: 0 auto; padding: 28px 24px 64px; }
   h1 { font-size: 22px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.02em; }
+  .host { color: var(--text); font-size: 14px; margin: 0 0 6px; }
+  .host .chip { color: var(--ok); }
   h2 { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase;
     letter-spacing: 0.08em; margin: 28px 0 10px; }
   h3 { font-size: 15px; font-weight: 600; margin: 22px 0 6px; letter-spacing: -0.01em; }
@@ -1100,6 +1285,13 @@ PAGE = r"""<!DOCTYPE html>
   .pill.partial { color: var(--warn); border-color: #5a4a28; }
   .pill.stale, .pill.failed { color: var(--bad); border-color: #5a2a36; }
   .pill.paused { color: var(--warn); border-color: #5a4a28; }
+  .pill.cancelled { color: var(--dim); }
+  .pill.optional, .pill.info { color: var(--accent); border-color: #2a3a5a; }
+  .plan-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 10px; }
+  .plan-card { background: var(--bg2); border: 1px solid var(--line); padding: 10px 12px; }
+  .plan-card h4 { margin: 0 0 6px; font-size: 13px; font-weight: 600; }
+  .plan-card p { margin: 0; color: var(--muted); font-size: 12px; }
+  .call.plan { border-color: #2a4a5a; }
   .bar { height: 6px; background: var(--bg3); margin-top: 6px; }
   .bar > span { display: block; height: 100%; background: var(--accent); }
   .gpu { flex: 1; min-width: 160px; background: var(--bg2); border: 1px solid var(--line); padding: 10px 12px; }
@@ -1119,6 +1311,7 @@ PAGE = r"""<!DOCTYPE html>
 <body>
 <div class="wrap">
   <h1>Path-Consistency 实验控制台</h1>
+  <div class="host" id="hostline"></div>
   <div class="sub">ICLR 2027 改稿 · 数据每 8 秒从磁盘与 <span class="mono">nvidia-smi</span> 刷新 · <span id="stamp"></span></div>
 
   <div class="row" id="kpis"></div>
@@ -1129,6 +1322,15 @@ PAGE = r"""<!DOCTYPE html>
 
   <h2>正在进行</h2>
   <div id="running"></div>
+
+  <h2>冻结协议 · 实验计划 v4</h2>
+  <div class="call plan" id="plan-headline"></div>
+  <div class="plan-grid" id="plan-decisions"></div>
+  <h3>Go / no-go</h3>
+  <div id="plan-go"></div>
+  <h3>排期</h3>
+  <div id="plan-schedule"></div>
+  <div class="note" id="plan-cancelled" style="margin-top:8px"></div>
 
   <h2>论文表格</h2>
   <div class="note" id="paper-notes"></div>
@@ -1152,14 +1354,14 @@ PAGE = r"""<!DOCTYPE html>
   <div id="datasets"></div>
 </div>
 <script>
-const FILTERS = ["全部","进行中","已完成","未开始","部分/卡住"];
+const FILTERS = ["全部","进行中","已完成","未开始","部分/卡住","已取消"];
 let filter = "全部";
 let state = null;
 
 function pct(x, d=1){ if(x==null||Number.isNaN(x)) return "—"; return (100*x).toFixed(d)+"%"; }
 function num(x, d=1){ if(x==null||Number.isNaN(x)) return "—"; return Number(x).toFixed(d); }
 function pill(status){
-  const map = {complete:"完成", running:"进行中", queued:"未开始", partial:"部分", stale:"进程丢失", failed:"失败", paused:"已暂停", terminated_protocol_invalid:"已作废", missing:"缺失", ready:"就绪", loading_engine:"加载中"};
+  const map = {complete:"完成", running:"进行中", queued:"未开始", partial:"部分", stale:"进程丢失", failed:"失败", paused:"已暂停", cancelled:"已取消", terminated_protocol_invalid:"已作废", missing:"缺失", ready:"就绪", loading_engine:"加载中", optional:"非必需"};
   return `<span class="pill ${status}">${map[status]||status}</span>`;
 }
 function eta(s){
@@ -1171,6 +1373,45 @@ function eta(s){
 function bar(done, total){
   const p = total ? Math.min(100, 100*done/total) : 0;
   return `<div class="bar"><span style="width:${p}%"></span></div>`;
+}
+
+function planPill(status){
+  const map = {frozen:"已冻结", ablation:"消融", optional:"可选", cancelled:"已取消", done:"完成", running:"进行中", queued:"未开始", partial:"部分"};
+  const cls = {frozen:"complete", done:"complete", ablation:"partial", optional:"optional", cancelled:"cancelled", running:"run", queued:"queued", partial:"partial"};
+  return `<span class="pill ${cls[status]||status}">${map[status]||status}</span>`;
+}
+function renderPlan(){
+  const p = state.plan;
+  if(!p){
+    document.getElementById("plan-headline").textContent = "计划未加载。";
+    return;
+  }
+  document.getElementById("plan-headline").innerHTML =
+    `<b>计划 ${p.version}</b> · 冻结 ${p.frozen_at}` +
+    `<div class="note" style="margin-top:6px;max-width:none">${p.headline}</div>` +
+    `<div class="dim" style="margin-top:4px">${p.source}</div>`;
+  document.getElementById("plan-decisions").innerHTML = (p.decisions||[]).map(d => `
+    <div class="plan-card">
+      <h4>${d.title} ${planPill(d.status)}</h4>
+      <p>${d.text}</p>
+    </div>`).join("");
+  document.getElementById("plan-go").innerHTML = `<table>
+    <thead><tr><th>门槛</th><th>条件</th></tr></thead>
+    <tbody>${(p.go_nogo||[]).map(g => `
+      <tr><td>${g.must ? planPill("frozen") : planPill("optional")}</td>
+          <td>${g.text}</td></tr>`).join("")}
+    </tbody></table>`;
+  document.getElementById("plan-schedule").innerHTML = `<table>
+    <thead><tr><th>状态</th><th>窗口</th><th>事项</th></tr></thead>
+    <tbody>${(p.schedule||[]).map(s => `
+      <tr>
+        <td>${planPill(s.status)}</td>
+        <td>${s.when}<div class="note">${s.title}</div></td>
+        <td class="note" style="max-width:none">${s.items}</td>
+      </tr>`).join("")}
+    </tbody></table>`;
+  document.getElementById("plan-cancelled").textContent =
+    "已取消：" + ((p.cancelled||[]).join(" · ") || "—");
 }
 
 function acc(run, which){
@@ -1302,7 +1543,7 @@ function renderAblation(t){
   const head = t.columns.map(c => `<th class="left">${c}</th>`).join("");
   const body = t.rows.map(row => {
     const detail = staticCols ? `<td class="left">${row.detail||""}</td>` : "";
-    const cells = (row.cells||[]).map(() => tdCell("", false)).join("");
+    const cells = (row.cells||[]).map(c => tdCell(c||"", !!c)).join("");
     return `<tr><td class="left">${row.label}</td>${detail}${cells}</tr>`;
   }).join("");
   return `
@@ -1359,7 +1600,13 @@ function renderKpis(){
 function render(){
   if(!state) return;
   document.getElementById("stamp").textContent = state.generated_at;
+  const host = state.host || {};
+  const hostBits = [`<span class="mono">${host.hostname||"—"}</span>`];
+  if(host.gpu_summary) hostBits.push(`<span class="chip">${host.gpu_summary}</span>`);
+  if(host.label) hostBits.push(host.label);
+  document.getElementById("hostline").innerHTML = hostBits.join(" · ");
   try { renderPaper(state.paper); } catch (err) { console.error(err); }
+  try { renderPlan(); } catch (err) { console.error(err); }
   renderKpis();
 
   const stale = state.stale[0];
@@ -1379,8 +1626,8 @@ function render(){
   document.getElementById("headline").innerHTML = head;
 
   document.getElementById("gpus").innerHTML = state.gpus.map(g => `
-    <div class="gpu">
-      <div>GPU ${g.index} ${g.busy ? '<span class="pill run">占用</span>' : '<span class="pill queued">空闲</span>'}</div>
+    <div class="gpu" title="${g.name||""}">
+      <div>GPU ${g.index} · ${g.short||g.name||"—"} ${g.busy ? '<span class="pill run">占用</span>' : '<span class="pill queued">空闲</span>'}</div>
       <div class="mem">${num(g.used_mib,0)} / ${num(g.total_mib,0)} MiB · util ${num(g.util,0)}%</div>
       ${bar(g.used_mib, g.total_mib)}
     </div>`).join("") || '<div class="empty">无法读取 nvidia-smi</div>';
@@ -1414,6 +1661,7 @@ function render(){
     "已完成": x => x.status==="complete",
     "未开始": x => x.status==="queued",
     "部分/卡住": x => ["partial","stale","failed"].includes(x.status),
+    "已取消": x => x.status==="cancelled",
   }[filter];
   const items = state.catalog.filter(want);
   document.getElementById("catalog").innerHTML = `
@@ -1460,7 +1708,7 @@ function render(){
   document.getElementById("datasets").innerHTML = `<table>
     <thead><tr><th>数据集</th><th>状态</th><th>行数</th><th>路径</th></tr></thead>
     <tbody>${state.datasets.map(r => `
-      <tr><td>${r.name}</td><td>${pill(r.status==="ready"?"complete":"queued")}</td>
+      <tr><td>${r.name}${r.required?"":"<div class=\"note\">不阻塞</div>"}</td><td>${pill(r.status==="ready"?"complete":r.status==="optional"?"optional":"queued")}</td>
       <td>${r.rows||0}</td><td class="mono">${r.path}</td></tr>`).join("")}</tbody></table>`;
 }
 
@@ -1511,7 +1759,7 @@ class Handler(BaseHTTPRequestHandler):
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--port", type=int, default=8787)
+    parser.add_argument("--port", type=int, default=18787)
     args = parser.parse_args()
     httpd = ThreadingHTTPServer((args.host, args.port), Handler)
     print(

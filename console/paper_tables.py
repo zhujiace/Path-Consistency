@@ -1,8 +1,9 @@
 """Planned ICLR 2027 paper tables filled from complete protocol runs.
 
 Empty cells stay empty. A cell is filled only when a B=32 paired SC/PC run
-covers the planned evaluation set in full. C=0.8 numbers are provisional,
-not Dev-Mix C*. Llama MATH-50, smokes, and old Sentence-PC are excluded.
+covers the planned evaluation set in full. C=0.8 is the a priori default
+operating point, not a Dev-Mix C*. Llama MATH-50, smokes, and old
+Sentence-PC are excluded.
 """
 
 from __future__ import annotations
@@ -28,7 +29,7 @@ DATASETS_T1 = [
 METHODS_T1 = [
     {"id": "pass1", "label": "Pass@1"},
     {"id": "sc", "label": "SC"},
-    {"id": "pc", "label": "PC"},
+    {"id": "pc", "label": "PC (C=0.8)"},
 ]
 
 EXPECTED_N = {row["id"]: row["n"] for row in DATASETS_T1}
@@ -198,7 +199,7 @@ def _merge_group(runs: list[dict]) -> dict[str, Any] | None:
     sources = ", ".join(run.get("tag") or "" for run in runs)
     note = None
     if beta is not None and abs(float(beta) - 1.0) > 1e-9:
-        note = f"C={float(beta):.2g} provisional，不是 C*"
+        note = f"C={float(beta):.2g} default operating point"
     return {
         "n": n_sc,
         "beta": None if beta is None else float(beta),
@@ -294,7 +295,8 @@ def build_table1(cells: dict[tuple[str, str], dict[str, Any]]) -> dict[str, Any]
             "主表格点是 模型 × 数据集 × 方法。Tok 为平均 decode/reasoning generated tokens；"
             "PC 的 Tok 下方为相对同格 SC 的减少百分比（正值=更少 token）。"
             "GSM8K 是附录连续性列，因已有完整新协议数字而写入；不是四主现代数据集。"
-            "PC 数字均为 C=0.8 provisional，不是 Dev-Mix C*。"
+            "PC 数字均为默认操作点 C=0.8（先验，不是 Dev-Mix C*）。"
+            "阈值 sweep 只在消融表；更低 C 更大加速，更高 C 更安全。"
             "Pass@1 只写准确率（SC pool 第一条轨迹）；其 Tok 未在 summary 中单独统计。"
             "Llama MATH-50、smoke、旧 Sentence-PC 不入表。"
         ),
@@ -313,7 +315,7 @@ def build_table2() -> dict[str, Any]:
         "DeepConf (*, dev-selected)",
         "CPT",
         "DTS-Stable (P1)",
-        "PC",
+        "PC (C=0.8)",
         "DeepConf + PC",
     ]
     columns = [
@@ -486,12 +488,19 @@ def _ablation(
 ) -> dict[str, Any]:
     value_cols = len(columns) - 1 - static_cols
     out_rows = []
+    filled = 0
     for row in rows:
+        cells = list(row.get("cells") or [])
+        if len(cells) < value_cols:
+            cells.extend([None] * (value_cols - len(cells)))
+        elif len(cells) > value_cols:
+            cells = cells[:value_cols]
+        filled += sum(1 for cell in cells if cell not in (None, ""))
         out_rows.append(
             {
                 "label": row["label"],
                 "detail": row.get("detail"),
-                "cells": [None] * value_cols,
+                "cells": cells,
             }
         )
     return {
@@ -501,94 +510,189 @@ def _ablation(
         "columns": columns,
         "static_cols": static_cols,
         "rows": out_rows,
-        "filled": 0,
+        "filled": filled,
         "total": len(out_rows) * max(value_cols, 0),
     }
 
 
+# Llama-3.1-8B-Instruct × GSM8K test 1319, tag gsm8k_llama31_b32_mt2048_c08_seed0
+# (4 shards, paired-root v2, B=32, m=4). C=0.8 is the default operating point.
+_GS = {
+    "n": 1319,
+    "sc_correct": 1215,
+    "pc_correct": 1210,
+    "sc_tok": 8316,
+    "pc_tok": 5039,
+    "sc_prompt": 3487,
+    "pc_prompt": 6800,
+    "sc_s": 54.4,
+    "pc_s": 33.8,
+    "gate_q": 1178,
+    "mean_ratio": 0.707,
+    "wrong_promo": 560,
+    "commits": 4692,
+    "rollback_w": 129,
+    "windows": 10552,
+    "rollback_q": 101,
+    "failed_trials": 112,
+    "highconf_wrong": 44,
+    "pc_distinct": 2.53,
+    "sc_distinct": 2.96,
+    "cache_hit": 2483,
+    "traces": 32.0,
+}
+
+
+def _acc(correct: int, n: int = _GS["n"]) -> str:
+    return f"{100.0 * correct / n:.2f}% ({correct}/{n})"
+
+
+def _pct(num: int, den: int, digits: int = 1) -> str:
+    return f"{100.0 * num / den:.{digits}f}%"
+
+
 def build_ablations() -> list[dict[str, Any]]:
     setting = (
-        "计划优先设置：Qwen3-30B-A3B ×（MATH-500 100 题 + AIME24/25 60 题）；"
-        "除阈值曲线外均使用冻结的 C*。目前没有完整消融 run，格子留空。"
+        "当前设置：Llama-3.1-8B-Instruct × GSM8K test 1319（B=32，m=4，paired-root v2）。"
+        "C=0.8 是先验默认操作点，不是 C*。"
+        "Tok = 平均 decode generated tokens；时延 = generation_seconds（含复用 SC root）。"
+        "Gate Pass = 最终前缀比例>0 的题占比；Wrong Promotion = commit 窗口中 parent modal ≠ gold；"
+        "Rollback % = 含 rollback 的窗口占比。"
+        "未跑的对照行留空。旧 Sentence-PC（Llama-3-8B，B=20）不填入。"
+        "DeepConf 10 题 smoke 与 offline 过滤不进本表。"
+        "PVC 查找表控制器已取消；Adaptive 行保持空，除非另做干预式分析。"
     )
+    pc_acc = _acc(_GS["pc_correct"])
+    sc_acc = _acc(_GS["sc_correct"])
+    pc_tok = f"{_GS['pc_tok']:,}"
+    sc_tok = f"{_GS['sc_tok']:,}"
+    pc_lat = f"{_GS['pc_s']:.1f} s"
+    sc_lat = f"{_GS['sc_s']:.1f} s"
+    gate = _pct(_GS["gate_q"], _GS["n"])
+    wrong = _pct(_GS["wrong_promo"], _GS["commits"])
+    rollback = _pct(_GS["rollback_w"], _GS["windows"])
+    ratio = f"{100.0 * _GS['mean_ratio']:.1f}%"
+    high_wrong = _pct(_GS["highconf_wrong"], _GS["n"])
+    cache = _pct(_GS["cache_hit"], _GS["windows"])
     return [
         _ablation(
             "A",
             "Ablation A：Beta 阈值",
-            setting + " 测试列只做冻结后的敏感性，不用于挑 C*。",
+            setting + " 主表用 C=0.8；本表比较不同阈值。更低 C → 更大加速；更高 C → 更安全（更接近 SC）。Dev Acc 列不用来选阈，可留空。",
             ["C", "Dev Acc", "Test Acc", "Total Tok", "Gate Pass %", "Wrong Promotion %", "Rollback %"],
             [
                 {"label": "0.00（纯多数）"},
                 {"label": "0.70"},
-                {"label": "0.80"},
+                {
+                    "label": "0.80（默认操作点）",
+                    "cells": [None, pc_acc, pc_tok, gate, wrong, rollback],
+                },
                 {"label": "0.90"},
                 {"label": "0.95"},
-                {"label": "1.00（SC）"},
+                {
+                    "label": "1.00（SC）",
+                    "cells": [None, sc_acc, sc_tok, "0.0%", "0.0%", "0.0%"],
+                },
             ],
         ),
         _ablation(
             "B",
             "Ablation B：前缀粒度与长度策略",
-            setting,
+            setting + " 当前长度策略是固定 20% 网格（gate 通过则前进一档）。PVC 查找表控制器已取消。",
             ["Length policy", "Level schedule", "Acc", "Total Tok", "Latency", "Avg final ratio", "Wrong Promotion %"],
             [
                 {"label": "Shared Sentence-PC", "detail": "+1 sentence / level；其余组件同主方法"},
                 {"label": "Original Sentence-PC", "detail": "B=20, m=5，per-branch random"},
                 {"label": "Absolute-token PC", "detail": "+128 tokens / level"},
-                {"label": "Relative-PC", "detail": "20→40→60→80%"},
+                {
+                    "label": "Relative-PC（主方法）",
+                    "detail": "20→40→60→80%；gate 通过则前进",
+                    "cells": [pc_acc, pc_tok, pc_lat, ratio, wrong],
+                },
                 {"label": "Fixed-20", "detail": "始终 20%"},
                 {"label": "Fixed-40", "detail": "始终 40%"},
-                {"label": "PVC Adaptive", "detail": "advance / stay"},
-                {"label": "PVC Adaptive (agreement only)", "detail": "无标签 advance / stay"},
+                {"label": "PVC Adaptive（已取消）", "detail": "查找表控制器；不进测试时策略"},
+                {"label": "PVC Adaptive (agreement only)（已取消）", "detail": "无标签查找表；已取消"},
             ],
             static_cols=1,
         ),
         _ablation(
             "C",
             "Ablation C：唯一前缀来源选择",
-            setting,
+            setting + " Diversity = 每题 32 条轨迹中不同答案数。Wrong-source % 与 Wrong Promotion 同口径。",
             ["Source selector", "Acc", "Total Tok", "Diversity", "Wrong-source %", "Rollback %", "Selector overhead"],
             [
                 {"label": "Random（原文）"},
                 {"label": "Shortest trace"},
                 {"label": "Token medoid"},
                 {"label": "Highest mean logprob"},
-                {"label": "BLC lower-tail confidence"},
+                {
+                    "label": "BLC lower-tail confidence",
+                    "cells": [
+                        pc_acc,
+                        pc_tok,
+                        f"{_GS['pc_distinct']:.2f}",
+                        wrong,
+                        rollback,
+                        None,
+                    ],
+                },
             ],
         ),
         _ablation(
             "D",
             "Ablation D：共享方式与系统收益",
-            setting,
+            setting + " Prefill Tok = 平均 prompt tokens（含前缀）。Cache hit = 复用 SC root 的窗口 / 全部 PC 窗口。",
             ["Prefix mode", "Acc", "Decode Tok", "Prefill Tok", "Latency", "Cache hit", "Distinct answers"],
             [
                 {"label": "Per-branch random（原算法）"},
                 {"label": "Shared random"},
                 {"label": "Shared token-medoid"},
-                {"label": "Shared BLC（主方法）"},
+                {
+                    "label": "Shared BLC（主方法）",
+                    "cells": [
+                        pc_acc,
+                        pc_tok,
+                        f"{_GS['pc_prompt']:,}",
+                        pc_lat,
+                        cache,
+                        f"{_GS['pc_distinct']:.2f}",
+                    ],
+                },
             ],
         ),
         _ablation(
             "E",
             "Ablation E：回退策略",
-            setting,
+            setting + " Failed trials = rollback_trial 窗口数。High-conf. wrong = PC 错且最终比例≥80% 的题占比。",
             ["Rollback policy", "Acc", "Total Tok", "Failed trials", "Recovery Acc", "High-conf. wrong %"],
             [
                 {"label": "No rollback / keep trial"},
                 {"label": "Gate fail → reset empty（旧实现）"},
                 {"label": "One-level rollback"},
-                {"label": "One-level + blacklist + two-strike reset"},
+                {
+                    "label": "One-level + blacklist + two-strike reset",
+                    "cells": [pc_acc, pc_tok, str(_GS["failed_trials"]), None, high_wrong],
+                },
                 {"label": "主策略 + periodic unprefixed audit window"},
             ],
         ),
         _ablation(
             "F",
             "Ablation F：SC / DeepConf 与 PC 的 2×2 因子",
-            setting + " offline 过滤诊断不代替本表。",
+            setting + " Total Tok 与 Decode Tok 同为 generated tokens。DeepConf 行待 A3B/官方协议全量。",
             ["Trace controller", "Prefix redirection", "Acc", "Decode Tok", "Total Tok", "Latency", "Completed traces"],
             [
-                {"label": "SC", "detail": "off"},
-                {"label": "SC", "detail": "PC"},
+                {
+                    "label": "SC",
+                    "detail": "off",
+                    "cells": [sc_acc, sc_tok, sc_tok, sc_lat, f"{_GS['traces']:.0f}"],
+                },
+                {
+                    "label": "SC",
+                    "detail": "PC",
+                    "cells": [pc_acc, pc_tok, pc_tok, pc_lat, f"{_GS['traces']:.0f}"],
+                },
                 {"label": "DeepConf", "detail": "off"},
                 {"label": "DeepConf", "detail": "PC"},
             ],
@@ -597,7 +701,7 @@ def build_ablations() -> list[dict[str, Any]]:
         _ablation(
             "G",
             "Ablation G：Prefix Value Curve",
-            "干预式 PVC：独立 discovery/evaluation，拆 correct/wrong source。现有 offline 曲线不作数。",
+            "干预式 PVC 仅作分析图候选；查找表控制器已取消，本表留空。",
             ["Ratio", "V_corr", "V_agree", "Correct-source V", "Wrong-source V", "Suffix Tok", "Distinct answers"],
             [
                 {"label": "0%"},
@@ -619,7 +723,7 @@ def build_paper_tables(runs: list[dict]) -> dict[str, Any]:
     return {
         "notes": [
             "只写入 B=32、配对完整、覆盖计划题数的新协议实验。",
-            "PC 当前数字是 C=0.8 provisional，主表不得标成 PC(C*)。",
+            "主表与消融主方法行均为默认 C=0.8，不要标成 PC(C*)。",
             "Tok 口径：平均 generated reasoning/decode tokens；时延含配对根。",
         ],
         "table1": table1,

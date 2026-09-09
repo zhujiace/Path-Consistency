@@ -17,17 +17,17 @@ GitHub：[`zhujiace/Path-Consistency`](https://github.com/zhujiace/Path-Consiste
 | 不要做 | 不要在这里再启动 A3B（要 TP=4 且 4 张空闲 4090；GPU 1–3 已被 Llama 占） | 不要跑 Llama 分片、不要配 DeepSeek key、不要把 C=0.8 写成 \(C^\*\) |
 | 交接 | 见下文「本机路径」 | **先读 [`handoff.md`](handoff.md)** |
 
-两机协议必须一致：paired-root v2、B=32、m=4、thinking on（Qwen/DeepSeek）、工程 10 题排除、速度口径 `generation_seconds`。
+两机协议必须一致：paired-root v2、B=32、m=4、默认 **C=0.8**、thinking on（Qwen/DeepSeek）、工程 10 题排除、速度口径 `generation_seconds`。
 
 ---
 
 ## 冻结协议（禁止改名、禁止混表）
 
-- 方法名 **PC**。Beta 门控是 **top-1 vs all-rest**（不是 top-2）。主表只报 **dev 选出的 \(C^\*\)**。
+- 方法名 **PC**。Beta 门控是 **top-1 vs all-rest**（不是 top-2）。主表报 **PC (C=0.8)**：0.8 是先验默认操作点（沿用原论文 / AC），**不是** Dev-Mix 选出的 \(C^\*\)，也禁止从任何测试集回写「最优 C」。
 - 每个逻辑窗口 **一条**共享前缀；trial/commit；单层回退；两击重置；有 logprobs 时用 **BLC**。
-- 长度策略现状是 `provisional_fixed_plus_20_percent`。**PVC 查找表尚未实现**，不要写成 adaptive PVC。
+- 长度策略是固定 20% 网格 `provisional_fixed_plus_20_percent`（gate 通过则前进一档）。**不做 PVC 查找表控制器**，不要写成 adaptive PVC。PVC 若出现只作为分析图，不是测试时策略。
 - paired-root v2：PC 复用 SC 的无前缀窗口。速度只报 **`generation_seconds`（含复用 root）**，**禁止**把 `actual_generation_seconds` 当 speedup。
-- **C=0.8 是临时阈值，不是 \(C^\*\)**。禁止用 GSM8K test、MATH-500 DeepSeek 490、或任何测试集回写选 C。
+- 阈值 sweep \(\{0.7,0.8,0.9,0.95,1.0\}\) 只进消融：更低 C → 更大加速、更高错前缀风险；更高 C → 更接近 SC、更安全。C=1 即 SC。
 - MATH-500 主统计排除工程 10 题，`source_row`（0-index JSONL 行号）：
   `[303, 457, 359, 315, 316, 415, 407, 370, 151, 332]`（剩 490）。
 - **Qwen3 与 DeepSeek 必须 thinking on**。Llama 没有 thinking 开关，只用 chat template + `\boxed{}`。禁止把 Llama CoT 格子和 Qwen thinking-on 格子混成「同一协议」。
@@ -36,7 +36,7 @@ GitHub：[`zhujiace/Path-Consistency`](https://github.com/zhujiace/Path-Consiste
 - `margin` 只是 top1−top2 票差 ≥ 2 的启发式，**不是**忠实 MARS；禁止写成 MARS。
 - 公平 CPT 必须走官方 Qwen 入口 + A3B。Llama 上的 CPT adapter smoke **不是**公平比较。
 
-Go/no-go 与 PVC/Dev-Mix 细则：`paper/plan_2weeks_ICLR2027.md`。
+Go/no-go 与 \(C^\*\)/PVC 查找表已被 2026-09-09 决策取代，见 `paper/report_ICLR2027_revision.md` §12.14。现行实验计划是 `paper/plan_2weeks_ICLR2027.md` **v4**（控制台「冻结协议」同步同一份）。
 
 ---
 
@@ -48,7 +48,7 @@ Go/no-go 与 PVC/Dev-Mix 细则：`paper/plan_2weeks_ICLR2027.md`。
 |---|---|---|
 | Llama-3.1-8B GSM8K 1319 | SC 1215/1319=92.12%；PC 1210/1319=91.74%（−0.38 pp）；decode 8316→5039（−39.4%） | 新协议；Pass@1 均为 84.69% |
 | DeepSeek-V4-Flash MATH-500 490 | SC 430/490=87.76%；PC 428/490=87.35%（−0.41 pp）；decode −34.5% | fingerprint `4856d4ef5673`；thinking + reasoning_effort=high |
-| Llama MATH-50 | SC=PC 54%；decode −4.17% | 不可用于 \(C^\*\) / PVC / 主表 |
+| Llama MATH-50 | SC=PC 54%；decode −4.17% | 不可用于主表 / 选阈值 |
 | DeepConf+CPT Llama GSM8K smoke 10 题 | DeepConf-online majority 7/10；其它官方 vote 8/10；CPT-adapted-llama 8/10 | 隔离环境；**CPT 不公平** |
 
 ### 本机仍在跑（不要杀）
@@ -65,7 +65,7 @@ DeepSeek AIME24/25 + GPQA：`scripts/run_deepseek_aime_gpqa.sh`（API，不占�
 
 ### 新服务器下一步（P0 Qwen）
 
-1. **立即**：Qwen3-30B-A3B × MATH-500 490 paired SC/PC，C=0.8（仍非 \(C^\*\)），thinking on。启动：`bash run_math500_qwen30a3b.sh`（先改环境变量，见 handoff）。
+1. **立即**：Qwen3-30B-A3B × MATH-500 490 paired SC/PC，默认 C=0.8，thinking on。启动：`bash run_math500_qwen30a3b.sh`（先改环境变量，见 handoff）。
 2. 同一模型 × AIME24/25、GPQA-D（协议相同）。
 3. 公平 DeepConf、DeepConf+PC、官方 CPT，全部在 A3B 上。不要用 Llama adapter 填主表。
 
@@ -91,7 +91,7 @@ DeepSeek AIME24/25 + GPQA：`scripts/run_deepseek_aime_gpqa.sh`（API，不占�
 - 后台任务：`setsid nohup … < /dev/null &`。普通 `nohup … &` 会在启动 shell 结束时被杀。
 - DeepSeek key：**只读** `/data/26xyw/env/deepseek_api.env`，永不进 git。
 - math-verify 0.9.0 在 `/data/26xyw/python_packages/math_verify_0_9`（`MATH_VERIFY_PATH`）。不要把它的 SymPy 1.14 插到 vLLM 环境前面。
-- 控制台：`console/serve.py`，http://127.0.0.1:8787/ 。改 HTML/API 后必须重启；用户需硬刷新。改过的 tag 分类：`llama31_math500` / `llama31_aime` / `llama31_gpqa`。Table 1 的 PC Tok 列是相对 SC 的节省（GSM8K −39.4%）。墙钟 `DD:HH:MM:SS`。
+- 控制台：`console/serve.py`，http://127.0.0.1:18787/ （避开本机常见 8787 占用）。改 HTML/API 后必须重启；用户需硬刷新。改过的 tag 分类：`llama31_math500` / `llama31_aime` / `llama31_gpqa`。Table 1 的 PC Tok 列是相对 SC 的节省（GSM8K −39.4%）。墙钟 `DD:HH:MM:SS`。
 - TinyTeX：`export PATH=$HOME/.TinyTeX/bin/x86_64-linux:$PATH`。`pdflatex` + `bibtex` 两遍。不要用 tectonic 或 `/data/26xyw/envs/texlive`。
 
 ## GPU / vLLM 经验（两机通用）
@@ -133,7 +133,7 @@ bash run_math500_qwen30a3b.sh
 
 ## 禁止清单（两机）
 
-- 把 C=0.8 标成 \(C^\*\)，或从测试集选 C
+- 把默认 C=0.8 标成 \(C^\*\) / dev-selected，或从测试集挑选「最优 C」
 - 混用旧 Sentence-PC 与新协议
 - 用 `actual_generation_seconds` 报 speedup
 - 续跑暂停的 32B eager 490；用 32B 替换 A3B
