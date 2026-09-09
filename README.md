@@ -1,12 +1,32 @@
-# Path-Consistency Reproduction
+# Path-Consistency
 
-Private GitHub: `zhujiace/path-consistency`. Agent notes: [`AGENTS.md`](AGENTS.md). **Qwen3 new-server handoff:** [`handoff.md`](handoff.md).
+Code for reproducing and extending **Path-Consistency**: reuse a high-confidence reasoning prefix so later self-consistency branches spend fewer tokens.
+
+## Paper
+
+Jiace Zhu, Yuanzhe Huang, Yingtao Shen, Jie Zhao, An Zou.  
+**Path-Consistency with Prefix Enhancement for Efficient Inference in LLMs.**  
+[[arXiv](https://arxiv.org/abs/2409.01281)] [[pdf](https://arxiv.org/pdf/2409.01281)]
+
+```bibtex
+@misc{zhu2025pathconsistencyprefixenhancementefficient,
+      title={Path-Consistency with Prefix Enhancement for Efficient Inference in LLMs},
+      author={Jiace Zhu and Yuanzhe Huang and Yingtao Shen and Jie Zhao and An Zou},
+      year={2025},
+      eprint={2409.01281},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2409.01281},
+}
+```
+
+Agent notes: [`AGENTS.md`](AGENTS.md). **Qwen3 new-server handoff:** [`handoff.md`](handoff.md).
 
 Two machines (2026-09-09): the 4090 lab keeps Llama-3.1-8B and DeepSeek API runs; the new GPU server runs **Qwen3-30B-A3B** only. Do not mix old Sentence-PC (`results/SC_seed0.json`, B=20) with the frozen B=32 paired-root v2 protocol. C=0.8 is provisional, not \(C^\*\).
 
 ---
 
-Reproduce the original GSM8K case study of "Path-Consistency" (NeurIPS 2026 submission / arXiv 2409.01281) using Llama-3-8B with vLLM. That table is **appendix continuity**, not the ICLR 2027 main table.
+Reproduce the original GSM8K case study using Llama-3-8B with vLLM. That table is **appendix continuity**, not the ICLR 2027 main table.
 
 ## Setup
 

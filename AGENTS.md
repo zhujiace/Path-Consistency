@@ -2,7 +2,7 @@
 
 仓库两条线：（1）vLLM 评测管线，复现 Path-Consistency（arXiv 2409.01281，Jiace Zhu 等）并接 ICLR 2027 冻结协议；（2）ICLR 2027 修稿。论文决策先读 `paper/report_ICLR2027_revision.md`（§8 审稿对照，§9 执行日志，§10 图表口径，§12 实验记录）；审稿原文 `paper/ICML_review.md`、`paper/NeurIPS_review.md`。新服务器开 Qwen 实验只读本文件 + [`handoff.md`](handoff.md)。
 
-GitHub：`git@github.com:zhujiace/path-consistency.git`（**private**；含未投稿稿与审稿，不要改 public）。远程结果与权重不进 git。
+GitHub：[`zhujiace/Path-Consistency`](https://github.com/zhujiace/Path-Consistency)（public）。论文：[arXiv:2409.01281](https://arxiv.org/abs/2409.01281)。远程结果、权重、API key 不进 git。
 
 用户用中文；仓库 markdown 用中文；论文 LaTeX 保持英文。
 

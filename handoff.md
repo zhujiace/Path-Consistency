@@ -27,11 +27,11 @@
 
 ## 2. 克隆代码
 
-仓库 **private**：`git@github.com:zhujiace/path-consistency.git`
+仓库：[github.com/zhujiace/Path-Consistency](https://github.com/zhujiace/Path-Consistency)（public）。论文：[arXiv:2409.01281](https://arxiv.org/abs/2409.01281)。
 
 ```bash
-git clone git@github.com:zhujiace/path-consistency.git
-cd path-consistency
+git clone git@github.com:zhujiace/Path-Consistency.git
+cd Path-Consistency
 ```
 
 权重、JSONL、运行结果都不在 git 里。旧 Sentence-PC 的 `results/*.json` 只是附录连续性，与本阶段无关。
