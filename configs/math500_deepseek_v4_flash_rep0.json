@@ -1,0 +1,21 @@
+{
+  "purpose": "deepseek_v4_flash_math500_primary_rep0",
+  "protocol_version": "math-pc-paired-root-v2-deepseek-api",
+  "model": "deepseek-v4-flash",
+  "dataset": "/home/26xyw/data/Datasets/math500_test.jsonl",
+  "sample_seed": 2027,
+  "repetition_index": 0,
+  "exclude_engineering_source_rows": [303, 457, 359, 315, 316, 415, 407, 370, 151, 332],
+  "planned_questions": 490,
+  "run_flags": {
+    "max_branches": 32,
+    "window_size": 4,
+    "beta_threshold": 0.8,
+    "max_tokens": 32768,
+    "reasoning_effort": "high",
+    "thinking": true,
+    "question_concurrency": 8,
+    "max_inflight": 32
+  },
+  "note": "API has no seed. C=0.8 is provisional until Dev-Mix C*. Engineering 10 IDs excluded from primary MATH-500 stats. Selector is frozen from smoke (BLC if reasoning logprobs exist, else PC-medoid)."
+}

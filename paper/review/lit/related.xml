@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/1U0LTRBV5Pt5WHv512l6BZmFJB4</id>
+  <title>arXiv Query: search_query=&amp;id_list=2508.15260,2311.01079,2406.08156&amp;start=0&amp;max_results=5</title>
+  <updated>2026-09-02T06:19:16Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=5&amp;id_list=2508.15260,2311.01079,2406.08156" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>5</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2311.01079v2</id>
+    <title>Experiencing Urban Air Mobility: How Passengers evaluate a simulated flight with an Air Taxi</title>
+    <updated>2025-02-14T10:38:25Z</updated>
+    <link href="https://arxiv.org/abs/2311.01079v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2311.01079v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>For the successful development and implementation of novel concepts and technology, the acceptance of potential users is crucial. Therefore, within the project HorizonUAM of the German Aerospace Center (DLR), we investigated passengers' acceptance of air taxis. One challenge is that not many people have real experiences with urban air mobility (UAM) at the moment and thus requirements formulated by potential users refer to rather abstract concepts. To allow participants to gain realistic impressions of UAM concepts, a Mixed Reality (MR) Air Taxi Simulator was set up. In a study, 30 participants experienced an inner-city business shuttle flight. We assessed the influence of another person on board on wellbeing and information needs in nominal (experiment 1) and non-nominal situations (experiment 2). For the latter, participants experienced a re-routing of the flight due to landing side unavailability. During and after the flights, participants answered questionnaires and extensive interviews were conducted. The study produced empirical data on relevant factors regarding interaction, information needs and comfort within an air taxi. The findings show that passengers want to be informed about intentions of the vehicle. The presence of a flight attendant on board is not necessary but can increase wellbeing especially during non-nominal situations.</summary>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.soc-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-11-02T08:43:52Z</published>
+    <arxiv:comment>19 pages, 11 figures, 8 tables</arxiv:comment>
+    <arxiv:primary_category term="eess.SY"/>
+    <author>
+      <name>Anne Papenfuss</name>
+    </author>
+    <author>
+      <name>Maria Stolz</name>
+    </author>
+    <author>
+      <name>Nele Riedesel</name>
+    </author>
+    <author>
+      <name>Franziska Dunkel</name>
+    </author>
+    <author>
+      <name>Johannes Maria Ernst</name>
+    </author>
+    <author>
+      <name>Tim Laudien</name>
+    </author>
+    <author>
+      <name>Helge Lenz</name>
+    </author>
+    <author>
+      <name>Aytek Korkmaz</name>
+    </author>
+    <author>
+      <name>Albert End</name>
+    </author>
+    <author>
+      <name>Bianca Isabella Schuchardt</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.15260v1</id>
+    <title>Deep Think with Confidence</title>
+    <updated>2025-08-21T05:48:38Z</updated>
+    <link href="https://arxiv.org/abs/2508.15260v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.15260v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Models (LLMs) have shown great potential in reasoning tasks through test-time scaling methods like self-consistency with majority voting. However, this approach often leads to diminishing returns in accuracy and high computational overhead. To address these challenges, we introduce Deep Think with Confidence (DeepConf), a simple yet powerful method that enhances both reasoning efficiency and performance at test time. DeepConf leverages model-internal confidence signals to dynamically filter out low-quality reasoning traces during or after generation. It requires no additional model training or hyperparameter tuning and can be seamlessly integrated into existing serving frameworks. We evaluate DeepConf across a variety of reasoning tasks and the latest open-source models, including Qwen 3 and GPT-OSS series. Notably, on challenging benchmarks such as AIME 2025, DeepConf@512 achieves up to 99.9% accuracy and reduces generated tokens by up to 84.7% compared to full parallel thinking.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-21T05:48:38Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Yichao Fu</name>
+    </author>
+    <author>
+      <name>Xuewei Wang</name>
+    </author>
+    <author>
+      <name>Yuandong Tian</name>
+    </author>
+    <author>
+      <name>Jiawei Zhao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.08156v1</id>
+    <title>Scaling behavior of the localization length for TE waves at critical incidence on short-range correlated stratified random media</title>
+    <updated>2024-06-12T12:45:30Z</updated>
+    <link href="https://arxiv.org/abs/2406.08156v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2406.08156v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We theoretically investigate the scaling behavior of the localization length for $s$-polarized electromagnetic waves incident at a critical angle on stratified random media with short-range correlated disorder. By employing the invariant embedding method, extended to waves in correlated random media, and utilizing the Shapiro-Loginov formula of differentiation, we accurately compute the localization length $ξ$ of $s$ waves incident obliquely on stratified random media that exhibit short-range correlated dichotomous randomness in the dielectric permittivity. The random component of the permittivity is characterized by the disorder strength parameter $σ^2$ and the disorder correlation length $l_c$. Away from the critical angle, $ξ$ depends on these parameters independently. However, precisely at the critical angle, we discover that for waves with wavenumber $k$, $kξ$ depends on the single parameter $kl_cσ^2$, satisfying a universal equation $kξ\approx 1.3717\left(kl_cσ^2\right)^{-1/3}$ across the entire range of parameter values. Additionally, we find that $ξ$ scales as $λ^{4/3}$ for the entire range of the wavelength $λ$, regardless of the values of $σ^2$ and $l_c$. We demonstrate that under sufficiently strong disorder, the scaling behavior of the localization length for all other incident angles converges to that for the critical incidence.</summary>
+    <category term="physics.optics" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cond-mat.dis-nn" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-06-12T12:45:30Z</published>
+    <arxiv:comment>8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="physics.optics"/>
+    <arxiv:journal_ref>Results in Physics 62, 107820 (2024)</arxiv:journal_ref>
+    <author>
+      <name>Seulong Kim</name>
+    </author>
+    <author>
+      <name>Kihong Kim</name>
+    </author>
+    <arxiv:doi>10.1016/j.rinp.2024.107820</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1016/j.rinp.2024.107820" title="doi"/>
+  </entry>
+</feed>

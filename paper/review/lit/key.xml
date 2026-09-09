@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/WzFCO0ZnAPyiwE7lwY8X+7l1tXo</id>
+  <title>arXiv Query: search_query=&amp;id_list=2409.01281,2605.07654,2608.24590,2606.12935,2606.23595,2607.27783,2506.04708,2509.00195,2608.11403&amp;start=0&amp;max_results=20</title>
+  <updated>2026-09-02T05:01:32Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=20&amp;id_list=2409.01281,2605.07654,2608.24590,2606.12935,2606.23595,2607.27783,2506.04708,2509.00195,2608.11403" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>20</opensearch:itemsPerPage>
+  <opensearch:totalResults>9</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.23595v1</id>
+    <title>SPIRAL: Learning to Search and Aggregate</title>
+    <updated>2026-06-22T17:02:09Z</updated>
+    <link href="https://arxiv.org/abs/2606.23595v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.23595v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Language model reasoning can be substantially improved at test time via scaffolds that scale inference compute across different primitives -- sequential reasoning within a trace, independently sampled parallel traces, and aggregation of multiple reasoning traces into a final response. During post-training, however, language models are optimized only for sequential reasoning within a single trace. We introduce Sequential-Parallel-Aggregative Reinforcement Learning (SPIRAL), a framework in which a language model is trained to use all three primitives, as part of a unified inference compute pipeline. Concretely, the language model first samples a set of independent traces in parallel, each produced through sequential chain-of-thought reasoning, and then generates a final aggregation trace conditioned on those traces; all components are optimized end-to-end against the reward of the final aggregated response. To train this system, SPIRAL uses set reinforcement learning to teach models to produce a set of traces that are collectively useful for an aggregator and standard reinforcement learning to teach models to aggregate the set into improved final responses. Our experiments on reasoning tasks show that SPIRAL effectively scales with inference compute, outperforming GRPO by up to 11$\times$ scaling efficiency and 15% higher performance when all three compute primitives are scaled.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-22T17:02:09Z</published>
+    <arxiv:comment>Ongoing Work</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Jubayer Ibn Hamid</name>
+    </author>
+    <author>
+      <name>Ifdita Hasan Orney</name>
+    </author>
+    <author>
+      <name>Michael Y. Li</name>
+    </author>
+    <author>
+      <name>Omar Shaikh</name>
+    </author>
+    <author>
+      <name>Yoonho Lee</name>
+    </author>
+    <author>
+      <name>Dorsa Sadigh</name>
+    </author>
+    <author>
+      <name>Chelsea Finn</name>
+    </author>
+    <author>
+      <name>Noah Goodman</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.07654v1</id>
+    <title>Reliable Chain-of-Thought via Prefix Consistency</title>
+    <updated>2026-05-08T12:28:05Z</updated>
+    <link href="https://arxiv.org/abs/2605.07654v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.07654v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Models often improve accuracy on reasoning tasks by sampling multiple Chain-of-Thought (CoT) traces and aggregating them with majority voting (MV), a test-time technique called self-consistency. When we truncate a CoT partway through and regenerate the remainder, we observe that traces with correct answers reproduce their original answer more often than traces with wrong answers. We use this difference as a reliability signal, prefix consistency, that weights each candidate answer by how often it reappears under regeneration. It requires no access to token log-probabilities or self-rating prompts. Across five reasoning models and four math and science benchmarks, prefix consistency is the best correctness predictor in most settings, and reweighting votes by it reaches Standard MV plateau accuracy at up to 21x fewer tokens (median 4.6x). Our code is available at https://github.com/naoto-iwase/prefix-consistency.</summary>
+    <category term="stat.ML" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-08T12:28:05Z</published>
+    <arxiv:comment>See our project page at https://naoto-iwase.github.io/prefix-consistency-page</arxiv:comment>
+    <arxiv:primary_category term="stat.ML"/>
+    <author>
+      <name>Naoto Iwase</name>
+    </author>
+    <author>
+      <name>Yuki Ichihara</name>
+    </author>
+    <author>
+      <name>Mohammad Atif Quamar</name>
+    </author>
+    <author>
+      <name>Junpei Komiyama</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.27783v1</id>
+    <title>Reasoning Consensus: Structural Ensembling of LLM Reasoning via Weighted DAG Aggregation</title>
+    <updated>2026-07-30T07:14:50Z</updated>
+    <link href="https://arxiv.org/abs/2607.27783v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.27783v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Models (LLMs) explore problems through chain-of-thought, but this exploration is buried in unstructured prose. On high-stakes tasks, users cannot tell which steps are well-supported, which alternatives were seriously considered, or how the final conclusion compares to those the model discarded. We propose a framework that ensembles the reasoning structure, not just the answers, of multiple LLMs by weighted merging of Directed Acyclic Graphs (DAGs) extracted from reasoning chains. We weight each step by how many traces independently attest to it, to return "Consensus Reasoning". Across six benchmarks spanning statutory interpretation, graduate-level science, narrative multi-hop reasoning, and first-order logic, our ensemble outperforms a matched-budget majority-vote baseline, with a maximum accuracy gain of 3.1% on MuSR-MM (narrative multi-hop reasoning). On a single model, the framework matches or exceeds self-consistency at the same trace budget while additionally exposing an inspectable consensus reasoning graph. Ensemble weights correlate with LLM-judge rankings of reasoning quality at Spearman $ρ= 0.30$-$0.51$, and consensus subgraphs are preferred over alternatives leading to the majority-vote answer in 54.4-65.4% of head-to-head comparisons across five of six datasets. We observe that our framework can also be used to analyze diverse reasoning perspectives for a problem.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-30T07:14:50Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Amruta Parulekar</name>
+    </author>
+    <author>
+      <name>Jinu Lee</name>
+    </author>
+    <author>
+      <name>Dilek Hakkani-Tür</name>
+    </author>
+    <author>
+      <name>Hari Sundaram</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2608.11403v2</id>
+    <title>When Self-Consistency Backfires: Majority Vote Hurts the Majority of Hard Science Problems for Small LLMs</title>
+    <updated>2026-08-15T22:30:00Z</updated>
+    <link href="https://arxiv.org/abs/2608.11403v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.11403v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Self-consistency via majority vote reduces per-problem accuracy on most GPQA Diamond problems for small instruction-tuned models: 56.6% of problems for Qwen2.5-7B and 65.7% for Llama-3-8B. The obvious remedy is a verifier-free confidence gate. This version reports that the most natural repair also fails, and separates three signal failures that v1 treated as one. A token-entropy gate fails for a measurement reason: averaged over a chain of some 602 tokens, the statistic is a measurement of the prose rather than of confidence in the answer. On Qwen2.5-7B-Instruct-Turbo, 198 problems at 64 samples each, a sample whose answer contradicts its own problem's plurality still emits that answer at a median margin of 20.52 nats, with 75.7% above 10 nats. Both quantities were pre-registered and tested once on 69 problems no exploratory analysis had read; both passed. The unit is the whole result: pooled across the benchmark the margin separates correct from incorrect samples by +0.0604 on the fraction above 10 nats [+0.0183, +0.1017], excluding zero; per-problem and paired it does not, at -0.0168 [-0.0527, +0.0182], crossing zero. The claim is not that token log-probabilities carry no information, but that a signal with real across-question discrimination is close to useless for the within-question decision a router faces. The plurality-agreement gate's failure remains without a mechanism, and we report it as an open problem. These new claims rest on one model: a registered second-model replication was sampled and could not be evaluated, and we report that rejection rather than the result. We separately report that on hosted serverless inference at a small budget, three reasoning-native models could not be evaluated, for three separately measured reasons; all three are downloadable, so this bounds what a metered per-token API buys rather than what is knowable.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-11T20:08:51Z</published>
+    <arxiv:comment>19 pages, 5 figures, 4 tables. v1 accepted at the COLM 2026 Workshop on Efficient Reasoning; v2 additions are not peer reviewed. v2 revises rather than extends: Section 4.4's mechanism claim is replaced and one Discussion sentence withdrawn. All v1 results, tables and pre-registered verdicts are unchanged. Adds the answer-token margin result, a serverless reasoning wall, and ten disclosures</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Utkarsh Bahuguna</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2409.01281v3</id>
+    <title>Path-Consistency with Prefix Enhancement for Efficient Inference in LLMs</title>
+    <updated>2025-11-04T05:59:14Z</updated>
+    <link href="https://arxiv.org/abs/2409.01281v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.01281v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>To enhance the reasoning capabilities of large language models (LLMs), self-consistency has become a popular approach, combining multiple samplings with majority voting. However, current methods are computationally expensive and time-consuming due to the need for numerous samplings. To address this, this paper introduces path-consistency, which leverages the confidence of earlier-generated answers to identify the most promising prefix and guide the generation of subsequent branches. By dynamically guiding the generation of subsequent branches based on this prefix, path-consistency mitigates both the errors and redundancies from random or less useful sampling in self-consistency. This approach reduces errors and redundancies from random sampling, significantly accelerating inference by minimizing token consumption. Our extensive empirical results demonstrate that path-consistency improves inference latency by up to 40.5\%, while maintaining task accuracy across various tasks, including mathematical reasoning, commonsense reasoning, and symbolic reasoning.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-08-25T01:45:53Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Jiace Zhu</name>
+    </author>
+    <author>
+      <name>Yuanzhe Huang</name>
+    </author>
+    <author>
+      <name>Yingtao Shen</name>
+    </author>
+    <author>
+      <name>Jie Zhao</name>
+    </author>
+    <author>
+      <name>An Zou</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.00195v2</id>
+    <title>FastTTS: Accelerating Test-Time Scaling for Edge LLM Reasoning</title>
+    <updated>2026-01-31T20:07:00Z</updated>
+    <link href="https://arxiv.org/abs/2509.00195v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.00195v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent advances in reasoning Large Language Models (LLMs) are driving the emergence of agentic AI systems. Edge deployment of LLM agents near end users is increasingly necessary to protect data privacy, enable offline use, and provide responsive interaction with local context. However, strict memory constraints on edge devices limit deployment to smaller LLMs, whose reasoning capabilities are much weaker than those of large cloud models, hindering practical deployment of edge agentic AI. Test-Time Scaling (TTS) offers a promising solution by allocating more compute during inference to enhance the reasoning capability of edge LLMs. However, current TTS methods introduce heavy hardware performance overhead on resource-constrained devices, making them impractical for real applications. To address this challenge, we present FastTTS, a serving system that enables fast and efficient TTS for memory-constrained LLM reasoning. After analyzing common patterns across various TTS methods and identifying their performance bottlenecks, we introduce three novel techniques: i) Speculative Beam Extension, which mitigates system stragglers caused by irregular reasoning paths, ii) Asymmetric Multi-Model Memory Allocation, which dynamically balances memory usage between token generation and reasoning-step verification, and iii) Dynamic Prefix-Aware Scheduling, which optimizes reasoning execution to maximize KV-cache reuse across search paths. FastTTS offers a plug-and-play third-party library on top of vLLM, enabling edge LLMs on a single consumer GPU to match cloud-model accuracy and cloud-measured latency. Comprehensive evaluation shows that FastTTS achieves an average 2.2x higher goodput and reduces latency by 38%--68% compared to the vLLM baseline; it pushes the boundaries of low-latency TTS on memory-constrained edge devices and highlights the potential for democratizing agentic AI.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-29T19:12:04Z</published>
+    <arxiv:comment>Accepted at ASPLOS 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Hao Mark Chen</name>
+    </author>
+    <author>
+      <name>Zhiwen Mo</name>
+    </author>
+    <author>
+      <name>Guanxi Lu</name>
+    </author>
+    <author>
+      <name>Shuang Liang</name>
+    </author>
+    <author>
+      <name>Lingxiao Ma</name>
+    </author>
+    <author>
+      <name>Wayne Luk</name>
+    </author>
+    <author>
+      <name>Hongxiang Fan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.04708v3</id>
+    <title>Accelerated Test-Time Scaling with Model-Free Speculative Sampling</title>
+    <updated>2026-05-21T08:25:53Z</updated>
+    <link href="https://arxiv.org/abs/2506.04708v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.04708v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Language models have demonstrated remarkable capabilities in reasoning tasks through test-time scaling techniques like best-of-N sampling and tree search. However, these approaches often demand substantial computational resources, creating a critical trade-off between performance and efficiency. We introduce STAND (STochastic Adaptive N-gram Drafting), a novel model-free speculative decoding approach that exploits the inherent redundancy in reasoning trajectories to achieve significant acceleration without compromising accuracy. Our analysis shows that reasoning paths frequently reuse similar reasoning patterns, enabling efficient model-free token prediction without requiring separate draft models. By introducing stochastic drafting and preserving probabilistic information through a memory-efficient logit-based N-gram module, combined with optimized Gumbel-Top-K sampling and data-driven tree construction, STAND significantly improves token acceptance rates. Extensive evaluations across multiple models and reasoning tasks (AIME-2024, GPQA-Diamond, and LiveCodeBench) demonstrate that STAND reduces inference latency by 60-65% compared to standard autoregressive decoding while maintaining accuracy. Furthermore, STAND consistently outperforms state-of-the-art speculative decoding methods across diverse inference patterns, including single-trajectory decoding, batch decoding, and test-time tree search. As a model-free approach, STAND can be applied to any existing language model without additional training, making it a powerful plug-and-play solution for accelerating language model reasoning.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-05T07:31:18Z</published>
+    <arxiv:comment>EMNLP 2025 Oral</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Woomin Song</name>
+    </author>
+    <author>
+      <name>Saket Dingliwal</name>
+    </author>
+    <author>
+      <name>Sai Muralidhar Jayanthi</name>
+    </author>
+    <author>
+      <name>Bhavana Ganesh</name>
+    </author>
+    <author>
+      <name>Jinwoo Shin</name>
+    </author>
+    <author>
+      <name>Aram Galstyan</name>
+    </author>
+    <author>
+      <name>Sravan Babu Bodapati</name>
+    </author>
+    <arxiv:doi>10.18653/v1/2025.emnlp-main.1558</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.18653/v1/2025.emnlp-main.1558" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.12935v1</id>
+    <title>MARS: Margin-Adversarial Risk-controlled Stopping for Parallel LLM Test-time Scaling</title>
+    <updated>2026-06-11T05:56:42Z</updated>
+    <link href="https://arxiv.org/abs/2606.12935v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.12935v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Parallel test-time scaling samples many reasoning traces and majority-votes their answers, improving LLM accuracy but requiring traces to run to completion, incurring substantial computational overhead. We observe that probing partial traces at intermediate checkpoints can extract current answers without disrupting generation, revealing an evolving aggregate vote. Based on this observation, we introduce MARS, a margin-adversarial stopping rule that estimates which active traces are likely to change their answers and stops once the leader remains safe under a conservative bound on future vote movement. The rule separates two sources of uncertainty. It learns the trace-level switch probabilities that determine how much of the current margin is likely to be retained, while handling the harder question of where switching traces land through an adversarial bound calibrated from warmup traces. With true switch probabilities, MARS guarantees with high probability that the early-stopped answer matches the full-budget vote. In practice, a five-feature logistic model closely matches oracle switching behavior. Across three reasoning models and three competition-math benchmarks, MARS saves 25-47% of self-consistency tokens and 14-29% on top of DeepConf Online, a strong confidence-weighted baseline that already filters and truncates weak traces, while matching the accuracy of the corresponding full-budget baselines.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-11T05:56:42Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Wenbo Chen</name>
+    </author>
+    <author>
+      <name>Puheng Li</name>
+    </author>
+    <author>
+      <name>Mengyang Liu</name>
+    </author>
+    <author>
+      <name>Weijie Su</name>
+    </author>
+    <author>
+      <name>Tianpei Xie</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2608.24590v1</id>
+    <title>Is Discrete Difficulty Sufficient? Leveraging Continuous Difficulty for Efficient Self-Consistency in LLMs</title>
+    <updated>2026-08-25T14:17:30Z</updated>
+    <link href="https://arxiv.org/abs/2608.24590v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.24590v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Self-Consistency (SC) is a decoding strategy that samples diverse reasoning paths and selects the most consistent answer, demonstrating strong performance on complex reasoning problems. However, the excessive token consumption incurred by generating multiple reasoning paths has been identified as a major limitation of SC. To improve computational efficiency, several studies have proposed strategies that adjust the number of reasoning paths or allocate resources differentially according to problem difficulty. Nevertheless, most existing methods categorize difficulty into a few fixed levels, failing to fully capture the continuously varying nature of reasoning complexity. In this work, we propose Flexible Self-Consistency (FSC), which estimates problem difficulty as a continuous signal and dynamically adjusts the number of generated reasoning paths accordingly. FSC predicts the output entropy of an input question using a pre-trained probe and leverages it as an indicator of model uncertainty to flexibly control the sampling budget. Experimental results show that, across various models and benchmarks, FSC maintains accuracy comparable to SC while achieving token savings of up to 76%.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-25T14:17:30Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Sihyeong Yeom</name>
+    </author>
+    <author>
+      <name>Geon Park</name>
+    </author>
+    <author>
+      <name>Geunyeong Jeong</name>
+    </author>
+    <author>
+      <name>Taewoong Yoon</name>
+    </author>
+    <author>
+      <name>Jaewook Lee</name>
+    </author>
+    <author>
+      <name>Harksoo Kim</name>
+    </author>
+  </entry>
+</feed>

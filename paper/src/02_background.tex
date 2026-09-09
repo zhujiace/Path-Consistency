@@ -1,0 +1,14 @@
+\vspace{-2mm}
+\section{Background}
+\vspace{-2mm}
+
+\subsection{Test-Time Reasoning with Self-Consistency}
+
+Self-consistency~\cite{wang2022self} is a representative test-time reasoning strategy for improving CoT-based reasoning. It samples multiple reasoning paths for a given input and aggregates the final output through majority voting, reducing the risk of relying on a single erroneous trajectory. Earlier work focused on task-specific reasoning methods~\cite{andor2019giving, ran2019numnet, geva2020injecting, pikekos2021measuring}, while recent inference strategies further improve reasoning through self-evaluation, refinement, or search~\cite{zhang2023coder, shinn2023reflexion, madaan2024self, paul2024refiner, xie2024self, zhu2024deductive}. However, these methods often rely on additional generated paths, model calls, or evaluation steps, which increases test-time computation and latency.
+
+\vspace{-1mm}
+\subsection{Efficient Reasoning}
+
+Recent works improve reasoning efficiency by reducing either model-side or test-time cost. Model-side methods, such as distillation~\cite{hinton2015distilling}, train smaller or more specialized models for reasoning tasks~\cite{fu2023specializing, ho2023large, magister2023teaching, li2023symbolic}. Test-time methods keep the model fixed and reduce the cost of reasoning through adaptive sampling, early stopping, or rationale selection. Adaptive-consistency~\cite{aggarwal2023let} terminates sampling once the answer distribution becomes sufficiently confident, while early-stopping self-consistency~\cite{liescape} stops when answers within a sampling window become consistent. Recent rationale-aware methods also attempt to improve the efficiency by selecting more reliable reasoning paths~\cite{wan2025rasc}.
+
+Path-consistency is a model-agnostic test-time method that improves the efficiency of self-consistency by reusing high-confidence partial reasoning paths as prefixes to enhance inference efficiency while maintaining task accuracy.

@@ -1,0 +1,638 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/bGOv6vxh8/qjxsfOD8SdLTMiI1E</id>
+  <title>arXiv Query: search_query=all:"test-time compute" AND abs:"budget" AND abs:"reasoning"&amp;id_list=&amp;start=0&amp;max_results=25</title>
+  <updated>2026-09-02T05:01:10Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=all:%22test-time+compute%22+AND+(abs:%22budget%22+AND+abs:%22reasoning%22)&amp;start=0&amp;max_results=25&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>25</opensearch:itemsPerPage>
+  <opensearch:totalResults>72</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2608.23956v1</id>
+    <title>Recursive Agentic Reasoning</title>
+    <updated>2026-08-25T01:34:08Z</updated>
+    <link href="https://arxiv.org/abs/2608.23956v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.23956v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Test-time reasoning methods such as iterative refinement, decomposition, and repeated sampling are often evaluated in isolation, making their gains difficult to compare across models, benchmarks, and evaluation pipelines. We introduce a unified view of these methods as recursion operators over an agent's reasoning trace: GROW, which deepens a single reasoning path; PRUNE, which decomposes and recomposes the problem; and BRANCH, which samples alternative reasoning paths and selects among them. We evaluate all three operators against a single-pass chain-of-thought baseline under a shared harness with identical prompts, token budgets, and grading code. Across five benchmarks and three frontier models, comprising 14 model-benchmark settings, 49,327 graded items, and 151,876 model calls, BRANCH improves accuracy in all 14 settings by an average of 5.98 percentage points and is the best-performing operator in 12. In contrast, GROW yields a mean gain of 2.18 points and degrades performance in two settings, while PRUNE improves accuracy by 0.94 points on average. Analysis shows that BRANCH's advantage arises not only from exploring multiple reasoning paths, but also from recovering from truncation: its gains strongly correlate with the baseline rate of empty, budget-exhausted outputs (r = 0.72). These results weaken the hypothesis that different problems require routing among test-time reasoning operators; at this level of abstraction, repeated branching is consistently dominant. Finally, we show that unpaired evaluation and treating scoring-pipeline failures as model errors can materially change, and even reverse, comparative conclusions, motivating paired scoring as a standard protocol for test-time-compute evaluation.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-25T01:34:08Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Shengxin Zhang</name>
+    </author>
+    <author>
+      <name>Xiaomin Wu</name>
+    </author>
+    <author>
+      <name>Xiyang Wu</name>
+    </author>
+    <author>
+      <name>Jing Xie</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2608.28660v1</id>
+    <title>Test-Time Scaling for Scientific Equation Discovery</title>
+    <updated>2026-08-21T07:46:04Z</updated>
+    <link href="https://arxiv.org/abs/2608.28660v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.28660v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Test-time scaling (TTS) improves language model reasoning by allocating additional test-time compute, but prior work mainly studies closed-ended tasks such as math and coding. We study TTS for automated equation discovery, an open-ended setting where models search over candidate equations and rely on observed datapoints for feedback. We formulate LLM-driven equation discovery as an iterative search process that unifies Best-of-N, sequential refinement, tree search, and evolution-style methods under a common compute-allocation view. To isolate allocation effects from prompt engineering and other heuristics, we compare minimal parallel controllers under fixed budgets. On LLM-SRBench equation-discovery tasks, we find that search width is the dominant allocation parameter: the best width in our sweep generally increases with the compute budget, while the population--branching split and controller choice matter less. Appropriate width selection also improves wall-clock efficiency by increasing parallelism. These results suggest that, given an informative verifier, controlling exploration and exploitation is central to scaling LLM-based equation discovery.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-21T07:46:04Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <arxiv:journal_ref>EMNLP 2026</arxiv:journal_ref>
+    <author>
+      <name>Haowei Lin</name>
+    </author>
+    <author>
+      <name>Hubert Lim</name>
+    </author>
+    <author>
+      <name>Xiangyu Wang</name>
+    </author>
+    <author>
+      <name>Letian Huang</name>
+    </author>
+    <author>
+      <name>Di He</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2608.20256v2</id>
+    <title>Learning When to Think: Adaptive Reasoning for Test-Time Compute Allocation</title>
+    <updated>2026-08-21T07:26:24Z</updated>
+    <link href="https://arxiv.org/abs/2608.20256v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.20256v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reasoning language models trained with reinforcement learning typically operate under a fixed token budget rather than an explicitly adaptive one, which can lead to over-computation on easy problems and insufficient computation on difficult ones. We study whether a model can learn to allocate its own reasoning effort by choosing, as the first token of its response, one of three modes: \textsc{NoThink} (answer as quickly as possible), \textsc{Short} (brief reasoning), or \textsc{Long} (extended reasoning). The choice is learned inside Group Relative Policy Optimization (GRPO) with no separate router, through a shaped reward that makes each mode worthwhile at a different response length, together with hard per-mode token caps that keep the modes distinct. On a 1.5B distilled model trained on MATH, the three modes emerge without collapsing to a single choice, and the brief modes end up more accurate than \textsc{Long}, which shows that the router sorts problems by difficulty rather than at random. Averaged over three seeds, the resulting policy stays close to the base model's accuracy on the held-out MATH500 ($0.782$ vs.\ $0.796$) while cutting the mean response length from $4{,}796$ to $2{,}811$ tokens (a $41\%$ reduction). Interestingly, it also transfers to other benchmarks without retraining, with the largest savings where problems are easier, with for instance 76\% token reduction on GSM8K and at higher accuracy than the baselines at similar response length. In short, we build a reasoning model that adaptively chooses how much to reason for each problem.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-20T16:54:08Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Gijs Kassenaar</name>
+    </author>
+    <author>
+      <name>Zhao Yang</name>
+    </author>
+    <author>
+      <name>Vincent François-Lavet</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2608.11994v1</id>
+    <title>Claim-Level Reliability Assessment for Efficient Test-Time Reasoning</title>
+    <updated>2026-08-12T12:33:05Z</updated>
+    <link href="https://arxiv.org/abs/2608.11994v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.11994v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We propose claim-level falsification as a principle for test-time scaling and instantiate it through Claim-Level Reliability Assessment (CLR), a training-free framework that reallocates test-time compute from additional solution sampling to targeted verification. Since whole-trace evaluation often obscures decisive errors due to signal dilution from routine tokens, CLR condenses each reasoning trace into a compact set of decision-critical claims, thereby isolating its logical anchors. Furthermore, recognizing the inherent difficulty of generating entirely correct solutions under fixed model capabilities, CLR shifts the focus to semantic falsification. This approach exploits a fundamental asymmetry between solution construction and claim refutation. Constructing a valid solution requires a flawless reasoning path, whereas refuting an incorrect claim requires identifying only a single decisive flaw. This targeted search for negative evidence systematically compresses the survival space of high-confidence incorrect traces, effectively suppressing erroneous consensus via nonlinear reliability scoring. Across four LLMs and four reasoning benchmarks under matched budgets, CLR generally improves upon pass@1 and self-consistency. On GPT-OSS-20B/CMIMC25, for instance, CLR exceeds pass@1 by 27.15 percentage-points and raises self-consistency accuracy from 77.50\% to 82.19\% with 37.0\% fewer tokens.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-12T12:33:05Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Sen Xu</name>
+    </author>
+    <author>
+      <name>Wei Wang</name>
+    </author>
+    <author>
+      <name>Shixi Liu</name>
+    </author>
+    <author>
+      <name>Jixin Min</name>
+    </author>
+    <author>
+      <name>Yingwei Dai</name>
+    </author>
+    <author>
+      <name>Zhibin Yin</name>
+    </author>
+    <author>
+      <name>Yirong Chen</name>
+    </author>
+    <author>
+      <name>Junlin Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2608.08020v2</id>
+    <title>Thought-Level Beam Search for Reasoning</title>
+    <updated>2026-08-11T04:35:54Z</updated>
+    <link href="https://arxiv.org/abs/2608.08020v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.08020v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Test-time compute scaling is a primary driver of performance in large reasoning models (LRMs), but extreme inefficiency bounds current approaches, shifting the critical question from \emph{how much} compute to spend, to \emph{where} to allocate it. We formalize test-time reasoning as a constrained compute allocation problem over partial trajectories. Under a fixed hardware budget, existing paradigms fail to actively allocate the compute to the most promising partial progress: traditional parallel sampling treats traces independently and induces severe memory bottlenecks, while subtractive pruning starves hardware and fails to actively and sufficiently shift the output distribution. To overcome this dichotomy, we introduce Gambit, an inference algorithm that executes \emph{thought-level beam search}. By periodically pruning unpromising trajectories and immediately branching from high-quality prefixes, Gambit dynamically concentrates compute onto the most promising reasoning traces via a light-weight scorer probing hidden states while maintaining continuous high hardware utilization. Extensive evaluations across multiple models and benchmarks demonstrate that Gambit strictly dominates existing baselines. Under identical hardware constraints, our method yields up to a +6.7\% absolute accuracy gain on HMMT-24 and +3.3\% on AIME-25 over pruning baselines, delivers $&gt;2\times$ higher throughput on trace completion, and reduces total token consumption by up to 68.5\% relative to standard parallel sampling.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-08T09:00:01Z</published>
+    <arxiv:comment>Add the author Jiawei Zhao in Meta Data</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Lijie Yang</name>
+    </author>
+    <author>
+      <name>Hongyin Luo</name>
+    </author>
+    <author>
+      <name>Jiawei Zhao</name>
+    </author>
+    <author>
+      <name>Tri Dao</name>
+    </author>
+    <author>
+      <name>Ravi Netravali</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2608.07968v2</id>
+    <title>Thinking Hard, Not Smart: Reasoning Models Fail to Ration Test-Time Compute Across Questions</title>
+    <updated>2026-08-11T02:23:08Z</updated>
+    <link href="https://arxiv.org/abs/2608.07968v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.07968v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reasoning language models increasingly use test-time compute to improve performance, but existing evaluations typically study this compute one question at a time. Yet when multiple problems share an end-to-end cost or latency constraint, models must decide how to divide limited inference compute among them. We introduce an exam-style evaluation framework for studying this setting, in which a model must distribute one shared token budget across questions with different difficulty and point values to maximize its total score. Across several open and frontier reasoning models, we find that models fail to allocate a shared budget strategically across questions of varying difficulties and values. Models behave largely as greedy sequential solvers: they prioritize questions by presentation order, front-load effort on early questions, and remain insensitive to value, with these tendencies becoming more pronounced as the number of questions grows. Explicit planning prompts spread compute more evenly but do not produce value- or difficulty-aware prioritization. The same behavioral pattern extends from mathematical to code reasoning. These findings establish global budget allocation as a distinct capability that is not captured by conventional per-question evaluation and remains a challenge for current reasoning models.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-08T07:04:28Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Chenrui Fan</name>
+    </author>
+    <author>
+      <name>Yize Cheng</name>
+    </author>
+    <author>
+      <name>Ming Li</name>
+    </author>
+    <author>
+      <name>Yongyuan Liang</name>
+    </author>
+    <author>
+      <name>Tianyi Zhou</name>
+    </author>
+    <author>
+      <name>Soheil Feizi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.28457v1</id>
+    <title>SVR: Self-Verifying Refinement via Joint Verdict-Confidence Reinforcement Learning for Adaptive Test-Time Compute</title>
+    <updated>2026-07-30T16:20:58Z</updated>
+    <link href="https://arxiv.org/abs/2607.28457v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.28457v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Scaling test-time computation can improve language-model reasoning, but uniform budgets waste computation on easy inputs, while verifier-guided refinement relies on external feedback. We introduce Self-Verifying Refinement (SVR), an oracle-free multi-turn reinforcement learning framework that learns to use self-verification as a compute-control policy. At each turn, the model produces a solution together with a discrete correctness verdict and a confidence score; it retains the current answer only when the verdict is Correct and confidence exceeds a threshold, and otherwise continues refinement using its own self-verification. Ground-truth correctness is used only to construct training rewards and is never exposed to the policy through refinement prompts or required at inference. SVR is trained with GRPO on fixed-horizon trajectories using rewards that promote solution correctness, calibration-aware self-verification, and stop-ready correct states; adaptive stopping is activated only at inference. On seven mathematical reasoning benchmarks with Qwen3.5-2B, SVR achieves a macro-average accuracy of 0.563 with only 2.99 inference turns on average. In the evaluated complete-system comparison, it exceeds standard GRPO, strong multi-turn baselines, and a fixed-budget oracle-guided score-feedback reference while requiring substantially fewer turns than fixed ten-turn inference. These results demonstrate that learned self-verification can serve as an effective internal control signal for answer retention and adaptive test-time compute allocation.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-30T16:20:58Z</published>
+    <arxiv:comment>8 pages, 4 figures, 4 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Hongyu Chen</name>
+    </author>
+    <author>
+      <name>Liang Lin</name>
+    </author>
+    <author>
+      <name>Guangrun Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.15263v3</id>
+    <title>Beyond Success Rate: Cost-Aware Evaluation of Offensive and Defensive Security Agents</title>
+    <updated>2026-07-27T17:42:56Z</updated>
+    <link href="https://arxiv.org/abs/2607.15263v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.15263v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Security-agent evaluations commonly measure peak offensive capability under generous inference budgets, emphasizing vulnerability discovery, exploit development, penetration testing, and CTF completion. Such measurements are useful but incomplete: in operational security, every reasoning step, tool call, telemetry query, and enrichment request consumes budget. We evaluate language-model security agents through this cost-success lens on offensive Cybench challenges and defensive Splunk BOTS v1 investigation challenges. Instead of reporting only best-case success, we compare models at fixed cost levels and decompose performance by inference spend and tool spend. Our results show distinct scalingregimes for red- and blue-team tasks. Offensive CTF performance improves with additional test-time compute, and scaled open-weight models can approach frontier proprietary systems while remaining cost-competitive. Defensive SOC investigation does not scale in the same way: success depends more heavily on disciplined tool use, telemetry navigation, and selective enrichment than on raw reasoning budget alone. We argue that security-agent benchmarks should measure economic efficiency and operational fit alongside task success. Cost-aware, SOC-native evaluations provide a clearer picture of which models are practically useful today and where defensive agents still need to improve. We present an interactive website with our results https://evals.frontier.security.</summary>
+    <category term="cs.CR" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-16T17:54:47Z</published>
+    <arxiv:primary_category term="cs.CR"/>
+    <author>
+      <name>Paul Kassianik</name>
+    </author>
+    <author>
+      <name>Blaine Nelson</name>
+    </author>
+    <author>
+      <name>Yaron Singer</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.11598v1</id>
+    <title>Interaction Scaling: Grounding the Third Axis of Test-Time Compute</title>
+    <updated>2026-07-13T14:22:06Z</updated>
+    <link href="https://arxiv.org/abs/2607.11598v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.11598v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>There are two standard ways to spend more compute at test time: let a model reason longer, or sample more attempts and keep one. Both share a hidden limit: they are internal. Every extra token comes from the same frozen weights and the same prompt, so neither can tell the model anything it does not already know. We study a third way, interaction: the model proposes an artifact, an external instrument observes how it actually behaves, and the model revises. Each cycle imports a real observation, so interaction breaks through the ceiling the other two hit.
+  We argue that a single variable governs this third axis, grounding, and that it must hold on both sides of the loop. The feedback that drives revision must come from an instrument that actually observes the flaw, and so must the metric that scores the result. On hard coding tasks at a fixed token budget, reasoning-only and best-of-N sampling both plateau (the latter even when an oracle picks the best sample), while every interaction strategy keeps improving; our proposer-reviewer harness reaches a perfect 100% pass rate with no run-to-run variance, and the gain holds across three model families. On rendered visual artifacts, the usual judge (a vision-language model, or VLM, reading a screenshot) rates 14 of 15 visibly broken figures "perfect," because the screenshot hides the flaws before the judge can see them. A tool that measures the real layout instead shows the loop removing 40-74% of defects across four modalities; and that same VLM, used as the reviewer, makes slide layouts worse where the measuring tool repairs them. Interaction scaling is real and distinct from reasoning and sampling, but only visible when both the feedback and the metric are grounded.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-13T14:22:06Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Bojie Li</name>
+    </author>
+    <author>
+      <name>Noah Shi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.11307v1</id>
+    <title>Efficient Test-Time Optimization for Multi-Agent Proof Autoformalization</title>
+    <updated>2026-07-13T09:21:15Z</updated>
+    <link href="https://arxiv.org/abs/2607.11307v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.11307v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Full-proof autoformalization bridges extensive mathematical proofs in natural language with formally validated reasoning, offering a pathway to elevate the ceiling of verifiable mathematical reasoning. Unlike statement-level formalization, proof autoformalization is a long-horizon challenge requiring coordination of claims, contexts, and dependencies across many proof steps, yet has only recently come under focused study. Current approaches either rely on costly model training or apply excessive, unguided repair at inference time. To this end, we introduce ToMap, a multi-agent framework that structures proof autoformalization as a Decomposer-Formalizer-Prover pipeline with efficient test-time optimization guided by formal verification and semantic rubrics for proof quality. Rather than distributing test-time compute across all agents, we perform bottleneck analysis and identify the Decomposer as the critical bottleneck: the quality of its atomic, self-contained proof units directly determines whether downstream agents can successfully formalize and prove each step. ToMap therefore treats the Formalizer and Prover as downstream executors and efficiently focuses test-time compute on Decomposer refinement. This refinement follows a loop inspired by GEPA, evolving prompts over candidate decompositions and using formal verification progress together with semantic proof rubrics to define a Pareto frontier that guides the next decomposition update. Experiments on ProofFlowBench show that ToMap improves over the best previous method by 19.0% when evaluated by both syntactic correctness and semantic faithfulness, while requiring lower test-time cost. Scaling analysis shows that most gains emerge within a few iterations of decomposition evolution, guiding test-time budget selection.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-13T09:21:15Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Tian-Shuo Liu</name>
+    </author>
+    <author>
+      <name>Shiyuan Zhang</name>
+    </author>
+    <author>
+      <name>Zijie Geng</name>
+    </author>
+    <author>
+      <name>Haoyu Liu</name>
+    </author>
+    <author>
+      <name>Runjie Xu</name>
+    </author>
+    <author>
+      <name>Pengyuan Wang</name>
+    </author>
+    <author>
+      <name>Lei Yuan</name>
+    </author>
+    <author>
+      <name>Yang Yu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.04402v1</id>
+    <title>Not All Errors Are Equal: Consequence-Aware Reasoning Compute Allocation</title>
+    <updated>2026-06-03T03:29:57Z</updated>
+    <link href="https://arxiv.org/abs/2606.04402v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.04402v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Modern reasoning models can allocate different amounts of test-time computation, such as thinking tokens, model calls, or compute budget, to different tasks. Existing methods generally drive this allocation by predicted difficulty and spend more compute where it is expected to raise accuracy. This implicitly assumes that all failures cost the same, since an accuracy objective weights every task equally. However, such an assumption does not hold in deployment: A typo in a log message and a migration that corrupts a production database both count as one benchmark failure, but their real-world costs are fundamentally different. To fill this gap, we propose consequence-aware test-time compute allocation. Instead of routing compute only by predicted difficulty, we use a lightweight predictor to estimate from the issue text how costly a task would be if solved incorrectly. The scheduler then routes higher-consequence tasks to larger compute tiers or higher thinking budgets under the same total budget. We conduct main experiments on SWE-bench Lite and evaluate cross-dataset behavior on Multi-SWE-bench mini, covering 700 software-engineering tasks in total. Our results reveal that consequence and difficulty are approximately orthogonal under various annotations, and that current thinking models do not allocate compute sufficiently according to consequence. Moreover, our issue-only predictor never misclassifies a high-consequence task as low-consequence across the 300 SWE-bench tasks. Under matched compute budgets, our consequence-aware scheduler reduces cost-weighted loss by 22% to 33% relative to difficulty-aware routing; in particular, the priority-aware variant, which routes by per-task cost scaled by the marginal-utility signal, crosses 30%, and its deployable predictor-driven version retains over 90% of the oracle gain.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-03T03:29:57Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Jingbo Wen</name>
+    </author>
+    <author>
+      <name>Liang He</name>
+    </author>
+    <author>
+      <name>Ziqi He</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.02835v1</id>
+    <title>Thinking Past the Answer: Evaluating Harmful Overthinking in Large Reasoning Models</title>
+    <updated>2026-06-01T19:59:27Z</updated>
+    <link href="https://arxiv.org/abs/2606.02835v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.02835v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Reasoning Models (LRMs) improve performance by generating explicit intermediate reasoning traces through increased test-time compute, yet the assumption that longer reasoning is consistently beneficial remains under-examined. While recent evidence shows that additional reasoning can lead models to overthink, we ask: "Once a model has reached the correct answer, does further reasoning refine the solution, or deviate from it?" To study the dynamics after correctness, we introduce a prefix-level trajectory evaluation protocol grounded in reasoning sufficiency, defining the minimum reasoning budget required for a model to first generate the correct answer. This allows us to disentangle verbose overthinking, where additional reasoning is redundant but harmless, from harmful overthinking, where continued reasoning destabilizes an already-correct trajectory. Starting from multimodal benchmarks, we find that many instances considered reasoning-intensive require surprisingly little reasoning. Moreover, stopping at the first correct prefix improves accuracy over standard reasoning up to 21%, revealing that current models are limited not only by their ability to reason, but also by their inability to stop at the right time. Furthermore, while common efficiency strategies like early stopping substantially reduce verbose overthinking (up to 50%), they fail to mitigate harmful overthinking. Failure analysis reveals that correctness deviations are mainly driven by logical drift and visual reinterpretation. Finally, we show that our findings generalize to language-only reasoning benchmarks, highlighting harmful overthinking as a broader reliability risk. Code available at https://simonecaldarella.github.io/thinking-past-the-answer.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-01T19:59:27Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Simone Caldarella</name>
+    </author>
+    <author>
+      <name>Davide Talon</name>
+    </author>
+    <author>
+      <name>Rahaf Aljundi</name>
+    </author>
+    <author>
+      <name>Elisa Ricci</name>
+    </author>
+    <author>
+      <name>Massimiliano Mancini</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.30757v1</id>
+    <title>Chain-of-Thought and Compressed Looped Transformers: A Memory-Budget Separation</title>
+    <updated>2026-05-29T02:38:49Z</updated>
+    <link href="https://arxiv.org/abs/2605.30757v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.30757v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Chain-of-thought prompting and looped Transformers both give a fixed model more test-time computation, but they differ in what they remember. Chain-of-thought stores intermediate state in generated tokens that remain in the context, whereas a looped Transformer carries state through recurrent hidden activations. We argue that this persistent mutable memory is a central resource for test-time reasoning.
+  We compare three memory regimes, the compressed latent loop, the full sequence-state loop, and the chain-of-thought scratchpad. Our main result shows that a compressed loop is limited by the size of its recurrent state. Running the loop longer adds computation but does not by itself create a growing scratchpad, so a loop with a small recurrent state remains a small-space reasoner even when run for many steps. Under a standard complexity assumption, such loops cannot decide problems that are P-complete under logspace reductions, whereas polynomial-length chain-of-thought can.
+  The separation is specific to compressed loops, as full sequence-state loops carry state at every input position and live in a memory-rich regime closer to explicit scratchpads. Controlled pointer-chasing and associative-recall sweeps illustrate this memory-budget view, with performance sensitive to whether the persistent-state budget matches the task's working-memory demand.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-29T02:38:49Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Haozhou Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.27000v3</id>
+    <title>Cast a Wider Net: Coordinated Pass@K Policy Optimization for Code Reasoning</title>
+    <updated>2026-07-08T03:26:35Z</updated>
+    <link href="https://arxiv.org/abs/2605.27000v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.27000v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Repeated sampling with a verifier is the standard way to allocate test-time compute for code generation, with pass@$K$ as the canonical metric. Yet the standard policy class draws $K$ independent samples from a single answer distribution, so attempts often collapse onto near-duplicate reasoning paths and waste the budget on redundant rollouts. This failure is costly in competitive programming, where many problems admit multiple distinct algorithmic strategies and pass@$K$ requires only one correct attempt. We propose Coordinated Pass@$K$ Policy Optimization (CPPO), which turns pass@$K$ generation into joint exploration over strategies: a planner emits a tuple of $K{=}4$ alternative high-level methods, and a shared solver attempts one solution per method. CPPO trains this joint policy with a multiplicative planner reward, $R_{\mathrm{plan}} = J_ψ\cdot R_{\mathrm{out}}$, assigning credit only to valid strategy tuples that lead to verifier-confirmed pass@$K$ success. Across APPS, CodeContests, and LiveCodeBench-v6, CPPO improves pass@$4$ over direct sampling, planning baselines, planner-only SFT, and pass@$K$-oriented RL under the same $K{=}4$ solver-attempt budget, with statistically significant gains on six of nine model--benchmark cells. The largest single gain is $+0.16$ on Qwen3.5-9B LiveCodeBench-v6 over the strongest baseline, PKPO ($0.588 \rightarrow 0.748$; paired bootstrap, $p &lt; 0.05$).</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-26T13:21:11Z</published>
+    <arxiv:comment>Code reasoning; pass@K optimization; coordinated planning; verifiable rewards; strategy diversity</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Yilong Li</name>
+    </author>
+    <author>
+      <name>Suman Banerjee</name>
+    </author>
+    <author>
+      <name>Tong Che</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.18663v2</id>
+    <title>GIM: Evaluating models via tasks that integrate multiple cognitive domains</title>
+    <updated>2026-08-21T21:38:53Z</updated>
+    <link href="https://arxiv.org/abs/2605.18663v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.18663v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>As LLM benchmarks saturate, the evaluation community has pursued two strategies to increase difficulty: escalating knowledge demands (GPQA, HLE) or removing knowledge entirely in favor of abstract reasoning (ARC-AGI). The first conflates memorization with capability; the second divorces reasoning from the practical contexts in which it matters. We take a different approach. The Grounded Integration Measure (GIM) is a benchmark of 820 original problems (615 public, 205 private) where difficulty comes from integration; individual problems require coordinating multiple cognitive operations (constraint satisfaction, state tracking, epistemic vigilance, audience calibration) over broadly accessible knowledge, so that reasoning stays grounded in realistic tasks without being gated on specialized expertise. Each problem is an original expert-authored composition, majority with rubric-decomposed scoring. We calibrate a judge-aware continuous response 2-parameter logistic (2PL) IRT model across 53 test-configurations (unique model x thinking-level pairs) and five calibrated judges, using 203,800 epoch-averaged prompt-judge cells derived from &gt;1M raw judge-scored observations, producing robust ability estimates that correctly order test-configurations even when raw accuracy is distorted by errors, missing data, or judge leniency differences. Using this framework, we present a comprehensive leaderboard spanning 22 models and 47 reporting test-configurations, and conduct what is to our knowledge the most extensive published study of how test-time compute trades off against model capability on a fixed benchmark: 11 models swept across 35 test-configurations. We observe that within-family configuration choices, such as thinking budget and quantization, matter as much as model selection, and increasing thinking tokens has diminishing marginal returns.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-18T17:09:50Z</published>
+    <arxiv:comment>61 pages, 27 figures, 4 tables. Code: https://github.com/facebookresearch/gim ; Dataset: https://huggingface.co/datasets/facebook/gim</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Rohit Patel</name>
+    </author>
+    <author>
+      <name>Alexandre Rezende</name>
+    </author>
+    <author>
+      <name>Steven McClain</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.11625v1</id>
+    <title>Nice Fold or Hero Call: Learning Budget-Efficient Thinking for Adaptive Reasoning</title>
+    <updated>2026-05-12T06:51:31Z</updated>
+    <link href="https://arxiv.org/abs/2605.11625v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.11625v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large reasoning models (LRMs) improve problem solving through extended reasoning, but often misallocate test-time compute. Existing efficiency methods reduce cost by compressing reasoning traces or conditioning budget on perceived difficulty, yet largely overlook solvability. As a result, they may spend large budgets on queries beyond the model's capability while compressing hard-but-solvable queries that require deeper reasoning. In this work, we formulate adaptive reasoning as a computational investment under uncertainty, where budget should follow the expected return of reasoning rather than perceived difficulty alone. To instantiate this principle, we propose Budget-Efficient Thinking (BET), a two-stage framework that combines behavioral cold-start with GRPO under an investment-cost-aware reward. By aligning solve-or-fold decisions with rollout-derived solvability, BET learns three behaviors: (1) short solve, answering easy queries concisely; (2) nice fold, abstaining early when continued reasoning has near-zero expected return; and (3) hero call, preserving sufficient compute for hard-but-solvable queries. Across seven benchmarks and three base models, BET reduces reasoning tokens by ~55% on average while achieving overall performance improvements, and transfers zero-shot from mathematical reasoning to scientific QA and logical reasoning with comparable efficiency gains.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-12T06:51:31Z</published>
+    <arxiv:comment>24 pages, 6 figures, 11 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Zhaomeng Zhou</name>
+    </author>
+    <author>
+      <name>Lan Zhang</name>
+    </author>
+    <author>
+      <name>Junyang Wang</name>
+    </author>
+    <author>
+      <name>Mu Yuan</name>
+    </author>
+    <author>
+      <name>Junda Lin</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.11374v5</id>
+    <title>Test-Time Compute for Frozen Embedding Models through Agentic Program Search</title>
+    <updated>2026-05-30T04:34:48Z</updated>
+    <link href="https://arxiv.org/abs/2605.11374v5" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.11374v5" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Test-time compute is widely believed to benefit only large reasoning models, leaving small models with nothing to gain. We argue the opposite for dense retrieval, since modern small embedding models are distilled or adapted from large language model backbones and can inherit their latent test-time-compute potential. We ask how much retrieval quality a frozen embedding model gains at inference alone, with no auxiliary model and no parameters trained at deployment. An agentic loop in which a large language model writes programs over a frozen encoder API explores 144 candidates and yields twelve Pareto-optimal programs that trade inference compute for quality across cost ratios from $c{=}1.2$ to $14.7$, every one improving nDCG@10 on all 14 discovery tasks. The programs use no trainable parameters and recover classical retrieval primitives, among them reciprocal rank fusion, the Fisher linear discriminant, Rocchio pseudo-relevance feedback, and sentence-level MaxSim. Applied unmodified to nineteen held-out tasks and three unseen encoder families, a single fixed program improves the majority of tasks, with a positive median $Δ$nDCG@10 and a 54 to 57% win-rate at $c{\ge}4$, and the gains are largest on encoder families never seen during discovery. A matched-budget learned projection head trained on the same tasks does not transfer this way, improving in-domain retrieval by $+0.20$ to $+0.25$ nDCG@10 yet falling below baseline on every held-out encoder. Small embedding models therefore inherit usable test-time-compute potential, and a frozen encoder converts inference compute into retrieval gains that transfer to new corpora and encoders with no per-domain labels.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.IR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-12T00:56:34Z</published>
+    <arxiv:comment>15 pages, 7 figures, 4 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Han Xiao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.10762v1</id>
+    <title>GridProbe: Posterior-Probing for Adaptive Test-Time Compute in Long-Video VLMs</title>
+    <updated>2026-05-11T15:57:46Z</updated>
+    <link href="https://arxiv.org/abs/2605.10762v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.10762v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Long-video understanding in VLMs is bottlenecked by a single monolithic forward pass over thousands of frames at quadratic attention cost. A common mitigation is to first select a small subset of informative frames before the forward pass; common for training-free selectors via auxiliary encoder-space similarities. Such signals are capped by contrastive pretraining, which usually fails on reasoning-heavy queries (negation, cross-frame counting, holistic summarization). We propose GridProbe, an efficient training-free posterior-probing inference paradigm that scores evidence in answer space using a frozen VLM's own reasoning and then selects question-relevant frames adaptively, resulting in sub-quadratic attention cost with little to no accuracy loss. We arrange frames on a $K{\times}K$ grid and run lightweight row R and column C probes, where each probe reads its peak posterior as a query-conditioned confidence. The outer product of R and C yields an interpretable importance map whose skewness and kurtosis drive Shape-Adaptive Selection, a closed-form rule that reliably replaces the fixed frame budget $M$ with a per-question $M_{\mathrm{eff}}$. We show empirically that $M_{\mathrm{eff}}$ tracks intrinsic question difficulty without ever seeing the answer, a sign of test-time adaptive compute. On Video-MME-v2, GridProbe matches the monolithic baseline within $1.6$ pp Avg Acc at $3.36\times$ TFLOPs reduction, while on LongVideoBench it Pareto-dominates the baseline ($+0.9$ pp at $0.35\times$ compute). Because the selector and QA models can be decoupled, pairing a small 2B selector with a stronger 4B or 8B QA is strictly Pareto-dominant over the 2B monolithic baseline (up to $+4.0$ pp at $0.52\times$ compute, on average), with no retraining. Finally, the interpretability of the importance maps opens future avenues for behavioral diagnostics, grounding, and frame-selection distillation.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-11T15:57:46Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Mohamed Eltahir</name>
+    </author>
+    <author>
+      <name>Lama Ayash</name>
+    </author>
+    <author>
+      <name>Ali Habibullah</name>
+    </author>
+    <author>
+      <name>Tanveer Hussain</name>
+    </author>
+    <author>
+      <name>Naeemullah Khan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.08658v1</id>
+    <title>Sketch-and-Verify: Structured Inference-Time Scaling via Program Sketching</title>
+    <updated>2026-05-09T03:54:51Z</updated>
+    <link href="https://arxiv.org/abs/2605.08658v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.08658v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>SKETCHVERIFY is a within-tier cost-performance policy, not a universal accuracy improvement. The operational question: a practitioner stuck with a small, cheap code model (here, Gemini 3.1 Flash Lite) for latency, deployment, or budget reasons -- how should they spend a small amount of extra test-time compute? SKETCHVERIFY factorizes the search space: the LLM enumerates K distinct algorithmic strategies, writes a program sketch for each (a partial program with ?? holes), and fills each sketch M times, producing K x M structurally diverse candidates that are verified by execution and selected by fingerprint clustering. Each extra sketch is guaranteed to explore a different algorithm; each extra flat sample likely duplicates an existing one. Our central evidence is a cost-quality Pareto plot on HumanEval+ across three Gemini tiers (Lite, Flash, Pro), and a reanalysis of the 19 problems where Lite greedy fails. Two findings: (1) Within-tier, sketching dominates flat sampling at matched candidate count. On the hard subset, Lite Sketch K=2, M=5 recovers 11/19 (58%) vs. flat N=10 at 5/19 (26%, +32pp); Lite Sketch K=10, M=10 recovers 15/19 (79%) vs. flat N=100 at 10/19 (53%, +26pp). Flat cannot close the gap even at ~3x the budget: flat N=50 still loses to Sketch K=2, M=5 by +11pp. (2) Cross-tier, sketching does not replace upgrading. Pro greedy (89%) dominates Lite Sketch K=10, M=10 (79%) on both pass@1 and dollar cost. Practitioner rule: if a stronger tier is available, use greedy on it; otherwise sketching is the cost-effective way to spend extra compute. We characterize the K-vs-M trade-off via a Flash Lite scaling sweep, report HumanEval+ saturation on Flash and Pro, and show the method composes cleanly with execution-based selection from the concurrent Semantic Voting line of work.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.SE" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-09T03:54:51Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Shan Jiang</name>
+    </author>
+    <author>
+      <name>Zijian Yi</name>
+    </author>
+    <author>
+      <name>Chenguang Zhu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.08283v1</id>
+    <title>HTPO: Towards Exploration-Exploitation Balanced Policy Optimization via Hierarchical Token-level Objective Control</title>
+    <updated>2026-05-08T07:38:35Z</updated>
+    <link href="https://arxiv.org/abs/2605.08283v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.08283v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reinforcement Learning with Verifiable Rewards (RLVR) has emerged as a pivotal technique for enhancing the reasoning capabilities of Large Language Models (LLMs). However, the de facto practice of mainstream RL algorithms is to treat all tokens of one response equally and assign the same optimization objective to each token, failing to provide granular guidance for the reasoning process. While in Chain-of-Thought (CoT) reasoning, different tokens usually play distinct roles. Therefore, the current RL algorithms lack an effective mechanism to dynamically balance the exploration-exploitation trade-off during learning. To this end, we propose Hierarchical Token-level Objective Control Policy Optimization (HTPO), a novel RL algorithm that takes the divide-and-conquer idea to hierarchically partition the response tokens into specific functional groups from three aspects (i.e., prompt difficulty, answer correctness, and token entropy). Within each group, according to the contributions to exploration or exploitation, we design specialized optimization objectives to facilitate the effective execution of each token's expected functionality. In this way, HTPO can achieve a more balanced exploration-exploitation trade-off. Extensive experiments on challenging reasoning benchmarks validate the superiority of our HTPO algorithm, which significantly outperforms the strong DAPO baseline (e.g., +8.6% and +6.7% on AIME'24 and AIME'25, respectively). When scaling test-time compute, the HTPO-trained model maintains a consistent performance advantage over the DAPO baseline, and the gap widens as the sampling budget increases, validating that our adaptive token-level control method fosters effective exploration without sacrificing exploitation performance. Code will be at https://github.com/xcyao00/HTPO.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-08T07:38:35Z</published>
+    <arxiv:comment>29 pages</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Xincheng Yao</name>
+    </author>
+    <author>
+      <name>Ruoqi Li</name>
+    </author>
+    <author>
+      <name>Cheng Chen</name>
+    </author>
+    <author>
+      <name>Daoxin Zhang</name>
+    </author>
+    <author>
+      <name>Yi Wu</name>
+    </author>
+    <author>
+      <name>Yao Hu</name>
+    </author>
+    <author>
+      <name>Chongyang Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.05561v1</id>
+    <title>BitCal-TTS: Bit-Calibrated Test-Time Scaling for Quantized Reasoning Models</title>
+    <updated>2026-05-07T01:10:34Z</updated>
+    <link href="https://arxiv.org/abs/2605.05561v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.05561v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Post-training quantization makes large reasoning models practical under tight memory and latency budgets, but it can distort the online signals that drive adaptive test-time compute allocation. Under a fixed cap on the number of newly generated tokens, miscalibrated confidence can lead to harmful early halting: the model may surface a plausible final line while the underlying reasoning is still wrong, or the controller may stop before the trace has stabilized. We study this interaction for greedy 4-bit inference and propose BitCal-TTS, a lightweight runtime controller that combines (i) inexpensive online proxies for token-level uncertainty and reasoning-trace stability, (ii) a bit-conditioned confidence rescaling that is conservative at low nominal precision, and (iii) a bit-aware post-marker confirmation horizon designed for GSM8K-style structured outputs. The method requires no fine-tuning of the base model and integrates with standard Hugging Face 4-bit inference using forward hooks for logits and last-layer hidden states.
+  On small evaluation shards of GSM8K with Qwen2.5 Instruct models, BitCal-TTS improves exact-match accuracy over a non-bit-aware adaptive baseline at the 7B and 14B scales while preserving substantial token savings relative to fixed-budget decoding. At a token cap of B=512, on the evaluation shards we report (N=54 for 7B and N=35 for 14B; not the full GSM8K test set), accuracy gains are +3.7 points (7B) and +2.8 points (14B), with the premature-stop rate falling from 14.8% to 11.1% on 7B and from 17.1% to 11.4% on 14B. We report Wilson 95% confidence intervals throughout and explicitly discuss the limited statistical power of the partial-shard comparisons. We release code and figure-generation scripts to support full reproduction.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-07T01:10:34Z</published>
+    <arxiv:comment>17 pages, 5 figures, 4 tables. Code and reproducibility materials at https://github.com/Saibabu7770/bitcal-tts</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Sai Babu Patarlapalli</name>
+    </author>
+    <author>
+      <name>Surya Teja Avvaru</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.23333v2</id>
+    <title>Process Supervision of Confidence Margin for Calibrated LLM Reasoning</title>
+    <updated>2026-08-10T13:00:06Z</updated>
+    <link href="https://arxiv.org/abs/2604.23333v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.23333v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Scaling test-time computation with reinforcement learning (RL) has emerged as a reliable path to improve large language models (LLM) reasoning ability. Yet, outcome-based reward often incentivizes models to be overconfident, leading to hallucinations, unreliable confidence-based control, and unnecessary compute allocation. We introduce Reinforcement Learning with Confidence Margin (RLCM), a calibration-aware RL framework that jointly optimizes correctness and confidence reliability via a margin-enhanced process reward over intermediate-budget completions. Rather than aligning confidence to correctness likelihoods, RLCM encourages the model to widen the confidence margin between correct and incorrect steps within a single reasoning trajectory. Across mathematical, code, logic and science benchmarks, our method substantially improves calibration while maintaining or improving accuracy. We further show that, with calibrated confidence signals, the resulting models enable more efficient conformal risk control and effective confidence-weighted aggregation</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-25T14:40:13Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Liaoyaqi Wang</name>
+    </author>
+    <author>
+      <name>Chunsheng Zuo</name>
+    </author>
+    <author>
+      <name>William Jurayj</name>
+    </author>
+    <author>
+      <name>Benjamin Van Durme</name>
+    </author>
+    <author>
+      <name>Anqi Liu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.14853v1</id>
+    <title>Adaptive Test-Time Compute Allocation for Reasoning LLMs via Constrained Policy Optimization</title>
+    <updated>2026-04-16T10:39:22Z</updated>
+    <link href="https://arxiv.org/abs/2604.14853v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.14853v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Test-time compute scaling, the practice of spending extra computation during inference via repeated sampling, search, or extended reasoning, has become a powerful lever for improving large language model performance. Yet deploying these techniques under finite inference budgets requires a decision that current systems largely ignore: which inputs deserve more compute, and which can be answered cheaply? We formalize this as a constrained optimization problem (maximize expected accuracy subject to an average compute budget) and solve it with a two-stage Solve-then-Learn pipeline. In the solve stage, Lagrangian relaxation decomposes the global constraint into per-instance sub-problems, each admitting a closed-form oracle action that optimally prices accuracy against cost. We prove that the induced cost is monotone in the dual variable, enabling exact budget targeting via binary search. In the learn stage, a lightweight classifier is trained to predict oracle actions from cheap input features, amortizing the allocation rule for real-time deployment. We establish that the task-level regret of the learned policy is bounded by its imitation error times the worst-case per-instance gap, yielding a clean reduction from constrained inference to supervised classification. Experiments on MATH and GSM8K with three LLMs (DeepSeek-V3, GPT-4o-mini, Qwen2.5-7B) show that our method consistently outperforms uniform and heuristic allocation baselines, achieving up to 12.8% relative accuracy improvement on MATH under matched budget constraints, while closely tracking the Lagrangian oracle upper bound with over 91% imitation accuracy.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-16T10:39:22Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Zhiyuan Zhai</name>
+    </author>
+    <author>
+      <name>Bingcong Li</name>
+    </author>
+    <author>
+      <name>Bingnan Xiao</name>
+    </author>
+    <author>
+      <name>Ming Li</name>
+    </author>
+    <author>
+      <name>Xin Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.10739v1</id>
+    <title>When More Thinking Hurts: Overthinking in LLM Test-Time Compute Scaling</title>
+    <updated>2026-04-12T17:20:35Z</updated>
+    <link href="https://arxiv.org/abs/2604.10739v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.10739v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Scaling test-time compute through extended chains of thought has become a dominant paradigm for improving large language model reasoning. However, existing research implicitly assumes that longer thinking always yields better results. This assumption remains largely unexamined. We systematically investigate how the marginal utility of additional reasoning tokens changes as compute budgets increase. We find that marginal returns diminish substantially at higher budgets and that models exhibit ``overthinking'', where extended reasoning is associated with abandoning previously correct answers. Furthermore, we show that optimal thinking length varies across problem difficulty, suggesting that uniform compute allocation is suboptimal. Our cost-aware evaluation framework reveals that stopping at moderate budgets can reduce computation significantly while maintaining comparable accuracy.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-12T17:20:35Z</published>
+    <arxiv:comment>11 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Shu Zhou</name>
+    </author>
+    <author>
+      <name>Rui Ling</name>
+    </author>
+    <author>
+      <name>Junan Chen</name>
+    </author>
+    <author>
+      <name>Xin Wang</name>
+    </author>
+    <author>
+      <name>Tao Fan</name>
+    </author>
+    <author>
+      <name>Hao Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.10734v1</id>
+    <title>Self-Correcting RAG: Enhancing Faithfulness via MMKP Context Selection and NLI-Guided MCTS</title>
+    <updated>2026-04-12T17:14:36Z</updated>
+    <link href="https://arxiv.org/abs/2604.10734v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.10734v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Retrieval-augmented generation (RAG) substantially extends the knowledge boundary of large language models. However, it still faces two major challenges when handling complex reasoning tasks: low context utilization and frequent hallucinations. To address these issues, we propose Self-Correcting RAG, a unified framework that reformulates retrieval and generation as constrained optimization and path planning. On the input side, we move beyond traditional greedy retrieval and, for the first time, formalize context selection as a multi-dimensional multiple-choice knapsack problem (MMKP), thereby maximizing information density and removing redundancy under a strict token budget. On the output side, we introduce a natural language inference (NLI)-guided Monte Carlo Tree Search (MCTS) mechanism, which leverages test-time compute to dynamically explore reasoning trajectories and validate the faithfulness of generated answers. Experiments on six multi-hop question answering and fact-checking datasets demonstrate that our method significantly improves reasoning accuracy on complex queries while effectively reducing hallucinations, outperforming strong existing baselines.Our code is available at https://github.com/xjiacs/Self-Correcting-RAG .</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-12T17:14:36Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Shijia Xu</name>
+    </author>
+    <author>
+      <name>Zhou Wu</name>
+    </author>
+    <author>
+      <name>Xiaolong Jia</name>
+    </author>
+    <author>
+      <name>Yu Wang</name>
+    </author>
+    <author>
+      <name>Kai Liu</name>
+    </author>
+    <author>
+      <name>April Xiaowen Dong</name>
+    </author>
+  </entry>
+</feed>

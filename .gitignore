@@ -1,0 +1,47 @@
+# Local Python / editor
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.idea/
+.vscode/
+.DS_Store
+*.swp
+
+# Secrets (never commit). DeepSeek key lives only on the 4090 lab:
+# /data/26xyw/env/deepseek_api.env
+.env
+.env.*
+*.env
+*.pem
+hf_token*
+HF_TOKEN*
+
+# Weights / caches that must stay on a data disk, not git
+*.safetensors
+*.bin
+*.pt
+*.ckpt
+*.gguf
+*.onnx
+
+# Run logs (JSONL traces and summaries live under results/ or ~/data)
+logs/
+*.log
+
+# LaTeX junk (keep .tex / .bib / compiled PDFs that are already in paper/)
+paper/src/*.aux
+paper/src/*.bbl
+paper/src/*.blg
+paper/src/*.out
+paper/src/*.toc
+paper/src/*.lof
+paper/src/*.lot
+paper/src/*.fls
+paper/src/*.fdb_latexmk
+paper/src/*.synctex.gz
+paper/src/*.nav
+paper/src/*.snm
+paper/src/*.vrb

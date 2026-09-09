@@ -1,0 +1,20 @@
+{
+  "purpose": "deepseek_v4_flash_aime2025_primary_rep0",
+  "protocol_version": "math-pc-paired-root-v2-deepseek-api",
+  "model": "deepseek-v4-flash",
+  "dataset": "/home/26xyw/data/Datasets/aime_2025.jsonl",
+  "sample_seed": 2027,
+  "repetition_index": 0,
+  "planned_questions": 30,
+  "run_flags": {
+    "max_branches": 32,
+    "window_size": 4,
+    "beta_threshold": 0.8,
+    "max_tokens": 32768,
+    "reasoning_effort": "high",
+    "thinking": true,
+    "question_concurrency": 4,
+    "max_inflight": 16
+  },
+  "note": "API has no seed. C=0.8 is provisional until Dev-Mix C*. AIME integer exact match 0-999. Selector frozen from MATH-500 smoke (BLC)."
+}

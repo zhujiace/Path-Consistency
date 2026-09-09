@@ -1,0 +1,555 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/yFZomh08lKWrLfKWoFkxMIMeglA</id>
+  <title>arXiv Query: search_query=abs:"majority voting" AND abs:"self-consistency"&amp;id_list=&amp;start=0&amp;max_results=25</title>
+  <updated>2026-09-02T05:01:10Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=abs:%22majority+voting%22+AND+abs:%22self-consistency%22&amp;start=0&amp;max_results=25&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>25</opensearch:itemsPerPage>
+  <opensearch:totalResults>67</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2608.11403v2</id>
+    <title>When Self-Consistency Backfires: Majority Vote Hurts the Majority of Hard Science Problems for Small LLMs</title>
+    <updated>2026-08-15T22:30:00Z</updated>
+    <link href="https://arxiv.org/abs/2608.11403v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.11403v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Self-consistency via majority vote reduces per-problem accuracy on most GPQA Diamond problems for small instruction-tuned models: 56.6% of problems for Qwen2.5-7B and 65.7% for Llama-3-8B. The obvious remedy is a verifier-free confidence gate. This version reports that the most natural repair also fails, and separates three signal failures that v1 treated as one. A token-entropy gate fails for a measurement reason: averaged over a chain of some 602 tokens, the statistic is a measurement of the prose rather than of confidence in the answer. On Qwen2.5-7B-Instruct-Turbo, 198 problems at 64 samples each, a sample whose answer contradicts its own problem's plurality still emits that answer at a median margin of 20.52 nats, with 75.7% above 10 nats. Both quantities were pre-registered and tested once on 69 problems no exploratory analysis had read; both passed. The unit is the whole result: pooled across the benchmark the margin separates correct from incorrect samples by +0.0604 on the fraction above 10 nats [+0.0183, +0.1017], excluding zero; per-problem and paired it does not, at -0.0168 [-0.0527, +0.0182], crossing zero. The claim is not that token log-probabilities carry no information, but that a signal with real across-question discrimination is close to useless for the within-question decision a router faces. The plurality-agreement gate's failure remains without a mechanism, and we report it as an open problem. These new claims rest on one model: a registered second-model replication was sampled and could not be evaluated, and we report that rejection rather than the result. We separately report that on hosted serverless inference at a small budget, three reasoning-native models could not be evaluated, for three separately measured reasons; all three are downloadable, so this bounds what a metered per-token API buys rather than what is knowable.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-11T20:08:51Z</published>
+    <arxiv:comment>19 pages, 5 figures, 4 tables. v1 accepted at the COLM 2026 Workshop on Efficient Reasoning; v2 additions are not peer reviewed. v2 revises rather than extends: Section 4.4's mechanism claim is replaced and one Discussion sentence withdrawn. All v1 results, tables and pre-registered verdicts are unchanged. Adds the answer-token margin result, a serverless reasoning wall, and ten disclosures</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Utkarsh Bahuguna</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2608.06296v2</id>
+    <title>On-Policy Self-Distillation without Any Supervision</title>
+    <updated>2026-08-09T12:07:45Z</updated>
+    <link href="https://arxiv.org/abs/2608.06296v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.06296v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>On-policy (Self-)Distillation (OPD / OPSD) has shown strong potential for post-training large language models (LLMs). However, existing methods still rely heavily on external supervision, including ground-truth signals, environmental feedback, or guidance from larger models, and therefore fall short of genuine "self"-distillation. In this study, we show that on-policy self-distillation can be achieved using only a model's own generations via internal consistency. We propose unsupervised on-policy self-distillation (U-OPSD). U-OPSD first samples multiple rollouts and constructs a pseudo solution by majority vote under a self-consistency threshold. It then conditions the model's distribution on the pseudo-solution and distills itself on the disagreeing completions, allowing the model to correct itself precisely where it is confidently wrong. Across diverse benchmarks, base models, and training settings, U-OPSD consistently improves over the base models and matches or surpasses supervised methods with ground truth (GT) such as OPSD and GRPO. On five mathematical reasoning benchmarks, i.e., AIME24, AIME25, HMMT25, MATH500, and AMC23, U-OPSD improves over the base model by 8.5% and 10.7% on Qwen3 non-thinking mode at 4B and 8B scales, and outperforms OPSD by 3.2% and 2.3% on average, respectively. In thinking mode, U-OPSD stays on par with OPSD, ahead by 0.9% at 4B and level at 8B and surpassing GRPO by 0.7% and 1.1%, respectively. Code is available at [https://github.com/williamium3000/u-opsd](https://github.com/williamium3000/u-opsd).</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-06T17:18:23Z</published>
+    <arxiv:comment>Project page at https://williamium3000.github.io/u-opsd/ and code at https://github.com/williamium3000/u-opsd</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Yijiang Li</name>
+    </author>
+    <author>
+      <name>Bingyang Wang</name>
+    </author>
+    <author>
+      <name>Yijun Liang</name>
+    </author>
+    <author>
+      <name>Yunjie Tian</name>
+    </author>
+    <author>
+      <name>Di Fu</name>
+    </author>
+    <author>
+      <name>Nuno Vasconcelos</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.27783v1</id>
+    <title>Reasoning Consensus: Structural Ensembling of LLM Reasoning via Weighted DAG Aggregation</title>
+    <updated>2026-07-30T07:14:50Z</updated>
+    <link href="https://arxiv.org/abs/2607.27783v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.27783v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Models (LLMs) explore problems through chain-of-thought, but this exploration is buried in unstructured prose. On high-stakes tasks, users cannot tell which steps are well-supported, which alternatives were seriously considered, or how the final conclusion compares to those the model discarded. We propose a framework that ensembles the reasoning structure, not just the answers, of multiple LLMs by weighted merging of Directed Acyclic Graphs (DAGs) extracted from reasoning chains. We weight each step by how many traces independently attest to it, to return "Consensus Reasoning". Across six benchmarks spanning statutory interpretation, graduate-level science, narrative multi-hop reasoning, and first-order logic, our ensemble outperforms a matched-budget majority-vote baseline, with a maximum accuracy gain of 3.1% on MuSR-MM (narrative multi-hop reasoning). On a single model, the framework matches or exceeds self-consistency at the same trace budget while additionally exposing an inspectable consensus reasoning graph. Ensemble weights correlate with LLM-judge rankings of reasoning quality at Spearman $ρ= 0.30$-$0.51$, and consensus subgraphs are preferred over alternatives leading to the majority-vote answer in 54.4-65.4% of head-to-head comparisons across five of six datasets. We observe that our framework can also be used to analyze diverse reasoning perspectives for a problem.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-30T07:14:50Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Amruta Parulekar</name>
+    </author>
+    <author>
+      <name>Jinu Lee</name>
+    </author>
+    <author>
+      <name>Dilek Hakkani-Tür</name>
+    </author>
+    <author>
+      <name>Hari Sundaram</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.09438v1</id>
+    <title>Test-Time Scaling for Small VLMs on Multilingual Visual MCQ</title>
+    <updated>2026-07-10T14:09:04Z</updated>
+    <link href="https://arxiv.org/abs/2607.09438v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.09438v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Test-time scaling (TTS) reliably improves reasoning in large language models, but whether it transfers to small open vision-language models remains unclear. We examine this on EXAMS-V, a multilingual visual multiple-choice benchmark, comparing self-consistency, describe-then-reason with PRM-guided beam search, and two post-hoc selectors across Qwen2.5-VL-7B-Instruct and Qwen3.5-4B. What matters is the conditions under which TTS runs, not the search or verification machinery. The largest factor is parseability: an early prompt format left many chains reasoning correctly yet never committing to an answer letter, which a standard answer cue and a guided repair step largely remove. A larger decoding budget removes the rest: raising the per-chain token limit from 1k to 2k recovers 3.7 pp, whereas sampling more chains (8 to 16) adds only 0.15 pp. Once chains have room to finish, elaborate methods contribute little: PRM-guided beam search trails plain self-consistency by 0.39 pp at over eight times the cost, and neither a training-free generative critic nor a trained multimodal PRM beats majority vote across both policies. The largest gain comes instead from the policy model itself (+11.4 pp). Our best configuration reaches 84.1% on the held-out ImageCLEF 2026 test split, ranking first on the Visual MCQ leaderboard.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-10T14:09:04Z</published>
+    <arxiv:comment>14 pages, 2 figures, accepted at ImageCLEF 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Spiros Baxevanakis</name>
+    </author>
+    <author>
+      <name>Peng-Jian Yang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.08017v1</id>
+    <title>Can We Trust LLM's Logic? Quantifying Uncertainty, Coherence, and Robustness via a Graph-Based Framework</title>
+    <updated>2026-07-09T00:45:26Z</updated>
+    <link href="https://arxiv.org/abs/2607.08017v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.08017v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large-Language Models (LLMs) can be prone to flawed and unfaithful reasoning that decoding strategies like Self-Consistency (SC) fail to detect as they evaluate only final-answer agreement while ignoring the logical validity of intermediate steps. This raises three fundamental questions: How can we reliably quantify uncertainty in LLM reasoning? Can semantic, structural, and causal awareness select more faithful reasoning compared to naïve majority voting? and How robust is reasoning topology under adversarial conditions? To address these questions, we introduce GRAPHEVAL, a graph-based reasoning framework that re-frames uncertainty quantification (UQ) as a holistic reasoning fidelity problem. We propose a novel UQ metric, Graph Reasoning Coherence Score (GRCS), that quantifies semantic-structural consensus of the reasoning space and captures pathological mode collapse and confident hallucinations. We find that GRCS is the only metric that is consistently negatively correlated with reasoning faithfulness across both more capable and smaller models. Additionally, we introduce Graph Self-Consistency (GSC), a medoid-based decoding strategy that trades nominal accuracy for reasoning fidelity, exposing the degree to which SC is inflated by unfaithful lucky guesses in smaller models, while preserving or improving accuracy in more capable ones. Finally, through adversarial medoid ablation, we demonstrate that the GSC-selected path acts as a "load-bearing path" and forcing models away from it degrades reasoning faithfulness and, in targeted cases, causes drops in accuracy.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-09T00:45:26Z</published>
+    <arxiv:comment>42 pages, 14 figures, 12 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Riccardo Revalor</name>
+    </author>
+    <author>
+      <name>Jalees Rehman</name>
+    </author>
+    <author>
+      <name>Debjit Pal</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.31543v1</id>
+    <title>Modality-Driven Search with Holistic Trace Judging for ARC-AGI-2</title>
+    <updated>2026-06-30T11:55:33Z</updated>
+    <link href="https://arxiv.org/abs/2606.31543v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.31543v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large language models can produce fluent, internally coherent reasoning traces for abstract reasoning tasks while still being confidently wrong - making selection among candidates, not just generation, the central challenge. I present a solver for ARC-AGI-2, a few-shot visual reasoning benchmark, built around two principles: (i) treating reasoning modalities as search operators, generating diverse candidates independently across text, image, and code channels, and (ii) context-preserving holistic judging, in which a judge model jointly compares all candidate reasoning traces within a single long-context prompt. Unlike self-consistency or majority voting, this approach reliably recovers correct minority hypotheses on tasks where the modal answer is wrong.
+  On the ARC Prize semi-private evaluation set, the solver achieves 72.9 percent at USD 38.99 per task - the highest score on the verified leaderboard at the time of writing, exceeding the best standalone frontier models, GPT-5.2 Pro at 54.2 percent and Gemini 3 Pro at 54.0 percent, by +18.7 percentage points. On the public evaluation set, it achieves 76.1 percent at USD 19.69 per task. I release the full source code and document extensive negative results, including the finding that prescriptive prompting templates and iterative refinement systematically reduce hypothesis diversity and degrade performance.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-30T11:55:33Z</published>
+    <arxiv:comment>37 pages, 4 figures; source code available at https://github.com/beetree/ARC-AGI</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <arxiv:journal_ref>2026 9th International Conference on Artificial Intelligence and Big Data (ICAIBD), pp. 943-951, 2026</arxiv:journal_ref>
+    <author>
+      <name>Johan Land</name>
+    </author>
+    <arxiv:doi>10.1109/ICAIBD69640.2026.11637368</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/ICAIBD69640.2026.11637368" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.25552v1</id>
+    <title>SFL-MTSC: Leveraging Semantic Frame-Level Multi-Task Self-Consistency for Robust Multi-Intent Spoken Language Understanding</title>
+    <updated>2026-06-24T08:28:56Z</updated>
+    <link href="https://arxiv.org/abs/2606.25552v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.25552v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Prompt-based spoken language understanding (SLU) with large language models (LLMs) often suffers from inconsistent intent--slot structures due to decoding stochasticity, particularly in multi-intent scenarios. In view of this, we propose Semantic Frame-Level Multi-Task Self-Consistency (SFL-MTSC), a novel structured aggregation framework operating at the semantic frame level. Instead of output-level majority voting, SFL-MTSC decomposes predictions into intent-specific frames, applies domain--intent grouping and slot-level clustering, and evaluates cluster reliability using path support scoring. Reliable frames are retained and re-integrated to form the final prediction. Zero-shot experiments on the MAC-SLU benchmark dataset show improved slot F1 and overall accuracy over single-path inference, while intent accuracy remains largely stable across most settings.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-24T08:28:56Z</published>
+    <arxiv:comment>Interspeech 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Po-Yen Chen</name>
+    </author>
+    <author>
+      <name>Berlin Chen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.12935v1</id>
+    <title>MARS: Margin-Adversarial Risk-controlled Stopping for Parallel LLM Test-time Scaling</title>
+    <updated>2026-06-11T05:56:42Z</updated>
+    <link href="https://arxiv.org/abs/2606.12935v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.12935v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Parallel test-time scaling samples many reasoning traces and majority-votes their answers, improving LLM accuracy but requiring traces to run to completion, incurring substantial computational overhead. We observe that probing partial traces at intermediate checkpoints can extract current answers without disrupting generation, revealing an evolving aggregate vote. Based on this observation, we introduce MARS, a margin-adversarial stopping rule that estimates which active traces are likely to change their answers and stops once the leader remains safe under a conservative bound on future vote movement. The rule separates two sources of uncertainty. It learns the trace-level switch probabilities that determine how much of the current margin is likely to be retained, while handling the harder question of where switching traces land through an adversarial bound calibrated from warmup traces. With true switch probabilities, MARS guarantees with high probability that the early-stopped answer matches the full-budget vote. In practice, a five-feature logistic model closely matches oracle switching behavior. Across three reasoning models and three competition-math benchmarks, MARS saves 25-47% of self-consistency tokens and 14-29% on top of DeepConf Online, a strong confidence-weighted baseline that already filters and truncates weak traces, while matching the accuracy of the corresponding full-budget baselines.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-11T05:56:42Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Wenbo Chen</name>
+    </author>
+    <author>
+      <name>Puheng Li</name>
+    </author>
+    <author>
+      <name>Mengyang Liu</name>
+    </author>
+    <author>
+      <name>Weijie Su</name>
+    </author>
+    <author>
+      <name>Tianpei Xie</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.11609v1</id>
+    <title>Multi-Agent Reasoning with Adaptive Worker Allocation for Stance Detection</title>
+    <updated>2026-06-10T03:20:55Z</updated>
+    <link href="https://arxiv.org/abs/2606.11609v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.11609v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Stance detection requires identifying an author's position toward a target, often from short-form texts where stance is implicit, indirect, or rhetorically framed. Although large language models (LLMs) achieve strong performance on this task, single-pass prompting can be brittle when multiple interpretations are plausible. Existing aggregation strategies, such as majority voting or self-consistency, improve robustness by combining labels, but they discard the intermediate reasoning needed to resolve conflicting interpretations.
+  We introduce a multi-agent reasoning framework with adaptive worker allocation for stance detection that shifts aggregation from label-level voting to reasoning-level synthesis. The framework employs a Manager-Worker architecture in which a Manager adaptively allocates a variable number of Worker agents based on input complexity. Each Worker analyzes the input from a distinct perspective and produces a reasoning-only explanation without emitting a stance label; the Manager then synthesizes these explanations to produce the final prediction.
+  We evaluate the proposed framework on SemEval-2016, P-Stance, and COVID-19 Stance using Llama, Mistral, and Gemini. Results show that the framework yields the largest gains on implicit and context-dependent stance cases, achieving 86.07 Macro-F1 on COVID-19 and 82.90 on SemEval-2016, while remaining competitive on more explicit stance datasets such as P-Stance. These findings suggest that adaptive reasoning-level aggregation is most beneficial when stance cannot be reliably inferred from surface cues alone.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-10T03:20:55Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Meysam Sabbaghan</name>
+    </author>
+    <author>
+      <name>Arman Zareian Jahromi</name>
+    </author>
+    <author>
+      <name>Doina Caragea</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.05054v1</id>
+    <title>Boosting Self-Consistency with Ranking</title>
+    <updated>2026-06-03T16:12:30Z</updated>
+    <link href="https://arxiv.org/abs/2606.05054v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.05054v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Self-consistency improves large language models by sampling multiple reasoning paths and selecting the most frequent answer, but majority voting often fails to recover correct answers that are already present among the samples. We address this limitation with Ranking-Improved Self-Consistency (RISC), which reformulates answer selection in self-consistency as a ranking problem. Instead of relying on a single uncertainty or confidence signal, RISC uses a lightweight LambdaRank model to score candidate answers with five carefully designed features that capture answer frequency, semantic centrality, and reasoning-trace consistency. We evaluate RISC on three datasets under a range of test-time budgets. Across datasets, RISC consistently achieves a better accuracy-efficiency trade-off than standard self-consistency and strong baselines, with particularly large gains on question answering benchmarks. Further analysis shows that the proposed features are individually useful and, more importantly, complementary, highlighting the value of learning to combine multiple informative signals for test-time answer selection.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-03T16:12:30Z</published>
+    <arxiv:comment>16 pages, 13 figures, accepted at ACL Student Research Workshop 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Maria Marina</name>
+    </author>
+    <author>
+      <name>Daniil Moskovskiy</name>
+    </author>
+    <author>
+      <name>Sergey Pletenev</name>
+    </author>
+    <author>
+      <name>Mikhail Salnikov</name>
+    </author>
+    <author>
+      <name>Alexander Panchenko</name>
+    </author>
+    <author>
+      <name>Viktor Moskvoretskii</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.14723v1</id>
+    <title>Disagreement-Based Cross-Model Routing for Implicit Video Question Answering</title>
+    <updated>2026-05-31T05:56:27Z</updated>
+    <link href="https://arxiv.org/abs/2606.14723v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.14723v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We study multiple-choice video question answering on the ImplicitQA benchmark, where the correct answer is never explicitly shown but must be inferred from off-screen events, line-of-sight cues, causal structure, and cross-shot spatial layout. On this benchmark a single frontier video LLM already operates near its accuracy ceiling, and we observe that conventional self-consistency strategies -- majority voting across repeated samples of the same model -- can hurt rather than help, because the model's errors on hard questions are correlated. We propose disagreement-based cross-model routing, a pure inference-time procedure that requires no labels and no training. We triple-sample a native-video model (Gemini 3.1 Pro Preview) at temperature zero, exploit the genuine sample-to-sample variance of its video-processing pipeline to identify the roughly 20% subset of questions where the three samples disagree, and route only that subset to a second model from a different family (Claude Opus 4.8) that consumes uniformly sampled frames with adaptive thinking. On the 1001-question validation set with public ground truth -- our main evaluation -- the method improves AvgAcc by +1.43 over the best single sample of the primary model, with per-category gains concentrated on Motion &amp; Trajectory (+5.49), Inferred Counting (+3.45), and Vertical Spatial Reasoning (+1.82) -- the categories most dependent on cross-shot reference resolution. The same pipeline applied to the held-out 172-question CVPR 2026 ImplicitQA challenge test set achieves 82.03 AvgAcc / 79.71 MacroAvgAcc (+1.81 over the best single sample of the primary model), confirming the validation result on an independent split.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-31T05:56:27Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Durga Sandeep Saluru</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.29116v1</id>
+    <title>Beyond Consensus: Trace-Level Synthesis in Mixture of Agents</title>
+    <updated>2026-05-27T21:24:35Z</updated>
+    <link href="https://arxiv.org/abs/2605.29116v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.29116v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>When multiple LLM agents solve the same problem, standard practice compresses each agent's reasoning into a majority vote or layered synthesis, treating agreement as the finish line. We show this is unnecessarily lossy: an LLM aggregator that reads complete reasoning traces recovers correct solutions even when agents unanimously agree, with beneficial corrections consistently outweighing harmful ones -- the \emph{aggregation paradox}. Majority voting has a ceiling that perturbation diversity does not raise (error correlations are identical); the aggregator's gain comes from trace-level complementarity, assembling correct intermediate steps from minority chains that voting discards. These findings motivate Self-Consistent Mixture of Agents which generates trace diversity through semantic-preserving input perturbations, safeguards the majority via anchored refinement with provable non-degradation guarantees, and always synthesizes -- never gates on consensus. A single model with perturbation-induced trace variation outperforms heterogeneous model pools across structured reasoning, PhD-level science, competition mathematics, and competitive programming. The unit of aggregation should be the reasoning trace, not the answer.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-27T21:24:35Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Shreyas Fadnavis</name>
+    </author>
+    <author>
+      <name>Praitayini Kanakaraj</name>
+    </author>
+    <author>
+      <name>Felix Wyss</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.29009v1</id>
+    <title>Label-Free Reinforcement Learning via Cross-Model Entropy</title>
+    <updated>2026-05-27T19:04:35Z</updated>
+    <link href="https://arxiv.org/abs/2605.29009v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.29009v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Post-training large language models with reinforcement learning is bottlenecked by the reward signal. Existing approaches require either ground-truth verifiable rewards, restricting training to domains with automatic correctness checks (e.g., mathematics, code execution), or human preference labels, which are expensive to collect and prone to reward hacking. Recent label-free methods replace ground-truth verifiers with self-referential signals like majority voting or token entropy over a model's own outputs, but risk reinforcing a model's own errors. In this work we propose Cross-Model Entropy (CME), the mean log-likelihood of a generator's response under a separate verifier model, as a label-free reward signal for RL post-training. CME is continuous, training-free, and grounded in the principle that responses a verifier finds unsurprising are likely correct or high quality. Because the verifier is independent of the generator, the signal cannot be gamed through self-consistency. We integrate CME into GRPO with no other changes to the training loop, extending label-free RL to open-ended instruction following -- a regime where self-referential signals are inapplicable or poorly suited. On open-ended instruction following (UltraFeedback prompts, evaluated on AlpacaEval 2.0), CME rewards beat the untrained base in head-to-head LLM-as-Judge comparisons across four model families (Qwen, Llama, Gemma, OLMo) and three training regimes (pretrained, SFT, and instruction-tuned), with tie-adjusted win rates ranging from 52.5% to 71.4%. Code will be released upon publication.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-27T19:04:35Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Matt Gorbett</name>
+    </author>
+    <author>
+      <name>Hossein Shirazi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.20464v1</id>
+    <title>Stochastic Sampling is Epistemically Shallow: The Dimensionality Gap Between Temperature Variation and Model Diversity in LLMs</title>
+    <updated>2026-05-18T14:40:37Z</updated>
+    <link href="https://arxiv.org/abs/2607.20464v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.20464v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>When a language model gives different answers on repeated runs, does that variation reveal what it does not know? Self-consistency turns the variation into a per-question uncertainty estimate via majority voting. But does the same variation reveal cross-question structure -- related questions flipping together, the way a diverse ensemble does? We compare two regimes on the same questions: one model run $100$ times at $τ=1$ versus an ensemble of $24$ LLMs run once each at $τ=0$. A Marchenko--Pastur random-matrix test separates signal from sampling noise on both sides. Within any single model, at most one dimension rises above noise across five families and three benchmarks (MMLU, HellaSwag, GSM8K). Across the ensemble, four eigenvalues clear the noise edge, while a matched-difficulty Bernoulli null produces at most one in $500$ Monte Carlo draws. Self-consistency gives accurate per-question uncertainty but no detectable cross-question structure; only a diverse ensemble surfaces what a model does not know.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-18T14:40:37Z</published>
+    <arxiv:comment>8 pages, 4 figures, 3 tables. Accepted at EIML@ICML 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Izhar Ali</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.14098v1</id>
+    <title>Pause and Reflect: Conformal Aggregation for Chain-of-Thought Reasoning</title>
+    <updated>2026-05-13T20:33:59Z</updated>
+    <link href="https://arxiv.org/abs/2605.14098v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.14098v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Chain-of-thought (CoT) reasoning with self-consistency improves performance by aggregating multiple sampled reasoning paths. In this setting, correctness is no longer tied to a single reasoning trace but to the aggregation rule over a pool of candidate paths, making aggregation uncertainty the central challenge. This issue is critical where confidently incorrect answers are far more costly than abstentions. We introduce a conformal procedure for CoT reasoning that directly addresses aggregation uncertainty. Our approach replaces majority voting with weighted score aggregation over reasoning paths and calibrates an abstention rule using conformal risk control. This approach leads to finite-sample guarantees on the confident-error rate--the probability that the system answers and is wrong. We further identify score separability as the key condition under which abstention provably improves selective accuracy, and derive closed-form expressions that predict accuracy gains from calibration data alone. The method is fully inference-time, and requires no retraining. Across four benchmarks, four open-source models, and three score classes, realized confident-error rates are consistent with the prescribed targets up to calibration-split and test-set variability. Our method achieves $90.1\%$ selective accuracy on GSM8K by abstaining on less than $5\%$ of problems, compared with $82\%$ accuracy under majority-voting baseline.</summary>
+    <category term="stat.ML" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-13T20:33:59Z</published>
+    <arxiv:comment>9 pages, 4 figures, submitted</arxiv:comment>
+    <arxiv:primary_category term="stat.ML"/>
+    <author>
+      <name>Yu Gu</name>
+    </author>
+    <author>
+      <name>Zijun Yu</name>
+    </author>
+    <author>
+      <name>Vahid Partovi Nia</name>
+    </author>
+    <author>
+      <name>Masoud Asgharian</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.13695v1</id>
+    <title>RTLC -- Research, Teach-to-Learn, Critique: A three-stage prompting paradigm inspired by the Feynman Learning Technique that lifts LLM-as-judge accuracy on JudgeBench with no fine-tuning</title>
+    <updated>2026-05-13T15:48:16Z</updated>
+    <link href="https://arxiv.org/abs/2605.13695v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.13695v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>LLM-as-a-judge is now the default measurement instrument for open-ended generation, but on the public JudgeBench benchmark even strong instruction-tuned judges barely scrape past random on objective-correctness pairwise items. We introduce RTLC, a three-stage prompting recipe -- Research, Teach-to-Learn, Critique -- that promotes a single black-box LLM into an ensemble-of-thought judge with no fine-tuning, retrieval, or external tools. Stage 1 wraps the input in a fixed pedagogical scaffold porting the Feynman Learning Technique (study $\to$ teach $\to$ find gaps $\to$ simplify) into LLM prompting. Stage 2 draws N=10 independent candidate verdicts at temperature 0.4. Stage 3 acts as its own critic, cross-comparing the candidate set against the original question to emit one critiqued verdict at temperature 0. On JudgeBench-GPT (350 hard pairwise items), Claude 3.7 Sonnet's pairwise accuracy climbs from 64.6% (single-shot vanilla prompt) to 78.6% (RTLC critique-of-10) -- an absolute 14.0-percentage-point gain. RTLC also beats N=10 self-consistency majority voting (77.7%) and a zero-shot first candidate (74.0%). A clean three-step ablation attributes +9.4 pp to the Teach-to-Learn scaffold, +3.7 pp to N=10 marginalisation, and +0.9 pp to explicit critique. We discuss the cost-accuracy frontier (RTLC sits above self-consistency at every working point), the error-budget breakdown across the four JudgeBench categories (knowledge, reasoning, math, coding), and how RTLC composes orthogonally with post-hoc judge-score calibration, with the two interventions compounding multiplicatively in practice.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-13T15:48:16Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Andrea Morandi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.12987v2</id>
+    <title>Leveraging Multimodal Self-Consistency Reasoning in Coding Motivational Interviewing for Alcohol Use Reduction</title>
+    <updated>2026-05-16T04:00:00Z</updated>
+    <link href="https://arxiv.org/abs/2605.12987v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.12987v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>BACKGROUND: Coding Motivational Interviewing (MI) sessions is essential for understanding client behaviors and predicting outcomes, but it requires substantial time and labor from trained MI professionals. Recent advances in audio-language models (ALMs) offer new opportunities to automate MI coding by capturing multimodal behavioral signals. OBJECTIVE: This study aims to develop an automatic MI coding approach based on ALMs that analyzes raw audio input and integrates predictions from multiple reasoning trajectories using self-consistency to improve coding robustness. METHODS: We experimented with five recorded sessions from de-identified MI audio tapes. We deployed ALMs with four complementary analytic prompts to support utterance-level reasoning: analytic prompting for verbal cues, prosody-aware prompting for acoustic cues, evidence-scoring prompting for quantitative hypothesis testing, and comparative prompting for contrastive reasoning. Three stochastic samples were drawn for each prompt, generating 12 independent reasoning trajectories per utterance. Final predictions were determined by majority voting across all trajectories. RESULTS: Performance was evaluated using accuracy, precision, recall, and macro-F1 scores. The proposed multimodal self-consistency approach achieved 52.56% accuracy, 54.03% precision, 47.45% recall, and a macro-F1 score of 46.40%, exceeding baseline methods. Systematic ablation experiments that removed individual modules consistently degraded performance on the primary metrics. CONCLUSIONS: Multimodal self-consistency outperforms single-pass baseline prompting approaches for MI coding. These findings suggest that incorporating both what clients say and how they say it can support more reliable automatic MI coding.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-13T04:36:04Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Guangzeng Han</name>
+    </author>
+    <author>
+      <name>James G. Murphy</name>
+    </author>
+    <author>
+      <name>Benjamin O. Ladd</name>
+    </author>
+    <author>
+      <name>Xiaolei Huang</name>
+    </author>
+    <author>
+      <name>Brian Borsari</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.09121v1</id>
+    <title>A Communication-Theoretic Framework for LLM Agents: Cost-Aware Adaptive Reliability</title>
+    <updated>2026-05-09T19:14:33Z</updated>
+    <link href="https://arxiv.org/abs/2605.09121v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.09121v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Agents built on large language models (LLMs) rely on a range of reliability techniques, including retry, majority voting, and self-consistency, that have been developed in parallel rather than within a common analytical framework. We observe that an LLM sampled at temperature $T$ is a discrete stochastic channel $p(y \mid x)$ in the sense of Shannon's coding theory, and use this identity as the entry point for such a framework grounded in communication theory. Each of these techniques is a special case of one of six classical reliability operators: diversity combining, hybrid retransmission, iterative generator-critic decoding, rateless sampling, structured redundant verification, and difficulty-adaptive routing. Within the framework we give two closed-form results: a noise-variance threshold above which uniform averaging beats quality-weighted averaging, and a contractivity criterion for generator-critic refinement, consistent with a contractive-to-divergent transition we observe between 3B- and 14B-parameter models. We further introduce a cost-aware semantic-nearest-neighbor router whose single Lagrangian knob traverses the quality-cost frontier without retraining. Across six channel configurations spanning local and cloud models on 69 hard tasks, no fixed model-technique-budget choice dominates, motivating per-task allocation. On a 300-item hard split of MMLU, GSM8K, and HumanEval, our router occupies the full empirical Pareto frontier: at matched quality, its normalized cost is ${\approx}56$\% lower than the strongest fixed technique; at matched normalized cost, it improves quality by ${\approx}7$\% ($26$\% over single-shot decoding). These results argue for consolidating these reliability techniques into a single tunable layer informed by channel coding.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.IT" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-09T19:14:33Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Hamed Omidvar</name>
+    </author>
+    <author>
+      <name>Vahideh Akhlaghi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.08070v1</id>
+    <title>VecCISC: Improving Confidence-Informed Self-Consistency with Reasoning Trace Clustering and Candidate Answer Selection</title>
+    <updated>2026-05-08T17:54:38Z</updated>
+    <link href="https://arxiv.org/abs/2605.08070v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.08070v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>A standard technique for scaling inference-time reasoning is Self-Consistency, whereby multiple candidate answers are sampled from an LLM and the most common answer is selected. More recently, it has been shown that weighted majority voting (e.g. Confidence-Informed Self Consistency (CISC)), which assigns a confidence value to each candidate answer and chooses the answer with the largest accumulated score, tends to be more accurate on a wide range of popular benchmarks. In practice, weighted majority voting necessitates calling a critic LLM on each candidate's reasoning trace to produce the answer's confidence score. This secondary series of LLM calls greatly increases the overhead and cost of weighted majority voting, despite its potential performance benefits. To reduce this expense, we propose VecCISC, a lightweight, adaptive framework that uses a measure of semantic similarity to filter reasoning traces that are semantically equivalent to others, degenerate, or hallucinated, thus decreasing the number of candidate answers that must be evaluated by the critic. To ensure adequate experimental thoroughness, we evaluate VecCISC on five challenging, widely-adopted datasets spanning the domains of mathematics, chemistry, biology, commonsense reasoning, and the humanities. Our results demonstrate that VecCISC reduces the total token usage by 47%, while maintaining or exceeding the accuracy of CISC.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-08T17:54:38Z</published>
+    <arxiv:comment>Accepted to Findings of ACL 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>James Petullo</name>
+    </author>
+    <author>
+      <name>Sonny George</name>
+    </author>
+    <author>
+      <name>Dylan Cashman</name>
+    </author>
+    <author>
+      <name>Nianwen Xue</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.07654v1</id>
+    <title>Reliable Chain-of-Thought via Prefix Consistency</title>
+    <updated>2026-05-08T12:28:05Z</updated>
+    <link href="https://arxiv.org/abs/2605.07654v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.07654v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Models often improve accuracy on reasoning tasks by sampling multiple Chain-of-Thought (CoT) traces and aggregating them with majority voting (MV), a test-time technique called self-consistency. When we truncate a CoT partway through and regenerate the remainder, we observe that traces with correct answers reproduce their original answer more often than traces with wrong answers. We use this difference as a reliability signal, prefix consistency, that weights each candidate answer by how often it reappears under regeneration. It requires no access to token log-probabilities or self-rating prompts. Across five reasoning models and four math and science benchmarks, prefix consistency is the best correctness predictor in most settings, and reweighting votes by it reaches Standard MV plateau accuracy at up to 21x fewer tokens (median 4.6x). Our code is available at https://github.com/naoto-iwase/prefix-consistency.</summary>
+    <category term="stat.ML" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-08T12:28:05Z</published>
+    <arxiv:comment>See our project page at https://naoto-iwase.github.io/prefix-consistency-page</arxiv:comment>
+    <arxiv:primary_category term="stat.ML"/>
+    <author>
+      <name>Naoto Iwase</name>
+    </author>
+    <author>
+      <name>Yuki Ichihara</name>
+    </author>
+    <author>
+      <name>Mohammad Atif Quamar</name>
+    </author>
+    <author>
+      <name>Junpei Komiyama</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.03227v2</id>
+    <title>Evaluating Prompting and Execution-Based Methods for Deterministic Computation in LLMs</title>
+    <updated>2026-05-07T05:34:14Z</updated>
+    <link href="https://arxiv.org/abs/2605.03227v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.03227v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Models (LLMs) have demonstrated strong capabilities in natural language understanding and reasoning. However, their ability to perform exact, deterministic computation remains unclear. In this work, we systematically evaluate multiple prompting strategies, including Chain-of-Thought (CoT), Least-to-Most decomposition, Program-of-Thought (PoT), and Self-Consistency (SC), on tasks requiring precise and error-free outputs, including binary counting, longest substring detection, and arithmetic evaluation. To support this study, we introduce a synthetic dataset with diverse natural language instructions, enabling controlled evaluation of exact computation across multiple task types. Our results show that standard prompting methods achieve only moderate accuracy on sequence-based tasks. CoT provides limited improvement, while Least-to-Most suffers from error accumulation. In contrast, PoT achieves perfect accuracy by generating executable code and delegating computation to an external interpreter. Self-Consistency improves robustness through majority voting, but incurs substantial computational overhead. We further train a small domain-specific model (CodeT5-small) to generate executable programs, which achieves perfect accuracy on held-out synthetic test data across all tasks with minimal training cost. Overall, our findings suggest that LLMs may simulate reasoning patterns rather than reliably perform exact symbolic computation. For deterministic tasks, combining LLMs with external tools or using specialized models provides a more reliable and efficient solution.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-04T23:32:37Z</published>
+    <arxiv:comment>8 pages, 1 figure. Code and dataset available at https://github.com/bigbird231/llm-exact-computation-dataset</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Hongkun Yu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.12196v1</id>
+    <title>Beyond Majority Voting: Efficient Best-Of-N with Radial Consensus Score</title>
+    <updated>2026-04-14T02:02:20Z</updated>
+    <link href="https://arxiv.org/abs/2604.12196v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.12196v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large language models (LLMs) frequently generate multiple candidate responses for a given prompt, yet selecting the most reliable one remains challenging, especially when correctness diverges from surface-level majority agreement. Existing approaches, such as self-consistency, rely on discrete voting, while probability-based methods often fail to capture relationships among candidate answers or tend to underweight high-quality but less frequent responses, and do not fully leverage the geometric structure of answer representations. To address these limitations, we introduce Radial Consensus Score (RCS), a simple, efficient, and training-free method for best-of-N selection. RCS models semantic consensus by computing a weighted Fréchet mean (semantic center) of answer embeddings and ranking candidates by their radial distance to this center. Importantly, RCS provides a general framework that supports multiple weighting schemes, including uniform, frequency-based, and probability-based variants, enabling flexible integration of agreement signals and model confidence while remaining fully applicable in black-box settings. Extensive experiments across seven benchmarks covering short-form QA and long-form reasoning tasks, and five open-weight models, demonstrate that RCS variants consistently outperform strong baselines, with gains becoming more pronounced as the sampling budget increases. RCS also serves as an effective drop-in replacement for majority voting in multi-agent debate and exhibits strong robustness in black-box scenarios. Overall, these results highlight geometric consensus as a scalable and broadly applicable principle for reliable answer selection, extending beyond majority voting to more expressive and robust aggregation in LLM inference.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-14T02:02:20Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Manh Nguyen</name>
+    </author>
+    <author>
+      <name>Sunil Gupta</name>
+    </author>
+    <author>
+      <name>Hung Le</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.03809v1</id>
+    <title>Representational Collapse in Multi-Agent LLM Committees: Measurement and Diversity-Aware Consensus</title>
+    <updated>2026-04-04T17:30:23Z</updated>
+    <link href="https://arxiv.org/abs/2604.03809v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.03809v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Multi-agent LLM committees replicate the same model under different role prompts and aggregate outputs by majority vote, implicitly assuming that agents contribute complementary evidence. We embed each agent's chain-of-thought rationale and measure pairwise similarity: across 100 GSM8K questions with three Qwen2.5-14B agents, mean cosine similarity is 0.888 and effective rank is 2.17 out of 3.0, a failure mode we term representational collapse. DALC, a training-free consensus protocol that computes diversity weights from embedding geometry, reaches 87% on GSM8K versus 84% for self-consistency at 26% lower token cost. Ablation experiments reveal 1-3 point per-protocol run-to-run variance, confirm that hint sharing contributes more than diversity weighting alone, and show that encoder choice strongly modulates collapse severity (cosine 0.908 with mxbai versus 0.888 with nomic) and downstream accuracy. The more robust finding is that collapse is measurable, worsens on harder tasks, and that the choice of embedding proxy is a first-order design decision for any latent communication protocol.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-04T17:30:23Z</published>
+    <arxiv:comment>11 pages, 2 figures, 7 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Dipkumar Patel</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.26954v1</id>
+    <title>The Impact of LLM Self-Consistency and Reasoning Effort on Automated Scoring Accuracy and Cost</title>
+    <updated>2026-04-03T14:26:08Z</updated>
+    <link href="https://arxiv.org/abs/2604.26954v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.26954v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Strategic model selection and reasoning settings are more effective than ensembling for optimizing automated scoring with large language models (LLMs). We examined self-consistency (intra-model majority voting) and reasoning effort for scoring conversation-based assessment items in high school mathematics, evaluating 900 student conversations against human-scored ground truths using frontier and low-cost models from OpenAI and Google. Temperature sampling significantly improved accuracy over deterministic calls, but increasing ensemble size (j = 1 to 7) produced no significant gains. Higher reasoning effort showed a significant positive linear trend with scoring accuracy, though the benefit varied by model family. An efficiency frontier analysis identified Gemini 3.1 Pro Preview at low reasoning as the most accurate but costly configuration; GPT-5.4 Nano and Mini with no reasoning offered the best cost-performance balance.</summary>
+    <category term="cs.CY" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-03T14:26:08Z</published>
+    <arxiv:comment>14 pages, 10 tables, 2 figures. Presented at the 2026 National Council on Measurement in Education (NCME) Annual Meeting, April 11, 2026, Los Angeles, CA</arxiv:comment>
+    <arxiv:primary_category term="cs.CY"/>
+    <author>
+      <name>Scott Frohn</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.17775v2</id>
+    <title>CoVerRL: Breaking the Consensus Trap in Label-Free Reasoning via Generator-Verifier Co-Evolution</title>
+    <updated>2026-03-23T06:36:19Z</updated>
+    <link href="https://arxiv.org/abs/2603.17775v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.17775v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Label-free reinforcement learning enables large language models to improve reasoning capabilities without ground-truth supervision, typically by treating majority-voted answers as pseudo-labels. However, we identify a critical failure mode: as training maximizes self-consistency, output diversity collapses, causing the model to confidently reinforce systematic errors that evade detection. We term this the consensus trap. To escape it, we propose CoVerRL, a framework where a single model alternates between generator and verifier roles, with each capability bootstrapping the other. Majority voting provides noisy but informative supervision for training the verifier, while the improving verifier progressively filters self-consistent errors from pseudo-labels. This co-evolution creates a virtuous cycle that maintains high reward accuracy throughout training. Experiments across Qwen and Llama model families demonstrate that CoVerRL outperforms label-free baselines by 4.7-5.9% on mathematical reasoning benchmarks. Moreover, self-verification accuracy improves from around 55% to over 85%, confirming that both capabilities genuinely co-evolve.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-18T14:38:55Z</published>
+    <arxiv:comment>Project Page: https://zju-real.github.io/CoVerRL Code: https://github.com/ZJU-REAL/CoVerRL</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Teng Pan</name>
+    </author>
+    <author>
+      <name>Yuchen Yan</name>
+    </author>
+    <author>
+      <name>Zixuan Wang</name>
+    </author>
+    <author>
+      <name>Ruiqing Zhang</name>
+    </author>
+    <author>
+      <name>Guiyang Hou</name>
+    </author>
+    <author>
+      <name>Wenqi Zhang</name>
+    </author>
+    <author>
+      <name>Weiming Lu</name>
+    </author>
+    <author>
+      <name>Jun Xiao</name>
+    </author>
+    <author>
+      <name>Yongliang Shen</name>
+    </author>
+  </entry>
+</feed>

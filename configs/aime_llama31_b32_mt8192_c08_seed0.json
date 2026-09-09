@@ -1,0 +1,32 @@
+{
+  "purpose": "llama31_aime24_25_paired_sc_pc_v1_graph",
+  "protocol_version": "math-pc-paired-root-v2",
+  "model": "/home/26xyw/data/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+  "datasets": [
+    "/home/26xyw/data/Datasets/aime_2024.jsonl",
+    "/home/26xyw/data/Datasets/aime_2025.jsonl"
+  ],
+  "planned_questions": 60,
+  "run_flags": {
+    "gpus": "3",
+    "tensor_parallel_size": 1,
+    "vllm_engine": "V1",
+    "allow_cudagraph": true,
+    "max_branches": 32,
+    "window_size": 4,
+    "physical_window_size": 4,
+    "beta_threshold": 0.8,
+    "temperature": 0.6,
+    "top_p": 0.9,
+    "top_k": -1,
+    "max_tokens": 8192,
+    "max_model_len": 10240,
+    "gpu_memory_utilization": 0.92,
+    "max_num_seqs": 16,
+    "max_num_batched_tokens": 2048,
+    "cudagraph_capture_sizes": [32, 16, 8, 4, 2, 1],
+    "logprobs": 20,
+    "thinking": false
+  },
+  "note": "C=0.8 is not Dev-Mix C*. GPU 3 runs AIME 2024 then AIME 2025 sequentially so the card stays occupied."
+}

@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/S31DJhX2ZZoxtYzrG1w06z5PA6c</id>
+  <title>arXiv Query: search_query=&amp;id_list=2506.04708,2408.17017,2401.10480,2511.12309&amp;start=0&amp;max_results=6</title>
+  <updated>2026-09-02T05:06:50Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=6&amp;id_list=2506.04708,2408.17017,2401.10480,2511.12309" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>6</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.12309v2</id>
+    <title>Optimal Self-Consistency for Efficient Reasoning with Large Language Models</title>
+    <updated>2026-06-30T05:35:04Z</updated>
+    <link href="https://arxiv.org/abs/2511.12309v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.12309v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Self-consistency (SC) is a widely used test-time inference technique for improving performance in chain-of-thought reasoning. It consists of generating multiple responses, or ``samples", from a large language model (LLM) and selecting the most frequent answer. This procedure can naturally be viewed as a majority vote or empirical mode estimation. Despite its effectiveness, self-consistency is prohibitively expensive at scale when naively applied to datasets, and it lacks a unified theoretical understanding of sample efficiency and scaling behavior. In this paper, we provide the first comprehensive analysis of SC's scaling behavior and its variants, drawing on mode estimation and voting theory. We derive and empirically validate power law scaling for self-consistency across datasets, and analyze the sample efficiency for fixed-allocation and dynamic-allocation sampling schemes. From these insights, we introduce Blend-ASC, a novel variant of self-consistency that dynamically allocates samples to questions during inference, achieving state-of-the-art sample efficiency. Our approach uses 4.8 times fewer samples than vanilla SC on average, outperforming both fixed- and dynamic-allocation SC baselines, thereby demonstrating the superiority of our approach in terms of efficiency. In contrast to existing variants, we note that Blend-ASC is hyperparameter-free, supports batching, and can fit any budget of samples, ensuring it can be easily applied to any self-consistency application.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="stat.ML" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-15T17:45:42Z</published>
+    <arxiv:comment>Accepted at ICML 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Austin Feng</name>
+    </author>
+    <author>
+      <name>Marius Alonso</name>
+    </author>
+    <author>
+      <name>Ambroise Odonnat</name>
+    </author>
+    <author>
+      <name>Vasilii Feofanov</name>
+    </author>
+    <author>
+      <name>Ievgen Redko</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2401.10480v1</id>
+    <title>Escape Sky-high Cost: Early-stopping Self-Consistency for Multi-step Reasoning</title>
+    <updated>2024-01-19T04:03:59Z</updated>
+    <link href="https://arxiv.org/abs/2401.10480v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2401.10480v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Self-consistency (SC) has been a widely used decoding strategy for chain-of-thought reasoning. Despite bringing significant performance improvements across a variety of multi-step reasoning tasks, it is a high-cost method that requires multiple sampling with the preset size. In this paper, we propose a simple and scalable sampling process, \textbf{E}arly-Stopping \textbf{S}elf-\textbf{C}onsistency (ESC), to greatly reduce the cost of SC without sacrificing performance. On this basis, one control scheme for ESC is further derivated to dynamically choose the performance-cost balance for different tasks and models. To demonstrate ESC's effectiveness, we conducted extensive experiments on three popular categories of reasoning tasks: arithmetic, commonsense and symbolic reasoning over language models with varying scales. The empirical results show that ESC reduces the average number of sampling of chain-of-thought reasoning by a significant margin on six benchmarks, including MATH (-33.8%), GSM8K (-80.1%), StrategyQA (-76.8%), CommonsenseQA (-78.5%), Coin Flip (-84.2%) and Last Letters (-67.4%), while attaining comparable performances.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-01-19T04:03:59Z</published>
+    <arxiv:comment>ICLR 2024</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Yiwei Li</name>
+    </author>
+    <author>
+      <name>Peiwen Yuan</name>
+    </author>
+    <author>
+      <name>Shaoxiong Feng</name>
+    </author>
+    <author>
+      <name>Boyuan Pan</name>
+    </author>
+    <author>
+      <name>Xinglin Wang</name>
+    </author>
+    <author>
+      <name>Bin Sun</name>
+    </author>
+    <author>
+      <name>Heda Wang</name>
+    </author>
+    <author>
+      <name>Kan Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2408.17017v3</id>
+    <title>Reasoning Aware Self-Consistency: Leveraging Reasoning Paths for Efficient LLM Sampling</title>
+    <updated>2025-02-04T03:59:49Z</updated>
+    <link href="https://arxiv.org/abs/2408.17017v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2408.17017v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Self-Consistency mitigates hallucinations in Large Language Models (LLMs) by sampling multiple reasoning paths,but it lacks a systematic approach to determine the optimal number of samples or select the most faithful rationale. To address this limitation, we introduce Reasoning-Aware Self-Consistency (RASC), a novel framework that enhances sampling efficiency and reasoning faithfulness by dynamically evaluating both outputs and rationales. RASC assesses the quality of reasoning and the consistency of answers for each generated sample, using these assessments to guide early stopping decisions and rationale selection. The framework employs criteria-based stopping and weighted majority voting, enabling more informed choices on when to halt sampling and which rationale to select. Our comprehensive experiments across diverse question-answering datasets demonstrate that RASC outperforms existing methods, reducing sample usage by approximately 70% while maintaining accuracy. Moreover, RASC facilitates the selection of high-fidelity rationales, thereby improving the faithfulness of LLM outputs. Our approach effectively addresses the efficiency-accuracy trade-off in LLM reasoning tasks, offering a new perspective for more nuanced, faithful, and effective utilization of LLMs in resource-constrained environments.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-08-30T05:14:59Z</published>
+    <arxiv:comment>Accepted to NAACL 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Guangya Wan</name>
+    </author>
+    <author>
+      <name>Yuqi Wu</name>
+    </author>
+    <author>
+      <name>Jie Chen</name>
+    </author>
+    <author>
+      <name>Sheng Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.04708v3</id>
+    <title>Accelerated Test-Time Scaling with Model-Free Speculative Sampling</title>
+    <updated>2026-05-21T08:25:53Z</updated>
+    <link href="https://arxiv.org/abs/2506.04708v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.04708v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Language models have demonstrated remarkable capabilities in reasoning tasks through test-time scaling techniques like best-of-N sampling and tree search. However, these approaches often demand substantial computational resources, creating a critical trade-off between performance and efficiency. We introduce STAND (STochastic Adaptive N-gram Drafting), a novel model-free speculative decoding approach that exploits the inherent redundancy in reasoning trajectories to achieve significant acceleration without compromising accuracy. Our analysis shows that reasoning paths frequently reuse similar reasoning patterns, enabling efficient model-free token prediction without requiring separate draft models. By introducing stochastic drafting and preserving probabilistic information through a memory-efficient logit-based N-gram module, combined with optimized Gumbel-Top-K sampling and data-driven tree construction, STAND significantly improves token acceptance rates. Extensive evaluations across multiple models and reasoning tasks (AIME-2024, GPQA-Diamond, and LiveCodeBench) demonstrate that STAND reduces inference latency by 60-65% compared to standard autoregressive decoding while maintaining accuracy. Furthermore, STAND consistently outperforms state-of-the-art speculative decoding methods across diverse inference patterns, including single-trajectory decoding, batch decoding, and test-time tree search. As a model-free approach, STAND can be applied to any existing language model without additional training, making it a powerful plug-and-play solution for accelerating language model reasoning.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-05T07:31:18Z</published>
+    <arxiv:comment>EMNLP 2025 Oral</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Woomin Song</name>
+    </author>
+    <author>
+      <name>Saket Dingliwal</name>
+    </author>
+    <author>
+      <name>Sai Muralidhar Jayanthi</name>
+    </author>
+    <author>
+      <name>Bhavana Ganesh</name>
+    </author>
+    <author>
+      <name>Jinwoo Shin</name>
+    </author>
+    <author>
+      <name>Aram Galstyan</name>
+    </author>
+    <author>
+      <name>Sravan Babu Bodapati</name>
+    </author>
+    <arxiv:doi>10.18653/v1/2025.emnlp-main.1558</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.18653/v1/2025.emnlp-main.1558" title="doi"/>
+  </entry>
+</feed>

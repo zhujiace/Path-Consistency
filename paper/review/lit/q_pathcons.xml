@@ -1,0 +1,506 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/lPR4NwlCCu7zPGJl8aB+s2bR9ws</id>
+  <title>arXiv Query: search_query=abs:"path consistency" AND abs:"reasoning"&amp;id_list=&amp;start=0&amp;max_results=25</title>
+  <updated>2026-09-02T05:01:11Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=abs:%22path+consistency%22+AND+abs:%22reasoning%22&amp;start=0&amp;max_results=25&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>25</opensearch:itemsPerPage>
+  <opensearch:totalResults>19</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2608.01201v1</id>
+    <title>PRISM: Privileged Probabilistic Latent Supervision for End-to-End Autonomous Driving Motion Planning</title>
+    <updated>2026-08-02T12:33:52Z</updated>
+    <link href="https://arxiv.org/abs/2608.01201v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.01201v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>End-to-end autonomous driving (E2E AD) systems integrate perception, prediction, and planning into a single differentiable architecture. While these models show great promise, their standard training often relies on output-only supervision, which can lead to weak gradients for the hidden layers of increasingly complex models. Recent works have integrated vision-language model (VLM) supervision for latent features to address this, yielding substantial empirical gains, yet leaving the underlying theoretical mechanisms poorly understood. Our investigation into this methodology reveals that the resulting performance gains stem not from VLM reasoning capabilities, as previously assumed, but rather from the latent connections forged between the E2E AD model and ground-truth (GT) data during training. Building on this insight, we propose a probabilistic deep supervision framework that regularizes intermediate latent representations directly from GT data. By treating model latents as reparameterizable distributions, we optimize the architecture via the Evidence Lower Bound (ELBO). Our evaluations conducted on the nuScenes dataset demonstrate that supervising trajectory-related latents with future GT paths consistently improves planning performance. Using identical training data and E2E architectures, our method achieves an 8% reduction in planning L2 error and a 3% decrease in collision rates compared to competitive vectorized baselines, all while incurring negligible computational overhead.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-02T12:33:52Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Volodymyr Havrylov</name>
+    </author>
+    <author>
+      <name>Faris Janjoš</name>
+    </author>
+    <author>
+      <name>Andreas Look</name>
+    </author>
+    <author>
+      <name>Jürgen Mathes</name>
+    </author>
+    <author>
+      <name>Andreas Geiger</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.03609v3</id>
+    <title>A 3D Isovist World Model -- Revealing a City's Unseen Geometry and Its Emergent Cross-City Signature</title>
+    <updated>2026-06-16T16:27:24Z</updated>
+    <link href="https://arxiv.org/abs/2606.03609v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.03609v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Embodied agents that navigate cities rely on world models that predict how their surroundings will change as they move. But for navigation, what matters is not what the buildings look like; it is where the agent can go. Most world models nonetheless predict appearance, learning how a scene looks rather than the space an agent can move through. Those that do target geometry, such as bird's-eye-view occupancy grids, flatten the three-dimensional environment onto a ground plane, discarding the above-ground and multi-level structure that shapes real navigation. What is missing is a predictive target that captures the navigable geometry an agent actually traverses, without photometric entanglement and without collapsing the third dimension. Our key idea is to model the open volume between buildings, the negative space, encoded as a 3D isovist: a spherical visibility-depth map recording the distance to the nearest surface in every direction. We introduce an embodied world model that predicts the next isovist from a short history of past isovists and a movement action. The prediction is formulated as a depth residual so the decoder inherits sharp building edges, trained with self-rollout scheduled sampling to keep corrupted context on the geometry manifold, and equipped with a persistent latent bird's-eye-view spatial map for cross-path consistency. Our central finding is emergent and unexpected: a single city-blind model trained on Manhattan and Paris develops a cross-city spatial signature, with city identity linearly decodable from its temporal latents far above single-frame baselines, so the signature lives in the learned dynamics rather than in appearance. The representation is lightweight, interpretable, and reproducible, offering a geometric substrate for spatial reasoning in embodied AI, robotics, and urban analysis, released with an open dataset and pipeline.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-02T13:11:30Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Xuhui Lin</name>
+    </author>
+    <author>
+      <name>Stephen Law</name>
+    </author>
+    <author>
+      <name>Nanjiang Chen</name>
+    </author>
+    <author>
+      <name>Kunyao Li</name>
+    </author>
+    <author>
+      <name>Tao Yang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.28115v1</id>
+    <title>CIVIC: End-to-End Sequence Compactness for Efficient Vision-Language Models</title>
+    <updated>2026-05-27T08:09:44Z</updated>
+    <link href="https://arxiv.org/abs/2605.28115v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.28115v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-Language Models (VLMs) face severe memory and latency bottlenecks due to high-resolution visual tokens. While current token reduction methods theoretically save FLOPs, post-hoc pruning introduces structural overhead, failing to yield proportional wall-clock acceleration. However, enforcing a contiguous compact pathway risks geometric disorientation and loss of fine-grained localization. To overcome these barriers, this paper introduces CIVIC, a path-consistent compact visual inference framework. By maintaining compact sequence representations seamlessly across the vision encoder, projection layer, LLM prefill, and KV-cache, CIVIC avoids non-contiguous memory access and localized unmerging overheads. Evaluated on the Qwen3-VL architecture, CIVIC successfully translates sequence reductions into genuine physical hardware efficiency, shrinking KV-cache memory to approximately one-third of the baseline and reducing end-to-end inference latency. Enabled by text-aligned KL distillation and an adaptive spatial retention floor, CIVIC achieves these efficiency milestones without degrading accuracy across rigorous multimodal reasoning and visual grounding benchmarks.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-27T08:09:44Z</published>
+    <arxiv:comment>11 pages, 6 figures, 2 tables, conference</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Fengze Yang</name>
+    </author>
+    <author>
+      <name>Bo Yu</name>
+    </author>
+    <author>
+      <name>Xuewen Luo</name>
+    </author>
+    <author>
+      <name>Cathy Liu</name>
+    </author>
+    <author>
+      <name>Chenxi Liu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.22352v1</id>
+    <title>WIST: Web-Grounded Iterative Self-Play Tree for Domain-Targeted Reasoning Improvement</title>
+    <updated>2026-03-22T09:55:16Z</updated>
+    <link href="https://arxiv.org/abs/2603.22352v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.22352v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent progress in reinforcement learning with verifiable rewards (RLVR) offers a practical path to self-improvement of language models, but existing methods face a key trade-off: endogenous self-play can drift over iterations, while corpus-grounded approaches rely on curated data environments. We present \textbf{WIST}, a \textbf{W}eb-grounded \textbf{I}terative \textbf{S}elf-play \textbf{T}ree framework for domain-targeted reasoning improvement that learns directly from the open web without requiring any pre-arranged domain corpus. WIST incrementally expands a domain tree for exploration, and retrieves and cleans path-consistent web corpus to construct a controllable training environment. It then performs Challenger--Solver self-play with verifiable rewards, and feeds learnability signals back to update node posteriors and guide subsequent exploration through an adaptive curriculum. Across four backbones, WIST consistently improves over the base models and typically outperforms both purely endogenous self-evolution and corpus-grounded self-play baselines, with the Overall gains reaching \textbf{+9.8} (\textit{Qwen3-4B-Base}) and \textbf{+9.7} (\textit{OctoThinker-8B}). WIST is also domain-steerable, improving \textit{Qwen3-8B-Base} by \textbf{+14.79} in medicine and \textit{Qwen3-4B-Base} by \textbf{+5.28} on PhyBench. Ablations further confirm the importance of WIST's key components for stable open-web learning. Our Code is available at https://github.com/lfy-123/WIST.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-22T09:55:16Z</published>
+    <arxiv:comment>23 pages, 4 figures. Submitted to ACL2026</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Fangyuan Li</name>
+    </author>
+    <author>
+      <name>Pengfei Li</name>
+    </author>
+    <author>
+      <name>Shijie Wang</name>
+    </author>
+    <author>
+      <name>Junqi Gao</name>
+    </author>
+    <author>
+      <name>Jianxing Liu</name>
+    </author>
+    <author>
+      <name>Biqing Qi</name>
+    </author>
+    <author>
+      <name>Yuqiang Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.09756v1</id>
+    <title>Epistemic Closure: Autonomous Mechanism Completion for Physically Consistent Simulation</title>
+    <updated>2026-03-10T14:56:36Z</updated>
+    <link href="https://arxiv.org/abs/2603.09756v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.09756v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The integration of Large Language Models (LLMs) into scientific discovery is currently hindered by the Implicit Context problem, where governing equations extracted from literature contain invisible thermodynamic assumptions (e.g., undrained conditions) that standard generative models fail to recognize. This leads to Physical Hallucination: the generation of syntactically correct solvers that faithfully execute physically invalid laws. Here, we introduce a Neuro-Symbolic Generative Agent that functions as a cognitive supervisor atop traditional numerical engines. By encapsulating physical laws into modular Constitutive Skills and leveraging latent intrinsic priors, the Agent employs a Chain-of-Thought reasoning workflow to autonomously validate, prune, and complete physical mechanisms. We demonstrate this capability on the challenge of thermal pressurization in low-permeability sandstone. While a standard literature-retrieval baseline erroneously predicts catastrophic material failure by blindly adopting a rigid "undrained" simplification, our Agent autonomously identifies the system as operating in a drained regime (Deborah number De &lt;&lt; 1) via dimensionless scaling analysis. Consequently, it inductively completes the missing dissipation mechanism (Darcy flow) required to satisfy boundary constraints, predicting a stable stress path consistent with experimental reality. This work establishes a paradigm where AI agents transcend the role of coding assistants to act as epistemic partners, capable of reasoning about and correcting the theoretical assumptions embedded in scientific data.</summary>
+    <category term="cs.DB" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-10T14:56:36Z</published>
+    <arxiv:primary_category term="cs.DB"/>
+    <author>
+      <name>Yue Wua</name>
+    </author>
+    <author>
+      <name>Tianhao Su</name>
+    </author>
+    <author>
+      <name>Rui Hu</name>
+    </author>
+    <author>
+      <name>Mingchuan Zhao</name>
+    </author>
+    <author>
+      <name>Shunbo Hu</name>
+    </author>
+    <author>
+      <name>Deng Pan</name>
+    </author>
+    <author>
+      <name>Jizhong Huang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.07786v1</id>
+    <title>OrdinalBench: A Benchmark Dataset for Diagnosing Generalization Limits in Ordinal Number Understanding of Vision-Language Models</title>
+    <updated>2026-03-08T20:06:45Z</updated>
+    <link href="https://arxiv.org/abs/2603.07786v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.07786v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-Language Models (VLMs) have advanced across multimodal benchmarks but still show clear gaps in ordinal number understanding, i.e., the ability to track relative positions and generalize to large indices. We present OrdinalBench, a diagnostic benchmark that standardizes ordinal number understanding as an evaluation task for VLMs. The core task is N-th object identification, defined by a starting reference and traversal rule. Task difficulty is controlled along three axes: (i) ordinal magnitude, from small numbers to extreme cases up to 300; (ii) arrangement complexity, from single loops to maze-like paths; and (iii) object count. The benchmark provides 39,000 question-answer pairs, each annotated with a ground-truth reasoning trajectory and balanced across difficulty levels for controlled large-scale testing. Beyond answer-only evaluation, our framework requires models to generate structured stepwise traces of the counting process and provides an open evaluation toolkit that measures both final accuracy and step-level path consistency. Zero-shot evaluations of GPT-5, Gemini 2.5 Flash Lite, Qwen2.5-VL, InternVL3.5, and Molmo reveal sharp degradation under large-ordinal and complex-path conditions, highlighting weak generalization despite strong scores on standard multimodal tasks. By framing ordinal number understanding as a core target, OrdinalBench provides a reproducible benchmark and diagnostic framework for developing VLMs with stronger sequential reasoning. All data and code are available at https://ordinalbench.github.io/</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-08T20:06:45Z</published>
+    <arxiv:comment>Accepted as a Short Paper at VISAPP 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Yusuke Tozaki</name>
+    </author>
+    <author>
+      <name>Hisashi Miyamori</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.09259v1</id>
+    <title>MAXS: Meta-Adaptive Exploration with LLM Agents</title>
+    <updated>2026-01-14T07:48:00Z</updated>
+    <link href="https://arxiv.org/abs/2601.09259v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.09259v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Model (LLM) Agents exhibit inherent reasoning abilities through the collaboration of multiple tools. However, during agent inference, existing methods often suffer from (i) locally myopic generation, due to the absence of lookahead, and (ii) trajectory instability, where minor early errors can escalate into divergent reasoning paths. These issues make it difficult to balance global effectiveness and computational efficiency. To address these two issues, we propose meta-adaptive exploration with LLM agents https://github.com/exoskeletonzj/MAXS, a meta-adaptive reasoning framework based on LLM Agents that flexibly integrates tool execution and reasoning planning. MAXS employs a lookahead strategy to extend reasoning paths a few steps ahead, estimating the advantage value of tool usage, and combines step consistency variance and inter-step trend slopes to jointly select stable, consistent, and high-value reasoning steps. Additionally, we introduce a trajectory convergence mechanism that controls computational cost by halting further rollouts once path consistency is achieved, enabling a balance between resource efficiency and global effectiveness in multi-tool reasoning. We conduct extensive empirical studies across three base models (MiMo-VL-7B, Qwen2.5-VL-7B, Qwen2.5-VL-32B) and five datasets, demonstrating that MAXS consistently outperforms existing methods in both performance and inference efficiency. Further analysis confirms the effectiveness of our lookahead strategy and tool usage.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-14T07:48:00Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Jian Zhang</name>
+    </author>
+    <author>
+      <name>Zhiyuan Wang</name>
+    </author>
+    <author>
+      <name>Zhangqi Wang</name>
+    </author>
+    <author>
+      <name>Yu He</name>
+    </author>
+    <author>
+      <name>Haoran Luo</name>
+    </author>
+    <author>
+      <name>li yuan</name>
+    </author>
+    <author>
+      <name>Lingling Zhang</name>
+    </author>
+    <author>
+      <name>Rui Mao</name>
+    </author>
+    <author>
+      <name>Qika Lin</name>
+    </author>
+    <author>
+      <name>Jun Liu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.11040v1</id>
+    <title>Key Decision-Makers in Multi-Agent Debates: Who Holds the Power?</title>
+    <updated>2025-11-14T07:47:56Z</updated>
+    <link href="https://arxiv.org/abs/2511.11040v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.11040v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent studies on LLM agent scaling have highlighted the potential of Multi-Agent Debate (MAD) to enhance reasoning abilities. However, the critical aspect of role allocation strategies remains underexplored. In this study, we demonstrate that allocating roles with differing viewpoints to specific positions significantly impacts MAD's performance in reasoning tasks. Specifically, we find a novel role allocation strategy, "Truth Last", which can improve MAD performance by up to 22% in reasoning tasks. To address the issue of unknown truth in practical applications, we propose the Multi-Agent Debate Consistency (MADC) strategy, which systematically simulates and optimizes its core mechanisms. MADC incorporates path consistency to assess agreement among independent roles, simulating the role with the highest consistency score as the truth. We validated MADC across a range of LLMs (9 models), including the DeepSeek-R1 Distilled Models, on challenging reasoning tasks. MADC consistently demonstrated advanced performance, effectively overcoming MAD's performance bottlenecks and providing a crucial pathway for further improvements in LLM agent scaling.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-14T07:47:56Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Qian Zhang</name>
+    </author>
+    <author>
+      <name>Yan Zheng</name>
+    </author>
+    <author>
+      <name>Jinyi Liu</name>
+    </author>
+    <author>
+      <name>Hebin Liang</name>
+    </author>
+    <author>
+      <name>Lanjun Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.16629v2</id>
+    <title>On the Impossibility of Retrain Equivalence in Machine Unlearning</title>
+    <updated>2025-10-29T21:20:51Z</updated>
+    <link href="https://arxiv.org/abs/2510.16629v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.16629v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Machine unlearning seeks to selectively remove the "influence" of specific training data on a model's outputs. The ideal goal is Retrain Equivalence--behavior identical to a model trained from scratch on only the retained data. This goal was formulated for models trained on i.i.d. data batches, but modern pipelines often involve multi-stage training, with each stage having a distinct data distribution and objective. Examples include LLM fine-tuning for alignment, reasoning ability, etc. Our study shows via theory and experiments that this shift to multi-stage training introduces a fundamental barrier for machine unlearning. The theory indicates that the outcome of local unlearning--methods that only use gradients computed on the forget set--is path-dependent. That is, a model's behavior during unlearning is influenced by the order of its training stages during learning, making it impossible for path-oblivious algorithms to universally achieve Retrain Equivalence. We empirically demonstrate the same phenomenon in LLM post-training across Llama and Qwen models (1B to 14B) with gradient ascent, NPO, and SimNPO local unlearning algorithms. Models fine-tuned via different orderings of identical training stages diverge in behavior during unlearning, with the degradation in GSM8K accuracy after unlearning varying by over 20% across paths. We also observe that some learning paths consistently produce models that unlearn slowly. During unlearning, whether the probability mass gets squeezed into paraphrasing or alternative concepts is also path-dependent. These results consistently show that Retrain Equivalence is an ill-posed target for local unlearning algorithms, so long as the target models are trained in stages. In situations where access to models' training histories is hard, the current work calls for rethinking the definition and desiderata of machine unlearning.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-18T19:58:31Z</published>
+    <arxiv:comment>Code available at https://princeton-pli.github.io/impossibility-unlearning/</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Jiatong Yu</name>
+    </author>
+    <author>
+      <name>Yinghui He</name>
+    </author>
+    <author>
+      <name>Anirudh Goyal</name>
+    </author>
+    <author>
+      <name>Sanjeev Arora</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2501.00430v2</id>
+    <title>Enhancing LLM Reasoning with Multi-Path Collaborative Reactive and Reflection agents</title>
+    <updated>2025-01-03T02:50:59Z</updated>
+    <link href="https://arxiv.org/abs/2501.00430v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2501.00430v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Agents have demonstrated their potential in scientific reasoning tasks through large language models. However, they often face challenges such as insufficient accuracy and degeneration of thought when handling complex reasoning tasks, which impede their performance. To overcome these issues, we propose the Reactive and Reflection agents with Multi-Path Reasoning (RR-MP) Framework, aimed at enhancing the reasoning capabilities of LLMs. Our approach improves scientific reasoning accuracy by employing a multi-path reasoning mechanism where each path consists of a reactive agent and a reflection agent that collaborate to prevent degeneration of thought inherent in single-agent reliance. Additionally, the RR-MP framework does not require additional training; it utilizes multiple dialogue instances for each reasoning path and a separate summarizer to consolidate insights from all paths. This design integrates diverse perspectives and strengthens reasoning across each path. We conducted zero-shot and few-shot evaluations on tasks involving moral scenarios, college-level physics, and mathematics. Experimental results demonstrate that our method outperforms baseline approaches, highlighting the effectiveness and advantages of the RR-MP framework in managing complex scientific reasoning tasks.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-12-31T13:11:20Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Chengbo He</name>
+    </author>
+    <author>
+      <name>Bochao Zou</name>
+    </author>
+    <author>
+      <name>Xin Li</name>
+    </author>
+    <author>
+      <name>Jiansheng Chen</name>
+    </author>
+    <author>
+      <name>Junliang Xing</name>
+    </author>
+    <author>
+      <name>Huimin Ma</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2409.01281v3</id>
+    <title>Path-Consistency with Prefix Enhancement for Efficient Inference in LLMs</title>
+    <updated>2025-11-04T05:59:14Z</updated>
+    <link href="https://arxiv.org/abs/2409.01281v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.01281v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>To enhance the reasoning capabilities of large language models (LLMs), self-consistency has become a popular approach, combining multiple samplings with majority voting. However, current methods are computationally expensive and time-consuming due to the need for numerous samplings. To address this, this paper introduces path-consistency, which leverages the confidence of earlier-generated answers to identify the most promising prefix and guide the generation of subsequent branches. By dynamically guiding the generation of subsequent branches based on this prefix, path-consistency mitigates both the errors and redundancies from random or less useful sampling in self-consistency. This approach reduces errors and redundancies from random sampling, significantly accelerating inference by minimizing token consumption. Our extensive empirical results demonstrate that path-consistency improves inference latency by up to 40.5\%, while maintaining task accuracy across various tasks, including mathematical reasoning, commonsense reasoning, and symbolic reasoning.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-08-25T01:45:53Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Jiace Zhu</name>
+    </author>
+    <author>
+      <name>Yuanzhe Huang</name>
+    </author>
+    <author>
+      <name>Yingtao Shen</name>
+    </author>
+    <author>
+      <name>Jie Zhao</name>
+    </author>
+    <author>
+      <name>An Zou</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2403.06063v1</id>
+    <title>Target-constrained Bidirectional Planning for Generation of Target-oriented Proactive Dialogue</title>
+    <updated>2024-03-10T02:14:24Z</updated>
+    <link href="https://arxiv.org/abs/2403.06063v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2403.06063v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Target-oriented proactive dialogue systems aim to lead conversations from a dialogue context toward a pre-determined target, such as making recommendations on designated items or introducing new specific topics. To this end, it is critical for such dialogue systems to plan reasonable actions to drive the conversation proactively, and meanwhile, to plan appropriate topics to move the conversation forward to the target topic smoothly. In this work, we mainly focus on effective dialogue planning for target-oriented dialogue generation. Inspired by decision-making theories in cognitive science, we propose a novel target-constrained bidirectional planning (TRIP) approach, which plans an appropriate dialogue path by looking ahead and looking back. By formulating the planning as a generation task, our TRIP bidirectionally generates a dialogue path consisting of a sequence of &lt;action, topic&gt; pairs using two Transformer decoders. They are expected to supervise each other and converge on consistent actions and topics by minimizing the decision gap and contrastive generation of targets. Moreover, we propose a target-constrained decoding algorithm with a bidirectional agreement to better control the planning process. Subsequently, we adopt the planned dialogue paths to guide dialogue generation in a pipeline manner, where we explore two variants: prompt-based generation and plan-controlled generation. Extensive experiments are conducted on two challenging dialogue datasets, which are re-purposed for exploring target-oriented dialogue. Our automatic and human evaluations demonstrate that the proposed methods significantly outperform various baseline models.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-03-10T02:14:24Z</published>
+    <arxiv:comment>Accepted by ACM Transactions on Information Systems (TOIS)</arxiv:comment>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Jian Wang</name>
+    </author>
+    <author>
+      <name>Dongding Lin</name>
+    </author>
+    <author>
+      <name>Wenjie Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2206.05051v2</id>
+    <title>Temporal Inductive Logic Reasoning over Hypergraphs</title>
+    <updated>2024-05-05T20:14:07Z</updated>
+    <link href="https://arxiv.org/abs/2206.05051v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2206.05051v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Inductive logic reasoning is a fundamental task in graph analysis, which aims to generalize patterns from data. This task has been extensively studied for traditional graph representations, such as knowledge graphs (KGs), using techniques like inductive logic programming (ILP). Existing ILP methods assume learning from KGs with static facts and binary relations. Beyond KGs, graph structures are widely present in other applications such as procedural instructions, scene graphs, and program executions. While ILP is beneficial for these applications, applying it to those graphs is nontrivial: they are more complex than KGs, which usually involve timestamps and n-ary relations, effectively a type of hypergraph with temporal events. In this work, we propose temporal inductive logic reasoning (TILR), an ILP method that reasons on temporal hypergraphs. To enable hypergraph reasoning, we introduce the multi-start random B-walk, a novel graph traversal method for hypergraphs. By combining it with a path-consistency algorithm, TILR learns logic rules by generalizing from both temporal and relational data. To address the lack of hypergraph benchmarks, we create and release two temporal hypergraph datasets: YouCook2-HG and nuScenes-HG. Experiments on these benchmarks demonstrate that TILR achieves superior reasoning capability over various strong baselines.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-06-09T02:33:26Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Yuan Yang</name>
+    </author>
+    <author>
+      <name>Siheng Xiong</name>
+    </author>
+    <author>
+      <name>Ali Payani</name>
+    </author>
+    <author>
+      <name>James C Kerce</name>
+    </author>
+    <author>
+      <name>Faramarz Fekri</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1708.05522v1</id>
+    <title>Exploring Directional Path-Consistency for Solving Constraint Networks</title>
+    <updated>2017-08-18T07:06:23Z</updated>
+    <link href="https://arxiv.org/abs/1708.05522v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1708.05522v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Among the local consistency techniques used for solving constraint networks, path-consistency (PC) has received a great deal of attention. However, enforcing PC is computationally expensive and sometimes even unnecessary. Directional path-consistency (DPC) is a weaker notion of PC that considers a given variable ordering and can thus be enforced more efficiently than PC. This paper shows that DPC (the DPC enforcing algorithm of Dechter and Pearl) decides the constraint satisfaction problem (CSP) of a constraint language if it is complete and has the variable elimination property (VEP). However, we also show that no complete VEP constraint language can have a domain with more than 2 values. We then present a simple variant of the DPC algorithm, called DPC*, and show that the CSP of a constraint language can be decided by DPC* if it is closed under a majority operation. In fact, DPC* is sufficient for guaranteeing backtrack-free search for such constraint networks. Examples of majority-closed constraint classes include the classes of connected row-convex (CRC) constraints and tree-preserving constraints, which have found applications in various domains, such as scene labeling, temporal reasoning, geometric reasoning, and logical filtering. Our experimental evaluations show that DPC* significantly outperforms the state-of-the-art algorithms for solving majority-closed constraints.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2017-08-18T07:06:23Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Shufeng Kong</name>
+    </author>
+    <author>
+      <name>Sanjiang Li</name>
+    </author>
+    <author>
+      <name>Michael Sioutis</name>
+    </author>
+    <arxiv:doi>10.1093/comjnl/bxx122</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1093/comjnl/bxx122" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1506.00337v1</id>
+    <title>On Distributive Subalgebras of Qualitative Spatial and Temporal Calculi</title>
+    <updated>2015-06-01T03:24:18Z</updated>
+    <link href="https://arxiv.org/abs/1506.00337v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1506.00337v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Qualitative calculi play a central role in representing and reasoning about qualitative spatial and temporal knowledge. This paper studies distributive subalgebras of qualitative calculi, which are subalgebras in which (weak) composition distributives over nonempty intersections. It has been proven for RCC5 and RCC8 that path consistent constraint network over a distributive subalgebra is always minimal and globally consistent (in the sense of strong $n$-consistency) in a qualitative sense. The well-known subclass of convex interval relations provides one such an example of distributive subalgebras. This paper first gives a characterisation of distributive subalgebras, which states that the intersection of a set of $n\geq 3$ relations in the subalgebra is nonempty if and only if the intersection of every two of these relations is nonempty. We further compute and generate all maximal distributive subalgebras for Point Algebra, Interval Algebra, RCC5 and RCC8, Cardinal Relation Algebra, and Rectangle Algebra. Lastly, we establish two nice properties which will play an important role in efficient reasoning with constraint networks involving a large number of variables.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2015-06-01T03:24:18Z</published>
+    <arxiv:comment>Adding proof of Theorem 2 to appendix</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Zhiguo Long</name>
+    </author>
+    <author>
+      <name>Sanjiang Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1403.0613v2</id>
+    <title>On Redundant Topological Constraints</title>
+    <updated>2015-02-13T15:22:28Z</updated>
+    <link href="https://arxiv.org/abs/1403.0613v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1403.0613v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The Region Connection Calculus (RCC) is a well-known calculus for representing part-whole and topological relations. It plays an important role in qualitative spatial reasoning, geographical information science, and ontology. The computational complexity of reasoning with RCC5 and RCC8 (two fragments of RCC) as well as other qualitative spatial/temporal calculi has been investigated in depth in the literature. Most of these works focus on the consistency of qualitative constraint networks. In this paper, we consider the important problem of redundant qualitative constraints. For a set $Γ$ of qualitative constraints, we say a constraint $(x R y)$ in $Γ$ is redundant if it is entailed by the rest of $Γ$. A prime subnetwork of $Γ$ is a subset of $Γ$ which contains no redundant constraints and has the same solution set as $Γ$. It is natural to ask how to compute such a prime subnetwork, and when it is unique.
+  In this paper, we show that this problem is in general intractable, but becomes tractable if $Γ$ is over a tractable subalgebra $\mathcal{S}$ of a qualitative calculus. Furthermore, if $\mathcal{S}$ is a subalgebra of RCC5 or RCC8 in which weak composition distributes over nonempty intersections, then $Γ$ has a unique prime subnetwork, which can be obtained in cubic time by removing all redundant constraints simultaneously from $Γ$. As a byproduct, we show that any path-consistent network over such a distributive subalgebra is weakly globally consistent and minimal. A thorough empirical analysis of the prime subnetwork upon real geographical data sets demonstrates the approach is able to identify significantly more redundant constraints than previously proposed algorithms, especially in constraint networks with larger proportions of partial overlap relations.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2014-03-03T22:01:16Z</published>
+    <arxiv:comment>An extended abstract appears in Proceedings of the 14th International Conference on the Principles of Knowledge Representation and Reasoning (KR-14), Vienna, Austria, July 20-24, 2014</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <arxiv:journal_ref>Artificial Intelligence 225 (2015) 51-76</arxiv:journal_ref>
+    <author>
+      <name>Sanjiang Li</name>
+    </author>
+    <author>
+      <name>Zhiguo Long</name>
+    </author>
+    <author>
+      <name>Weiming Liu</name>
+    </author>
+    <author>
+      <name>Matt Duckham</name>
+    </author>
+    <author>
+      <name>Alan Both</name>
+    </author>
+    <arxiv:doi>10.1016/j.artint.2015.03.010</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1016/j.artint.2015.03.010" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1401.4609v1</id>
+    <title>Computing All-Pairs Shortest Paths by Leveraging Low Treewidth</title>
+    <updated>2014-01-18T21:23:48Z</updated>
+    <link href="https://arxiv.org/abs/1401.4609v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1401.4609v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present two new and efficient algorithms for computing all-pairs shortest paths.  The algorithms operate on directed graphs with real (possibly negative) weights.  They make use of directed path consistency along a vertex ordering d. Both algorithms run in O(n^2 w_d) time, where w_d is the graph width induced by this vertex ordering.  For graphs of constant treewidth, this yields O(n^2) time, which is optimal.  On chordal graphs, the algorithms run in O(nm) time. In addition, we present a variant that exploits graph separators to arrive at a run time of  O(n w_d^2 + n^2 s_d) on general graphs, where s_d andlt= w_d is the size of the largest minimal separator induced by the vertex ordering d. We show empirically that on both constructed and realistic benchmarks, in many cases the algorithms outperform Floyd-Warshalls as well as Johnsons algorithm, which represent the current state of the art with a run time of O(n^3) and O(nm + n^2 log n), respectively. Our algorithms can be used for spatial and temporal reasoning, such as for the Simple Temporal Problem, which underlines their relevance to the planning and scheduling community.</summary>
+    <category term="cs.DS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2014-01-18T21:23:48Z</published>
+    <arxiv:primary_category term="cs.DS"/>
+    <arxiv:journal_ref>Journal Of Artificial Intelligence Research, Volume 43, pages 353-388, 2012</arxiv:journal_ref>
+    <author>
+      <name>Léon R. Planken</name>
+    </author>
+    <author>
+      <name>Mathijs M. de Weerdt</name>
+    </author>
+    <author>
+      <name>Roman P. J. van der Krogt</name>
+    </author>
+    <arxiv:doi>10.1613/jair.3509</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1613/jair.3509" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/1012.5226v2</id>
+    <title>Tracing light propagation to the intrinsic accuracy of space-time geometry</title>
+    <updated>2011-02-02T12:06:18Z</updated>
+    <link href="https://arxiv.org/abs/1012.5226v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/1012.5226v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Advancement in astronomical observations and technical instrumentation requires coding light propagation at high level of precision; this could open a new detection window of many subtle relativistic effects suffered by light while it is propagating and entangled in the physical measurements. Light propagation and its subsequent detection should indeed be conceived in a fully relativistic context, in order to interpret the results of the observations in accordance with the geometrical environment affecting light propagation itself, as an unicum surrounding universe. One of the most intriguing aspects is the boost towards the development of highly accurate models able to recon- struct the light path consistently with General Relativity and the precepts of measurements. This paper deals with the complexity of such a topic by showing how the geometrical framework of models like RAMOD, initially developed for astrometric observations, constitutes an appropriate physical environment for back tracing a light ray conforming to the intrinsic accuracy of space-time. This article discusses the reasons why RAMOD stands out among the existent approaches applied to the light propagation problem and provides a proof of its capability in recasting recent literature cases.</summary>
+    <category term="gr-qc" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="astro-ph.IM" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="physics.space-ph" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2010-12-23T15:10:38Z</published>
+    <arxiv:comment>15 pages, 5 figures. Revised version, references and appendixes added. PRD re-submitted</arxiv:comment>
+    <arxiv:primary_category term="gr-qc"/>
+    <author>
+      <name>Mariateresa Crosta</name>
+    </author>
+    <arxiv:doi>10.1088/0264-9381/28/23/235013</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1088/0264-9381/28/23/235013" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/cs/9601101v1</id>
+    <title>The Design and Experimental Analysis of Algorithms for Temporal Reasoning</title>
+    <updated>1996-01-01T00:00:00Z</updated>
+    <link href="https://arxiv.org/abs/cs/9601101v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/cs/9601101v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>  Many applications -- from planning and scheduling to problems in molecular biology -- rely heavily on a temporal reasoning component. In this paper, we discuss the design and empirical analysis of algorithms for a temporal reasoning system based on Allen's influential interval-based framework for representing temporal information. At the core of the system are algorithms for determining whether the temporal information is consistent, and, if so, finding one or more scenarios that are consistent with the temporal information. Two important algorithms for these tasks are a path consistency algorithm and a backtracking algorithm. For the path consistency algorithm, we develop techniques that can result in up to a ten-fold speedup over an already highly optimized implementation. For the backtracking algorithm, we develop variable and value ordering heuristics that are shown empirically to dramatically improve the performance of the algorithm. As well, we show that a previously suggested reformulation of the backtracking search problem can reduce the time and space requirements of the backtracking search. Taken together, the techniques we develop allow a temporal reasoning component to solve problems that are of practical size.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>1996-01-01T00:00:00Z</published>
+    <arxiv:comment>See http://www.jair.org/ for any accompanying files</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <arxiv:journal_ref>Journal of Artificial Intelligence Research, Vol 4, (1996), 1-18</arxiv:journal_ref>
+    <author>
+      <name>P. vanBeek</name>
+    </author>
+    <author>
+      <name>D. W. Manchak</name>
+    </author>
+  </entry>
+</feed>

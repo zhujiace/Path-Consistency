@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/ollBT0RxdIAAC+TzKqHUwQ1Rd/c</id>
+  <title>arXiv Query: search_query=&amp;id_list=2409.01281&amp;start=0&amp;max_results=1</title>
+  <updated>2026-09-02T05:01:49Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=&amp;start=0&amp;max_results=1&amp;id_list=2409.01281" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>1</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2409.01281v3</id>
+    <title>Path-Consistency with Prefix Enhancement for Efficient Inference in LLMs</title>
+    <updated>2025-11-04T05:59:14Z</updated>
+    <link href="https://arxiv.org/abs/2409.01281v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.01281v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>To enhance the reasoning capabilities of large language models (LLMs), self-consistency has become a popular approach, combining multiple samplings with majority voting. However, current methods are computationally expensive and time-consuming due to the need for numerous samplings. To address this, this paper introduces path-consistency, which leverages the confidence of earlier-generated answers to identify the most promising prefix and guide the generation of subsequent branches. By dynamically guiding the generation of subsequent branches based on this prefix, path-consistency mitigates both the errors and redundancies from random or less useful sampling in self-consistency. This approach reduces errors and redundancies from random sampling, significantly accelerating inference by minimizing token consumption. Our extensive empirical results demonstrate that path-consistency improves inference latency by up to 40.5\%, while maintaining task accuracy across various tasks, including mathematical reasoning, commonsense reasoning, and symbolic reasoning.</summary>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-08-25T01:45:53Z</published>
+    <arxiv:primary_category term="cs.CL"/>
+    <author>
+      <name>Jiace Zhu</name>
+    </author>
+    <author>
+      <name>Yuanzhe Huang</name>
+    </author>
+    <author>
+      <name>Yingtao Shen</name>
+    </author>
+    <author>
+      <name>Jie Zhao</name>
+    </author>
+    <author>
+      <name>An Zou</name>
+    </author>
+  </entry>
+</feed>

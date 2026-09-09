@@ -1,0 +1,19 @@
+{
+  "purpose": "engineering_pilot_excluded_from_primary_math500_test",
+  "dataset": "/home/26xyw/data/Datasets/math500_test.jsonl",
+  "dataset_sha256": "35dc41080a3680858b27fa7e0533d2d547825316fc5dafe5d316f4ccc5a06132",
+  "sample_seed": 2027,
+  "source_rows": [303, 457, 359, 315, 316, 415, 407, 370, 151, 332],
+  "question_ids": [
+    "test/geometry/965.json",
+    "test/number_theory/342.json",
+    "test/intermediate_algebra/1407.json",
+    "test/algebra/791.json",
+    "test/algebra/276.json",
+    "test/number_theory/769.json",
+    "test/algebra/1960.json",
+    "test/precalculus/1289.json",
+    "test/precalculus/986.json",
+    "test/intermediate_algebra/190.json"
+  ]
+}
