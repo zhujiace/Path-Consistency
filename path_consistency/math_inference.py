@@ -9,6 +9,7 @@ from transformers import AutoConfig, AutoTokenizer
 from vllm import LLM, SamplingParams
 
 from .deepconf_offline import lowest_group_confidence, token_confidence
+from .kv_accounting import kv_bytes_per_token, snapshot_vllm_gpu_kv
 from .math_eval import (
     canonicalize_vote_answer,
     extract_gsm8k_numeric,
@@ -173,6 +174,13 @@ class MathInference:
             }
         self.llm = LLM(**llm_kwargs)
         self.engine_init_seconds = time.perf_counter() - engine_start
+        dtype_name = str(dtype).lower()
+        dtype_bytes = 2 if "16" in dtype_name else 4
+        self.kv_bytes_per_token = kv_bytes_per_token(
+            model_config,
+            dtype_bytes=dtype_bytes,
+            tensor_parallel_size=tensor_parallel_size,
+        )
 
     def build_prompt(self, problem: str) -> tuple[str, list[int]]:
         content = f"{problem.strip()}\n\n{instruction_for_task(self.task)}"
@@ -249,13 +257,17 @@ class MathInference:
             seed=sampling_seed,
         )
         prompt_ids = base_prompt_ids + prefix_ids
+        before_kv = snapshot_vllm_gpu_kv(self.llm)
         start = time.perf_counter()
         request_outputs = self.llm.generate(
             [{"prompt_token_ids": prompt_ids}], sampling, use_tqdm=False
         )
         elapsed = time.perf_counter() - start
+        after_kv = snapshot_vllm_gpu_kv(self.llm)
+        request = request_outputs[0]
+        cached_tokens = getattr(request, "num_cached_tokens", None)
         traces = []
-        for output in request_outputs[0].outputs:
+        for output in request.outputs:
             new_ids = list(output.token_ids)
             full_ids = prefix_ids + new_ids
             full_text = self.tokenizer.decode(full_ids, skip_special_tokens=False)
@@ -285,6 +297,13 @@ class MathInference:
                     "prefix_tokens": len(prefix_ids),
                     "truncated": output.finish_reason == "length",
                     "lgc_2048": lowest_group_confidence(confidences, 2048),
+                    "num_cached_tokens": cached_tokens,
+                    "gpu_cache_usage_before": before_kv.get("gpu_cache_usage"),
+                    "gpu_cache_usage_after": after_kv.get("gpu_cache_usage"),
+                    "gpu_kv_blocks_used": after_kv.get("gpu_kv_blocks_used"),
+                    "gpu_kv_blocks_total": after_kv.get("gpu_kv_blocks_total"),
+                    "gpu_kv_block_size": after_kv.get("gpu_kv_block_size"),
+                    "kv_bytes_per_token": self.kv_bytes_per_token,
                 }
             )
         return traces, elapsed

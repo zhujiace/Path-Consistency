@@ -14,6 +14,7 @@ import numpy as np
 
 from .confidence import beta_confidence
 from .deepconf_offline import aggregate_deepconf_offline
+from .kv_accounting import aggregate_question_kv, summarize_window_kv
 from .math_eval import majority_vote
 
 
@@ -338,6 +339,15 @@ def run_sc_pc_question(
             "trial": pending_trial is not None,
             "prompt_tokens": traces[0]["prompt_tokens"] if traces else 0,
         }
+        event.update(
+            summarize_window_kv(
+                traces,
+                reused=reused_sc_root,
+                kv_bytes_per_token_value=getattr(
+                    backend, "kv_bytes_per_token", None
+                ),
+            )
+        )
         if store_text:
             event["used_prefix_token_ids"] = list(active_prefix_ids)
         accepted_for_source = True
@@ -518,6 +528,7 @@ def run_sc_pc_question(
         "total_request_prefix_tokens": sum(
             event["used_prefix_tokens"] for event in window_events
         ),
+        **aggregate_question_kv(window_events),
         "generation_seconds": generation_seconds,
         "actual_generation_seconds": actual_generation_seconds,
         "reused_root_generation_seconds": reused_root_generation_seconds,

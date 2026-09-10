@@ -309,6 +309,36 @@ def load_rows(path: Path) -> list[dict]:
         return [json.loads(line) for line in handle if line.strip()]
 
 
+def _present(rows: list[dict], key: str) -> list:
+    values = []
+    for row in rows:
+        value = row.get(key)
+        if value is not None:
+            values.append(value)
+    return values
+
+
+def _mean(rows: list[dict], key: str) -> float | None:
+    values = _present(rows, key)
+    if not values:
+        return None
+    return sum(values) / len(values)
+
+
+def _sum_present(rows: list[dict], key: str) -> float | None:
+    values = _present(rows, key)
+    if not values:
+        return None
+    return sum(values)
+
+
+def _max_present(rows: list[dict], key: str) -> float | None:
+    values = _present(rows, key)
+    if not values:
+        return None
+    return max(values)
+
+
 def summarize(rows: list[dict], config: dict, engine_times: dict) -> dict:
     prediction_names = sorted(
         {
@@ -362,6 +392,18 @@ def summarize(rows: list[dict], config: dict, engine_times: dict) -> dict:
             ),
             "parser_failures": sum(row["parser_failures"] for row in selected),
             "truncations": sum(row["truncations"] for row in selected),
+            "avg_unique_kv_tokens": _mean(selected, "total_unique_kv_tokens"),
+            "avg_logical_unique_kv_tokens": _mean(
+                selected, "total_logical_unique_kv_tokens"
+            ),
+            "avg_naive_kv_tokens": _mean(selected, "total_naive_kv_tokens"),
+            "total_unique_kv_tokens": _sum_present(selected, "total_unique_kv_tokens"),
+            "total_naive_kv_tokens": _sum_present(selected, "total_naive_kv_tokens"),
+            "avg_unique_kv_bytes": _mean(selected, "total_unique_kv_bytes"),
+            "peak_gpu_cache_usage": _max_present(selected, "peak_gpu_cache_usage"),
+            "avg_prefix_cache_hit_tokens": _mean(
+                selected, "total_prefix_cache_hit_tokens"
+            ),
         }
     return {
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -451,6 +493,7 @@ def main() -> None:
         Path(__file__).resolve().parent / "path_consistency" / "confidence.py",
         Path(__file__).resolve().parent / "path_consistency" / "deepconf_offline.py",
         Path(__file__).resolve().parent / "path_consistency" / "vllm_nccl.py",
+        Path(__file__).resolve().parent / "path_consistency" / "kv_accounting.py",
     ]
     config = {
         "protocol_version": "math-pc-paired-root-v2",
@@ -495,6 +538,11 @@ def main() -> None:
         "prompt": "{problem}\\n\\n" + instruction_for_task(dataset_task).replace("\n", "\\n"),
         "chat_template_enable_thinking_if_supported": not args.disable_thinking,
         "pc_length_policy": "provisional_fixed_plus_20_percent",
+        "kv_metrics": (
+            "unique_kv_tokens=shared prompt/prefix + decode; "
+            "naive_kv_tokens charges prompt per sequence; "
+            "reused SC roots contribute 0 GPU unique KV"
+        ),
         "deepconf_protocol": (
             "official offline top-20 confidence; Mean, Bottom-10% Group, Tail(2048), "
             "and LGC(2048); percentile retain top 90%/10%; weighted vote"
@@ -688,6 +736,14 @@ def main() -> None:
                             3,
                         ),
                         "reused_root_windows": output.get("reused_root_windows", 0),
+                        "unique_kv_tokens": output.get("total_unique_kv_tokens"),
+                        "naive_kv_tokens": output.get("total_naive_kv_tokens"),
+                        "unique_kv_mib": (
+                            None
+                            if output.get("total_unique_kv_bytes") is None
+                            else round(output["total_unique_kv_bytes"] / (1024 * 1024), 2)
+                        ),
+                        "peak_gpu_cache_usage": output.get("peak_gpu_cache_usage"),
                         "parser_failures": output["parser_failures"],
                         "truncations": output["truncations"],
                         "final_prefix_ratio": output["final_prefix_ratio"],
