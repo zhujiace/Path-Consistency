@@ -576,6 +576,132 @@ CATALOG = [
 ]
 
 
+REBUTTAL = {
+    "updated": "2026-11-08",
+    "source": "handoff_rebuttal.md",
+    "headline": (
+        "四项补实验按显存分机器。Qwen3-30B-A3B 的 BF16 权重大约 60GB，"
+        "只在 4 张 A40 上跑。C=0.8 是先验操作点，不从这些重复里重选 C，"
+        "也不把结果最好的一次换进表。"
+    ),
+    "protocol": "B=32，m=4，Beta top-1 vs all-rest，thinking on。实验 1 报墙钟和吞吐；其余时间只报 generation_seconds。",
+    "platforms": [
+        {
+            "name": "A40 ×4",
+            "spec": "每张 48GB",
+            "role": "全部 Qwen3-30B-A3B",
+            "lines": [
+                "卡 0、1 · TP=2：实验 1，32 路墙钟。QWEN_GPU_BLOCKS 留空。",
+                "卡 2、3 · TP=2：实验 2，然后 Qwen AIME 的 seed 1/2，再跑 50 题搜索。",
+                "不要把四张卡合成 TP=4 来做实验 1，否则 batch 32 会放得太松。",
+            ],
+        },
+        {
+            "name": "5090 ×1",
+            "spec": "32GB",
+            "role": "只跑 Llama-3.1-8B",
+            "lines": [
+                "实验 4：GSM8K 1319，ToT、beam、MCTS 依次跑。",
+                "预算用已有 PC 的逐题生成 token，PC 本身不重跑。",
+                "这张卡装不下 A3B，不跑 Qwen。",
+            ],
+        },
+        {
+            "name": "4090 实验室 ×5",
+            "spec": "每张 24GB · 10.10.60.106",
+            "role": "DeepSeek API，不占卡",
+            "lines": [
+                "实验 3：AIME 2024/2025 与 MATH-500 的 rep1、rep2。",
+                "单张或两张 4090 都装不下 A3B，本机不启动 Qwen。",
+                "已有 JSONL 的翻转和多样性统计也在这里做。",
+            ],
+        },
+    ],
+    "groups": [
+        {
+            "id": "1",
+            "title": "实验 1 · 显存受限的 32 路墙钟",
+            "reviews": "R1-W2 · R1-Q1 · R3-W2",
+            "platform": "A40 卡 0、1 · TP=2 · BF16",
+            "model": "Qwen3-30B-A3B · thinking on",
+            "data": "MATH-500 source_row 0–31，32 题",
+            "note": "SC 用 max_num_seqs=32，不按窗口串行。PC 为 8 窗 × 4。长序列 OOM 时记下峰值显存和实际驻留 batch，墙钟按真实调度。回复写明是两张 A40 的显存受限结果。",
+            "runs": [
+                {"what": "SC，一次批 32 条", "tag": "latency_qwen3_30b_a3b_math500_n32_sc_batch32_tp2_a40"},
+                {"what": "PC，8 窗 × 4", "tag": "latency_qwen3_30b_a3b_math500_n32_pc_serial8x4_tp2_a40"},
+            ],
+        },
+        {
+            "id": "2",
+            "title": "实验 2 · 长链上的 DeepConf、CPT、PoLR",
+            "reviews": "R1-W1 · R1-Q3 · R2-W1",
+            "platform": "A40 卡 2、3 · TP=2",
+            "model": "Qwen3-30B-A3B · thinking on · C=0.8",
+            "data": "AIME 2024、AIME 2025、MATH-500 490",
+            "note": "不用 Llama 上的 CPT adapter。DeepConf 只做 offline（N_init=16，B=32）。PoLR 接不上 thinking 就停，N=32，L_p=128。SC/PC 已有完整 JSONL 的不重跑。",
+            "runs": [
+                {"what": "AIME 2024 · SC/PC", "tag": "aime_2024_qwen3_30b_a3b_b32_c08_seed0"},
+                {"what": "AIME 2024 · DeepConf-offline", "tag": "aime_2024_qwen3_30b_a3b_deepconf_offline_b32"},
+                {"what": "AIME 2024 · DeepConf+PC", "tag": "aime_2024_qwen3_30b_a3b_deepconf_pc_b32"},
+                {"what": "AIME 2024 · 官方 CPT", "tag": "aime_2024_qwen3_30b_a3b_cpt_official_n32"},
+                {"what": "AIME 2024 · PoLR，能接才跑", "tag": "aime_2024_qwen3_30b_a3b_polr_n32_lp128"},
+                {"what": "AIME 2025 · SC/PC", "tag": "aime_2025_qwen3_30b_a3b_b32_c08_seed0"},
+                {"what": "AIME 2025 · DeepConf-offline", "tag": "aime_2025_qwen3_30b_a3b_deepconf_offline_b32"},
+                {"what": "AIME 2025 · DeepConf+PC", "tag": "aime_2025_qwen3_30b_a3b_deepconf_pc_b32"},
+                {"what": "AIME 2025 · 官方 CPT", "tag": "aime_2025_qwen3_30b_a3b_cpt_official_n32"},
+                {"what": "AIME 2025 · PoLR，能接才跑", "tag": "aime_2025_qwen3_30b_a3b_polr_n32_lp128"},
+                {"what": "MATH-500 · SC/PC，已有分片不删", "tag": "math500_qwen3_30b_a3b_b32_mt32768_c08_seed0"},
+                {"what": "MATH-500 · DeepConf-offline", "tag": "math500_qwen3_30b_a3b_deepconf_offline_b32"},
+                {"what": "MATH-500 · DeepConf+PC", "tag": "math500_qwen3_30b_a3b_deepconf_pc_b32"},
+                {"what": "MATH-500 · 官方 CPT", "tag": "math500_qwen3_30b_a3b_cpt_official_n32"},
+                {"what": "MATH-500 · PoLR，能接才跑", "tag": "math500_qwen3_30b_a3b_polr_n32_lp128"},
+            ],
+        },
+        {
+            "id": "3",
+            "title": "实验 3 · 三次重复，报 mean±std",
+            "reviews": "R1-W3 · R1-Q2",
+            "platform": "DeepSeek 在 4090 实验室，不占卡；Qwen 在 A40 卡 2、3",
+            "model": "DeepSeek-V4-Flash reasoning_effort=high；Qwen3-30B-A3B",
+            "data": "两边都做 AIME 2024/2025。DeepSeek 再加 MATH-500。Qwen 的 MATH-500、GSM8K、GPQA 不做 3 次",
+            "note": "论文那一次保留。再跑 2 个独立重复。DeepSeek 没有可依赖的 seed，rep1/rep2 是新请求，PC 复用这一次的 SC root。Qwen 的 seed 1/2 才改变抽样。不挑最好的一次。",
+            "runs": [
+                {"what": "DeepSeek AIME 2024 · rep1 / rep2", "tag": "aime_2024_deepseek_v4_flash_b32_c08_rep1 · rep2"},
+                {"what": "DeepSeek AIME 2025 · rep1 / rep2", "tag": "aime_2025_deepseek_v4_flash_b32_c08_rep1 · rep2"},
+                {"what": "DeepSeek MATH-500 · rep1 / rep2", "tag": "math500_deepseek_v4_flash_b32_c08_rep1 · rep2"},
+                {"what": "Qwen AIME 2024 · seed1 / seed2", "tag": "aime_2024_qwen3_30b_a3b_b32_c08_seed1 · seed2"},
+                {"what": "Qwen AIME 2025 · seed1 / seed2", "tag": "aime_2025_qwen3_30b_a3b_b32_c08_seed1 · seed2"},
+            ],
+        },
+        {
+            "id": "4",
+            "title": "实验 4 · 相同 token 的 ToT、beam、MCTS",
+            "reviews": "R3-W1 · R3-Q1",
+            "platform": "GSM8K 在单张 5090；MATH-500 的 50 题在 A40 卡 2、3",
+            "model": "Llama-3.1-8B-Instruct；Qwen3-30B-A3B",
+            "data": "GSM8K 1319 全量；MATH-500 source_row 0–49",
+            "note": "仓库还没有这三个入口，先写脚本。每题生成 token 对齐该题 PC。搜索更高只说明任务不同，不写成 PC 失败，也不写成 PC 赢过搜索。",
+            "runs": [
+                {"what": "Llama GSM8K · ToT", "tag": "gsm8k_llama31_tot_matched_pc_seed0"},
+                {"what": "Llama GSM8K · step beam", "tag": "gsm8k_llama31_beam_matched_pc_seed0"},
+                {"what": "Llama GSM8K · rollout MCTS", "tag": "gsm8k_llama31_mcts_matched_pc_seed0"},
+                {"what": "Qwen 50 题 · PC，没有才跑", "tag": "math500_qwen3_30b_a3b_totcmp_n50_b32_c08_seed0"},
+                {"what": "Qwen 50 题 · ToT", "tag": "math500_qwen3_30b_a3b_tot_matched_pc_n50_seed0"},
+                {"what": "Qwen 50 题 · step beam", "tag": "math500_qwen3_30b_a3b_beam_matched_pc_n50_seed0"},
+                {"what": "Qwen 50 题 · rollout MCTS", "tag": "math500_qwen3_30b_a3b_mcts_matched_pc_n50_seed0"},
+            ],
+        },
+    ],
+    "skip": [
+        "R1-Q4 配对翻转用已有 JSONL，不新跑。DeepSeek MATH-500 是 2 题由对变错、0 题由错变对；AIME 与 GPQA 翻转数为 0。",
+        "R2-W2 / R2-Q1 用已有轨迹算 unique answers。DeepSeek AIME 2025 上 SC 比 Pass@1 高 13.3 个百分点，PC 与 SC 同为 100%。",
+        "AC / ESC 已在 Llama/GSM8K 做过，不单开。",
+        "Qwen MATH-500 已完成分片不重跑：630825247308（0–99）与 664997212910（100–199，跳过 151）。",
+        "DeepSeek 已发表的 rep0 不重跑：e4cd6dcd6672、771c0b2351c6、4856d4ef5673。",
+    ],
+}
+
+
 PLAN = {
     "version": "v4",
     "frozen_at": "2026-09-09",
@@ -2497,6 +2623,7 @@ def collect_state() -> dict:
         "datasets": datasets,
         "catalog": catalog,
         "plan": PLAN,
+        "rebuttal": REBUTTAL,
         "paper": build_paper_tables(math),
     }
 
@@ -2577,6 +2704,16 @@ PAGE = r"""<!DOCTYPE html>
   .plan-card h4 { margin: 0 0 6px; font-size: 13px; font-weight: 600; }
   .plan-card p { margin: 0; color: var(--muted); font-size: 12px; }
   .call.plan { border-color: #2a4a5a; }
+  .plat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+  .plat { background: var(--bg2); border: 1px solid var(--line); padding: 12px 14px; }
+  .plat h3 { margin: 0; font-size: 15px; font-weight: 600; }
+  .plat .spec { color: var(--dim); font-size: 12px; margin: 2px 0 6px; }
+  .plat .role { font-size: 13px; margin-bottom: 8px; }
+  .plat ul { margin: 0; padding-left: 16px; }
+  .plat li { margin: 4px 0; color: var(--muted); font-size: 12px; }
+  .run-block { margin-top: 16px; }
+  .run-block h3 { margin: 0 0 4px; font-size: 14px; }
+  @media (max-width: 900px) { .plat-grid { grid-template-columns: 1fr; } }
   .bar { height: 6px; background: var(--bg3); margin-top: 6px; }
   .bar > span { display: block; height: 100%; background: var(--accent); }
   .gpu { flex: 1; min-width: 160px; background: var(--bg2); border: 1px solid var(--line); padding: 10px 12px; }
@@ -2626,6 +2763,12 @@ PAGE = r"""<!DOCTYPE html>
   <div class="host" id="hostline"></div>
   <div class="sub">ICLR 2027 改稿 · 数据每 8 秒从磁盘与 <span class="mono">nvidia-smi</span> 刷新 · <span id="stamp"></span></div>
 
+  <h2>审稿补实验 · 平台与任务</h2>
+  <div class="call plan" id="rebuttal-headline"></div>
+  <div class="plat-grid" id="rebuttal-platforms"></div>
+  <div id="rebuttal-experiments"></div>
+  <div class="note" id="rebuttal-skip" style="margin-top:8px"></div>
+
   <div class="row" id="kpis"></div>
   <div class="call" id="headline"></div>
 
@@ -2635,7 +2778,7 @@ PAGE = r"""<!DOCTYPE html>
   <h2>正在进行</h2>
   <div id="running"></div>
 
-  <h2>冻结协议 · 实验计划 v4</h2>
+  <h2>冻结协议（2026-09-09，仍有效）</h2>
   <div class="call plan" id="plan-headline"></div>
   <div class="plan-grid" id="plan-decisions"></div>
   <h3>Go / no-go</h3>
@@ -2693,6 +2836,41 @@ function planPill(status){
   const map = {frozen:"已冻结", ablation:"消融", optional:"可选", cancelled:"已取消", done:"完成", running:"进行中", queued:"未开始", partial:"部分"};
   const cls = {frozen:"complete", done:"complete", ablation:"partial", optional:"optional", cancelled:"cancelled", running:"run", queued:"queued", partial:"partial"};
   return `<span class="pill ${cls[status]||status}">${map[status]||status}</span>`;
+}
+function renderRebuttal(){
+  const r = state.rebuttal;
+  const head = document.getElementById("rebuttal-headline");
+  if(!r){
+    head.textContent = "补实验计划未加载。";
+    return;
+  }
+  head.innerHTML =
+    `<b>${r.updated}</b> · 交接文件 <span class="mono">${r.source}</span>` +
+    `<div class="note" style="margin-top:6px;max-width:none">${r.headline}</div>` +
+    `<div class="dim" style="margin-top:4px">${r.protocol}</div>`;
+  document.getElementById("rebuttal-platforms").innerHTML = (r.platforms||[]).map(p => `
+    <div class="plat">
+      <h3>${p.name}</h3>
+      <div class="spec">${p.spec}</div>
+      <div class="role">${p.role}</div>
+      <ul>${(p.lines||[]).map(line => `<li>${line}</li>`).join("")}</ul>
+    </div>`).join("");
+  document.getElementById("rebuttal-experiments").innerHTML = (r.groups||[]).map(g => `
+    <div class="run-block">
+      <h3>${g.title}</h3>
+      <div class="note" style="max-width:none">${g.reviews}</div>
+      <div class="note" style="max-width:none">${g.platform} · ${g.model}</div>
+      <div class="note" style="max-width:none">${g.data}</div>
+      <div class="note" style="max-width:none">${g.note}</div>
+      <table>
+        <thead><tr><th>系统</th><th>tag</th></tr></thead>
+        <tbody>${(g.runs||[]).map(run => `
+          <tr><td>${run.what}</td><td class="mono">${run.tag}</td></tr>`).join("")}
+        </tbody>
+      </table>
+    </div>`).join("");
+  document.getElementById("rebuttal-skip").innerHTML =
+    "<b>不新跑</b> · " + (r.skip||[]).join("<br>");
 }
 function renderPlan(){
   const p = state.plan;
@@ -2980,6 +3158,7 @@ function render(){
   if(host.label) hostBits.push(host.label);
   document.getElementById("hostline").innerHTML = hostBits.join(" · ");
   try { renderPaper(state.paper); } catch (err) { console.error(err); }
+  try { renderRebuttal(); } catch (err) { console.error(err); }
   try { renderPlan(); } catch (err) { console.error(err); }
   renderKpis();
 
