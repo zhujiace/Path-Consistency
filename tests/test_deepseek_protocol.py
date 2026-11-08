@@ -73,6 +73,39 @@ class DeepSeekProtocolTest(unittest.TestCase):
         )
         self.assertEqual(selected["source_id"], "a")
 
+    def test_uniform_is_deterministic_and_stays_in_eligible_pool(self):
+        traces = [
+            {
+                "branch_id": "a",
+                "answer": "2",
+                "full_token_ids": ["aaaa"] * 20,
+                "sampled_logprobs": [-0.1] * 20,
+                "reasoning_tokens": 20,
+                "generated_tokens": 20,
+            },
+            {
+                "branch_id": "b",
+                "answer": "2",
+                "full_token_ids": ["bbbb"] * 20,
+                "sampled_logprobs": [-2.0] * 20,
+                "reasoning_tokens": 20,
+                "generated_tokens": 10,
+            },
+        ]
+        first = select_shared_prefix(
+            traces, "2", [], 0.5, decode_token_pieces, selector="uniform", selection_seed=0
+        )
+        second = select_shared_prefix(
+            traces, "2", [], 0.5, decode_token_pieces, selector="uniform", selection_seed=0
+        )
+        self.assertEqual(first["source_id"], second["source_id"])
+        self.assertIn(first["source_id"], {"a", "b"})
+        self.assertEqual(first["selector"], "uniform")
+        blc = select_shared_prefix(
+            traces, "2", [], 0.5, decode_token_pieces, selector="blc"
+        )
+        self.assertEqual(blc["source_id"], "a")
+
     def test_medoid_selects_central_prefix(self):
         traces = [
             {

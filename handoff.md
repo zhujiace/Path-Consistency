@@ -227,7 +227,7 @@ JSONL **按题 id 追加，可断点续跑**。同一 tag 改 flag 重跑必须�
 
 4090 机（2026-09-09 13:00 CST 起）GPU 1–3：Llama-3.1-8B MATH-500 / GPQA / AIME，`max_tokens=8192`。DeepSeek AIME/GPQA API 也在跑。结果在实验室 `~/data/path-consistency-results/`，不通过 git 同步。需要对照数字时向实验室拷 JSON summary，不要把带题目的 GPQA JSONL 推进 GitHub。
 
-控制台 http://127.0.0.1:18787/ 只部署在实验室（不要用旧的 8787）。
+控制台默认 **http://10.10.60.106:28787/**（实验室网段，不依赖 Cursor IDE）。旧口 8787 / 18787 已停。不在实验室网时：`ssh -N -L 28787:127.0.0.1:28787 26xyw@10.10.60.106`。
 
 ---
 

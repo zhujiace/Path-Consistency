@@ -1,0 +1,55 @@
+{
+  "question_id": "gsm8k_1162",
+  "question": "Geb is 10 less than half the age of Haley. If Haley is 26 years old, how old is Geb?",
+  "gold": "3",
+  "source": "/data/26xyw/path-consistency-results/gsm8k/gsm8k_llama31_b32_mt2048_c08_seed0_shard2of4_203bd205a5ef_pc.jsonl",
+  "source_sha256": "de270b5e2e9f558ee3fe97312ed22ebffca55eb8b0de3ba6c24daa46ae610fc3",
+  "selection": "从正确且前五窗达到0/20/40/60/80%级别的1016题中，按展示轨迹总字符数选择最短者，以便完整排版。前四窗展示下一前缀的实际来源轨迹，第五窗展示首条轨迹。此例说明机制，不用于推断总体效果。",
+  "stages": [
+    {
+      "window": 1,
+      "branch_id": "gsm8k_1162:w0:b0",
+      "prefix_level": 0.0,
+      "prefix_tokens": 0,
+      "generated_tokens": 94,
+      "prefix": "",
+      "suffix": "To find Geb's age, we need to follow these steps:\n\n1. First, we find half of Haley's age. Haley is 26 years old, so half of her age would be 26 / 2 = 13.\n\n2. Next, we need to subtract 10 from this half age to find Geb's age. So, 13 - 10 = 3.\n\nTherefore, Geb is 3 years old.\n\n\\boxed{3}<|eot_id|>"
+    },
+    {
+      "window": 2,
+      "branch_id": "gsm8k_1162:w1:b0",
+      "prefix_level": 0.2,
+      "prefix_tokens": 17,
+      "generated_tokens": 104,
+      "prefix": "To find Geb's age, we need to follow these steps:\n\n1. First,",
+      "suffix": " we need to find half of Haley's age. Haley is 26 years old, so half of 26 is 26 / 2 = 13.\n\n2. Since Geb is 10 less than half the age of Haley, we need to subtract 10 from the half of Haley's age. So, Geb's age is 13 - 10.\n\n3. Now, let's calculate 13 - 10 = 3.\n\nTherefore, Geb is 3 years old.\n\n\\boxed{3}<|eot_id|>"
+    },
+    {
+      "window": 3,
+      "branch_id": "gsm8k_1162:w2:b0",
+      "prefix_level": 0.4,
+      "prefix_tokens": 34,
+      "generated_tokens": 75,
+      "prefix": "To find Geb's age, we need to follow these steps:\n\n1. First, we need to find half of Haley's age. Haley is 26 years old,",
+      "suffix": " so half of her age would be 26 / 2 = 13.\n\n2. Now that we have half of Haley's age, we need to subtract 10 from this number to find Geb's age. \n\n3. So, Geb's age would be 13 - 10 = 3.\n\nTherefore, Geb is \\boxed{3} years old.<|eot_id|>"
+    },
+    {
+      "window": 4,
+      "branch_id": "gsm8k_1162:w3:b3",
+      "prefix_level": 0.6000000000000001,
+      "prefix_tokens": 52,
+      "generated_tokens": 56,
+      "prefix": "To find Geb's age, we need to follow these steps:\n\n1. First, we need to find half of Haley's age. Haley is 26 years old, so half of her age would be 26 / 2 = 13.\n\n2.",
+      "suffix": " Since Geb is 10 less than half the age of Haley, we need to subtract 10 from the half of Haley's age. So, Geb's age would be 13 - 10 = 3.\n\nTherefore, Geb is \\boxed{3} years old.<|eot_id|>"
+    },
+    {
+      "window": 5,
+      "branch_id": "gsm8k_1162:w4:b0",
+      "prefix_level": 0.8,
+      "prefix_tokens": 79,
+      "generated_tokens": 26,
+      "prefix": "To find Geb's age, we need to follow these steps:\n\n1. First, we need to find half of Haley's age. Haley is 26 years old, so half of her age would be 26 / 2 = 13.\n\n2. Since Geb is 10 less than half the age of Haley, we need to subtract 10 from the half of Haley's age.",
+      "suffix": " So, 13 - 10 = 3.\n\nTherefore, Geb is 3 years old.\n\n\\boxed{3}<|eot_id|>"
+    }
+  ]
+}

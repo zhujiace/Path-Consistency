@@ -1,0 +1,298 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{wei2022chain}
+\citation{cobbe2021training}
+\citation{madaan2024self,paul2024refiner}
+\citation{xie2024self}
+\citation{zhang2025testtimescaling,wang2025efficientreasoning,sui2025stopoverthinking}
+\citation{wang2022self}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\citation{cobbe2021training,patel2021nlp,miao2020diverse,roy2015solving}
+\citation{geva2021did}
+\citation{suzgun-etal-2023-challenging}
+\citation{wang2022self}
+\citation{andor2019giving,ran2019numnet,geva2020injecting,pikekos2021measuring}
+\citation{zhang2023coder,shinn2023reflexion,madaan2024self,paul2024refiner,xie2024self,zhu2024deductive}
+\citation{hinton2015distilling}
+\citation{fu2023specializing,ho2023large,magister2023teaching,li2023symbolic}
+\citation{aggarwal2023let}
+\citation{liescape}
+\citation{wan2025rasc}
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Path-consistency extracts high-confidence reasoning prefixes from early sampled paths and reuses them to guide subsequent branches, reducing redundant test-time token generation.}}{2}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:path-consistency-simple}{{1}{2}{Path-consistency extracts high-confidence reasoning prefixes from early sampled paths and reuses them to guide subsequent branches, reducing redundant test-time token generation}{figure.caption.2}{}}
+\newlabel{fig:path-consistency-simple@cref}{{[figure][1][]1}{[1][1][]2}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Token allocation in standard self-consistency. A substantial fraction of test-time tokens is spent on paths that eventually produce incorrect answers.}}{2}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:characterization}{{2}{2}{Token allocation in standard self-consistency. A substantial fraction of test-time tokens is spent on paths that eventually produce incorrect answers}{figure.caption.2}{}}
+\newlabel{fig:characterization@cref}{{[figure][2][]2}{[1][1][]2}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{2}{section.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Test-Time Reasoning with Self-Consistency}{2}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Efficient Reasoning}{2}{subsection.2.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces An ``extract-and-sample'' inference process of the proposed path-consistency. It seeks the ``optimal path'' in the form of the ``prefix'', thereby progressively reducing the number of generated tokens and significantly shortening inference latency.}}{3}{figure.caption.3}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:path-consistency}{{3}{3}{An ``extract-and-sample'' inference process of the proposed path-consistency. It seeks the ``optimal path'' in the form of the ``prefix'', thereby progressively reducing the number of generated tokens and significantly shortening inference latency}{figure.caption.3}{}}
+\newlabel{fig:path-consistency@cref}{{[figure][3][]3}{[1][3][]3}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Motivation}{3}{section.3}\protected@file@percent }
+\newlabel{sec:characterization}{{3}{3}{Motivation}{section.3}{}}
+\newlabel{sec:characterization@cref}{{[section][3][]3}{[1][3][]3}{}{}{}}
+\citation{aggarwal2023let}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Methodology}{4}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Path-Consistency}{4}{subsection.4.1}\protected@file@percent }
+\newlabel{sec:path-consistency}{{4.1}{4}{Path-Consistency}{subsection.4.1}{}}
+\newlabel{sec:path-consistency@cref}{{[subsection][1][4]4.1}{[1][3][]4}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces The generated parts are indicated in \color  {blue}blue \color  {black}in the table, with ``Level-$X$ prefix'' denoting the action of extracting the prefix for the $X^{th}$ time. After three prefix extractions, the model only needs to generate the final sentence of the conclusion based on the prefix.}}{4}{table.caption.4}\protected@file@percent }
+\newlabel{tab:path-consistency}{{1}{4}{The generated parts are indicated in \color {blue}blue \color {black}in the table, with ``Level-$X$ prefix'' denoting the action of extracting the prefix for the $X^{th}$ time. After three prefix extractions, the model only needs to generate the final sentence of the conclusion based on the prefix}{table.caption.4}{}}
+\newlabel{tab:path-consistency@cref}{{[table][1][]1}{[1][4][]4}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Reliability of Prefix Selection}{5}{subsection.4.2}\protected@file@percent }
+\newlabel{sec:reliability}{{4.2}{5}{Reliability of Prefix Selection}{subsection.4.2}{}}
+\newlabel{sec:reliability@cref}{{[subsection][2][4]4.2}{[1][5][]5}{}{}{}}
+\newlabel{eq:p_inc}{{5}{5}{Reliability of Prefix Selection}{equation.5}{}}
+\newlabel{eq:p_inc@cref}{{[equation][5][]5}{[1][5][]5}{}{}{}}
+\citation{aggarwal2023let}
+\citation{cobbe2021training}
+\citation{patel2021nlp}
+\citation{miao2020diverse}
+\citation{roy2015solving}
+\citation{geva2021did}
+\citation{suzgun-etal-2023-challenging}
+\citation{grattafiori2024llama3herdmodels}
+\citation{wei2022chain}
+\def\@LN@column{1}
+\newlabel{eq:p_dec}{{6}{6}{Reliability of Prefix Selection}{equation.6}{}}
+\newlabel{eq:p_dec@cref}{{[equation][6][]6}{[1][5][]6}{}{}{}}
+\newlabel{eq:prove}{{7}{6}{Reliability of Prefix Selection}{equation.7}{}}
+\newlabel{eq:prove@cref}{{[equation][7][]7}{[1][6][]6}{}{}{}}
+\newlabel{eq:confidence}{{10}{6}{Reliability of Prefix Selection}{equation.10}{}}
+\newlabel{eq:confidence@cref}{{[equation][10][]10}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Evaluation}{6}{section.5}\protected@file@percent }
+\newlabel{sec:evaluation}{{5}{6}{Evaluation}{section.5}{}}
+\newlabel{sec:evaluation@cref}{{[section][5][]5}{[1][6][]6}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Experimental Setting}{6}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:setting}{{5.1}{6}{Experimental Setting}{subsection.5.1}{}}
+\newlabel{sec:setting@cref}{{[subsection][1][5]5.1}{[1][6][]6}{}{}{}}
+\citation{wang2022self}
+\citation{aggarwal2023let}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Evaluation of Path-Consistency}{7}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.1}A Case Study on GSM8K}{7}{subsubsection.5.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Comparison of inference latency speedup and average token consumption reduction under different prefix levels, demonstrating the effect of path-consistency on GSM8K.}}{7}{figure.caption.5}\protected@file@percent }
+\newlabel{tab:speedup}{{2}{7}{Comparison of inference latency speedup and average token consumption reduction under different prefix levels, demonstrating the effect of path-consistency on GSM8K}{figure.caption.5}{}}
+\newlabel{tab:speedup@cref}{{[table][2][]2}{[1][7][]7}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Speedup of inference.}}{7}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:speedup}{{4}{7}{Speedup of inference}{figure.caption.5}{}}
+\newlabel{fig:speedup@cref}{{[figure][4][]4}{[1][7][]7}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.2}Performance on Different Tasks}{7}{subsubsection.5.2.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The change in the proportion of tokens generated by path-consistency on correct or incorrect paths.}}{8}{figure.caption.7}\protected@file@percent }
+\newlabel{fig:Error and Redundant}{{5}{8}{The change in the proportion of tokens generated by path-consistency on correct or incorrect paths}{figure.caption.7}{}}
+\newlabel{fig:Error and Redundant@cref}{{[figure][5][]5}{[1][8][]8}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.2.3}Result Analysis}{8}{subsubsection.5.2.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Impacts of maximum prefix levels of path-consistency on GSM8K.}}{8}{table.caption.8}\protected@file@percent }
+\newlabel{tab:level}{{4}{8}{Impacts of maximum prefix levels of path-consistency on GSM8K}{table.caption.8}{}}
+\newlabel{tab:level@cref}{{[table][4][]4}{[1][8][]8}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces The evaluation results of path-consistency across various tasks, including (i) Arithmetic reasoning: GSM8K, SVAMP, ASDiv, MultiArith (MA); (ii) Commonsense reasoning: StrategyQA (SQA), RuinNames (RN), SalientTranslation (ST); (iii) Symbolic reasoning: BooleanExpression (BE), TrackingShuffledObjects (TSO), LogicalDeduction (LD). $C$=0 indicates that no confidence threshold is applied; the prefix corresponding to the majority element is extracted directly.}}{8}{table.caption.6}\protected@file@percent }
+\newlabel{tab:result}{{3}{8}{The evaluation results of path-consistency across various tasks, including (i) Arithmetic reasoning: GSM8K, SVAMP, ASDiv, MultiArith (MA); (ii) Commonsense reasoning: StrategyQA (SQA), RuinNames (RN), SalientTranslation (ST); (iii) Symbolic reasoning: BooleanExpression (BE), TrackingShuffledObjects (TSO), LogicalDeduction (LD). $C$=0 indicates that no confidence threshold is applied; the prefix corresponding to the majority element is extracted directly}{table.caption.6}{}}
+\newlabel{tab:result@cref}{{[table][3][]3}{[1][7][]8}{}{}{}}
+\citation{wang2022self}
+\citation{aggarwal2023let}
+\citation{liescape}
+\citation{wang2022self}
+\citation{aggarwal2023let}
+\citation{liescape}
+\citation{liu2024deepseek}
+\citation{aggarwal2023let}
+\citation{liescape}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Performance of different efficient self-consistency methods on GSM8K, SVAMP, and StrategyQA. The percentages in parentheses denote token reduction relative to standard self-consistency.}}{9}{table.caption.9}\protected@file@percent }
+\newlabel{tab:adapt}{{5}{9}{Performance of different efficient self-consistency methods on GSM8K, SVAMP, and StrategyQA. The percentages in parentheses denote token reduction relative to standard self-consistency}{table.caption.9}{}}
+\newlabel{tab:adapt@cref}{{[table][5][]5}{[1][9][]9}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Comparison with Similar Work}{9}{subsection.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Discussion on Robustness and Scalability}{9}{subsection.5.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Evaluation results of different efficient self-consistency methods on DeepSeek-V3. The percentages in parentheses denote token increase relative to PC.}}{9}{table.caption.10}\protected@file@percent }
+\newlabel{tab:deepseek}{{6}{9}{Evaluation results of different efficient self-consistency methods on DeepSeek-V3. The percentages in parentheses denote token increase relative to PC}{table.caption.10}{}}
+\newlabel{tab:deepseek@cref}{{[table][6][]6}{[1][9][]9}{}{}{}}
+\bibstyle{plainnat}
+\bibdata{reference}
+\bibcite{aggarwal2023let}{{1}{2023}{{Aggarwal et~al.}}{{Aggarwal, Madaan, Yang, and Mausam}}}
+\bibcite{andor2019giving}{{2}{2019}{{Andor et~al.}}{{Andor, He, Lee, and Pitler}}}
+\bibcite{cobbe2021training}{{3}{2021}{{Cobbe et~al.}}{{Cobbe, Kosaraju, Bavarian, Chen, Jun, Kaiser, Plappert, Tworek, Hilton, Nakano, Hesse, and Schulman}}}
+\bibcite{liu2024deepseek}{{4}{2024}{{DeepSeek-AI et~al.}}{{DeepSeek-AI, Liu, Feng, Xue, Wang, Wu, Lu, Zhao, Deng, Zhang, Ruan, Dai, Guo, Yang, Chen, Ji, Li, Lin, Dai, Luo, Hao, Chen, Li, Zhang, Bao, Xu, Wang, Zhang, Ding, Xin, Gao, Li, Qu, Cai, Liang, Guo, Ni, Li, Wang, Chen, Chen, Yuan, Qiu, Li, Song, Dong, Hu, Gao, Guan, Huang, Yu, Wang, Zhang, Xu, Xia, Zhao, Wang, Zhang, Li, Wang, Zhang, Zhang, Tang, Li, Tian, Huang, Wang, Zhang, Wang, Zhu, Chen, Du, Chen, Jin, Ge, Zhang, Pan, Wang, Xu, Zhang, Chen, Li, Lu, Zhou, Chen, Wu, Ye, Ye, Ma, Wang, Zhou, Yu, Zhou, Pan, Wang, Yun, Pei, Sun, Xiao, Zeng, Zhao, An, Liu, Liang, Gao, Yu, Zhang, Li, Jin, Wang, Bi, Liu, Wang, Shen, Chen, Zhang, Chen, Nie, Sun, Wang, Cheng, Liu, Xie, Liu, Yu, Song, Shan, Zhou, Yang, Li, Su, Lin, Li, Wang, Wei, Zhu, Zhang, Xu, Xu, Huang, Li, Zhao, Sun, Li, Wang, Yu, Zheng, Zhang, Shi, Xiong, He, Tang, Piao, Wang, Tan, Ma, Liu, Guo, Wu, Ou, Zhu, Wang, Gong, Zou, He, Zha, Xiong, Ma, Yan, Luo, You, Liu, Zhou, Wu, Ren, Ren, Sha, Fu, Xu, Huang, Zhang, Xie, Zhang, Hao, Gou, Ma, Yan, Shao, Xu, Wu, Zhang, Li, Gu, Zhu, Liu, Li, Xie, Song, Gao, and Pan}}}
+\bibcite{fu2023specializing}{{5}{2023}{{Fu et~al.}}{{Fu, Peng, Ou, Sabharwal, and Khot}}}
+\bibcite{geva2020injecting}{{6}{2020}{{Geva et~al.}}{{Geva, Gupta, and Berant}}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{10}{section.6}\protected@file@percent }
+\bibcite{geva2021did}{{7}{2021}{{Geva et~al.}}{{Geva, Khashabi, Segal, Khot, Roth, and Berant}}}
+\bibcite{grattafiori2024llama3herdmodels}{{8}{2024}{{Grattafiori et~al.}}{{Grattafiori, Dubey, Jauhri, Pandey, Kadian, Al-Dahle, Letman, Mathur, Schelten, Vaughan, Yang, Fan, Goyal, Hartshorn, Yang, Mitra, Sravankumar, Korenev, Hinsvark, Rao, Zhang, Rodriguez, Gregerson, Spataru, Roziere, Biron, Tang, Chern, Caucheteux, Nayak, Bi, Marra, McConnell, Keller, Touret, Wu, Wong, Ferrer, Nikolaidis, Allonsius, Song, Pintz, Livshits, Wyatt, Esiobu, Choudhary, Mahajan, Garcia-Olano, Perino, Hupkes, Lakomkin, AlBadawy, Lobanova, Dinan, Smith, Radenovic, Guzmán, Zhang, Synnaeve, Lee, Anderson, Thattai, Nail, Mialon, Pang, Cucurell, Nguyen, Korevaar, Xu, Touvron, Zarov, Ibarra, Kloumann, Misra, Evtimov, Zhang, Copet, Lee, Geffert, Vranes, Park, Mahadeokar, Shah, van~der Linde, Billock, Hong, Lee, Fu, Chi, Huang, Liu, Wang, Yu, Bitton, Spisak, Park, Rocca, Johnstun, Saxe, Jia, Alwala, Prasad, Upasani, Plawiak, Li, Heafield, Stone, El-Arini, Iyer, Malik, Chiu, Bhalla, Lakhotia, Rantala-Yeary, van~der Maaten, Chen, Tan, Jenkins, Martin, Madaan, Malo, Blecher, Landzaat, de~Oliveira, Muzzi, Pasupuleti, Singh, Paluri, Kardas, Tsimpoukelli, Oldham, Rita, Pavlova, Kambadur, Lewis, Si, Singh, Hassan, Goyal, Torabi, Bashlykov, Bogoychev, Chatterji, Zhang, Duchenne, Çelebi, Alrassy, Zhang, Li, Vasic, Weng, Bhargava, Dubal, Krishnan, Koura, Xu, He, Dong, Srinivasan, Ganapathy, Calderer, Cabral, Stojnic, Raileanu, Maheswari, Girdhar, Patel, Sauvestre, Polidoro, Sumbaly, Taylor, Silva, Hou, Wang, Hosseini, Chennabasappa, Singh, Bell, Kim, Edunov, Nie, Narang, Raparthy, Shen, Wan, Bhosale, Zhang, Vandenhende, Batra, Whitman, Sootla, Collot, Gururangan, Borodinsky, Herman, Fowler, Sheasha, Georgiou, Scialom, Speckbacher, Mihaylov, Xiao, Karn, Goswami, Gupta, Ramanathan, Kerkez, Gonguet, Do, Vogeti, Albiero, Petrovic, Chu, Xiong, Fu, Meers, Martinet, Wang, Wang, Tan, Xia, Xie, Jia, Wang, Goldschlag, Gaur, Babaei, Wen, Song, Zhang, Li, Mao, Coudert, Yan, Chen, Papakipos, Singh, Srivastava, Jain, Kelsey, Shajnfeld, Gangidi, Victoria, Goldstand, Menon, Sharma, Boesenberg, Baevski, Feinstein, Kallet, Sangani, Teo, Yunus, Lupu, Alvarado, Caples, Gu, Ho, Poulton, Ryan, Ramchandani, Dong, Franco, Goyal, Saraf, Chowdhury, Gabriel, Bharambe, Eisenman, Yazdan, James, Maurer, Leonhardi, Huang, Loyd, Paola, Paranjape, Liu, Wu, Ni, Hancock, Wasti, Spence, Stojkovic, Gamido, Montalvo, Parker, Burton, Mejia, Liu, Wang, Kim, Zhou, Hu, Chu, Cai, Tindal, Feichtenhofer, Gao, Civin, Beaty, Kreymer, Li, Adkins, Xu, Testuggine, David, Parikh, Liskovich, Foss, Wang, Le, Holland, Dowling, Jamil, Montgomery, Presani, Hahn, Wood, Le, Brinkman, Arcaute, Dunbar, Smothers, Sun, Kreuk, Tian, Kokkinos, Ozgenel, Caggioni, Kanayet, Seide, Florez, Schwarz, Badeer, Swee, Halpern, Herman, Sizov, Guangyi, Zhang, Lakshminarayanan, Inan, Shojanazeri, Zou, Wang, Zha, Habeeb, Rudolph, Suk, Aspegren, Goldman, Zhan, Damlaj, Molybog, Tufanov, Leontiadis, Veliche, Gat, Weissman, Geboski, Kohli, Lam, Asher, Gaya, Marcus, Tang, Chan, Zhen, Reizenstein, Teboul, Zhong, Jin, Yang, Cummings, Carvill, Shepard, McPhie, Torres, Ginsburg, Wang, Wu, U, Saxena, Khandelwal, Zand, Matosich, Veeraraghavan, Michelena, Li, Jagadeesh, Huang, Chawla, Huang, Chen, Garg, A, Silva, Bell, Zhang, Guo, Yu, Moshkovich, Wehrstedt, Khabsa, Avalani, Bhatt, Mankus, Hasson, Lennie, Reso, Groshev, Naumov, Lathi, Keneally, Liu, Seltzer, Valko, Restrepo, Patel, Vyatskov, Samvelyan, Clark, Macey, Wang, Hermoso, Metanat, Rastegari, Bansal, Santhanam, Parks, White, Bawa, Singhal, Egebo, Usunier, Mehta, Laptev, Dong, Cheng, Chernoguz, Hart, Salpekar, Kalinli, Kent, Parekh, Saab, Balaji, Rittner, Bontrager, Roux, Dollar, Zvyagina, Ratanchandani, Yuvraj, Liang, Alao, Rodriguez, Ayub, Murthy, Nayani, Mitra, Parthasarathy, Li, Hogan, Battey, Wang, Howes, Rinott, Mehta, Siby, Bondu, Datta, Chugh, Hunt, Dhillon, Sidorov, Pan, Mahajan, Verma, Yamamoto, Ramaswamy, Lindsay, Lindsay, Feng, Lin, Zha, Patil, Shankar, Zhang, Zhang, Wang, Agarwal, Sajuyigbe, Chintala, Max, Chen, Kehoe, Satterfield, Govindaprasad, Gupta, Deng, Cho, Virk, Subramanian, Choudhury, Goldman, Remez, Glaser, Best, Koehler, Robinson, Li, Zhang, Matthews, Chou, Shaked, Vontimitta, Ajayi, Montanez, Mohan, Kumar, Mangla, Ionescu, Poenaru, Mihailescu, Ivanov, Li, Wang, Jiang, Bouaziz, Constable, Tang, Wu, Wang, Wu, Gao, Kleinman, Chen, Hu, Jia, Qi, Li, Zhang, Zhang, Adi, Nam, Yu, Wang, Zhao, Hao, Qian, Li, He, Rait, DeVito, Rosnbrick, Wen, Yang, Zhao, and Ma}}}
+\def\@LN@column{1}
+\bibcite{hinton2015distilling}{{9}{2015}{{Hinton et~al.}}{{Hinton, Vinyals, and Dean}}}
+\bibcite{ho2023large}{{10}{2023}{{Ho et~al.}}{{Ho, Schmid, and Yun}}}
+\bibcite{li2023symbolic}{{11}{2023}{{Li et~al.}}{{Li, Hessel, Yu, Ren, Chang, and Choi}}}
+\bibcite{liescape}{{12}{2024}{{Li et~al.}}{{Li, Yuan, Feng, Pan, Wang, Sun, Wang, and Li}}}
+\bibcite{madaan2024self}{{13}{2024}{{Madaan et~al.}}{{Madaan, Tandon, Gupta, Hallinan, Gao, Wiegreffe, Alon, Dziri, Prabhumoye, Yang, Gupta, Majumder, Hermann, Welleck, Yazdanbakhsh, and Clark}}}
+\def\@LN@column{1}
+\bibcite{magister2023teaching}{{14}{2023}{{Magister et~al.}}{{Magister, Mallinson, Adamek, Malmi, and Severyn}}}
+\bibcite{miao2020diverse}{{15}{2020}{{Miao et~al.}}{{Miao, Liang, and Su}}}
+\bibcite{patel2021nlp}{{16}{2021}{{Patel et~al.}}{{Patel, Bhattamishra, and Goyal}}}
+\bibcite{paul2024refiner}{{17}{2024}{{Paul et~al.}}{{Paul, Ismayilzada, Peyrard, Borges, Bosselut, West, and Faltings}}}
+\bibcite{pikekos2021measuring}{{18}{2021}{{Pi{\k {e}}kos et~al.}}{{Pi{\k {e}}kos, Malinowski, and Michalewski}}}
+\bibcite{ran2019numnet}{{19}{2019}{{Ran et~al.}}{{Ran, Lin, Li, Zhou, and Liu}}}
+\bibcite{roy2015solving}{{20}{2015}{{Roy and Roth}}{{}}}
+\bibcite{shinn2023reflexion}{{21}{2023}{{Shinn et~al.}}{{Shinn, Labash, and Gopinath}}}
+\bibcite{sui2025stopoverthinking}{{22}{2025}{{Sui et~al.}}{{Sui, Chuang, Wang, Zhang, Zhang, Yuan, Liu, Wen, Zhong, Zou, Chen, and Hu}}}
+\bibcite{suzgun-etal-2023-challenging}{{23}{2023}{{Suzgun et~al.}}{{Suzgun, Scales, Sch{\"a}rli, Gehrmann, Tay, Chung, Chowdhery, Le, Chi, Zhou, and Wei}}}
+\bibcite{wan2025rasc}{{24}{2025}{{Wan et~al.}}{{Wan, Wu, Chen, and Li}}}
+\bibcite{wang2025efficientreasoning}{{25}{2025}{{Wang et~al.}}{{Wang, Wang, Xue, Pang, Liu, Chen, Qiu, Wong, Ji, and Wong}}}
+\bibcite{wang2022self}{{26}{2023}{{Wang et~al.}}{{Wang, Wei, Schuurmans, Le, Chi, Narang, Chowdhery, and Zhou}}}
+\bibcite{wei2022chain}{{27}{2022}{{Wei et~al.}}{{Wei, Wang, Schuurmans, Bosma, Ichter, Xia, Chi, Le, and Zhou}}}
+\def\@LN@column{1}
+\bibcite{xie2024self}{{28}{2024}{{Xie et~al.}}{{Xie, Kawaguchi, Zhao, Zhao, Kan, He, and Xie}}}
+\bibcite{zhang2025testtimescaling}{{29}{2025}{{Zhang et~al.}}{{Zhang, Lyu, Sun, Wang, Zhang, Hua, Wu, Guo, Wang, Muennighoff, King, Liu, and Ma}}}
+\bibcite{zhang2023coder}{{30}{2023}{{Zhang et~al.}}{{Zhang, Yu, Hashimoto, Lewis, Yih, Fried, and Wang}}}
+\bibcite{zhu2024deductive}{{31}{2024}{{Zhu et~al.}}{{Zhu, Zhang, Xie, and Su}}}
+\citation{aggarwal2023let}
+\citation{liescape}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Additional Experimental Results}{14}{appendix.A}\protected@file@percent }
+\newlabel{app:additional-results}{{A}{14}{Additional Experimental Results}{appendix.A}{}}
+\newlabel{app:additional-results@cref}{{[section][1][]A}{[1][14][]14}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.1}Evaluation on Smaller Models}{14}{subsection.A.1}\protected@file@percent }
+\newlabel{app:small-model}{{A.1}{14}{Evaluation on Smaller Models}{subsection.A.1}{}}
+\newlabel{app:small-model@cref}{{[subsection][1][1]A.1}{[1][14][]14}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Evaluation results of different inference techniques on Llama-3.2-1B-Instruct.}}{14}{table.caption.12}\protected@file@percent }
+\newlabel{tab:slm}{{7}{14}{Evaluation results of different inference techniques on Llama-3.2-1B-Instruct}{table.caption.12}{}}
+\newlabel{tab:slm@cref}{{[table][7][]7}{[1][14][]14}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.2}Evaluation on Mistral-7B}{14}{subsection.A.2}\protected@file@percent }
+\newlabel{app:mistral}{{A.2}{14}{Evaluation on Mistral-7B}{subsection.A.2}{}}
+\newlabel{app:mistral@cref}{{[subsection][2][1]A.2}{[1][14][]14}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Evaluation results on Mistral-7B with path-consistency on GSM8K.}}{14}{table.caption.13}\protected@file@percent }
+\newlabel{tab:mistral7b}{{8}{14}{Evaluation results on Mistral-7B with path-consistency on GSM8K}{table.caption.13}{}}
+\newlabel{tab:mistral7b@cref}{{[table][8][]8}{[1][14][]14}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3}Evaluation on Long-Chain Reasoning}{15}{subsection.A.3}\protected@file@percent }
+\newlabel{app:long-chain}{{A.3}{15}{Evaluation on Long-Chain Reasoning}{subsection.A.3}{}}
+\newlabel{app:long-chain@cref}{{[subsection][3][1]A.3}{[1][14][]15}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Evaluation results on AIME2025.}}{15}{table.caption.14}\protected@file@percent }
+\newlabel{tab:long chain}{{9}{15}{Evaluation results on AIME2025}{table.caption.14}{}}
+\newlabel{tab:long chain@cref}{{[table][9][]9}{[1][15][]15}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Analysis of Prefix Selection}{15}{appendix.B}\protected@file@percent }
+\newlabel{app:prefix-selection-analysis}{{B}{15}{Analysis of Prefix Selection}{appendix.B}{}}
+\newlabel{app:prefix-selection-analysis@cref}{{[section][2][]B}{[1][15][]15}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}Sensitivity to Confidence Thresholds}{15}{subsection.B.1}\protected@file@percent }
+\newlabel{app:confidence-threshold}{{B.1}{15}{Sensitivity to Confidence Thresholds}{subsection.B.1}{}}
+\newlabel{app:confidence-threshold@cref}{{[subsection][1][2]B.1}{[1][15][]15}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}Effect of High-Confidence Prefix Promotion}{15}{subsection.B.2}\protected@file@percent }
+\newlabel{app:high-confidence}{{B.2}{15}{Effect of High-Confidence Prefix Promotion}{subsection.B.2}{}}
+\newlabel{app:high-confidence@cref}{{[subsection][2][2]B.2}{[1][15][]15}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The distribution of the majority element's confidence across all samples when self-consistency reaches the 10$^{th}$ branch.}}{15}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:confidence-threshold}{{6}{15}{The distribution of the majority element's confidence across all samples when self-consistency reaches the 10$^{th}$ branch}{figure.caption.15}{}}
+\newlabel{fig:confidence-threshold@cref}{{[figure][6][]6}{[1][15][]15}{}{}{}}
+\newlabel{fig:speedup_2}{{6a}{15}{Baseline}{figure.caption.15}{}}
+\newlabel{fig:speedup_2@cref}{{[subfigure][1][6]6a}{[1][15][]15}{}{}{}}
+\newlabel{sub@fig:speedup_2}{{a}{15}{Baseline}{figure.caption.15}{}}
+\newlabel{sub@fig:speedup_2@cref}{{[subfigure][1][6]6a}{[1][15][]15}{}{}{}}
+\newlabel{fig:token_2}{{6b}{15}{$C_{threshold}$ = 0.8}{figure.caption.15}{}}
+\newlabel{fig:token_2@cref}{{[subfigure][2][6]6b}{[1][15][]15}{}{}{}}
+\newlabel{sub@fig:token_2}{{b}{15}{$C_{threshold}$ = 0.8}{figure.caption.15}{}}
+\newlabel{sub@fig:token_2@cref}{{[subfigure][2][6]6b}{[1][15][]15}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The distribution of confidence for the final answers across all samples on GSM8K.}}{15}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:distribution}{{7}{15}{The distribution of confidence for the final answers across all samples on GSM8K}{figure.caption.15}{}}
+\newlabel{fig:distribution@cref}{{[figure][7][]7}{[1][15][]15}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}Case Study on Prefix Correction}{15}{subsection.B.3}\protected@file@percent }
+\newlabel{app:prefix-correction}{{B.3}{15}{Case Study on Prefix Correction}{subsection.B.3}{}}
+\newlabel{app:prefix-correction@cref}{{[subsection][3][2]B.3}{[1][15][]15}{}{}{}}
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Computational Overhead}{16}{appendix.C}\protected@file@percent }
+\newlabel{app:overhead}{{C}{16}{Computational Overhead}{appendix.C}{}}
+\newlabel{app:overhead@cref}{{[section][3][]C}{[1][16][]16}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Relative Time Overhead of Beta Evaluation and Prefix Extraction}}{16}{table.caption.17}\protected@file@percent }
+\newlabel{tab:overhead}{{10}{16}{Relative Time Overhead of Beta Evaluation and Prefix Extraction}{table.caption.17}{}}
+\newlabel{tab:overhead@cref}{{[table][10][]10}{[1][16][]16}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D}Analysis of Beta-Gated Prefix Promotion}{16}{appendix.D}\protected@file@percent }
+\newlabel{app:promotion-soundness}{{D}{16}{Analysis of Beta-Gated Prefix Promotion}{appendix.D}{}}
+\newlabel{app:promotion-soundness@cref}{{[section][4][]D}{[1][16][]16}{}{}{}}
+\newlabel{thm:single-level}{{1}{16}{Single-Level Soundness of Beta-Gated Prefix Selection}{Theorem.1}{}}
+\newlabel{thm:single-level@cref}{{[Theorem][1][]1}{[1][16][]16}{}{}{}}
+\def\@LN@column{1}
+\newlabel{cor:multi-level}{{1}{17}{Multi-Level Promotion Soundness}{corollary.1}{}}
+\newlabel{cor:multi-level@cref}{{[corollary][1][]1}{[1][17][]17}{}{}{}}
+\def\@LN@column{1}
+\newlabel{cor:worst-case}{{2}{18}{Worst-Case Wrong Answer Distribution}{corollary.2}{}}
+\newlabel{cor:worst-case@cref}{{[corollary][2][]2}{[1][18][]18}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {E}Implementation Details}{18}{appendix.E}\protected@file@percent }
+\newlabel{app:implementation}{{E}{18}{Implementation Details}{appendix.E}{}}
+\newlabel{app:implementation@cref}{{[section][5][]E}{[1][18][]18}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.1}Prefix Sampling}{18}{subsection.E.1}\protected@file@percent }
+\newlabel{app:sample}{{E.1}{18}{Prefix Sampling}{subsection.E.1}{}}
+\newlabel{app:sample@cref}{{[subsection][1][5]E.1}{[1][18][]18}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces Sample}}{18}{lstlisting.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.2}Prefix Extraction}{18}{subsection.E.2}\protected@file@percent }
+\newlabel{app:extract}{{E.2}{18}{Prefix Extraction}{subsection.E.2}{}}
+\newlabel{app:extract@cref}{{[subsection][2][5]E.2}{[1][18][]18}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces Extract}}{18}{lstlisting.2}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.3}Main Inference Procedure}{19}{subsection.E.3}\protected@file@percent }
+\newlabel{app:inference}{{E.3}{19}{Main Inference Procedure}{subsection.E.3}{}}
+\newlabel{app:inference@cref}{{[subsection][3][5]E.3}{[1][19][]19}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}{\ignorespaces Inference}}{19}{lstlisting.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {E.4}Model Interface}{19}{subsection.E.4}\protected@file@percent }
+\newlabel{app:model-interface}{{E.4}{19}{Model Interface}{subsection.E.4}{}}
+\newlabel{app:model-interface@cref}{{[subsection][4][5]E.4}{[1][19][]19}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}{\ignorespaces Inference}}{19}{lstlisting.4}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {section}{\numberline {F}Full Prompts}{20}{appendix.F}\protected@file@percent }
+\newlabel{app:full-prompts}{{F}{20}{Full Prompts}{appendix.F}{}}
+\newlabel{app:full-prompts@cref}{{[section][6][]F}{[1][20][]20}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Few-shot exemplars for arithmetic reasoning.}}{20}{table.caption.18}\protected@file@percent }
+\newlabel{tab:mathprompt}{{11}{20}{Few-shot exemplars for arithmetic reasoning}{table.caption.18}{}}
+\newlabel{tab:mathprompt@cref}{{[table][11][]11}{[1][20][]20}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Few-shot exemplars for StrategyQA.}}{21}{table.caption.19}\protected@file@percent }
+\newlabel{tab:reasoningprompt}{{12}{21}{Few-shot exemplars for StrategyQA}{table.caption.19}{}}
+\newlabel{tab:reasoningprompt@cref}{{[table][12][]12}{[1][20][]21}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {13}{\ignorespaces Few-shot exemplars for RuinNames.}}{22}{table.caption.20}\protected@file@percent }
+\newlabel{tab:reasoningprompt}{{13}{22}{Few-shot exemplars for RuinNames}{table.caption.20}{}}
+\newlabel{tab:reasoningprompt@cref}{{[table][13][]13}{[1][21][]22}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {14}{\ignorespaces Few-shot exemplars for SalientTranslation.}}{23}{table.caption.21}\protected@file@percent }
+\newlabel{tab:errordetection}{{14}{23}{Few-shot exemplars for SalientTranslation}{table.caption.21}{}}
+\newlabel{tab:errordetection@cref}{{[table][14][]14}{[1][22][]23}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {15}{\ignorespaces Few-shot exemplars for BooleanExpressions.}}{24}{table.caption.22}\protected@file@percent }
+\newlabel{tab:booleanexpressions}{{15}{24}{Few-shot exemplars for BooleanExpressions}{table.caption.22}{}}
+\newlabel{tab:booleanexpressions@cref}{{[table][15][]15}{[1][24][]24}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {16}{\ignorespaces Few-shot exemplars for TrackingShuffledObject.}}{25}{table.caption.23}\protected@file@percent }
+\newlabel{tab:finalpositions}{{16}{25}{Few-shot exemplars for TrackingShuffledObject}{table.caption.23}{}}
+\newlabel{tab:finalpositions@cref}{{[table][16][]16}{[1][24][]25}{}{}{}}
+\def\@LN@column{1}
+\@writefile{lot}{\contentsline {table}{\numberline {17}{\ignorespaces Few-shot exemplars for LogicalDeduction.}}{26}{table.caption.24}\protected@file@percent }
+\newlabel{tab:logicaldeduction}{{17}{26}{Few-shot exemplars for LogicalDeduction}{table.caption.24}{}}
+\newlabel{tab:logicaldeduction@cref}{{[table][17][]17}{[1][25][]26}{}{}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {G}Limitations and Additional Statements}{26}{appendix.G}\protected@file@percent }
+\newlabel{app:limitations-statements}{{G}{26}{Limitations and Additional Statements}{appendix.G}{}}
+\newlabel{app:limitations-statements@cref}{{[section][7][]G}{[1][26][]26}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Limitations.}{26}{section*.25}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Reproducibility.}{26}{section*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Computational resources.}{26}{section*.27}\protected@file@percent }
+\def\@LN@column{1}
+\@writefile{toc}{\contentsline {paragraph}{Assets and licenses.}{27}{section*.28}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {18}{\ignorespaces Datasets used in the main experiments and their licenses or terms of use.}}{27}{table.caption.29}\protected@file@percent }
+\newlabel{tab:dataset-licenses}{{18}{27}{Datasets used in the main experiments and their licenses or terms of use}{table.caption.29}{}}
+\newlabel{tab:dataset-licenses@cref}{{[table][18][]18}{[1][27][]27}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Broader impacts.}{27}{section*.30}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{LLM usage.}{27}{section*.31}\protected@file@percent }
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\def\@LN@column{1}
+\gdef \@abspage@last{34}

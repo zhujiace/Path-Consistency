@@ -18,7 +18,8 @@ import httpx
 
 DEFAULT_ENV_PATH = Path("/data/26xyw/env/deepseek_api.env")
 DEFAULT_BETA_URL = "https://api.deepseek.com/beta"
-RETRYABLE_STATUS = {408, 409, 425, 429, 500, 502, 503, 504}
+# 550 is a DeepSeek gateway/overloaded code (GSM8K next500 hit it on gsm8k_0280).
+RETRYABLE_STATUS = {408, 409, 425, 429, 500, 502, 503, 504, 550}
 
 
 class DeepSeekAPIError(RuntimeError):

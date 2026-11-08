@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import json
 import math
 import time
 from collections import Counter
@@ -14,6 +15,12 @@ import numpy as np
 
 from .confidence import beta_confidence
 from .deepconf_offline import aggregate_deepconf_offline
+from .generation_methods import (
+    AC_STOP_THRESHOLD,
+    ESC_STOP_WINDOW,
+    method_spec,
+    should_early_stop,
+)
 from .kv_accounting import aggregate_question_kv, summarize_window_kv
 from .math_eval import majority_vote
 
@@ -161,6 +168,7 @@ def select_shared_prefix(
     next_ratio: float,
     decode: DecodeFn,
     selector: str = "blc",
+    selection_seed: int = 0,
 ) -> Optional[dict]:
     """Choose the unique next-window prefix from the current window."""
     candidates = []
@@ -214,6 +222,21 @@ def select_shared_prefix(
                 item["source_id"],
             ),
         )
+    if selector in {"uniform", "random"}:
+        ordered = sorted(
+            candidates, key=lambda item: (item["source_id"], item["endpoint"])
+        )
+        payload = {
+            "selection_seed": int(selection_seed),
+            "next_ratio": next_ratio,
+            "candidates": [(item["source_id"], item["endpoint"]) for item in ordered],
+        }
+        digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).digest()
+        index = int.from_bytes(digest[:8], "big") % len(ordered)
+        chosen = dict(ordered[index])
+        chosen["selector"] = "uniform"
+        chosen["selection_seed"] = int(selection_seed)
+        return chosen
     raise ValueError(f"Unknown prefix selector: {selector}")
 
 
@@ -246,10 +269,17 @@ def run_sc_pc_question(
     store_confidence: bool = False,
     paired_root_windows: Optional[list[dict]] = None,
     return_internal_windows: bool = False,
+    early_stop_threshold: float = AC_STOP_THRESHOLD,
+    esc_stop_rule: str = ESC_STOP_WINDOW,
+    recovery: str = "on",
 ) -> dict:
     """Paired-root SC/PC loop used by both vLLM and API backends."""
-    if method not in {"sc", "pc"}:
-        raise ValueError(f"Unsupported generation method: {method}")
+    spec = method_spec(method)
+    share_prefix = bool(spec["share_prefix"])
+    early_stop = spec["early_stop"]
+    recover = (recovery or "on") != "off"
+    if recovery not in {"on", "off", None}:
+        raise ValueError(f"unknown recovery: {recovery}")
     if max_branches % window_size:
         raise ValueError("max_branches must be divisible by window_size")
 
@@ -259,7 +289,8 @@ def run_sc_pc_question(
     validated_answers: list[str] = []
     state_stack = [PrefixState([], 0.0, None, 0.0, None)]
     pending_trial = None
-    no_more_prefixing = method == "sc"
+    no_more_prefixing = not share_prefix
+    early_stopped = False
     consecutive_failures = 0
     generation_seconds = 0.0
     actual_generation_seconds = 0.0
@@ -323,7 +354,8 @@ def run_sc_pc_question(
                     "traces": copy.deepcopy(traces),
                 }
             )
-        window_valid = [trace["answer"] for trace in traces if trace["answer"] is not None]
+        window_answers = [trace["answer"] for trace in traces]
+        window_valid = [answer for answer in window_answers if answer is not None]
 
         event = {
             "window": window_index,
@@ -351,7 +383,7 @@ def run_sc_pc_question(
         if store_text:
             event["used_prefix_token_ids"] = list(active_prefix_ids)
         accepted_for_source = True
-        if method == "sc":
+        if not share_prefix:
             validated_answers.extend(window_valid)
             event["decision"] = "sc"
         elif pending_trial is not None:
@@ -374,16 +406,20 @@ def run_sc_pc_question(
                 state_stack.append(committed)
                 consecutive_failures = 0
                 event["decision"] = "commit"
+                pending_trial = None
             else:
-                consecutive_failures += 1
                 accepted_for_source = False
-                event["decision"] = "rollback_trial"
                 event["rollback_reason"] = (
                     "mode_flip"
                     if trial_snapshot["modal_answer"] != pending_trial["parent_modal"]
                     else "beta_below_threshold"
                 )
-            pending_trial = None
+                if recover:
+                    consecutive_failures += 1
+                    event["decision"] = "rollback_trial"
+                    pending_trial = None
+                else:
+                    event["decision"] = "retain_failed_trial"
         elif safe_state.ratio > 0:
             monitor_snapshot = gate_snapshot(
                 validated_answers + window_valid, beta_threshold
@@ -399,21 +435,24 @@ def run_sc_pc_question(
                 consecutive_failures = 0
                 event["decision"] = "keep"
             else:
-                failed_state = state_stack.pop()
-                consecutive_failures += 1
                 accepted_for_source = False
-                event["decision"] = "rollback_committed"
-                event["rolled_back_source"] = failed_state.source_id
                 event["rollback_reason"] = (
                     "mode_flip"
                     if monitor_snapshot["modal_answer"] != safe_state.modal_answer
                     else "beta_below_threshold"
                 )
+                if recover:
+                    failed_state = state_stack.pop()
+                    consecutive_failures += 1
+                    event["decision"] = "rollback_committed"
+                    event["rolled_back_source"] = failed_state.source_id
+                else:
+                    event["decision"] = "retain_failed_committed"
         else:
             validated_answers.extend(window_valid)
             event["decision"] = "root_observe"
 
-        if consecutive_failures >= 2:
+        if recover and consecutive_failures >= 2:
             state_stack = [PrefixState([], 0.0, None, 0.0, None)]
             pending_trial = None
             no_more_prefixing = True
@@ -424,7 +463,7 @@ def run_sc_pc_question(
         event["validated_answer_count"] = len(validated_answers)
 
         if (
-            method == "pc"
+            share_prefix
             and not no_more_prefixing
             and accepted_for_source
             and window_index < num_windows - 1
@@ -468,7 +507,21 @@ def run_sc_pc_question(
                         )
                 else:
                     event["proposal"] = "no_safe_candidate"
+        all_answers_so_far = [trace["answer"] for trace in all_traces]
+        if should_early_stop(
+            early_stop,
+            window_answers,
+            all_answers_so_far,
+            early_stop_threshold,
+            esc_stop_rule=esc_stop_rule,
+            window_size=window_size,
+        ):
+            early_stopped = True
+            event["early_stopped"] = True
+            event["decision"] += "+early_stop"
         window_events.append(event)
+        if early_stopped:
+            break
 
     final_answer = majority_vote(trace["answer"] for trace in all_traces)
     deepconf = aggregate_deepconf_offline(all_traces, window_size=2048)
@@ -537,7 +590,13 @@ def run_sc_pc_question(
         "parser_failures": sum(trace["answer"] is None for trace in all_traces),
         "truncations": sum(trace["truncated"] for trace in all_traces),
         "final_prefix_ratio": state_stack[-1].ratio,
-        "prefixing_disabled": no_more_prefixing and method == "pc",
+        "prefixing_disabled": no_more_prefixing and share_prefix,
+        "recovery": "on" if recover else "off",
+        "early_stop": early_stop,
+        "early_stop_threshold": early_stop_threshold if early_stop else None,
+        "esc_stop_rule": esc_stop_rule if early_stop == "esc" else None,
+        "early_stopped": early_stopped,
+        "launched_windows": len(window_events),
         "config_fingerprint": hashlib.sha256(
             repr(
                 (
@@ -553,6 +612,10 @@ def run_sc_pc_question(
                     logprobs,
                     presence_penalty,
                     seed,
+                    early_stop,
+                    early_stop_threshold if early_stop else None,
+                    esc_stop_rule if early_stop == "esc" else None,
+                    "on" if recover else "off",
                 )
             ).encode()
         ).hexdigest()[:12],

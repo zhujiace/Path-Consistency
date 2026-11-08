@@ -1,0 +1,178 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="pc-teaser" name="Figure 1 capability teaser">
+    <mxGraphModel page="1" pageScale="1" pageWidth="1440" pageHeight="700" grid="1" gridSize="10" background="#FFFFFF" math="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Path-consistency" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=35;fontColor=#24324B;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="35" y="13" width="1370" height="48" />
+        </mxCell>
+        <mxCell id="subtitle" value="Less generation. Flexible composition." style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=23;fontColor=#637087;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="35" y="63" width="1370" height="32" />
+        </mxCell>
+        <mxCell id="left" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#FAF9FD;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=32;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="25" y="119" width="851" height="511" />
+        </mxCell>
+        <mxCell id="right" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#F5FAFA;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=32;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="897" y="119" width="518" height="511" />
+        </mxCell>
+        <mxCell id="left_head" value="(a) Fewer tokens, similar accuracy" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=26;fontColor=#24324B;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="50" y="138" width="800" height="33" />
+        </mxCell>
+        <mxCell id="hero" value="30.8%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=65;fontColor=#7959C8;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="180" width="259" height="81" />
+        </mxCell>
+        <mxCell id="hero_caption" value="mean token saving" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=21;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="263" width="259" height="24" />
+        </mxCell>
+        <mxCell id="range" value="25.8% to 39.4%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=36;fontColor=#7959C8;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="380" y="193" width="415" height="47" />
+        </mxCell>
+        <mxCell id="range_caption" value="across five main-text comparisons" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=20;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="380" y="243" width="415" height="31" />
+        </mxCell>
+        <mxCell id="cost_header" value="Generated tokens relative to SC" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=19;fontColor=#637087;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="267" y="302" width="420" height="28" />
+        </mxCell>
+        <mxCell id="saving_header" value="Saving" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=19;fontColor=#637087;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="719" y="302" width="116" height="28" />
+        </mxCell>
+        <mxCell id="zero" value="0" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=16;fontColor=#637087;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="251" y="332" width="35" height="22" />
+        </mxCell>
+        <mxCell id="full" value="100%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=16;fontColor=#637087;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="661" y="332" width="62" height="22" />
+        </mxCell>
+        <mxCell id="label0" value="Llama · GSM8K" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=19;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="43" y="362" width="209" height="28" />
+        </mxCell>
+        <mxCell id="sc_budget0" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#E8EBF0;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="363" width="420" height="26" />
+        </mxCell>
+        <mxCell id="pc_budget0" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#7959C8;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="363" width="254.48898731228604" height="26" />
+        </mxCell>
+        <mxCell id="saving0" value="39.4%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=23;fontColor=#7959C8;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="724" y="361" width="99" height="30" />
+        </mxCell>
+        <mxCell id="label1" value="DeepSeek · MATH-500" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=19;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="43" y="405" width="209" height="28" />
+        </mxCell>
+        <mxCell id="sc_budget1" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#E8EBF0;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="406" width="420" height="26" />
+        </mxCell>
+        <mxCell id="pc_budget1" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#219C96;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="406" width="275.1433329000413" height="26" />
+        </mxCell>
+        <mxCell id="saving1" value="34.5%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=23;fontColor=#219C96;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="724" y="404" width="99" height="30" />
+        </mxCell>
+        <mxCell id="label2" value="DeepSeek · AIME 2024" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=19;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="43" y="448" width="209" height="28" />
+        </mxCell>
+        <mxCell id="sc_budget2" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#E8EBF0;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="449" width="420" height="26" />
+        </mxCell>
+        <mxCell id="pc_budget2" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#219C96;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="449" width="310.61331127070076" height="26" />
+        </mxCell>
+        <mxCell id="saving2" value="26.0%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=23;fontColor=#219C96;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="724" y="447" width="99" height="30" />
+        </mxCell>
+        <mxCell id="label3" value="DeepSeek · AIME 2025" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=19;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="43" y="491" width="209" height="28" />
+        </mxCell>
+        <mxCell id="sc_budget3" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#E8EBF0;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="492" width="420" height="26" />
+        </mxCell>
+        <mxCell id="pc_budget3" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#219C96;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="492" width="311.5330136504108" height="26" />
+        </mxCell>
+        <mxCell id="saving3" value="25.8%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=23;fontColor=#219C96;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="724" y="490" width="99" height="30" />
+        </mxCell>
+        <mxCell id="label4" value="DeepSeek · GPQA-D" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=19;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="43" y="534" width="209" height="28" />
+        </mxCell>
+        <mxCell id="sc_budget4" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#E8EBF0;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="535" width="420" height="26" />
+        </mxCell>
+        <mxCell id="pc_budget4" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#219C96;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="270" y="535" width="300.7873737537837" height="26" />
+        </mxCell>
+        <mxCell id="saving4" value="28.4%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=23;fontColor=#219C96;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="724" y="533" width="99" height="30" />
+        </mxCell>
+        <mxCell id="legend_sc" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#E8EBF0;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="273" y="591" width="22" height="12" />
+        </mxCell>
+        <mxCell id="legend_sclabel" value="SC budget" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=17;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="300" y="582" width="143" height="28" />
+        </mxCell>
+        <mxCell id="legend_pc" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#219C96;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=4;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="485" y="591" width="22" height="12" />
+        </mxCell>
+        <mxCell id="legend_pclabel" value="PC generated tokens" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=17;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="512" y="582" width="185" height="28" />
+        </mxCell>
+        <mxCell id="right_head" value="(b) Works with early-stopping methods" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=24;fontColor=#24324B;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="916" y="138" width="480" height="33" />
+        </mxCell>
+        <mxCell id="additional" value="7%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=65;fontColor=#219C96;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="937" y="182" width="442" height="83" />
+        </mxCell>
+        <mxCell id="additional_caption" value="additional token saving" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="934" y="263" width="447" height="27" />
+        </mxCell>
+        <mxCell id="samebudget" value="Each parent normalized to 100%" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=18;fontColor=#637087;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="934" y="305" width="447" height="27" />
+        </mxCell>
+        <mxCell id="parent0" value="AC" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=23;fontColor=#24324B;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="921" y="368" width="111" height="29" />
+        </mxCell>
+        <mxCell id="parentbar0" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#E8EBF0;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1048" y="371" width="305" height="23" />
+        </mxCell>
+        <mxCell id="parentvalue0" value="100" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=18;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1356" y="368" width="53" height="29" />
+        </mxCell>
+        <mxCell id="composed0" value="AC + PC" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=21;fontColor=#24324B;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="921" y="400" width="111" height="29" />
+        </mxCell>
+        <mxCell id="composedbar0" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#219C96;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1048" y="403" width="283.66117216117215" height="23" />
+        </mxCell>
+        <mxCell id="composedvalue0" value="93.0" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=18;fontColor=#219C96;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1337" y="400" width="64" height="29" />
+        </mxCell>
+        <mxCell id="parent1" value="ESC" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=23;fontColor=#24324B;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="921" y="479" width="111" height="29" />
+        </mxCell>
+        <mxCell id="parentbar1" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#E8EBF0;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1048" y="482" width="305" height="23" />
+        </mxCell>
+        <mxCell id="parentvalue1" value="100" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=18;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1356" y="479" width="53" height="29" />
+        </mxCell>
+        <mxCell id="composed1" value="ESC + PC" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=21;fontColor=#24324B;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="921" y="511" width="111" height="29" />
+        </mxCell>
+        <mxCell id="composedbar1" value="" style="shape=rectangle;html=0;whiteSpace=wrap;fillColor=#219C96;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=22;fontColor=#24324B;fontStyle=0;align=center;verticalAlign=middle;spacing=0;rounded=1;absoluteArcSize=1;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1048" y="514" width="283.72648902821317" height="23" />
+        </mxCell>
+        <mxCell id="composedvalue1" value="93.0" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=18;fontColor=#219C96;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1337" y="511" width="64" height="29" />
+        </mxCell>
+        <mxCell id="right_foot" value="Llama-3.1-8B-Instruct · GSM8K" style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=18;fontColor=#637087;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="929" y="585" width="460" height="27" />
+        </mxCell>
+        <mxCell id="foot1" value="SC = self-consistency. Bars show generated tokens, not total compute or API billing." style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=17;fontColor=#637087;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="647" width="1383" height="22" />
+        </mxCell>
+        <mxCell id="foot2" value="Panel (a) uses the reported grading, including DeepSeek regrading. Mean savings are unweighted across settings." style="shape=text;html=0;whiteSpace=wrap;fillColor=none;strokeColor=none;strokeWidth=1.7;fontFamily=Arial;fontSize=16;fontColor=#637087;fontStyle=0;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="28" y="671" width="1383" height="20" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

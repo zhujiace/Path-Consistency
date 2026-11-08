@@ -633,7 +633,260 @@ KV cache 约 32k–37k token/卡；10240 context 下并发约 3.2–3.7×，窗�
 
 现行实验计划已改为 `paper/plan_2weeks_ICLR2027.md` **v4**，控制台「冻结协议 · 实验计划 v4」与之同步。v3 中的 \(C^\*\) 选择程序、PVC 查找表控制器、以及把干预式 PVC 当作投稿 go/no-go 的条文作废。
 
+### 12.15 DeepSeek 格式容错复判（2026-09-11）
 
+DeepSeek-V4-Flash thinking 常把 GSM8K 答案 box 成 `\$70,000`、`160\text{ minutes}`，MATH 则有 `90^\circ` vs `90`、`\frac43` vs `\frac{4}{3}`。当时 JSONL 的 `correct` 按失败计，官方 SC GSM8K 只有 1005/1319=76.19%，MATH-500 430/490=87.76%。这不是模型算术更弱，是格式。
+
+离线脚本 `scripts/regrade_deepseek_numeric.py`：
+
+1. 不改原始 JSONL；
+2. 用当前 math-verify + GSM8K numeric-core（剥单位/货币/千分位）+ 时分秒换算复判官方错题；
+3. 剩余 GSM8K/MATH/AIME 非空预测（90 个唯一 gold/pred 对）交给 DeepSeek-V4-Flash 做同值判断（thinking off），12 个判 yes（时分秒、合计句、180 km=180000 m 等），78 个判 no；
+4. sidecar `*.numeric_regrade.json` 给控制台 Table 1 覆盖准确率。
+
+复判后主表 Acc（C=0.8）：
+
+| 数据集 | Pass@1 | SC | PC |
+|---|---|---|---|
+| GSM8K 1319 | 1276/1319=96.74% | 1277/1319=96.82% | 1277/1319=96.82% |
+| MATH-500 490 | 453/490=92.45% | 452/490=92.24% | 452/490=92.24% |
+| AIME 2024/2025、GPQA-D | 不变 | 不变 | 不变 |
+
+GSM8K Table 1 / Ablation A 的 PC Tok 见 §12.18 融合（vote-v2 −34.2%），不把旧分片 10626 当效率口径。C=0 消融 Acc：SC 1283/1319，PC 1280/1319。GPQA 不做数字复判。
+
+### 12.16 等预算 SC-20 与 Llama CPT（2026-09-12）
+
+Llama GSM8K C=0.8 的 PC 相对 SC-32 少 39.4% token，对应 \(32\times 0.606\approx 19.4\) 条独立轨迹。SC 窗口 seed 只依赖 `(seed, window_index)`，因此对已有 SC-32 JSONL 取前 20 条做多数票 **就是** 同种子 SC-20，不必重跑。`analysis/sc_prefix_k.py` 写出 sidecar；k=32 复原官方 1215/1319 与 8316 tok / 54.4 s。
+
+| k | Acc | Tok / q | Latency |
+|---:|---:|---:|---:|
+| 32 | 1215/1319=92.12% | 8,316 | 54.4 s |
+| 20 | 1204/1319=91.28% | 5,214 (−37.3%) | 34.2 s |
+| PC C=0.8 | 1210/1319=91.74% | 5,039 (−39.4%) | 33.8 s |
+
+相对等预算 SC-20，PC +6 题（+0.46 pp）。SC-20 **只**回答「与 PC 相近 token 时 SC 准不准」，不是 CPT 的并行宽度。
+
+CPT N=20（tag `cpt_llama31_gsm8k_n20`）曾按 token 预算去对齐 SC-20/PC，**对照错了**。Table 2 的 CPT 应与 PC B=32、PoLR N=32 一样用 **N=32 workers**。N=20 数字仍保留备查：Acc 1218/1319=92.34%，Tok 5,263（−36.7% vs SC-32），`total_latency_sec` 24.2 s；**不进 Table 2**，也不能写成「CPT 支配」。10 题 smoke 仍不进表。Llama adapter 不是 Qwen thinking-on 公平 CPT。
+
+N=32：`scripts/run_cpt_llama31_gsm8k.sh`，tag `cpt_llama31_gsm8k_n32`，GPU 4。**1319/1319 complete**（completion tokens 口径，与 N=20 相同）：Acc **1224/1319=92.80%**，Tok **8,411**（相对 SC-32 **+1.1%**），官方 `total_latency_sec` **34.9 s**。进 Table 2 比较块。每 worker 平均 **263 tok**，与 SC 单条轨迹 mean 260 几乎一样；32 条全长轨迹相加所以 decode 不省。N=20 的 −36.7% 只是宽度从 32 降到 20，不是黑板共享。墙钟仍从 54.4 s 降到 34.9 s。Llama adapter 不是 Qwen thinking-on 公平 CPT。
+
+PoLR：`run_polr.py`，N=32，\(L_p=64\)（Llama GSM8K SC 轨迹 mean 260 / p10 160，64 是真前缀），fingerprint `eb5fffd3c21f`。**1319/1319 complete**：Acc **1211/1319=91.81%**，Tok **4,826**（−42.0% vs SC-32），`generation_seconds` **10.6 s**。进 Table 2。\(L_p=128\)（tag `polr_llama31_gsm8k_n32_lp128_seed0`，fingerprint `77b0d966405d`）2026-09-14 GPU 4 完成：Acc **1216/1319=92.19%**，Tok **5,863**（−29.5%），11.2 s。论文默认 \(L_p=256\)（tag `polr_llama31_gsm8k_n32_lp256_seed0`，fingerprint `0703b9899c8f`；先前 `42db80765095` 取消于 36/1319）同样进 Table 2：Acc **1208/1319=91.58%**，Tok **7,554**（−9.2%），13.0 s。\(L_p=256\) 接近本机 SC 全文，前缀聚类几乎不省 token，且比 \(L_p=64\) 少 3 题。
+
+### 12.17 DeepSeek GSM8K C=0.7 消融（2026-09-12）
+
+tag `gsm8k_deepseek_v4_flash_b32_c07_rep0` / fingerprint `bb3be741ca71`，配对 SC/PC，thinking on，B=32 m=4。不进 Table 1，不是 \(C^\*\)。
+
+| | SC | PC | Δ |
+|---|---:|---:|---:|
+| Acc（格式容错复判） | 1282/1319=97.19% | 1281/1319=97.12% | −0.08 pp |
+| Tok / q | 9,898 | 7,399 | −25.2% |
+| Gate / Wrong Promo / Rollback | — | 93.7% / 24.0% / 1.6% | vs C=0.8：91.1% / 20.3% / 1.8% |
+
+官方 JSONL `correct` 已是 1274/1273（写时评分器比 C=0.8 分片更严格式容错）；sidecar 再救 8 题。门控投票键仍是旧 canonicalize。相对**同一套旧投票键**的 C=0.8 分片（decode −15.1%、Gate 91.1%、Wrong Promo 20.3%）：更低 C → 更大加速、更高错前缀风险；Δ 仍在 SE≈0.46 pp 内。不要拿融合后的 vote-v2 C=0.8（−34.2%）跟本行比阈值效应。禁止从本表回写最优 C。
+
+### 12.18 DeepSeek GSM8K C=0.8 融合记录（2026-09-13）
+
+两次实验合成 Table 1 / Ablation A 的同一格，方便记录：
+
+| 口径 | 来源 | 数字 |
+|---|---|---|
+| Acc（格式容错 overlay） | 原配对分片 first100+next500+rest719 | SC=PC **1277/1319=96.82%**，Δ=0 |
+| PC Tok / 时延 | vote-v2 `3cc1d5762c45`，复用上述 SC 根，numeric-core 投票键 | **8,230** tok/q（12514→8230，**−34.2%**），27.0 s |
+| Gate / Wrong Promo / Rollback | 同上 vote-v2 commit 日志 | 98.4% / 2.8% / 0.4% |
+
+vote-v2 自己的 overlay Acc 是 1274（−3 题），**不进主表**。官方 JSONL 1004 vs 1269 也不可比（旧评分器 vs 新判据）。C=0 / C=0.7 仍是旧投票键，Gate / Wrong Promo 不要跟本行横比。vote-v2 不覆盖原 PC 分片。
+
+### 12.19 Table 2 分工与新协议 AC/ESC（2026-09-13）
+
+作者决定：Table 2「现代基线与组合」拆成两块。
+
+- **比较**：PoLR、CPT（与 PC 同属并行共享 / 替代 SC 结构）。宽度一律 N=32 或 B=32。PoLR \(L_p=64 / 128 / 256\) 与 CPT N=32 已进表。DTS-Stable 仍 P1，不占本表。
+- **组合**：DeepConf、AC、ESC 三个截断型 parent，各报 parent 与 parent+PC。旧 `run_gsm8k.py` Sentence-PC 的 AC/ESC（B=20）**不得**填本表。
+
+新协议实现（`path_consistency/generation_methods.py` + `run_sc_pc_question`）：
+
+- `ac` / `esc`：无前缀窗口，B=32、m=4；AC 在累计答案 Beta ≥ τ=0.95 时停（Adaptive-Consistency 默认，不是 PC 门控 C=0.8）；ESC 在当前窗口 4 条答案全部解析且一致时停。
+- `pc_ac` / `pc_esc`（别名 `ac+pc` / `esc+pc`）：同一停止规则叠在 PC 前缀共享上；若同时跑 parent，则复用其无前缀窗口（paired-root）。
+- 入口：`run_math.py --methods ac,pc_ac` 或 `esc,pc_esc`；脚本 `scripts/run_llama31_gsm8k_ac_esc.sh`（默认 GPU 1 = AC，GPU 3 = ESC）。不要占 GPU 2/4。
+
+Llama GSM8K 1319 **已完成**（2026-09-13 22:43 CST）。相对 SC-32（1215/1319，8,316 tok，54.4 s）：
+
+| 方法 | Acc | Tok / q | Latency | vs SC tok |
+|---|---:|---:|---:|---:|
+| AC (τ=0.95) | 1220/1319=92.49% | 2,730 | 19.3 s | −67.2% |
+| AC+PC | 1217/1319=92.27% | 2,539 | 18.0 s | −69.5% |
+| ESC | 1220/1319=92.49% | 2,552 | 18.1 s | −69.3% |
+| ESC+PC | 1217/1319=92.27% | 2,374 | 16.8 s | −71.5% |
+
+早停率：AC 88.8%、AC+PC 90.3%、ESC 91.3%、ESC+PC 92.7%；平均约 2 窗（8 条轨迹）就停。+PC 相对各自 parent −3 题、decode 再少约 7%。进 Table 2 组合块。
+
+CPT N=32（2026-09-14）Acc 1224/1319=92.80%，tok 8,411（+1.1% vs SC），34.9 s，已进 Table 2。PoLR \(L_p=128\) Acc 1216/1319=92.19%，tok 5,863（−29.5%），11.2 s；\(L_p=256\) Acc 1208/1319=91.58%，tok 7,554（−9.2%），13.0 s，均已进 Table 2 比较块。
+
+AC τ=0.99 + PC C=0（tag `gsm8k_llama31_b32_mt2048_ac099_beta0_seed0`，fingerprint `7e39e070f987`）与 ESC `two_window_or_8`（tag `gsm8k_llama31_b32_mt2048_esc2w8_seed0`，fingerprint `d60277f37fce`）2026-09-16 **1319 complete**。不覆盖 Table 2 默认 τ=0.95 / 单窗 ESC，作为组合块诊断行写入：
+
+| 方法 | Acc | Tok / q | Latency | vs SC tok | vs parent tok |
+|---|---:|---:|---:|---:|---:|
+| AC (τ=0.99) | 1214/1319=92.04% | 4,035 | 28.0 s | −51.5% | — |
+| AC+PC (C=0) | 1216/1319=92.19% | 3,003 | 21.1 s | −63.9% | −25.6% |
+| ESC (两窗或满 8) | 1214/1319=92.04% | 4,299 | 29.8 s | −48.3% | — |
+| ESC+PC (两窗或满 8) | 1214/1319=92.04% | 3,501 | 24.4 s | −57.9% | −18.6% |
+
+早停率：AC τ=0.99 83.2%、AC+PC C=0 91.3%、ESC 2w∨8 78.5%、ESC+PC 86.2%。第一窗最少 8 条（2 窗），所以 parent token 高于默认 AC/ESC；+PC 增量也从约 7% 拉到 18–26%。
+
+### 12.20 DeepSeek MATH-500 选择 × recovery 消融（2026-09-16 / 17）
+
+论文 §5.3 的 2×2：BLC vs uniform × recovery 开/关。四臂共享 SC 根 `4856d4ef5673`（430/490，Tok 41,166）。B/C/D 为 PC-only。**Acc 用 raw JSONL**；主表 overlay 452/490 不与消融比，也不回写 Table 1。控制台原 Llama GSM8K Ablation C/E 占位表已替换为这两张 DeepSeek 表。
+
+| 臂 | tag / fingerprint | 选择 | Recovery |
+|---|---|---|---|
+| A | `…b32_c08_rep0_4856d4ef5673` | BLC | 开（主方法） |
+| B | `selrec_rand_on_rep0_50db3648c31e` | uniform | 开 |
+| C | `selrec_blc_off_rep0_eb9ec59f957a` | BLC | 关 |
+| D | `selrec_rand_off_rep0_0068abba49a2` | uniform | 关 |
+
+| Setting | PC Acc（raw） | Δ vs SC | Tok / q | vs SC | Gate | Wrong Promo | Fail windows | Fail-set Acc |
+|---|---:|---:|---:|---:|---:|---:|---|---:|
+| SC | 87.76% (430/490) | 0 | 41,166 | — | 0 | 0 | 0 | — |
+| B uniform+on | 86.94% (426/490) | −0.82 pp（2/6） | 25,680 | −37.6% | 98.2% | 11.6% | 58 rollback / 34 题 | 14/34=41.2%（SC 17/34） |
+| D uniform+off | 86.33% (423/490) | −1.43 pp（4/11） | 25,405 | −38.3% | 98.2% | 11.3% | 161 retain / 31 题 | 9/31=29.0%（SC 14/31） |
+| A BLC+on（主方法） | 87.35% (428/490) | −0.41 pp（0/2） | 26,968 | −34.5% | 98.2% | 12.4% | 17 rollback / 14 题 | 6/14=42.9%（SC 7/14） |
+| C BLC+off | 86.33% (423/490) | −1.43 pp（4/11） | 24,757 | −39.9% | 98.2% | 11.5% | 141 retain / 33 题 | 10/33=30.3%（SC 15/33） |
+
+相对 A：B 3/5（净 −2），C 4/9（净 −5），D 5/10（净 −5）。D 与 C 同为 423 题，但是 4 gain / 4 loss。McNemar 精确双侧 p 均 >0.1。
+
+2×2 交互（正确题数）：uniform | rec 开 = −2；uniform | rec 关 = 0；recovery 关 | BLC = −5；recovery 关 | uniform = −3。交互 (D−A)−(B−A)−(C−A) = +2：两因素同时偏离主方法时，伤害略小于相加，不能写成叠加崩掉。
+
+读法：
+
+1. **主方法 A 最接近 SC**（−2 题，−34.5% token）。
+2. **uniform 更常选到过不了校验的前缀**：rollback 17→58，disabled 3→11；Acc 再掉 2 题。
+3. **recovery 关换 token、掉准确率**：失败前缀留下，从不 two-strike。fail-set 相对该子集 SC：A −1、B −3、C −5、D −5。C 最省 token（−39.9%）正因为不回退。
+4. **不要比 generation_seconds**（A 110.3 vs B/C/D 65.8/62.8/60.2）：actual wall 受 API 时刻影响。
+5. BLC 非有限 score：A 731/1899、B 1009/1897、C 757/1869、D 1002/1853。
+
+### 12.21 DeepSeek MATH-500 matched-history 长度干预（2026-09-17 启动，9/18 03:29 CST complete）
+
+§5.3 第二项：冻 `4856d4ef5673` window-0 历史与 BLC@20% source，只改 \(r\in\{0,0.2,0.4,0.6,0.8\}\)，窗内 m=4 重采样；尾巴用 cache 窗口 2–7 的无前缀 SC。E0 snapshot `75d4941afc34`：490 题中 common-support **466**（gate 失败 19，缺 endpoint 5）。tag `math500_deepseek_lenint_r8_seed0` / fingerprint `2ebec2c2eced`。**18640/18640 complete**（466×5×R=8）。墙钟 14.7 h。raw JSONL。**不是** PVC 控制器，**不进 Table 1**，不能写成完整 \(d_j(h)\)（尾巴是冻住的 SC cache，不是新采样）。
+
+主口径：先对每题 8 次重复取均值，再对 466 题平均（题聚类）。对照是同一题的 \(r=0\)。
+
+| r | Window Acc | Δ vs 0 | Final Acc | Δ vs 0 | Tok / 窗 | vs 0 | Prefix tok |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0 | 88.22% | — | 89.94% | — | 3,557 | — | 0 |
+| 0.2 | 88.04% | −0.19 pp（SE 0.28；14/14/438） | 89.91% | −0.03 pp（0/1/465） | 3,444 | −3.2% | 135 |
+| 0.4 | 88.22% | 0.00 pp（SE 0.26；14/9/443） | 89.86% | −0.08 pp | 2,940 | −17.3% | 276 |
+| 0.6 | 88.04% | −0.19 pp（SE 0.29；13/14/439） | 89.89% | −0.05 pp | 2,502 | −29.7% | 417 |
+| 0.8 | 87.85% | −0.38 pp（SE 0.34；12/19/435） | 89.86% | −0.08 pp | 2,008 | −43.6% | 558 |
+
+读法：
+
+1. **加长前缀明显少生成**：r=0.8 相对无前缀少 43.6% 新 token（窗均 3557→2008）；r=0.2 只少 3.2%（前缀均 135，相对单条 ~890 token 太短）。窗墙钟 6.60→4.39 s。截断共 0–1 次，可忽略。
+2. **窗正确率几乎不动**：相对 r=0，Δ 在 −0.38～0 pp，题聚类 95% CI 都穿过 0。多数题 8 次均值完全打平（r=0.8 仍有 435/466 tie）。
+3. **最终投票几乎锁死**：464/466 题五档 final acc 相同。历史 4 + 尾巴 24 = 28 票冻住，干预窗只有 4 票，所以这不是 \(d_j(h)\) 的无偏估计，只能说明在冻住 continuation 下长度几乎改不了终局。
+4. **答案分布几乎不变**：每窗 unique answers 均值 1.08，modal share ≈0.975；相对 r=0 的 TV 仅 0.015–0.020。DeepSeek 这一窗本身已经高度一致，前缀没有再「压多样性」。
+5. **对错历史不对称，但错集只有 28 题**：window-0 对 438 题，窗 Acc ~93%，r=0.8 仍只 −0.31 pp、省 43.9%。window-0 错 28 题，窗 Acc ~15%，r≥0.4 再掉约 1 pp（SE 3 pp，n.s.），省 40–35%。不能把错前缀写成显著伤害。
+
+R=32 仍可同 fingerprint 续跑；当前 R=8 已够看出 token 随 r 单调降、正确率不随 r 崩。禁止把五档里最省 token 的 r 写回测试时 \(C^\*\) / PVC。
+
+selrec tag 从 Table 1 合格集排除，避免 PC-only 与主表 SC/PC 被 `_merge_group` 加总后丢掉 MATH-500 主格。
+
+### 12.22 Llama-3.1/GSM8K SC 前缀重复性扫描（2026-09-18）
+
+为补充 motivation 的直接经验依据，对新协议 Llama-3.1-8B-Instruct/GSM8K 的四个 SC 分片做只读扫描。数据含 1,319 题、每题 32 条独立轨迹，共 42,208 条；推理文本和答案均无缺失，281 条轨迹有截断标记。
+
+每条轨迹用原 Llama tokenizer 在自身长度的 20%、40%、60%、80% 处截取累计前缀。文本小写并规范空白，保留数字与运算符，再计算 word-bigram count cosine。每题计算 32 条轨迹的全部 496 个无序对，先得题内均值，再对 1,319 题宏平均。跨题基线用 seed=2027 随机排列问题形成无自配对循环，同一 branch index 跨题比较。区间是 5,000 次题聚类 percentile bootstrap，只反映 GSM8K 题目间变化，不是生成 seed 方差。
+
+| 相对位置 | 同题 SC 轨迹 | 随机跨题基线 | 配对差值 |
+|---:|---:|---:|---:|
+| 20% | 0.618 [0.611, 0.625] | 0.134 [0.130, 0.138] | 0.484 [0.477, 0.490] |
+| 40% | 0.630 [0.624, 0.636] | 0.095 [0.092, 0.098] | 0.536 [0.530, 0.542] |
+| 60% | 0.638 [0.633, 0.644] | 0.085 [0.082, 0.088] | 0.553 [0.547, 0.559] |
+| 80% | 0.652 [0.646, 0.657] | 0.089 [0.086, 0.093] | 0.562 [0.556, 0.569] |
+
+诊断结果：
+
+1. 四个位置上，每道题的同题均值都高于其随机跨题基线。题间异质性仍明显，20% 位置同题相似度的 p10/median/p90 为 0.450/0.619/0.780，80% 为 0.510/0.659/0.791。
+2. 有不同最终答案轨迹对的 674 题中，异答案对的宏平均仍为 0.566、0.575、0.581、0.589。重复不只出现在最终答案一致的路径中，但该子集是条件分析。
+3. 排除截断轨迹后，四个主均值只增加 0.0011、0.0014、0.0017、0.0019，结论不由截断样本驱动。
+4. 该实验只支持“SC 轨迹存在显著的问题特定表面重复”。不能据此写成语义状态等价、共享前缀正确或复用必然保持准确率。单模型、单数据集、单次采样与单一表面相似度判据仍是限制。
+
+可复现入口：
+
+```bash
+/home/26xyw/.conda/envs/PC/bin/python analysis/sc_prefix_similarity.py \
+  --bootstrap-repetitions 5000 --progress-every 100
+```
+
+产物：`paper/ICLR/data/sc_prefix_similarity_snapshot.json`（含输入 SHA-256 和逐题无原文统计）、`sc_prefix_similarity_validation.md`、`tables/sc_prefix_similarity_rows.tex`、`figures/sc_prefix_similarity.{svg,pdf,png}`。状态为 `ANALYZED`，未做独立第二次完全复现，不标 `VERIFIED`。
+
+### 12.23 同题 SC 重复片段与中间运算矩阵（2026-09-19）
+
+作者指出异题对照无法有效证明前缀冗余，授权先进行重复中间计算扫描，并以 32 条路径 × 32 个相对 token 区间展示。新增 `analysis/sc_repetition_matrix.py`，只读沿用 §12.22 的四个 SC 分片，1,319 题 / 42,208 条路径，包含 281 条截断轨迹。
+
+按原 tokenizer 匹配跨至少两条路径出现的连续 exact-8/16/32 片段，以 token 并集计算每题覆盖率，再题目宏平均。排除 prompt 原样 n-gram 后分别为 **85.94%、66.67%、34.03%**。这些覆盖率包含匹配双方，也包含中后段和答案附近的重复，不是可节省 token 比例，不是从第一个 token 开始的一致前缀长度。
+
+保守规则提取数值表达式，规范空白、数字格式和乘除符号，保留负号与操作数顺序，排除 prompt 已包含的表达式。**1,306/1,319 题**检测到跨路径重复表达式，**35,269/42,208 条路径**包含它们，表达式自身 token 覆盖率宏平均 **4.98%**。这不是完整语义步骤标注，不覆盖带单位的表达式、一般符号推导等，也没有证明重复步骤能够安全删除。
+
+按 exact-8 prompt-filtered 覆盖率第 25/50/75 百分位自动选择 source_row **909/657/1078**，不按正确率或图形效果挑选。每题各输出 token 片段矩阵和数值表达式矩阵，图中最多高亮 8 类，灰色为未高亮部分而非“无重复”。格子内部保留真实 token 边界，没有扩张为整格匹配。
+
+入口和详细口径见 `paper/ICLR/data/sc_repetition_matrix/README.md`；逐题统计、SHA-256 和三道样例审计信息分别在同目录 `snapshot.json`、`examples.json`。六张图的 PNG/SVG/PDF 在 `paper/ICLR/figures/sc_repetition_matrix/`。状态 **ANALYZED**，未插入论文正文。开发中修复负号解析并重新全量扫描；新旧相关 17 项测试通过。
+
+### 12.24 第三章技术图与 Figure 1 替换（2026-09-19）
+
+按作者要求，参考 NOVA（ICLR 2025）Figure 4 的紧凑并列子图风格，分别绘制答案一致性门控、单条连续前缀选择、试用与回退三个技术。产物位于 `paper/ICLR/figures/method/`，含三个独立图及组合 `fig1_method`，均提供 PDF/SVG/PNG/原生可编辑 draw.io；生成脚本和来源说明随图保存。
+
+核对 `03_methodology.tex` 与 `path_consistency/math_protocol.py`，保留 top-1 对 all-rest、仅对新增片段评分、trial/commit、连续两次失败关闭复用、失败窗口有效答案保留最终投票等口径。图是机制示意，不引入新实验值或正确性保证。替换原 Figure 1 的文字框图，保留 `fig:loop` 标签，同时移除第三章开头过时的 extract-and-sample 表述。
+
+验证：四组图生成通过文字画布边界检查，draw.io XML 可解析；组合 SVG 经独立 Rsvg 渲染检查，修复字体/公式兼容性问题后采用矢量字形；论文 TinyTeX 编译通过，Figure 1 位于第 3 页，全文仍为 20 页，无 overfull 或未定义引用。已目视检查论文中图的排版。本机无 draw.io 桌面端，未验证其 MathJax 显示效果。
+
+### 12.25 Qwen3-30B-A3B × MATH-500 first100（2026-09-19 启动，9/20 21:49 CST complete）
+
+作者要求在 4090 实验室用冻结协议跑 Qwen3-30B-A3B MATH-500 的 paired SC/PC，**只取 JSONL `source_row` 0–99**（不是 shuffle 的 `--max-questions 100`）。工程 10 题行号均 ≥151，与前 100 行无交集，故 n=100。
+
+| 项 | 值 |
+|---|---|
+| tag | `math500_qwen3_30b_a3b_first100_b32_mt32768_c08_seed0` |
+| fingerprint | `630825247308` |
+| 协议 | paired-root v2；B=32，m=4；C=0.8；BLC；thinking on；固定 20% 网格 |
+| 采样 | T=0.6，top-p=0.95，top-k=20；max_tokens=32768；max_model_len=34816 |
+| 引擎 | vLLM V1 + CUDA-graph，TP=4，GPU 1–4；NCCL 2.21.5（CUDA 12.2）；`num_gpu_blocks_override=8192` |
+| 墙钟 | 2026-09-19 22:53 → 09-20 21:49 CST（约 22.9 h，含引擎 init 236 s） |
+
+**主数字（raw Acc，未做格式容错 overlay）：**
+
+| Method | Acc | Δ vs SC | Tok / q | vs SC | `generation_seconds` | vs SC |
+|---|---:|---:|---:|---:|---:|---:|
+| Pass@1（SC 第一条） | 94/100 = 94.00% | 0.00 pp | — | — | — | — |
+| SC（B=32） | 94/100 = 94.00% | — | 141,320 | — | 564.6 s | — |
+| **PC (C=0.8)** | **94/100 = 94.00%** | **0.00 pp** | **84,112** | **−40.5%** | **348.8 s** | **−38.2%** |
+
+配对 100/100。SC 与 PC 逐题一致（gain=0，loss=0）。Gate（最终前缀比例>0）99/100，均值 r=0.782（96 题停在 0.8）。PC 复用 SC root 窗口 112。截断事件 SC 6 / PC 3；parser_failures SC 4 / PC 1。SE(PC)=±2.37 pp（二项标准误）。速度只报 `generation_seconds`（含复用根）；PC `actual_generation_seconds` 均值 253.9 s **不当 speedup**。
+
+按科目（n 很小，只作分布，不做科目结论）：Algebra 25 题 24/24、tok −42.4%；Intermediate Algebra 19 题 17/17、−40.6%；Prealgebra 18 题 17/17、−44.0%；Precalculus 14 题 13/13、−39.8%；Number Theory 11 题 11/11、−45.7%；Geometry 7 题 6/6、−24.8%；Counting & Probability 6 题 6/6、−38.9%。
+
+双方皆错 6 题：row 4 `Evelyn` vs `\text{Evelyn}`、row 18 gold 28 vs 56、row 25 `1,-2` vs `-2,1`（随后 prefixing_disabled）、row 36 gold `3, 5, 7` vs `7`、row 97 `east` vs `\text{east}`、row 99 矩阵分数线写法。未做 DeepSeek 那套 numeric overlay，不把其中格式项回写成 96/100。
+
+作者要求把 n=100 部分结果写入控制台 Table 1 Qwen × MATH-500 格，格内 Acc 显示 **94/100 · 部分**。列头仍是计划 n=490；**不是**全量主统计，全量 490 到位后替换。禁止把 C=0.8 标成 \(C^\*\)、用 n=100 选阈值、续跑同一 tag 覆盖 JSONL。试跑科目表仍由 `build_qwen_first100()` 生成。
+
+### 12.26 Qwen3-30B-A3B × MATH-500 next100 与 Table 1 n=199（2026-09-21 启动，9/22 15:14 CST complete）
+
+tag `math500_qwen3_30b_a3b_next100_b32_mt32768_c08_seed0`，fingerprint `664997212910`。JSONL `source_row` 100–199，排除工程行 151，planned=99。协议与 first100 相同。
+
+| Method | Acc | Δ vs SC | Tok / q | vs SC | `generation_seconds` | vs SC |
+|---|---:|---:|---:|---:|---:|---:|
+| Pass@1 | 93/99 = 93.94% | — | — | — | — | — |
+| SC | 94/99 = 94.95% | — | 172,750 | — | 680.7 s | — |
+| **PC (C=0.8)** | **94/99 = 94.95%** | **0.00 pp** | **100,181** | **−42.0%** | **405.9 s** | **−40.4%** |
+
+与 first100 无 id 重叠。合并 source_row 0–199（缺 151）**n=199**：
+
+| Method | Acc | Δ vs SC | Tok / q | vs SC | `generation_seconds` | vs SC |
+|---|---:|---:|---:|---:|---:|---:|
+| Pass@1 | 187/199 = 93.97% | — | — | — | — | — |
+| SC | 188/199 = 94.47% | — | 156,956 | — | 622.3 s | — |
+| **PC (C=0.8)** | **188/199 = 94.47%** | **0.00 pp** | **92,106** | **−41.3%** | **377.2 s** | **−39.4%** |
+
+逐题一致（gain=0，loss=0）。Gate 197/199，均值 r=0.787。作者要求写入 Table 1 部分格（显示 188/199 · 部分）。不是 490，不能回写 \(C^\*\)。
 
 
 

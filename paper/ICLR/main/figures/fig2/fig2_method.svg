@@ -1,0 +1,1625 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="650" viewBox="0 0 1420 650">
+  <title>Figure 2: Path-Consistency method overview</title>
+  <metadata id="editable-drawio-source">&lt;mxfile host="app.diagrams.net" type="device"&gt;
+  &lt;diagram id="pc-method" name="Figure 2 — Method Overview"&gt;
+    &lt;mxGraphModel dx="1420" dy="650" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="1420" pageHeight="650" background="#FFFFFF" math="0"&gt;
+      &lt;root&gt;
+        &lt;mxCell id="0" /&gt;
+        &lt;mxCell id="1" parent="0" /&gt;
+        &lt;mxCell id="sc_band" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F7F8FA;strokeColor=none;strokeWidth=1.5;arcSize=5;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="18" y="14" width="1384" height="193" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_heading" value="Self-&amp;lt;br/&amp;gt;consistency" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=26;fontColor=#285C78;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="34" y="44" width="164" height="61" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_sub" value="Full paths&amp;lt;br/&amp;gt;every window" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=20;fontColor=#59636C;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="34" y="113" width="164" height="49" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_window0" value="Window 1" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=21;fontColor=#59636C;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="231" y="25" width="246" height="30" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_0new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="231" y="65" width="177" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_0tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="255" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="255" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_0tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="282" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="282" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_0tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="309" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="309" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_0tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="336" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="336" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_0tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="363" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="363" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_0tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="390" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="390" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_0answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="64" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_0letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="64" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_1new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="231" y="97" width="157" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_1tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="255" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="255" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_1tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="282" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="282" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_1tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="309" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="309" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_1tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="336" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="336" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_1tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="363" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="363" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_1answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="96" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_1letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="96" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_2new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="231" y="129" width="190" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_2tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="255" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="255" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_2tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="282" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="282" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_2tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="309" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="309" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_2tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="336" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="336" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_2tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="363" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="363" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_2tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="390" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="390" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_2answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B9CFEB;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="128" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_2letter" value="B" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="128" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_3new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="231" y="161" width="170" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_3tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="255" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="255" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_3tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="282" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="282" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_3tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="309" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="309" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_3tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="336" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="336" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_3tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="363" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="363" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_3tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="390" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="390" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_3answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="160" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc0_3letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="160" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_next0" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#98A3AE;strokeWidth=1.8;endArrow=block;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="483" y="122" /&gt;
+            &lt;mxPoint as="targetPoint" x="539" y="122" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_window1" value="Window 2" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=21;fontColor=#59636C;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="561" y="25" width="246" height="30" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_0new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="561" y="65" width="177" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_0tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="585" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="585" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_0tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="612" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="612" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_0tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="639" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="639" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_0tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="666" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="666" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_0tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="693" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="693" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_0tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="720" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="720" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_0answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="64" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_0letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="64" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_1new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="561" y="97" width="157" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_1tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="585" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="585" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_1tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="612" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="612" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_1tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="639" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="639" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_1tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="666" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="666" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_1tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="693" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="693" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_1answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="96" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_1letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="96" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_2new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="561" y="129" width="190" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_2tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="585" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="585" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_2tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="612" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="612" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_2tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="639" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="639" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_2tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="666" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="666" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_2tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="693" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="693" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_2tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="720" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="720" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_2answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B9CFEB;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="128" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_2letter" value="B" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="128" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_3new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="561" y="161" width="170" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_3tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="585" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="585" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_3tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="612" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="612" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_3tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="639" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="639" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_3tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="666" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="666" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_3tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="693" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="693" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_3tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="720" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="720" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_3answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="160" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc1_3letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="160" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_next1" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#98A3AE;strokeWidth=1.8;endArrow=block;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="813" y="122" /&gt;
+            &lt;mxPoint as="targetPoint" x="869" y="122" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_window2" value="Window 3 … 8" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=21;fontColor=#59636C;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="891" y="25" width="246" height="30" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_0new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="891" y="65" width="177" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_0tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="915" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="915" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_0tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="942" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="942" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_0tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="969" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="969" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_0tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="996" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="996" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_0tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1023" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="1023" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_0tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1050" y="70" /&gt;
+            &lt;mxPoint as="targetPoint" x="1050" y="83" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_0answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="64" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_0letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="64" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_1new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="891" y="97" width="157" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_1tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="915" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="915" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_1tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="942" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="942" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_1tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="969" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="969" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_1tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="996" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="996" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_1tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1023" y="102" /&gt;
+            &lt;mxPoint as="targetPoint" x="1023" y="115" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_1answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="96" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_1letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="96" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_2new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="891" y="129" width="190" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_2tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="915" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="915" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_2tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="942" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="942" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_2tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="969" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="969" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_2tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="996" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="996" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_2tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1023" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="1023" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_2tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1050" y="134" /&gt;
+            &lt;mxPoint as="targetPoint" x="1050" y="147" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_2answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B9CFEB;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="128" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_2letter" value="B" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="128" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_3new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="891" y="161" width="170" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_3tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="915" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="915" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_3tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="942" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="942" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_3tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="969" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="969" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_3tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="996" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="996" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_3tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1023" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="1023" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_3tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1050" y="166" /&gt;
+            &lt;mxPoint as="targetPoint" x="1050" y="179" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_3answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="160" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc2_3letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="160" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_vote" value="Majority vote" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=23;fontColor=#285C78;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1218" y="87" width="155" height="34" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_final" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;arcSize=20;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1270" y="132" width="49" height="42" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_answer" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=26;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1270" y="132" width="49" height="42" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="sc_to_vote" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#98A3AE;strokeWidth=1.8;endArrow=block;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1138" y="122" /&gt;
+            &lt;mxPoint as="targetPoint" x="1206" y="122" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc_heading" value="Path-&amp;lt;br/&amp;gt;Consistency" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=27;fontColor=#7762B5;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="32" y="237" width="172" height="55" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="illustration_note" value="Illustrative sequence" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#59636C;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="31" y="293" width="174" height="27" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="prompt_card" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#EDF2F8;strokeColor=#AABCD0;strokeWidth=1.5;arcSize=15;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="39" y="330" width="147" height="94" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="question" value="Question" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=23;fontColor=#285C78;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="48" y="342" width="129" height="30" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="promptline0" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#AABCD0;strokeWidth=2;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="60" y="382" /&gt;
+            &lt;mxPoint as="targetPoint" x="154" y="382" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="promptline1" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#AABCD0;strokeWidth=2;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="60" y="392" /&gt;
+            &lt;mxPoint as="targetPoint" x="167" y="392" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="promptline2" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#AABCD0;strokeWidth=2;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="60" y="402" /&gt;
+            &lt;mxPoint as="targetPoint" x="134" y="402" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="prompt_to_root" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#7762B5;strokeWidth=1.8;endArrow=block;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="188" y="376" /&gt;
+            &lt;mxPoint as="targetPoint" x="220" y="376" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="window_panel0" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#FFFFFF;strokeColor=#C9CCD5;strokeWidth=1.5;arcSize=8;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="220" y="302" width="267" height="173" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="window_title0" value="Window 1" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=25;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="220" y="242" width="267" height="34" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="window_state0" value="Root · &amp;lt;i&amp;gt;r&amp;lt;/i&amp;gt; = 0" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=21;fontColor=#7762B5;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="220" y="275" width="267" height="25" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="231" y="317" width="177" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="255" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="255" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="282" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="282" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="309" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="309" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="336" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="336" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="363" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="363" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="390" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="390" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0selected" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=none;strokeColor=#F2C779;strokeWidth=1.5;arcSize=10;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="227" y="313" width="42" height="31" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="316" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_0letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="316" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_1new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="231" y="355" width="157" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_1tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="255" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="255" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_1tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="282" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="282" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_1tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="309" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="309" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_1tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="336" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="336" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_1tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="363" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="363" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_1answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="354" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_1letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="354" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_2new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="231" y="393" width="190" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_2tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="255" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="255" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_2tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="282" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="282" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_2tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="309" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="309" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_2tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="336" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="336" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_2tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="363" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="363" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_2tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="390" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="390" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_2answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B9CFEB;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="392" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_2letter" value="B" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="392" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_3new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="231" y="431" width="170" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_3tick24" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="255" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="255" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_3tick51" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="282" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="282" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_3tick78" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="309" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="309" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_3tick105" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="336" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="336" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_3tick132" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="363" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="363" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_3tick159" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="390" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="390" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_3answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="430" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc0_3letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="442" y="430" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="gate_chip" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#FFF3D9;strokeColor=#E4BE6D;strokeWidth=1.5;arcSize=22;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="220" y="489" width="267" height="44" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="gate_short" value="Gate + BLC → extract" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=21;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="228" y="492" width="251" height="38" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="continue0" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#7762B5;strokeWidth=2.5;endArrow=block;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="489" y="388" /&gt;
+            &lt;mxPoint as="targetPoint" x="538" y="388" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="reuse_label0" value="reuse" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=18;fontColor=#7762B5;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="485" y="347" width="66" height="29" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="window_panel1" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#FFFFFF;strokeColor=#C9CCD5;strokeWidth=1.5;arcSize=8;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="550" y="302" width="267" height="173" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="window_title1" value="Window 2" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=25;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="550" y="242" width="267" height="34" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="window_state1" value="Trial · &amp;lt;i&amp;gt;r&amp;lt;/i&amp;gt; = 0.2" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=21;fontColor=#7762B5;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="550" y="275" width="267" height="25" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_0prefix" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B6A3DC;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="561" y="317" width="35" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_0new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="596" y="317" width="142" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_0tick59" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="620" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="620" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_0tick86" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="647" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="647" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_0tick113" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="674" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="674" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_0tick140" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="701" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="701" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_0tick167" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="728" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="728" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_0answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="316" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_0letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="316" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_1prefix" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B6A3DC;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="561" y="355" width="35" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_1new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="596" y="355" width="122" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_1tick59" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="620" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="620" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_1tick86" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="647" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="647" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_1tick113" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="674" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="674" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_1tick140" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="701" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="701" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_1answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="354" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_1letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="354" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_2prefix" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B6A3DC;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="561" y="393" width="35" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_2new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="596" y="393" width="155" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_2tick59" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="620" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="620" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_2tick86" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="647" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="647" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_2tick113" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="674" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="674" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_2tick140" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="701" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="701" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_2tick167" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="728" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="728" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_2answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B9CFEB;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="392" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_2letter" value="B" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="392" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_3prefix" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B6A3DC;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="561" y="431" width="35" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_3new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="596" y="431" width="135" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_3tick59" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="620" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="620" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_3tick86" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="647" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="647" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_3tick113" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="674" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="674" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_3tick140" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="701" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="701" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_3answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="430" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc1_3letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="772" y="430" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="validate_chip1" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#EEE9F7;strokeColor=#B6A3DC;strokeWidth=1.5;arcSize=22;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="550" y="489" width="267" height="44" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="validate_short1" value="Validate → commit" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=20;fontColor=#7762B5;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="558" y="492" width="251" height="38" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="continue1" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#7762B5;strokeWidth=2.5;endArrow=block;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="819" y="388" /&gt;
+            &lt;mxPoint as="targetPoint" x="868" y="388" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="reuse_label1" value="reuse" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=18;fontColor=#7762B5;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="815" y="347" width="66" height="29" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="window_panel2" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#FFFFFF;strokeColor=#C9CCD5;strokeWidth=1.5;arcSize=8;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="880" y="302" width="267" height="173" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="window_title2" value="Window 3" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=25;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="880" y="242" width="267" height="34" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="window_state2" value="Trial · &amp;lt;i&amp;gt;r&amp;lt;/i&amp;gt; = 0.4" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=21;fontColor=#7762B5;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="880" y="275" width="267" height="25" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_0prefix" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B6A3DC;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="891" y="317" width="70" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_0new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="961" y="317" width="107" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_0tick94" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="985" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="985" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_0tick121" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1012" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="1012" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_0tick148" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1039" y="322" /&gt;
+            &lt;mxPoint as="targetPoint" x="1039" y="335" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_0answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="316" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_0letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="316" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_1prefix" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B6A3DC;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="891" y="355" width="70" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_1new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="961" y="355" width="87" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_1tick94" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="985" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="985" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_1tick121" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1012" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="1012" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_1tick148" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1039" y="360" /&gt;
+            &lt;mxPoint as="targetPoint" x="1039" y="373" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_1answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="354" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_1letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="354" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_2prefix" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B6A3DC;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="891" y="393" width="70" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_2new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="961" y="393" width="120" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_2tick94" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="985" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="985" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_2tick121" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1012" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="1012" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_2tick148" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1039" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="1039" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_2tick175" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1066" y="398" /&gt;
+            &lt;mxPoint as="targetPoint" x="1066" y="411" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_2answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B9CFEB;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="392" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_2letter" value="B" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="392" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_3prefix" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B6A3DC;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="891" y="431" width="70" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_3new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=16;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="961" y="431" width="100" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_3tick94" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="985" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="985" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_3tick121" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1012" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="1012" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_3tick148" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#A9CFC4;strokeWidth=1;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1039" y="436" /&gt;
+            &lt;mxPoint as="targetPoint" x="1039" y="449" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_3answer" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="430" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="pc2_3letter" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=17;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1102" y="430" width="26" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="validate_chip2" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#EEE9F7;strokeColor=#B6A3DC;strokeWidth=1.5;arcSize=22;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="880" y="489" width="267" height="44" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="validate_short2" value="Validate → commit" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=20;fontColor=#7762B5;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="888" y="492" width="251" height="38" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="ellipsis" value="⋯" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=37;fontColor=#59636C;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1152" y="360" width="73" height="43" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="later_windows" value="to 8" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=18;fontColor=#59636C;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1147" y="400" width="70" height="26" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="vote_title" value="Majority&amp;lt;br/&amp;gt;vote" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=25;fontColor=#285C78;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1245" y="298" width="155" height="59" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="final_answer_card" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#FFF0CB;strokeColor=#DDB566;strokeWidth=1.5;arcSize=22;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1261" y="373" width="118" height="78" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="answer_label" value="Answer" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=19;fontColor=#59636C;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1261" y="381" width="118" height="29" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="final_A" value="A" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=32;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;fontStyle=1;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="1261" y="411" width="118" height="34" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="collect_bracket" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#285C78;strokeWidth=2;endArrow=block;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="220" y="542" /&gt;
+            &lt;mxPoint as="targetPoint" x="1252" y="429" /&gt;
+            &lt;Array as="points"&gt;
+              &lt;mxPoint x="220" y="562" /&gt;
+              &lt;mxPoint x="1205" y="562" /&gt;
+              &lt;mxPoint x="1205" y="429" /&gt;
+            &lt;/Array&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="bracket_end" value="" edge="1" parent="1" style="html=1;rounded=0;strokeColor=#285C78;strokeWidth=1.8;endArrow=none;endFill=1;endSize=7;"&gt;
+          &lt;mxGeometry as="geometry" relative="1"&gt;
+            &lt;mxPoint as="sourcePoint" x="1147" y="542" /&gt;
+            &lt;mxPoint as="targetPoint" x="1147" y="562" /&gt;
+          &lt;/mxGeometry&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="all_votes" value="All answers, including rejected windows" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=20;fontColor=#285C78;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="666" y="567" width="519" height="30" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="rollback_tag" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F9ECEC;strokeColor=none;strokeWidth=1.5;arcSize=14;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="227" y="568" width="409" height="32" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="rollback_note" value="Failed validation ↶ rollback" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=20;fontColor=#C77576;align=center;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="235" y="568" width="393" height="32" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="legend_prefix" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B6A3DC;strokeColor=none;strokeWidth=1.5;arcSize=10;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="28" y="619" width="25" height="16" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="legend_prefix_text" value="Shared prefix" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=19;fontColor=#59636C;align=left;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="61" y="609" width="135" height="34" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="legend_new" value="" style="html=1;whiteSpace=wrap;rounded=1;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#D2EAE3;strokeColor=none;strokeWidth=1.5;arcSize=10;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="215" y="619" width="25" height="16" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="legend_new_text" value="New tokens" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=19;fontColor=#59636C;align=left;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="248" y="609" width="121" height="34" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="legend_A" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#F2C779;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="389" y="615" width="23" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="legend_B" value="" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=22;fontColor=#202A32;align=center;verticalAlign=middle;spacing=0;fillColor=#B9CFEB;strokeColor=none;strokeWidth=1.5;shape=ellipse;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="417" y="615" width="23" height="23" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="legend_answer_text" value="Answer categories" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=19;fontColor=#59636C;align=left;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="452" y="609" width="216" height="34" /&gt;
+        &lt;/mxCell&gt;
+        &lt;mxCell id="budget_v2" value="&amp;lt;i&amp;gt;B&amp;lt;/i&amp;gt; = 32   ·   &amp;lt;i&amp;gt;m&amp;lt;/i&amp;gt; = 4   ·   &amp;lt;i&amp;gt;C&amp;lt;/i&amp;gt; = 0.8" style="html=1;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=21;fontColor=#59636C;align=right;verticalAlign=middle;spacing=0;shape=text;fillColor=none;strokeColor=none;" vertex="1" parent="1"&gt;
+          &lt;mxGeometry as="geometry" x="865" y="609" width="513" height="34" /&gt;
+        &lt;/mxCell&gt;
+      &lt;/root&gt;
+    &lt;/mxGraphModel&gt;
+  &lt;/diagram&gt;
+&lt;/mxfile&gt;
+</metadata>
+  <rect width="1420" height="650" fill="white" />
+  <defs>
+    <marker id="arrow202A32" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L7 3.5 L0 7 Z" fill="#202A32" />
+    </marker>
+    <marker id="arrow285C78" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L7 3.5 L0 7 Z" fill="#285C78" />
+    </marker>
+    <marker id="arrow7762B5" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L7 3.5 L0 7 Z" fill="#7762B5" />
+    </marker>
+    <marker id="arrow98A3AE" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L7 3.5 L0 7 Z" fill="#98A3AE" />
+    </marker>
+    <marker id="arrowA9CFC4" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L7 3.5 L0 7 Z" fill="#A9CFC4" />
+    </marker>
+    <marker id="arrowAABCD0" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0 0 L7 3.5 L0 7 Z" fill="#AABCD0" />
+    </marker>
+  </defs>
+  <rect stroke-width="1.5" x="18.0" y="14.0" width="1384.0" height="193.0" fill="#F7F8FA" stroke="none" rx="9.65" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="26.0" text-anchor="middle" font-weight="bold" x="116.0" y="68.0" fill="#285C78">
+    <tspan>Self-</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="26.0" text-anchor="middle" font-weight="bold" x="116.0" y="98.68" fill="#285C78">
+    <tspan>consistency</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="20.0" text-anchor="middle" font-weight="normal" x="116.0" y="132.5" fill="#59636C">
+    <tspan>Full paths</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="20.0" text-anchor="middle" font-weight="normal" x="116.0" y="156.10000000000002" fill="#59636C">
+    <tspan>every window</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="21.0" text-anchor="middle" font-weight="normal" x="354.0" y="47.14" fill="#59636C">
+    <tspan>Window 1</tspan>
+  </text>
+  <rect stroke-width="1.5" x="231.0" y="65.0" width="177.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M255 70 L255 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M282 70 L282 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M309 70 L309 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M336 70 L336 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M363 70 L363 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M390 70 L390 83" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="455.0" cy="77.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="455.0" y="82.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="231.0" y="97.0" width="157.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M255 102 L255 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M282 102 L282 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M309 102 L309 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M336 102 L336 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M363 102 L363 115" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="455.0" cy="109.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="455.0" y="114.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="231.0" y="129.0" width="190.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M255 134 L255 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M282 134 L282 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M309 134 L309 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M336 134 L336 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M363 134 L363 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M390 134 L390 147" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="455.0" cy="141.0" rx="13.0" ry="13.0" fill="#B9CFEB" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="455.0" y="146.78" fill="#202A32">
+    <tspan>B</tspan>
+  </text>
+  <rect stroke-width="1.5" x="231.0" y="161.0" width="170.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M255 166 L255 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M282 166 L282 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M309 166 L309 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M336 166 L336 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M363 166 L363 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M390 166 L390 179" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="455.0" cy="173.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="455.0" y="178.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <path stroke-width="1.8" d="M483 122 L539 122" fill="none" stroke="#98A3AE" marker-end="url(#arrow98A3AE)" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="21.0" text-anchor="middle" font-weight="normal" x="684.0" y="47.14" fill="#59636C">
+    <tspan>Window 2</tspan>
+  </text>
+  <rect stroke-width="1.5" x="561.0" y="65.0" width="177.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M585 70 L585 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M612 70 L612 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M639 70 L639 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M666 70 L666 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M693 70 L693 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M720 70 L720 83" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="785.0" cy="77.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="785.0" y="82.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="561.0" y="97.0" width="157.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M585 102 L585 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M612 102 L612 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M639 102 L639 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M666 102 L666 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M693 102 L693 115" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="785.0" cy="109.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="785.0" y="114.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="561.0" y="129.0" width="190.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M585 134 L585 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M612 134 L612 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M639 134 L639 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M666 134 L666 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M693 134 L693 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M720 134 L720 147" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="785.0" cy="141.0" rx="13.0" ry="13.0" fill="#B9CFEB" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="785.0" y="146.78" fill="#202A32">
+    <tspan>B</tspan>
+  </text>
+  <rect stroke-width="1.5" x="561.0" y="161.0" width="170.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M585 166 L585 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M612 166 L612 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M639 166 L639 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M666 166 L666 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M693 166 L693 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M720 166 L720 179" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="785.0" cy="173.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="785.0" y="178.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <path stroke-width="1.8" d="M813 122 L869 122" fill="none" stroke="#98A3AE" marker-end="url(#arrow98A3AE)" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="21.0" text-anchor="middle" font-weight="normal" x="1014.0" y="47.14" fill="#59636C">
+    <tspan>Window 3 … 8</tspan>
+  </text>
+  <rect stroke-width="1.5" x="891.0" y="65.0" width="177.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M915 70 L915 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M942 70 L942 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M969 70 L969 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M996 70 L996 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1023 70 L1023 83" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1050 70 L1050 83" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="1115.0" cy="77.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="1115.0" y="82.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="891.0" y="97.0" width="157.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M915 102 L915 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M942 102 L942 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M969 102 L969 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M996 102 L996 115" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1023 102 L1023 115" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="1115.0" cy="109.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="1115.0" y="114.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="891.0" y="129.0" width="190.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M915 134 L915 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M942 134 L942 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M969 134 L969 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M996 134 L996 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1023 134 L1023 147" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1050 134 L1050 147" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="1115.0" cy="141.0" rx="13.0" ry="13.0" fill="#B9CFEB" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="1115.0" y="146.78" fill="#202A32">
+    <tspan>B</tspan>
+  </text>
+  <rect stroke-width="1.5" x="891.0" y="161.0" width="170.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M915 166 L915 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M942 166 L942 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M969 166 L969 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M996 166 L996 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1023 166 L1023 179" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1050 166 L1050 179" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="1115.0" cy="173.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="1115.0" y="178.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="23.0" text-anchor="middle" font-weight="bold" x="1295.5" y="111.82" fill="#285C78">
+    <tspan>Majority vote</tspan>
+  </text>
+  <rect stroke-width="1.5" x="1270.0" y="132.0" width="49.0" height="42.0" fill="#F2C779" stroke="none" rx="8.4" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="26.0" text-anchor="middle" font-weight="bold" x="1294.5" y="161.84" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <path stroke-width="1.8" d="M1138 122 L1206 122" fill="none" stroke="#98A3AE" marker-end="url(#arrow98A3AE)" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="27.0" text-anchor="middle" font-weight="bold" x="118.0" y="257.75" fill="#7762B5">
+    <tspan>Path-</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="27.0" text-anchor="middle" font-weight="bold" x="118.0" y="289.61" fill="#7762B5">
+    <tspan>Consistency</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="normal" x="118.0" y="312.28" fill="#59636C">
+    <tspan>Illustrative sequence</tspan>
+  </text>
+  <rect stroke-width="1.5" x="39.0" y="330.0" width="147.0" height="94.0" fill="#EDF2F8" stroke="#AABCD0" rx="14.1" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="23.0" text-anchor="middle" font-weight="bold" x="112.5" y="364.82" fill="#285C78">
+    <tspan>Question</tspan>
+  </text>
+  <path stroke-width="2" d="M60 382 L154 382" fill="none" stroke="#AABCD0" />
+  <path stroke-width="2" d="M60 392 L167 392" fill="none" stroke="#AABCD0" />
+  <path stroke-width="2" d="M60 402 L134 402" fill="none" stroke="#AABCD0" />
+  <path stroke-width="1.8" d="M188 376 L220 376" fill="none" stroke="#7762B5" marker-end="url(#arrow7762B5)" />
+  <rect stroke-width="1.5" x="220.0" y="302.0" width="267.0" height="173.0" fill="#FFFFFF" stroke="#C9CCD5" rx="13.84" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="25.0" text-anchor="middle" font-weight="bold" x="353.5" y="267.5" fill="#202A32">
+    <tspan>Window 1</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="21.0" text-anchor="middle" font-weight="normal" x="353.5" y="294.64" fill="#7762B5">
+    <tspan>Root · </tspan>
+    <tspan font-style="italic">r</tspan>
+    <tspan> = 0</tspan>
+  </text>
+  <rect stroke-width="1.5" x="231.0" y="317.0" width="177.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M255 322 L255 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M282 322 L282 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M309 322 L309 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M336 322 L336 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M363 322 L363 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M390 322 L390 335" fill="none" stroke="#A9CFC4" />
+  <rect stroke-width="1.5" x="227.0" y="313.0" width="42.0" height="31.0" fill="none" stroke="#F2C779" rx="3.1" />
+  <ellipse stroke-width="1.5" cx="455.0" cy="329.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="455.0" y="334.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="231.0" y="355.0" width="157.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M255 360 L255 373" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M282 360 L282 373" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M309 360 L309 373" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M336 360 L336 373" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M363 360 L363 373" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="455.0" cy="367.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="455.0" y="372.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="231.0" y="393.0" width="190.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M255 398 L255 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M282 398 L282 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M309 398 L309 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M336 398 L336 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M363 398 L363 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M390 398 L390 411" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="455.0" cy="405.0" rx="13.0" ry="13.0" fill="#B9CFEB" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="455.0" y="410.78" fill="#202A32">
+    <tspan>B</tspan>
+  </text>
+  <rect stroke-width="1.5" x="231.0" y="431.0" width="170.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M255 436 L255 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M282 436 L282 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M309 436 L309 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M336 436 L336 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M363 436 L363 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M390 436 L390 449" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="455.0" cy="443.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="455.0" y="448.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="220.0" y="489.0" width="267.0" height="44.0" fill="#FFF3D9" stroke="#E4BE6D" rx="9.68" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="21.0" text-anchor="middle" font-weight="bold" x="353.5" y="518.14" fill="#202A32">
+    <tspan>Gate + BLC → extract</tspan>
+  </text>
+  <path stroke-width="2.5" d="M489 388 L538 388" fill="none" stroke="#7762B5" marker-end="url(#arrow7762B5)" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="18.0" text-anchor="middle" font-weight="normal" x="518.0" y="367.62" fill="#7762B5">
+    <tspan>reuse</tspan>
+  </text>
+  <rect stroke-width="1.5" x="550.0" y="302.0" width="267.0" height="173.0" fill="#FFFFFF" stroke="#C9CCD5" rx="13.84" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="25.0" text-anchor="middle" font-weight="bold" x="683.5" y="267.5" fill="#202A32">
+    <tspan>Window 2</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="21.0" text-anchor="middle" font-weight="normal" x="683.5" y="294.64" fill="#7762B5">
+    <tspan>Trial · </tspan>
+    <tspan font-style="italic">r</tspan>
+    <tspan> = 0.2</tspan>
+  </text>
+  <rect stroke-width="1.5" x="561.0" y="317.0" width="35.0" height="23.0" fill="#B6A3DC" stroke="none" rx="3.68" />
+  <rect stroke-width="1.5" x="596.0" y="317.0" width="142.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M620 322 L620 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M647 322 L647 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M674 322 L674 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M701 322 L701 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M728 322 L728 335" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="785.0" cy="329.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="785.0" y="334.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="561.0" y="355.0" width="35.0" height="23.0" fill="#B6A3DC" stroke="none" rx="3.68" />
+  <rect stroke-width="1.5" x="596.0" y="355.0" width="122.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M620 360 L620 373" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M647 360 L647 373" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M674 360 L674 373" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M701 360 L701 373" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="785.0" cy="367.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="785.0" y="372.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="561.0" y="393.0" width="35.0" height="23.0" fill="#B6A3DC" stroke="none" rx="3.68" />
+  <rect stroke-width="1.5" x="596.0" y="393.0" width="155.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M620 398 L620 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M647 398 L647 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M674 398 L674 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M701 398 L701 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M728 398 L728 411" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="785.0" cy="405.0" rx="13.0" ry="13.0" fill="#B9CFEB" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="785.0" y="410.78" fill="#202A32">
+    <tspan>B</tspan>
+  </text>
+  <rect stroke-width="1.5" x="561.0" y="431.0" width="35.0" height="23.0" fill="#B6A3DC" stroke="none" rx="3.68" />
+  <rect stroke-width="1.5" x="596.0" y="431.0" width="135.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M620 436 L620 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M647 436 L647 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M674 436 L674 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M701 436 L701 449" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="785.0" cy="443.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="785.0" y="448.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="550.0" y="489.0" width="267.0" height="44.0" fill="#EEE9F7" stroke="#B6A3DC" rx="9.68" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="20.0" text-anchor="middle" font-weight="bold" x="683.5" y="517.8" fill="#7762B5">
+    <tspan>Validate → commit</tspan>
+  </text>
+  <path stroke-width="2.5" d="M819 388 L868 388" fill="none" stroke="#7762B5" marker-end="url(#arrow7762B5)" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="18.0" text-anchor="middle" font-weight="normal" x="848.0" y="367.62" fill="#7762B5">
+    <tspan>reuse</tspan>
+  </text>
+  <rect stroke-width="1.5" x="880.0" y="302.0" width="267.0" height="173.0" fill="#FFFFFF" stroke="#C9CCD5" rx="13.84" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="25.0" text-anchor="middle" font-weight="bold" x="1013.5" y="267.5" fill="#202A32">
+    <tspan>Window 3</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="21.0" text-anchor="middle" font-weight="normal" x="1013.5" y="294.64" fill="#7762B5">
+    <tspan>Trial · </tspan>
+    <tspan font-style="italic">r</tspan>
+    <tspan> = 0.4</tspan>
+  </text>
+  <rect stroke-width="1.5" x="891.0" y="317.0" width="70.0" height="23.0" fill="#B6A3DC" stroke="none" rx="3.68" />
+  <rect stroke-width="1.5" x="961.0" y="317.0" width="107.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M985 322 L985 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1012 322 L1012 335" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1039 322 L1039 335" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="1115.0" cy="329.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="1115.0" y="334.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="891.0" y="355.0" width="70.0" height="23.0" fill="#B6A3DC" stroke="none" rx="3.68" />
+  <rect stroke-width="1.5" x="961.0" y="355.0" width="87.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M985 360 L985 373" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1012 360 L1012 373" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1039 360 L1039 373" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="1115.0" cy="367.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="1115.0" y="372.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="891.0" y="393.0" width="70.0" height="23.0" fill="#B6A3DC" stroke="none" rx="3.68" />
+  <rect stroke-width="1.5" x="961.0" y="393.0" width="120.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M985 398 L985 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1012 398 L1012 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1039 398 L1039 411" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1066 398 L1066 411" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="1115.0" cy="405.0" rx="13.0" ry="13.0" fill="#B9CFEB" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="1115.0" y="410.78" fill="#202A32">
+    <tspan>B</tspan>
+  </text>
+  <rect stroke-width="1.5" x="891.0" y="431.0" width="70.0" height="23.0" fill="#B6A3DC" stroke="none" rx="3.68" />
+  <rect stroke-width="1.5" x="961.0" y="431.0" width="100.0" height="23.0" fill="#D2EAE3" stroke="none" rx="3.68" />
+  <path stroke-width="1" d="M985 436 L985 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1012 436 L1012 449" fill="none" stroke="#A9CFC4" />
+  <path stroke-width="1" d="M1039 436 L1039 449" fill="none" stroke="#A9CFC4" />
+  <ellipse stroke-width="1.5" cx="1115.0" cy="443.0" rx="13.0" ry="13.0" fill="#F2C779" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="17.0" text-anchor="middle" font-weight="bold" x="1115.0" y="448.78" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <rect stroke-width="1.5" x="880.0" y="489.0" width="267.0" height="44.0" fill="#EEE9F7" stroke="#B6A3DC" rx="9.68" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="20.0" text-anchor="middle" font-weight="bold" x="1013.5" y="517.8" fill="#7762B5">
+    <tspan>Validate → commit</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="37.0" text-anchor="middle" font-weight="normal" x="1188.5" y="394.08" fill="#59636C">
+    <tspan>⋯</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="18.0" text-anchor="middle" font-weight="normal" x="1182.0" y="419.12" fill="#59636C">
+    <tspan>to 8</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="25.0" text-anchor="middle" font-weight="bold" x="1322.5" y="321.25" fill="#285C78">
+    <tspan>Majority</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="25.0" text-anchor="middle" font-weight="bold" x="1322.5" y="350.75" fill="#285C78">
+    <tspan>vote</tspan>
+  </text>
+  <rect stroke-width="1.5" x="1261.0" y="373.0" width="118.0" height="78.0" fill="#FFF0CB" stroke="#DDB566" rx="17.16" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="19.0" text-anchor="middle" font-weight="normal" x="1320.0" y="401.96" fill="#59636C">
+    <tspan>Answer</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="32.0" text-anchor="middle" font-weight="bold" x="1320.0" y="438.88" fill="#202A32">
+    <tspan>A</tspan>
+  </text>
+  <path stroke-width="2" d="M220 542 L220 562 L1205 562 L1205 429 L1252 429" fill="none" stroke="#285C78" marker-end="url(#arrow285C78)" />
+  <path stroke-width="1.8" d="M1147 542 L1147 562" fill="none" stroke="#285C78" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="20.0" text-anchor="middle" font-weight="normal" x="925.5" y="588.8" fill="#285C78">
+    <tspan>All answers, including rejected windows</tspan>
+  </text>
+  <rect stroke-width="1.5" x="227.0" y="568.0" width="409.0" height="32.0" fill="#F9ECEC" stroke="none" rx="4.48" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="20.0" text-anchor="middle" font-weight="normal" x="431.5" y="590.8" fill="#C77576">
+    <tspan>Failed validation ↶ rollback</tspan>
+  </text>
+  <rect stroke-width="1.5" x="28.0" y="619.0" width="25.0" height="16.0" fill="#B6A3DC" stroke="none" rx="1.6" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="19.0" text-anchor="start" font-weight="normal" x="61.0" y="632.46" fill="#59636C">
+    <tspan>Shared prefix</tspan>
+  </text>
+  <rect stroke-width="1.5" x="215.0" y="619.0" width="25.0" height="16.0" fill="#D2EAE3" stroke="none" rx="1.6" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="19.0" text-anchor="start" font-weight="normal" x="248.0" y="632.46" fill="#59636C">
+    <tspan>New tokens</tspan>
+  </text>
+  <ellipse stroke-width="1.5" cx="400.5" cy="626.5" rx="11.5" ry="11.5" fill="#F2C779" stroke="none" />
+  <ellipse stroke-width="1.5" cx="428.5" cy="626.5" rx="11.5" ry="11.5" fill="#B9CFEB" stroke="none" />
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="19.0" text-anchor="start" font-weight="normal" x="452.0" y="632.46" fill="#59636C">
+    <tspan>Answer categories</tspan>
+  </text>
+  <text font-family="Arial, Liberation Sans, sans-serif" font-size="21.0" text-anchor="end" font-weight="normal" x="1378.0" y="633.14" fill="#59636C">
+    <tspan font-style="italic">B</tspan>
+    <tspan> = 32   ·   </tspan>
+    <tspan font-style="italic">m</tspan>
+    <tspan> = 4   ·   </tspan>
+    <tspan font-style="italic">C</tspan>
+    <tspan> = 0.8</tspan>
+  </text>
+</svg>

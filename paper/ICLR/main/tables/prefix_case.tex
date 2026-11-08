@@ -1,0 +1,25 @@
+\begin{table}[t]
+\centering\small
+\caption{Progressive prefix reuse on a GSM8K example with Llama-3.1-8B-Instruct. Black text is the reused prefix and blue text is newly generated. One recorded trajectory is shown per window.}
+\label{tab:prefix_case}
+\begin{tabularx}{\linewidth}{@{}X@{}}
+\toprule
+\textbf{Question.} Geb is 10 less than half the age of Haley. If Haley is 26 years old, how old is Geb? \\
+\midrule
+\textbf{Window 1, prefix level 0\%} \hfill 0 prefix tokens; 94 generated tokens \\
+{\color{blue}To find Geb's age, we need to follow these steps:  1. First, we find half of Haley's age. Haley is 26 years old, so half of her age would be 26 / 2 = 13.  2. Next, we need to subtract 10 from this half age to find Geb's age. So, 13 - 10 = 3.  Therefore, Geb is 3 years old.  $\boxed{3}$} \\
+\midrule
+\textbf{Window 2, prefix level 20\%} \hfill 17 prefix tokens; 104 generated tokens \\
+To find Geb's age, we need to follow these steps:  1. First,\ {\color{blue} we need to find half of Haley's age. Haley is 26 years old, so half of 26 is 26 / 2 = 13.  2. Since Geb is 10 less than half the age of Haley, we need to subtract 10 from the half of Haley's age. So, Geb's age is 13 - 10.  3. Now, let's calculate 13 - 10 = 3.  Therefore, Geb is 3 years old.  $\boxed{3}$} \\
+\midrule
+\textbf{Window 3, prefix level 40\%} \hfill 34 prefix tokens; 75 generated tokens \\
+To find Geb's age, we need to follow these steps:  1. First, we need to find half of Haley's age. Haley is 26 years old,\ {\color{blue} so half of her age would be 26 / 2 = 13.  2. Now that we have half of Haley's age, we need to subtract 10 from this number to find Geb's age.   3. So, Geb's age would be 13 - 10 = 3.  Therefore, Geb is $\boxed{3}$ years old.} \\
+\midrule
+\textbf{Window 4, prefix level 60\%} \hfill 52 prefix tokens; 56 generated tokens \\
+To find Geb's age, we need to follow these steps:  1. First, we need to find half of Haley's age. Haley is 26 years old, so half of her age would be 26 / 2 = 13.  2.\ {\color{blue} Since Geb is 10 less than half the age of Haley, we need to subtract 10 from the half of Haley's age. So, Geb's age would be 13 - 10 = 3.  Therefore, Geb is $\boxed{3}$ years old.} \\
+\midrule
+\textbf{Window 5, prefix level 80\%} \hfill 79 prefix tokens; 26 generated tokens \\
+To find Geb's age, we need to follow these steps:  1. First, we need to find half of Haley's age. Haley is 26 years old, so half of her age would be 26 / 2 = 13.  2. Since Geb is 10 less than half the age of Haley, we need to subtract 10 from the half of Haley's age.\ {\color{blue} So, 13 - 10 = 3.  Therefore, Geb is 3 years old.  $\boxed{3}$} \\
+\bottomrule
+\end{tabularx}
+\end{table}

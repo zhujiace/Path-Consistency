@@ -29,8 +29,15 @@ from path_consistency.deepseek_api import (
     load_deepseek_env,
 )
 from path_consistency.deepseek_inference import DeepSeekMathInference, parse_logprob_channel
-from path_consistency.math_eval import grade_answer
+from path_consistency.math_eval import grade_answer, recanonicalize_trace_answers
 from path_consistency.math_protocol import decode_token_pieces, instruction_for_task
+from path_consistency.generation_methods import (
+    is_root_for_any,
+    method_label,
+    method_spec,
+    pair_root_method,
+    parse_generation_methods,
+)
 from run_math import (
     DEEPCONF_LABELS,
     combined_sha256,
@@ -75,6 +82,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-branches", type=int, default=32)
     parser.add_argument("--window-size", type=int, default=4)
     parser.add_argument("--beta-threshold", type=float, default=0.8)
+    parser.add_argument(
+        "--early-stop-threshold",
+        type=float,
+        default=0.95,
+        help="AC stop threshold (Adaptive-Consistency default 0.95; not PC C=0.8)",
+    )
     parser.add_argument("--ratios", default="0,0.2,0.4,0.6,0.8")
     parser.add_argument("--max-tokens", type=int, default=32768)
     parser.add_argument("--logprobs", type=int, default=20)
@@ -85,11 +98,35 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--store-text", action="store_true")
     parser.add_argument("--store-confidence", action="store_true")
     parser.add_argument("--prefix-variant", default="reasoning_content")
-    parser.add_argument("--selector", default="auto")
+    parser.add_argument(
+        "--selector",
+        default="auto",
+        help="auto (from smoke), blc, token-medoid, or uniform",
+    )
+    parser.add_argument(
+        "--recovery",
+        choices=["on", "off"],
+        default="on",
+        help="on = trial/commit + one-level rollback + two-strike; "
+        "off = keep failed trial/committed prefix, no stack pop or two-strike",
+    )
+    parser.add_argument(
+        "--selection-seed",
+        type=int,
+        default=0,
+        help="Recorded seed for uniform source selection; ignored by BLC",
+    )
     parser.add_argument(
         "--smoke-path",
         default="/home/26xyw/data/path-consistency-results/math500/reports/deepseek_smoke.json",
         help="Reuse the frozen prefix/logprob smoke instead of requiring one in --outdir",
+    )
+    parser.add_argument(
+        "--reuse-root-cache",
+        action="append",
+        default=[],
+        help="Existing *_root_cache directories (repeatable). PC can reuse SC "
+        "no-prefix windows without regenerating SC. Answers are recanonicalized.",
     )
     return parser.parse_args()
 
@@ -114,11 +151,37 @@ def save_root_cache(path: Path, windows: list[dict]) -> None:
         json.dump(windows, handle)
 
 
+def root_cache_path(cache_dir: Path, qid: str, root_method: str) -> Path:
+    stem = qid.replace("/", "_")
+    if root_method == "sc":
+        return cache_dir / f"{stem}.json.gz"
+    return cache_dir / f"{stem}.{root_method}.json.gz"
+
+
 def load_root_cache(path: Path) -> list[dict] | None:
     if not path.exists():
         return None
     with gzip.open(path, "rt", encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def recanonicalize_root_windows(windows: list[dict] | None, task: str) -> list[dict] | None:
+    if not windows:
+        return windows
+    for window in windows:
+        recanonicalize_trace_answers(window.get("traces") or [], task)
+    return windows
+
+
+def index_root_caches(directories: list[str]) -> dict[str, Path]:
+    index: dict[str, Path] = {}
+    for raw in directories:
+        directory = Path(raw).expanduser().resolve()
+        if not directory.is_dir():
+            raise SystemExit(f"--reuse-root-cache not a directory: {directory}")
+        for path in directory.glob("*.json.gz"):
+            index[path.name.replace(".json.gz", "")] = path
+    return index
 
 
 def _preview(text: str, limit: int = 240) -> str:
@@ -316,23 +379,43 @@ def process_question(
     write_lock: threading.Lock,
     done_lock: threading.Lock,
     dataset_task: str,
+    reused_root_index: dict[str, Path] | None = None,
 ) -> dict:
     qid = item["question_id"]
-    cache_path = cache_dir / f"{qid.replace('/', '_')}.json.gz"
-    paired_root = None
+    stem = qid.replace("/", "_")
+    cached_roots: dict[str, list] = {}
     outputs = {}
     for method in methods:
+        spec = method_spec(method)
+        root = spec["root"]
+        cache_this = is_root_for_any(method, methods)
         with done_lock:
             already = qid in done[method]
         if already:
-            if method == "sc" and "pc" in methods:
-                with done_lock:
-                    pc_done = qid in done["pc"]
-                if not pc_done:
-                    paired_root = load_root_cache(cache_path)
+            if cache_this and any(
+                qid not in done[child]
+                for child in methods
+                if pair_root_method(child) == method
+            ):
+                cached_roots[method] = recanonicalize_root_windows(
+                    load_root_cache(root_cache_path(cache_dir, qid, method)),
+                    dataset_task,
+                )
             continue
-        if method == "pc" and paired_root is None and "sc" in methods:
-            paired_root = load_root_cache(cache_path)
+        paired_root = None
+        if root:
+            paired_root = cached_roots.get(root)
+            if paired_root is None:
+                source = root_cache_path(cache_dir, qid, root)
+                if reused_root_index and root == "sc" and stem in reused_root_index:
+                    source = reused_root_index[stem]
+                paired_root = recanonicalize_root_windows(
+                    load_root_cache(source), dataset_task
+                )
+                if paired_root is None and root not in methods:
+                    raise RuntimeError(
+                        f"{qid}: {method} needs a reused {root} root cache, missing {source}"
+                    )
         output = engine.run_question(
             question_id=qid,
             problem=item["problem"],
@@ -350,15 +433,19 @@ def process_question(
             seed=stable_question_seed(args.seed, qid),
             store_text=args.store_text,
             store_confidence=args.store_confidence,
-            paired_root_windows=paired_root if method == "pc" else None,
-            return_internal_windows=method == "sc" and "pc" in methods,
+            paired_root_windows=paired_root,
+            return_internal_windows=cache_this,
+            early_stop_threshold=args.early_stop_threshold,
+            recovery=args.recovery,
         )
-        if method == "sc" and "_internal_root_windows" in output:
-            paired_root = output.pop("_internal_root_windows")
-            save_root_cache(cache_path, paired_root)
+        if cache_this and "_internal_root_windows" in output:
+            cached_roots[method] = output.pop("_internal_root_windows")
+            save_root_cache(
+                root_cache_path(cache_dir, qid, method), cached_roots[method]
+            )
         gold = item["answer"]
         first_answer = output["traces"][0]["answer"] if output["traces"] else None
-        parent_name = "SC" if method == "sc" else "PC"
+        parent_name = method_label(method)
         predictions = {
             parent_name: {
                 "answer": output["answer"],
@@ -371,7 +458,7 @@ def process_question(
         }
         if output.get("deepconf") and args.logprobs >= 20:
             for policy_name, policy in output["deepconf"].items():
-                suffix = "" if method == "sc" else "+PC"
+                suffix = "+PC" if spec["share_prefix"] else ""
                 display_name = DEEPCONF_LABELS.get(policy_name, policy_name) + suffix
                 predictions[display_name] = {
                     "answer": policy["answer"],
@@ -444,15 +531,18 @@ def main() -> None:
     selector = args.selector
     if selector == "auto":
         selector = protocol.get("selector") or "token-medoid"
+    if selector == "random":
+        selector = "uniform"
+    if selector not in {"blc", "token-medoid", "pc-medoid", "uniform"}:
+        raise SystemExit(f"unknown --selector {selector}")
     prefix_variant = args.prefix_variant
     if prefix_variant == "reasoning_content" and protocol.get("prefix_variant"):
         prefix_variant = protocol["prefix_variant"]
 
-    methods = [method.strip().lower() for method in args.methods.split(",") if method.strip()]
-    if not methods or any(method not in {"sc", "pc"} for method in methods):
-        raise SystemExit("--methods must contain only sc and/or pc")
-    if set(methods) == {"sc", "pc"}:
-        methods = ["sc", "pc"]
+    try:
+        methods = parse_generation_methods(args.methods)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
     ratios = tuple(float(value) for value in args.ratios.split(","))
 
     dataset_path = Path(args.dataset).expanduser().resolve()
@@ -479,6 +569,7 @@ def main() -> None:
         Path(__file__).resolve().parent / "path_consistency" / "math_protocol.py",
         Path(__file__).resolve().parent / "path_consistency" / "math_eval.py",
         Path(__file__).resolve().parent / "path_consistency" / "confidence.py",
+        Path(__file__).resolve().parent / "path_consistency" / "generation_methods.py",
     ]
     env = load_deepseek_env()
     config = {
@@ -499,12 +590,15 @@ def main() -> None:
         "max_branches": args.max_branches,
         "window_size": args.window_size,
         "beta_threshold": args.beta_threshold,
+        "early_stop_threshold": args.early_stop_threshold,
         "ratios": ratios,
         "max_tokens": args.max_tokens,
         "logprobs": args.logprobs,
         "reasoning_effort": args.reasoning_effort,
         "thinking": True,
         "selector": selector,
+        "recovery": args.recovery,
+        "selection_seed": args.selection_seed,
         "prefix_variant": prefix_variant,
         "question_concurrency": args.question_concurrency,
         "max_inflight": args.max_inflight,
@@ -513,11 +607,30 @@ def main() -> None:
         "prompt": "{problem}\\n\\n"
         + instruction_for_task(dataset_task).replace("\n", "\\n"),
         "pc_length_policy": "provisional_fixed_plus_20_percent",
-        "paired_common_root_windows": set(methods) == {"sc", "pc"},
+        "paired_common_root_windows": any(
+            pair_root_method(method) in methods for method in methods
+        )
+        or bool(args.reuse_root_cache),
+        "reuse_root_cache": [str(Path(p).expanduser().resolve()) for p in args.reuse_root_cache],
+        "gsm8k_vote_canonicalization": "numeric_core_duration",
         "api_has_no_seed": True,
         "repetition_index": args.seed,
         "note": "API has no sampling seed; --seed only labels this repetition. C=0.8 is not Dev-Mix C*.",
     }
+    reused_root_index = index_root_caches(args.reuse_root_cache)
+    if methods == ["pc"] and not reused_root_index:
+        raise SystemExit("PC-only DeepSeek run requires --reuse-root-cache")
+    if methods == ["pc"]:
+        missing = [
+            item["question_id"]
+            for item in data
+            if item["question_id"].replace("/", "_") not in reused_root_index
+        ]
+        if missing:
+            raise SystemExit(
+                f"PC-only run missing {len(missing)} SC root caches, e.g. {missing[:5]}"
+            )
+
     fingerprint = hashlib.sha256(
         json.dumps(config, sort_keys=True, default=list).encode()
     ).hexdigest()[:12]
@@ -564,12 +677,15 @@ def main() -> None:
         want_logprobs=args.logprobs > 0,
         logprob_top_k=args.logprobs,
         task=dataset_task,
+        selection_seed=args.selection_seed,
     )
     engine_times = {
         "model_type": engine.model_type,
         "tokenizer_init_seconds": 0.0,
         "engine_init_seconds": 0.0,
         "selector": selector,
+        "recovery": args.recovery,
+        "selection_seed": args.selection_seed,
         "prefix_variant": prefix_variant,
         "label": protocol.get("label"),
     }
@@ -625,6 +741,7 @@ def main() -> None:
                     write_lock,
                     done_lock,
                     dataset_task,
+                    reused_root_index,
                 )
                 after_question(index, result["question_id"])
                 print(json.dumps(result, ensure_ascii=False), flush=True)
@@ -644,6 +761,7 @@ def main() -> None:
                         write_lock,
                         done_lock,
                         dataset_task,
+                        reused_root_index,
                     ): item
                     for item in pending
                 }

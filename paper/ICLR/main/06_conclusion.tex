@@ -1,0 +1,5 @@
+\section{Conclusion}
+Path-consistency reduces repeated reasoning through shared prefixes controlled by answer agreement, prefix selection, and trial and recovery. Our analysis characterizes how prefix reuse affects voting accuracy and bounds voting error under explicit conditional-margin assumptions. Experiments with three models across five reasoning benchmarks show substantial token savings while largely maintaining accuracy, with further savings when combined with early-stopping methods. These results support prefix reuse as a practical way to make multi-path reasoning more efficient.
+
+\paragraph{Limitations.}
+Shared prefixes may propagate undetected errors, so answer agreement does not guarantee correctness. Path-consistency aims to preserve accuracy rather than ensure it. Parallelism is limited by the window size, since successive windows depend on earlier outcomes. Local confidence selection also requires output token log probabilities. APIs that do not expose them require a fallback without confidence scores, such as uniform random selection among eligible prefixes.

@@ -92,6 +92,7 @@ class DeepSeekMathInference:
         want_logprobs: bool = True,
         logprob_top_k: int = 20,
         task: str = "math",
+        selection_seed: int = 0,
     ):
         self.client = client
         self.selector = selector
@@ -100,6 +101,7 @@ class DeepSeekMathInference:
         self.want_logprobs = want_logprobs
         self.logprob_top_k = logprob_top_k
         self.task = task
+        self.selection_seed = selection_seed
         self.model_type = "deepseek-v4-flash"
         self.current_prompt = ""
         self.tokenizer_init_seconds = 0.0
@@ -256,6 +258,7 @@ class DeepSeekMathInference:
             next_ratio,
             decode_token_pieces,
             selector=self.selector,
+            selection_seed=self.selection_seed,
         )
 
     def run_question(self, question_id: str, problem: str, method: str, **kwargs) -> dict:
@@ -267,6 +270,7 @@ class DeepSeekMathInference:
             **kwargs,
         )
         result["selector"] = self.selector
+        result["selection_seed"] = self.selection_seed
         result["prefix_variant"] = self.prefix_variant
         totals = getattr(self.client, "usage_totals", None)
         result["api_usage_totals"] = dict(totals) if isinstance(totals, dict) else {}

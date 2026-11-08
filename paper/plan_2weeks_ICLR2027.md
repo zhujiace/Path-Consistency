@@ -16,7 +16,7 @@
 
 保留原论文“多路径采样 → Beta 门控 → 前缀复用 → 聚合”的骨架，将方法升级为：
 
-> **PC（Path-Consistency）用答案级 Beta 后验决定是否共享，用固定 20% 网格决定共享多长（gate 通过则前进一档），用局部置信度从多数答案簇中选择唯一共享前缀，并在门控恶化时单层回退；它既可增强固定预算 SC，也可叠加到 DeepConf。**
+> **PC（Path-Consistency）用答案级 Beta 后验决定是否共享，用固定 20% 网格决定共享多长（gate 通过则前进一档），用局部置信度从多数答案簇中选择唯一共享前缀，并在门控恶化时单层回退；它既可与 PoLR / CPT 比较，也可叠加到 DeepConf / AC / ESC。**
 
 不要把主方法写成 adaptive PVC，也不要写成 PC(\(C^\*\))。
 
@@ -28,8 +28,8 @@
 | 主表是否展示阈值 sweep | **不展示 sweep，只展示默认 C=0.8** | 0.8 是投稿前预先声明的操作点，不是测试集最优。完整曲线放消融/附录。叙事：更低 C → 更大加速、更高错前缀风险；更高 C → 更接近 SC、更安全。C=1 即 SC。 |
 | 自适应前缀 | **不采用 PVC 查找表。主策略是固定 20% 网格** | 名义 level 为 0%→20%→40%→60%→80%；gate 通过则前进一档，gate 失败则停留；失败 trial 可回退一层。查找表换模型/数据要重估，泛化差。固定比例序列就是主方法（Relative-PC），不要另称 adaptive。 |
 | 每个 level 的并行语义 | **一个 level 只有一个前缀，所有分支共享** | 这是主算法而非部署消融；逻辑窗口可拆成物理 micro-batch，但状态只在整个窗口完成后更新。 |
-| 与截断型方法的关系 | **不再作为论文中心，但不能全部删除** | 主叙事是 parent 与 parent+PC；DeepConf 是核心 parent。AC/ESC 只留附录连续性对照。 |
-| 最新强基线 | **CPT 为必须比较，DeepConf 为必须组合；DTS-Stable 为 P1** | 2026-05 的 CPT 与“并行分支共享中间信息”高度重叠，若不定量比较，创新性论证不成立。 |
+| 与截断型方法的关系 | **组合，不是附录点缀** | Table 2 下块：DeepConf / AC / ESC 作为截断型 parent，各报 parent 与 parent+PC。旧 Sentence-PC（B=20）的 AC/ESC 不进本表。 |
+| 最新强基线 | **PoLR 与 CPT 为必须比较；DeepConf / AC / ESC 为必须组合；DTS-Stable 为 P1** | PoLR / CPT 与 PC 同属并行共享；截断型控制「停多少条」，PC 控制「后面怎么走」。 |
 | 前缀下降后的处理 | **候选先试用、后提交；失败回退一层** | 推理时看不到真实准确率，只能用 modal-answer 改变或 Beta 门控失效作为可观测代理；高置信一致错误仍是明确限制。 |
 
 ### 0.3 Go / no-go 总标准
@@ -66,14 +66,14 @@
 1. **Beta-gated unique shared prefix**：每个逻辑窗口一条共享前缀；trial/commit、单层回退、两击重置。
 2. **Relative normalized prefixing**：跨短 CoT 与长 reasoning trace 使用 20% 比例网格；gate 通过则前进一档。这是主长度策略，不称为 adaptive PVC。
 3. **Beta-guided Local-Confidence selection（BLC）**：Beta 先确定可靠答案簇，再从该簇选择局部最可靠的一条连续前缀，使每个 level 可被完全并行执行。
-4. **Composable control**：在相同 parent 下验证 SC→SC+PC、DeepConf→DeepConf+PC。
+4. **Composable control**：在相同 parent 下验证 SC→SC+PC、DeepConf→DeepConf+PC、AC→AC+PC、ESC→ESC+PC。
 
 **Prefix Value Curve** 降为可选分析：若时间允许，用独立 discovery/evaluation rollouts 画准确率—成本曲线，解释何时前缀有益。它不是测试时策略，也不是方法主贡献。
 
 ### 1.3 与 2026 最近工作的区分
 
-- **DeepConf** 控制低置信轨迹的停止与最终投票；PC 决定后续轨迹从哪个连续推理前缀继续。两者控制不同维度，因此做严格 2×2 组合。
-- **CPT** 抽取、去重并广播多个“信息单元”，保留各分支私有历史；PC 只选择一个模型原生、连续、可缓存的因果前缀，并用 Beta/回退控制风险。机制有差异，但研究问题高度重叠，CPT 是必须定量比较的最近邻。
+- **DeepConf** 控制低置信轨迹的停止与最终投票；**AC / ESC** 按答案一致性提前结束采样；PC 决定后续轨迹从哪个连续推理前缀继续。三者与 PC 控制不同维度，因此做 parent vs parent+PC。
+- **CPT** 抽取、去重并广播多个“信息单元”，保留各分支私有历史；**PoLR** 用前缀聚类剪枝后展开主导簇；PC 只选择一个模型原生、连续、可缓存的因果前缀，并用 Beta/回退控制风险。PoLR 与 CPT 是必须定量比较的最近邻。
 - **DTS** 动态扩展/筛选解码树；PC 维持窗口式并行采样，不做 token-level 树搜索。若官方实现能在冻结协议下适配 Qwen3-30B-A3B，则列为现代结构化搜索基线。
 
 ---
@@ -292,15 +292,17 @@ GPQA-Diamond：
 | Pass@1 / CoT | 单轨迹参考点；可从 SC pool 第一条取得 | 三模型、四主数据集 |
 | SC | 固定预算 parent | 三模型、四主数据集 |
 | PC (C=0.8) | 新主方法 | 三模型、四主数据集 |
-| DeepConf | 当前强 confidence controller / parent | Qwen3-30B-A3B 必做；DeepSeek offline 必做 |
-| DeepConf + PC | 组合主张 | Qwen3-30B-A3B 必做；DeepSeek offline 必做 |
-| CPT | 最近、最直接的并行共享方法 | Qwen3-30B-A3B 的 AIME24/25、MATH-500 必做，GPQA 尽量 |
+| DeepConf | 当前强 confidence controller / parent | Qwen3-30B-A3B 必做；DeepSeek offline 必做；Llama GSM8K Table 2 组合块 |
+| DeepConf + PC | 组合主张 | 同上 |
+| AC / ESC | 截断型 parent | Llama GSM8K Table 2 组合块（新协议 B=32）；Qwen 有余量再补 |
+| AC+PC / ESC+PC | 组合主张 | 与各自 parent 配对 |
+| CPT | 最近并行共享比较 | Qwen3-30B-A3B 的 AIME24/25、MATH-500 必做（公平）；Llama adapter 只占 Table 2 比较块 |
+| PoLR | 最近前缀聚类比较 | Llama GSM8K Table 2 比较块（N=32，\(L_p=64/128/256\)；128 在跑） |
 
 ### 4.2 P1 与附录
 
-- **DTS-Stable**：P1 现代结构化并行搜索基线；官方 vLLM 版本若能在 1 天内完成 Qwen3-30B-A3B smoke test，则在 AIME24/25 加入。
-- **Sentence-PC**：原始 \(B=20,m=5\) 版本放附录；Shared Sentence-PC 只在 matched-component 长度消融出现。
-- **AC、ESC**：附录，维持旧稿和审稿意见连续性；不再占正文主叙事。
+- **DTS-Stable**：P1 现代结构化并行搜索基线；官方 vLLM 版本若能在 1 天内完成 Qwen3-30B-A3B smoke test，则在 AIME24/25 加入。不进 Table 2 主行。
+- **Sentence-PC**：原始 \(B=20,m=5\) 版本放附录；Shared Sentence-PC 只在 matched-component 长度消融出现。旧 AC/ESC（B=20）不得与新协议 B=32 混算。
 - **simple margin heuristic**：仅作便宜 Pareto 诊断，必须明确不是 MARS。
 - **干预式 PVC**：可选分析图，不进主表方法列。
 - **MARS、RASC、STAND、Prefix Consistency、LeaP**：Related Work 必须准确讨论；只有官方/忠实实现通过协议审计才给数字，不能用简化代理冒名。
@@ -347,20 +349,39 @@ GPQA-Diamond：
 |  | SC | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 |  | **PC (C=0.8)** | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
 
-GSM8K 可作为附录连续性列写入控制台 Table 1（Llama-3.1-8B 新协议已完成），不是四主现代数据集。正文 Tok 默认写平均 generated reasoning/decode tokens；latency 用 `generation_seconds`。
+GSM8K 可作为附录连续性列写入控制台 Table 1（Llama-3.1-8B 与 DeepSeek 新协议已完成），不是四主现代数据集。DeepSeek GSM8K C=0.8 融合：Acc overlay 1277/1319；PC Tok 用 vote-v2（−34.2%）。正文 Tok 默认写平均 generated reasoning/decode tokens；latency 用 `generation_seconds`。
 
-### Table 2：现代基线与组合（Qwen3-30B-A3B，\(B=32\)）
+### Table 2：现代基线与组合（Llama-3.1-8B-Inst. × GSM8K，\(B=32\)）
 
-| Method | AIME24+25 Acc | Total Tok | Latency | MATH-500 Acc | Total Tok | GPQA-D Acc | Total Tok |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| SC | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| DeepConf (\(*\), 官方配置冻结) | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| CPT | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| DTS-Stable (P1) | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| PC (C=0.8) | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
-| **DeepConf + PC** | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+MATH / AIME / GPQA 对 8B 过难，本表只报 GSM8K test 1319。Tok = 平均 decode generated tokens；Latency = `generation_seconds`（含配对根）。PC 为默认 C=0.8，不是 \(C^\*\)。
 
-DeepConf 的星号只表示从官方 low/high 配置中预先冻结；不能表示测试集 oracle。PC 列不要写成 PC(\(C^\*\))。
+**比较块**（并行共享替代，宽度一律 N=32 / B=32）：SC-32、SC-20（只用于 matched-token）、PoLR（\(L_p=64 / 128 / 256\)）、CPT、PC。已完成的 CPT N=20 **不进本表**。Llama adapter **不是** Qwen thinking-on 公平 CPT。
+
+**组合块**（截断型 parent ± PC）：DeepConf、DeepConf+PC、AC（τ=0.95）、AC+PC、ESC、ESC+PC；另报诊断 AC τ=0.99 + PC C=0 与 ESC 两窗/满 8。AC 的 0.95 是 Adaptive-Consistency 论文默认，不是 PC 前缀门控 C=0.8。旧 Sentence-PC AC/ESC（B=20）不进本表。DTS-Stable 仍是 P1，不占本表。CPT 的 Latency 是官方 `total_latency_sec`。**N=32 CPT 不降 decode token**（每 worker 仍写满一条，8,411 vs SC 8,316），提升的是墙钟（54.4 s→34.9 s）。
+
+| Method | GSM8K Acc | Tok / q | Latency |
+|---|---:|---:|---:|
+| **比较** | | | |
+| SC (B=32) | 92.12% (1215/1319) | 8,316 | 54.4 s |
+| SC (B=20, same pool) | 91.28% (1204/1319) | 5,214 (−37.3%) | 34.2 s |
+| PoLR (N=32, \(L_p=64\)) | 91.81% (1211/1319) | 4,826 (−42.0%) | 10.6 s |
+| PoLR (N=32, \(L_p=128\)) | 92.19% (1216/1319) | 5,863 (−29.5%) | 11.2 s |
+| PoLR (N=32, \(L_p=256\)) | 91.58% (1208/1319) | 7,554 (−9.2%) | 13.0 s |
+| CPT (N=32, Llama adapter) | 92.80% (1224/1319) | 8,411 (+1.1%) | 34.9 s |
+| **PC (C=0.8)** | 91.74% (1210/1319) | 5,039 (−39.4%) | 33.8 s |
+| **组合** | | | |
+| DeepConf (\(*\), freeze config) | TBD | TBD | TBD |
+| DeepConf + PC | TBD | TBD | TBD |
+| AC (τ=0.95) | 92.49% (1220/1319) | 2,730 (−67.2%) | 19.3 s |
+| AC + PC | 92.27% (1217/1319) | 2,539 (−69.5%) | 18.0 s |
+| ESC | 92.49% (1220/1319) | 2,552 (−69.3%) | 18.1 s |
+| ESC + PC | 92.27% (1217/1319) | 2,374 (−71.5%) | 16.8 s |
+| AC (τ=0.99) | 92.04% (1214/1319) | 4,035 (−51.5%) | 28.0 s |
+| AC + PC (C=0) | 92.19% (1216/1319) | 3,003 (−63.9%) | 21.1 s |
+| ESC (两窗或满 8) | 92.04% (1214/1319) | 4,299 (−48.3%) | 29.8 s |
+| ESC + PC (两窗或满 8) | 92.04% (1214/1319) | 3,501 (−57.9%) | 24.4 s |
+
+相对 SC-32，PC 准确率 −0.38 pp、decode −39.4%。相对等预算 SC-20，PC **+0.46 pp**（1204→1210），token 略少（5214→5039）。PoLR \(L_p=64\) Acc 1211、tok −42.0%；\(L_p=128\) Acc 1216、tok −29.5%；论文默认 \(L_p=256\) Acc 1208、tok −9.2%（本机 SC mean≈260，256 接近全文）。CPT N=32 Acc **1224/1319=92.80%**（比 SC +9 题），tok **8,411（+1.1%）**，时延 34.9 s；Llama adapter 不是 Qwen thinking-on 公平 CPT。CPT N=20（1218/1319，5,263 tok）是错误的 token-budget 对齐，已归档。默认 AC/ESC Acc 均为 1220/1319；+PC 各 −3 题、再省约 7% token（多数题第一窗 4/4 就停）。诊断行：AC τ=0.99 与 ESC 两窗/满 8 不再在 4 条时停，+PC 相对 parent 再省 25.6% / 18.6% token。DeepConf 未满 1319 不填。
 
 ### Table 3：parent-paired 增量
 
@@ -394,6 +415,21 @@ Llama GSM8K 的 SC→SC+PC 可作为已完成对照写在控制台 Table 3 计�
 
 本表是敏感性复盘，**不用于挑 \(C^\*\)**。叙事：更低 C → 更大加速、更高错前缀风险；更高 C → 更接近 SC、更安全。
 
+### Ablation A（DeepSeek-V4-Flash × GSM8K test 1319）
+
+同一冻结协议（B=32，m=4，paired-root v2，thinking on）。Tok = 平均 decode generated tokens。每一行的 SC 来自**同一次** `sc,pc` 配对（C=0.8 Acc 为 first100+next500+rest719 overlay；C=0 为独立 tag `c00`）。**Acc 为格式容错复判。** C=0.8 效率列为 vote-v2（numeric-core 投票键，复用同一 SC 根）。SE(PC) 是二项标准误 \(\sqrt{p(1-p)/n}\)，不是多 seed 标准差。禁止从本表回写最优 C。
+
+| \(C\) | SC Acc（配对） | PC Acc | \(\Delta\) (PC−SC) | SE(PC) | Total Tok | Gate % | Wrong Promo % | Rollback % |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0.00（纯多数） | 97.27% (1283/1319) | 97.04% (1280/1319) | −0.23 pp | ±0.47 pp | 7,070 | 97.1% | 19.4% | 1.8% |
+| 0.70 | 97.19% (1282/1319) | 97.12% (1281/1319) | −0.08 pp | ±0.46 pp | 7,399 | 93.7% | 24.0% | 1.6% |
+| **0.80（默认操作点）** | 96.82% (1277/1319) | 96.82% (1277/1319) | 0.00 pp | ±0.48 pp | 8,230 | 98.4% | 2.8% | 0.4% |
+| 0.90 | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+| 0.95 | TBD | TBD | TBD | TBD | TBD | TBD | TBD | TBD |
+| 1.00（SC，同 C=0.8 root） | 96.82% (1277/1319) | = SC | 0.00 pp | ±0.48 pp | 12,514 | — | — | — |
+
+C=0.8 为融合记录：Acc 仍是原配对 overlay（Δ=0），decode 用 vote-v2 **12514→8230（−34.2%）**。C=0.7 相对**自己的** SC 为 −0.08 pp、decode −25.2%（9898→7399）。C=0 相对自己的 SC 为 −0.23 pp。C=0.8 的 −34.2% / 98.4% Gate 来自投票键对齐，**不是**「比 C=0.7 更激进的阈值」；C=0 / C=0.7 的 Gate / Wrong Promo 仍是旧投票键，不要跟 C=0.8 这三列横比。跨行 PC 绝对值不要比。禁止从本表回写最优 C。
+
 ### Ablation B：前缀粒度与长度策略
 
 | Length policy | Level schedule | Acc | Total Tok | Latency | Avg final ratio | Wrong Promotion % |
@@ -407,15 +443,19 @@ Llama GSM8K 的 SC→SC+PC 可作为已完成对照写在控制台 Table 3 计�
 | PVC Adaptive | ~~查找表 advance/stay~~ | **已取消** | — | — | — | — |
 | PVC Adaptive (agreement only) | ~~无标签查找表~~ | **已取消** | — | — | — | — |
 
-### Ablation C：唯一前缀来源选择
+### Ablation C：DeepSeek MATH-500 选择 × recovery（2×2）
 
-| Source selector | Acc | Total Tok | Diversity | Wrong-source % | Rollback % | Selector overhead |
-|---|---:|---:|---:|---:|---:|---:|
-| Random（原文） | TBD | TBD | TBD | TBD | TBD | TBD |
-| Shortest trace | TBD | TBD | TBD | TBD | TBD | TBD |
-| Token medoid | TBD | TBD | TBD | TBD | TBD | TBD |
-| Highest mean logprob | TBD | TBD | TBD | TBD | TBD | TBD |
-| **BLC lower-tail confidence** | 已有 GSM8K | 已有 | 已有 | 已有 | 已有 | TBD |
+替换原 Llama GSM8K 来源选择占位表。共享 SC 根 `4856d4ef5673`。Acc = raw JSONL，**不是** numeric_regrade overlay（452/490）。不进 Table 1。长度干预 R=8 complete，已进 Ablation G（`2ebec2c2eced`）。
+
+| Setting | PC Acc（raw） | Δ vs SC | Tok / q | vs SC | Gate Pass | Wrong Promo | Fail windows | Fail-set Acc |
+|---|---:|---:|---:|---:|---:|---:|---|---:|
+| SC（共享根，无前缀） | 87.76% (430/490) | 0.00 pp | 41,166 | — | 0.0% | 0.0% | 0 | — |
+| Uniform + recovery on（臂 B） | 86.94% (426/490) | −0.82 pp | 25,680 | −37.6% | 98.2% | 11.6% | 58 rollback | 41.2% (14/34) |
+| Uniform + recovery off（臂 D） | 86.33% (423/490) | −1.43 pp | 25,405 | −38.3% | 98.2% | 11.3% | 161 retain | 29.0% (9/31) |
+| **BLC + recovery on（主方法 · 臂 A）** | 87.35% (428/490) | −0.41 pp | 26,968 | −34.5% | 98.2% | 12.4% | 17 rollback | 42.9% (6/14) |
+| BLC + recovery off（臂 C） | 86.33% (423/490) | −1.43 pp | 24,757 | −39.9% | 98.2% | 11.5% | 141 retain | 30.3% (10/33) |
+
+相对同一 SC：A −2（0/2），B −4（2/6），C −7（4/11），D −7（4/11）。D 与 C 同为 423 题，但是 4/4 翻转。交互 (D−A)−(B−A)−(C−A)=+2，伤害略小于相加。McNemar 精确双侧 p 均 >0.1。
 
 ### Ablation D：共享方式与系统收益
 
@@ -426,15 +466,18 @@ Llama GSM8K 的 SC→SC+PC 可作为已完成对照写在控制台 Table 3 计�
 | Shared token-medoid | TBD | TBD | TBD | TBD | TBD | TBD |
 | **Shared BLC（主方法）** | 已有 GSM8K | 已有 | 已有 | 已有 | 已有 | 已有 |
 
-### Ablation E：回退策略
+### Ablation E：DeepSeek MATH-500 recovery / 回退
 
-| Rollback policy | Acc | Total Tok | Failed trials | Recovery Acc | High-conf. wrong % |
-|---|---|---:|---:|---:|---:|
-| No rollback / keep trial | TBD | TBD | TBD | TBD | TBD |
-| Gate fail → reset empty（旧实现） | TBD | TBD | TBD | TBD | TBD |
-| One-level rollback | TBD | TBD | TBD | TBD | TBD |
-| **One-level + blacklist + two-strike reset** | 已有 GSM8K | 已有 | 已有 | TBD | 已有 |
-| 主策略 + periodic unprefixed audit window | TBD | TBD | TBD | TBD | TBD |
+替换原 Llama GSM8K 回退占位表。与 Ablation C 同一四臂。
+
+| Setting | PC Acc（raw） | Δ vs SC | Tok / q | Fail windows | Fail-set Acc | Fail-set vs SC | Disabled q | High-conf. wrong % |
+|---|---:|---:|---:|---|---:|---|---:|---:|
+| Uniform + recovery on（臂 B） | 86.94% (426/490) | −0.82 pp | 25,680 | 58 rollback | 41.2% (14/34) | SC 17/34 | 11 | 8.8% |
+| Uniform + recovery off（臂 D） | 86.33% (423/490) | −1.43 pp | 25,405 | 161 retain | 29.0% (9/31) | SC 14/31 | 0 | 8.4% |
+| **BLC + recovery on（主方法 · 臂 A）** | 87.35% (428/490) | −0.41 pp | 26,968 | 17 rollback | 42.9% (6/14) | SC 7/14 | 3 | 9.4% |
+| BLC + recovery off（臂 C） | 86.33% (423/490) | −1.43 pp | 24,757 | 141 retain | 30.3% (10/33) | SC 15/33 | 0 | 9.0% |
+
+recovery 关从不 two-strike；fail-set 相对该子集 SC 为 A −1、B −3、C −5、D −5。High-conf. wrong 不是区分因素。
 
 ### Ablation F：SC / DeepConf 与 PC 的 2×2 因子
 
@@ -525,13 +568,18 @@ DeepConf 10 题 Llama smoke **不填**本表。
 
 ### 立即：新服务器 Qwen P0-A
 
+- [x] 4090 实验室 first100（JSONL `source_row` 0–99）complete：fingerprint `630825247308`，SC=PC 94/100。
+- [x] next100（`source_row` 100–199，排除工程 151，n=99）complete：fingerprint `664997212910`，SC=PC 94/99。Table 1 部分格已改为合并 **n=199**（188/199，decode −41.3%）。
 - [ ] Qwen3-30B-A3B × MATH-500 490，paired SC/PC，C=0.8，thinking on。入口：`bash run_math500_qwen30a3b.sh`（先改环境变量，见 `handoff.md`）；
 - [ ] 同一模型 × AIME24/25、GPQA-D。
 
-不要在 4090 实验室启动 A3B。
+全量 490 不要在 4090 上再开。n=199 不得冒充 490，全量到位后替换 Table 1 该格。
 
 ### 9/10–9/14：P0-B 现代对照
 
+- [x] Table 2 分工：比较 = PoLR / CPT；组合 = DeepConf / AC / ESC（各 ±PC）。DTS 仍 P1。
+- [x] 新协议 AC / ESC / AC+PC / ESC+PC 实现（`run_math.py --methods ac,pc_ac` / `esc,pc_esc`）；启动脚本 `scripts/run_llama31_gsm8k_ac_esc.sh`。
+- [x] Llama GSM8K AC / AC+PC / ESC / ESC+PC 满 1319，已填 Table 2；
 - [ ] Qwen3-30B-A3B：DeepConf、DeepConf+PC、官方 CPT；
 - [ ] 完成 Table 1/2/3 的第一版和 accuracy-token Pareto；
 - [ ] 每天检查 JSONL 完整性、失败率、API 费用和 GPU orphan process。
@@ -541,8 +589,10 @@ DeepConf 10 题 Llama smoke **不填**本表。
 ### 9/14–9/17：重复、消融与统计
 
 - [ ] 主表关键行补 seed/repetition 1/2；
-- [ ] Ablation A 补 C∈{0.7, 0.9, 0.95}（C=0.8 与 SC 已有 GSM8K）；
-- [ ] selector / rollback representative subset；
+- [x] Ablation A DeepSeek GSM8K 补 C=0.7（C=0.8 与 C=0 已有；C∈{0.9, 0.95} 仍空）；
+- [x] DeepSeek GSM8K C=0.8 融合写入 Table 1 / Ablation A（Acc overlay 1277/1319，Tok vote-v2 −34.2%）；
+- [x] selector / rollback representative subset（DeepSeek MATH-500 A/B/C/D 已替换 Ablation C/E）；
+- [x] matched-history 长度干预（DeepSeek MATH-500，R=8 complete，进 Ablation G；未写 PVC）；
 - [ ] **不做** PVC 查找表；干预式 PVC 分析图仅在有余量时；
 - [ ] 若有余量，跑 DTS-Stable 与 \(B\in\{16,32,64\}\)；
 - [ ] 9/16 冻结数字，9/17 完成独立重算和 CI。
@@ -574,8 +624,8 @@ DeepConf 10 题 Llama smoke **不填**本表。
 - “adaptive” 在哪里？答：**测试时没有 PVC adaptive。** 长度是固定 20% 网格，gate 通过则前进一档；回退处理失败 trial。
 - 为什么唯一前缀不是随意的？答：Beta 选答案簇，BLC 选簇内局部最可靠路径；随机选择有直接消融。
 - 坏前缀如何取消？答：trial/commit、单层 stack rollback、blacklist、两次失败退化为 parent。
-- 为什么还需要 PC，DeepConf 已经省 token？答：DeepConf 停止低价值轨迹，PC 缩短仍要生成的轨迹；用 2×2 表验证而非口头声称。
-- 与 CPT 有何不同？答：连续因果前缀 + answer-level posterior + rollback，对比 CPT 的信息池提取/广播；必须有 matched-budget 数字。不要靠 PVC 查找表制造差异。
+- 为什么还需要 PC，DeepConf / AC / ESC 已经省 token？答：截断型停止低价值或已一致的轨迹，PC 缩短仍要生成的轨迹；用 parent vs parent+PC 验证而非口头声称。
+- 与 CPT / PoLR 有何不同？答：连续因果前缀 + answer-level posterior + rollback，对比 CPT 的信息池提取/广播和 PoLR 的前缀聚类剪枝；必须有 matched-width 数字。不要靠 PVC 查找表制造差异。
 - 并行和 cache 是否真的带来速度？答：同 level 单一 token-identical prefix，报告 `generation_seconds`（含复用 root）以及真实 prefill/decode/KV，而非只报告理论 token。
 - Beta 是否保证正确？答：不保证；它只度量众数占优，依赖性与高置信错误作为 limitations 和分层实验。
 

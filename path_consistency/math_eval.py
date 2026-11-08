@@ -69,6 +69,82 @@ def extract_gsm8k_numeric(text: Optional[str]) -> Optional[str]:
     return format_gsm8k_gold(matches[-1].group())
 
 
+_LATEX_UNIT = re.compile(
+    r"\\(?:text|mathrm|mathbf|textrm|mbox|textbf)\{[^{}]*\}"
+)
+
+
+def gsm8k_numeric_core(answer: Optional[str]) -> Optional[str]:
+    """If a boxed payload is one number plus units/currency, return that number.
+
+    Thinking models often box ``\\$70,000`` or ``160\\text{ minutes}`` while
+    GSM8K gold is the bare integer. This does not pull the first of several
+    remaining numbers: ``1\\text{hour}35\\text{minutes}`` becomes ``135``,
+    which will not match gold ``95``.
+    """
+    if answer is None:
+        return None
+    value = str(answer).strip()
+    if not value:
+        return None
+    value = value.replace("\\$", "").replace("$", "")
+    value = value.replace("{,}", "").replace(",", "")
+    value = _LATEX_UNIT.sub("", value)
+    value = value.replace("\\%", "").replace("%", "")
+    value = value.replace("\\circ", "").replace("°", "")
+    value = re.sub(r"\s+", "", value)
+    value = value.replace("{}", "").strip(" .")
+    if not value:
+        return None
+    match = re.fullmatch(r"[-+]?\d+(?:\.\d+)?", value)
+    if not match:
+        return None
+    return format_gsm8k_gold(match.group())
+
+
+_DURATION_HM = re.compile(
+    r"(?P<h>\d+)\s*(?:hours?|hrs?|h)\s*(?:and\s*)?(?P<m>\d+)\s*(?:minutes?|mins?|m)\b",
+    flags=re.I,
+)
+_DURATION_MS = re.compile(
+    r"(?P<m>\d+)\s*(?:minutes?|mins?|m)\s*(?:and\s*)?(?P<s>\d+)\s*(?:seconds?|secs?|s)\b",
+    flags=re.I,
+)
+
+
+def gsm8k_duration_value(answer: Optional[str]) -> Optional[str]:
+    """Convert ``3 hours 45 minutes`` / ``3 minutes 36 seconds`` to a number."""
+    if not answer:
+        return None
+    text = re.sub(
+        r"\\(?:text|mathrm|mathbf|textrm|mbox|textbf)\{([^{}]*)\}",
+        r" \1 ",
+        str(answer),
+    )
+    text = text.replace("\\", " ")
+    match = _DURATION_HM.search(text)
+    if match:
+        return str(int(match.group("h")) * 60 + int(match.group("m")))
+    match = _DURATION_MS.search(text)
+    if match:
+        return str(int(match.group("m")) * 60 + int(match.group("s")))
+    return None
+
+
+def gsm8k_numeric_equal(prediction: Optional[str], reference: Optional[str]) -> bool:
+    """GSM8K equality that ignores units, currency marks, and thousands commas."""
+    if math_equal(prediction, reference):
+        return True
+    gold = format_gsm8k_gold(reference)
+    left = gsm8k_numeric_core(prediction)
+    if left is not None and math_equal(left, gold):
+        return True
+    duration = gsm8k_duration_value(prediction)
+    if duration is not None and math_equal(duration, gold):
+        return True
+    return False
+
+
 def extract_last_boxed(text: str) -> Optional[str]:
     """Extract the last complete ``\boxed{...}`` expression."""
     if not text:
@@ -207,7 +283,31 @@ def canonicalize_vote_answer(task: str, raw: Optional[str]) -> Optional[str]:
         return extract_aime_integer(raw)
     if task == "gpqa":
         return extract_gpqa_letter(raw)
+    if task == "gsm8k":
+        duration = gsm8k_duration_value(raw)
+        if duration is not None:
+            return duration
+        core = gsm8k_numeric_core(raw)
+        if core is not None:
+            return core
+        normalized = normalize_answer(raw)
+        core = gsm8k_numeric_core(normalized)
+        if core is not None:
+            return core
+        duration = gsm8k_duration_value(normalized)
+        if duration is not None:
+            return duration
+        return normalized
     return normalize_answer(raw)
+
+
+def recanonicalize_trace_answers(traces: list[dict], task: str) -> None:
+    """Rewrite vote keys on already-generated traces (paired SC roots)."""
+    for trace in traces:
+        raw = trace.get("raw_answer")
+        if raw is None:
+            raw = trace.get("answer")
+        trace["answer"] = canonicalize_vote_answer(task, raw)
 
 
 def grade_answer(task: str, prediction: Optional[str], reference: Optional[str]) -> bool:
@@ -215,5 +315,7 @@ def grade_answer(task: str, prediction: Optional[str], reference: Optional[str])
         return aime_equal(prediction, reference)
     if task == "gpqa":
         return gpqa_equal(prediction, reference)
+    if task == "gsm8k":
+        return gsm8k_numeric_equal(prediction, reference)
     return math_equal(prediction, reference)
 

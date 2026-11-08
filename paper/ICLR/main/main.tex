@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{iclr2027_conference,times}
+
+% Optional notation file distributed with the official ICLR 2027 template.
+% Preserve amsmath's parenthesized equation references used by this paper;
+% math_commands.tex otherwise redefines \eqref as "equation <number>".
+\usepackage{amsmath}
+\let\PCeqref\eqref
+\input{math_commands.tex}
+\let\eqref\PCeqref
+
+% Paper-specific packages; the official style controls the page layout.
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsthm,booktabs,tabularx,graphicx}
+\usepackage{microtype,xcolor}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{url}
+\hypersetup{hidelinks}
+
+% Paper-specific environments and macros (\E comes from math_commands.tex).
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\Prb}{\mathbb{P}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\TV}{\operatorname{TV}}
+\newcommand{\TBD}{\textcolor{gray}{TBD}}
+\makeatletter
+\let\inputrows\@@input
+\makeatother
+\title{Path-consistency with Prefix Enhancement for Efficient Inference in LLMs}
+\author{Anonymous authors}
+% Working draft. Do not enable final-copy mode before author review.
+%\iclrfinalcopy % Uncomment only for the camera-ready version.
+\begin{document}
+\maketitle
+\input{00_abstract}
+\input{01_introduction}
+\input{02_background}
+\input{03_methodology}
+\input{04_theory}
+\input{05_evaluation}
+\input{06_conclusion}
+\input{07_statements}
+\bibliography{reference}
+\bibliographystyle{iclr2027_conference}
+\clearpage
+\appendix
+\input{appendix}
+\end{document}

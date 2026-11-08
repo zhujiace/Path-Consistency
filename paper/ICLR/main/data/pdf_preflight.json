@@ -1,0 +1,14 @@
+{
+  "schema": "pdf_read_preflight/1",
+  "verdict": "UNAVAILABLE",
+  "file": "main.pdf",
+  "sha256": "16e63d88651ebf626a483569e5e121f820709f9064a590c7af6ae1ec3f672b71",
+  "declared_page_count": null,
+  "enumerated_page_count": null,
+  "reader_page_count": null,
+  "warnings": [
+    "pypdf-not-installed: preflight cannot parse the document"
+  ],
+  "generated_at": "2026-09-15T17:38:52.425176+00:00",
+  "tool": "pdf_read_preflight/1.0.0"
+}

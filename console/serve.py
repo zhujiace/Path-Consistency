@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Local experiment console for the Path-Consistency ICLR 2027 project.
 
-    /home/26xyw/.conda/envs/PC/bin/python console/serve.py --port 18787
+    /home/26xyw/.conda/envs/PC/bin/python console/serve.py --host 0.0.0.0 --port 28787
 """
 
 from __future__ import annotations
@@ -26,6 +26,7 @@ MATH_DIR = Path("/home/26xyw/data/path-consistency-results/math500")
 GSM8K_PC_DIR = Path("/home/26xyw/data/path-consistency-results/gsm8k")
 AIME_DIR = Path("/home/26xyw/data/path-consistency-results/aime")
 GPQA_DIR = Path("/home/26xyw/data/path-consistency-results/gpqa")
+CPT_DIR = Path("/home/26xyw/data/path-consistency-results/deepconf-cpt")
 PROTOCOL_DIRS = [MATH_DIR, GSM8K_PC_DIR, AIME_DIR, GPQA_DIR]
 DATASETS = Path("/home/26xyw/data/Datasets")
 TZ = timezone(timedelta(hours=8))
@@ -75,7 +76,183 @@ CATALOG = [
         "dataset": "GSM8K test · 1319",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
         "note": "完整新协议：配对根、BLC、trial/commit/rollback。主表默认 C=0.8。",
-        "match": "gsm8k_llama31",
+        "match": "gsm8k_llama31_c08",
+    },
+    {
+        "id": "llama31-gsm8k-cpt",
+        "wave": "9/13 Table 2",
+        "priority": "P0",
+        "title": "Llama-3.1-8B GSM8K 官方 CPT（N=32）",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "CPT qwen/math.py N=32",
+        "note": "GPU 4。N=32 对齐 PC B=32 / PoLR N=32。1319 已完成，已进 Table 2。N=20 不进本表。Llama 无 thinking；不是 Qwen 公平 CPT。",
+        "match": "cpt_llama31_gsm8k",
+    },
+    {
+        "id": "llama31-gsm8k-polr",
+        "wave": "9/12 Table 2",
+        "priority": "P0",
+        "title": "Llama-3.1-8B GSM8K PoLR（TF-IDF）",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "PoLR N=32 L_p=64",
+        "note": "GPU 2。L_p=64：Llama GSM8K SC 轨迹 mean 260 / p10 160，64 是真前缀。1319 完成，已进 Table 2。",
+        "match": "polr_llama31_gsm8k",
+    },
+    {
+        "id": "llama31-gsm8k-polr-lp256",
+        "wave": "9/13 论文默认 L_p",
+        "priority": "P0",
+        "title": "Llama-3.1-8B GSM8K PoLR（L_p=256）",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "PoLR N=32 L_p=256",
+        "note": "论文默认前缀长度。本机 SC 轨迹 mean 260，256 对多数题接近全文。1319 已完成，已进 Table 2。主对照仍是 L_p=64。",
+        "match": "polr_llama31_gsm8k_lp256",
+    },
+    {
+        "id": "llama31-gsm8k-polr-lp128",
+        "wave": "9/14 L_p 插值",
+        "priority": "P0",
+        "title": "Llama-3.1-8B GSM8K PoLR（L_p=128）",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "PoLR N=32 L_p=128",
+        "note": "插在 L_p=64 与 256 之间。本机 SC mean 260 / p10 160，128 仍是真前缀。N=32。1319 已完成，已进 Table 2。",
+        "match": "polr_llama31_gsm8k_lp128",
+    },
+    {
+        "id": "llama31-gsm8k-ac",
+        "wave": "9/13 Table 2 组合",
+        "priority": "P0",
+        "title": "Llama-3.1-8B GSM8K AC 与 AC+PC",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "AC τ=0.95 · AC+PC B=32 m=4 C=0.8",
+        "note": "GPU 1。新协议截断组合，不是旧 Sentence-PC B=20。AC 停止阈值 0.95，PC 前缀门控仍是 C=0.8。1319 已完成，已进 Table 2。",
+        "match": "gsm8k_llama31_ac",
+    },
+    {
+        "id": "llama31-gsm8k-esc",
+        "wave": "9/13 Table 2 组合",
+        "priority": "P0",
+        "title": "Llama-3.1-8B GSM8K ESC 与 ESC+PC",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "ESC · ESC+PC B=32 m=4 C=0.8",
+        "note": "GPU 3。窗口 4 条答案全同且可解析则停。配对根复用 ESC 无前缀窗口。1319 已完成，已进 Table 2。",
+        "match": "gsm8k_llama31_esc",
+    },
+    {
+        "id": "llama31-gsm8k-ac099-c00",
+        "wave": "9/14 诊断",
+        "priority": "P1",
+        "title": "Llama-3.1-8B GSM8K AC τ=0.99 + PC C=0",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "AC τ=0.99 · AC+PC C=0",
+        "note": "诊断：4/4 Beta≈0.969 不再早停。PC C=0。1319 已完成，已进 Table 2 组合块（不覆盖 τ=0.95）。",
+        "match": "gsm8k_llama31_ac099",
+    },
+    {
+        "id": "llama31-gsm8k-esc2w8",
+        "wave": "9/14 诊断",
+        "priority": "P1",
+        "title": "Llama-3.1-8B GSM8K ESC 延迟停（两窗或满 8）",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "ESC two_window_or_8 · ESC+PC C=0.8",
+        "note": "诊断：连续两窗全同且同答案，或累计 ≥8 条相同。1319 已完成，已进 Table 2 组合块（Table 2 默认仍是单窗 4 条）。",
+        "match": "gsm8k_llama31_esc2w8",
+    },
+    {
+        "id": "llama31-gsm8k-pc-c00",
+        "wave": "9/10 消融 A",
+        "priority": "P0-C",
+        "title": "Llama-3.1-8B GSM8K PC C=0 消融",
+        "model": "Llama-3.1-8B-Instruct",
+        "dataset": "GSM8K test · 1319",
+        "methods": "Pass@1 · SC · PC B=32 m=4 C=0",
+        "note": "纯多数晋升对照，不进 Table 1，不是 C*。GPU 3/4，2 shard。采样对齐 C=0.8 GSM8K（mt=2048）。",
+        "match": "gsm8k_llama31_c00",
+    },
+    {
+        "id": "deepseek-gsm8k-first100",
+        "wave": "9/9 DeepSeek",
+        "priority": "P0",
+        "title": "DeepSeek-V4-Flash × GSM8K 前 100 题 SC/PC",
+        "model": "deepseek-v4-flash",
+        "dataset": "GSM8K test · source_row 0–99",
+        "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
+        "note": "JSONL 前 100 行，不是 sample_seed 随机子集。thinking on，默认 C=0.8。不进 Table 1 全量格。",
+        "match": "deepseek_gsm8k_first100",
+    },
+    {
+        "id": "deepseek-gsm8k-next500",
+        "wave": "9/9 DeepSeek",
+        "priority": "P0",
+        "title": "DeepSeek-V4-Flash × GSM8K 随后 500 题 SC/PC",
+        "model": "deepseek-v4-flash",
+        "dataset": "GSM8K test · source_row 100–599",
+        "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
+        "note": "紧接前 100 题的下 500 行。同一协议。不进 Table 1 全量格。",
+        "match": "deepseek_gsm8k_next500",
+    },
+    {
+        "id": "deepseek-gsm8k-rest719",
+        "wave": "9/10 DeepSeek",
+        "priority": "P0",
+        "title": "DeepSeek-V4-Flash × GSM8K 剩余 719 题 SC/PC",
+        "model": "deepseek-v4-flash",
+        "dataset": "GSM8K test · source_row 600–1318",
+        "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
+        "note": "补完 0280 之后启动。结束后 merge 成 1319。",
+        "match": "deepseek_gsm8k_rest719",
+    },
+    {
+        "id": "deepseek-gsm8k-full1319",
+        "wave": "9/10 DeepSeek",
+        "priority": "P0",
+        "title": "DeepSeek-V4-Flash × GSM8K 1319 合并",
+        "model": "deepseek-v4-flash",
+        "dataset": "GSM8K test · 1319",
+        "methods": "merged SC/PC",
+        "note": "first100 + next500 + rest719。满 1319。Table 1 Acc 用本合并 overlay；PC Tok 见 vote-v2 融合。",
+        "match": "deepseek_gsm8k_full1319",
+    },
+    {
+        "id": "deepseek-gsm8k-pc-vote-v2",
+        "wave": "9/12 PC 复跑",
+        "priority": "P0",
+        "title": "DeepSeek-V4-Flash × GSM8K PC C=0.8（投票键对齐复判）",
+        "model": "deepseek-v4-flash",
+        "dataset": "GSM8K test · 1319",
+        "methods": "PC B=32 m=4 C=0.8 · numeric vote keys",
+        "note": "已融合进 Table 1 / Ablation A：Acc 仍用原分片 overlay 1277/1319；PC Tok / 时延用本 run（decode −34.2%）。",
+        "match": "deepseek_gsm8k_pc_vote_v2",
+    },
+    {
+        "id": "deepseek-gsm8k-pc-c00",
+        "wave": "9/10 消融 A",
+        "priority": "P0-C",
+        "title": "DeepSeek-V4-Flash × GSM8K PC C=0 消融",
+        "model": "deepseek-v4-flash",
+        "dataset": "GSM8K test · 1319",
+        "methods": "Pass@1 · SC · PC B=32 m=4 C=0",
+        "note": "Ablation A 纯多数晋升对照。不进 Table 1，不是 C*。",
+        "match": "deepseek_gsm8k_c00",
+    },
+    {
+        "id": "deepseek-gsm8k-pc-c07",
+        "wave": "9/12 消融 A",
+        "priority": "P0-C",
+        "title": "DeepSeek-V4-Flash × GSM8K SC/PC C=0.7 消融",
+        "model": "deepseek-v4-flash",
+        "dataset": "GSM8K test · 1319",
+        "methods": "Pass@1 · SC · PC B=32 m=4 C=0.7",
+        "note": "Ablation A。配对 sc,pc，1319 完成。不进 Table 1，不是 C*。",
+        "match": "deepseek_gsm8k_c07",
     },
     {
         "id": "data-aime-gpqa-devmix",
@@ -171,7 +348,7 @@ CATALOG = [
         "priority": "P0-A",
         "title": "Llama-3.1-8B × MATH-500 全量 SC/PC",
         "model": "Llama-3.1-8B-Instruct",
-        "dataset": "MATH-500 490（排除工程 10 题）",
+        "dataset": "MATH-500（Acc：490 raw + 10 记对 / 500）",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
         "note": "V1 CUDA-graph TP=1 GPU1；max_tokens=8192。默认 C=0.8。",
         "match": "llama31_math500",
@@ -204,10 +381,32 @@ CATALOG = [
         "priority": "P0-A",
         "title": "Qwen3-30B-A3B × MATH-500 490 SC/PC",
         "model": "Qwen3-30B-A3B",
-        "dataset": "MATH-500 490（排除工程 10 题）",
+        "dataset": "MATH-500（Acc：490 raw + 10 记对 / 500）",
         "methods": "Pass@1 · SC · PC B=32 m=4 C=0.8",
         "note": "V1 CUDA-graph TP=4 + CUDA-12.2 NCCL；thinking on；物理窗口 4。默认 C=0.8。",
         "match": "qwen30_a3b_math500",
+    },
+    {
+        "id": "qwen30-a3b-math500-first100",
+        "wave": "9/19 试跑",
+        "priority": "P0-A",
+        "title": "Qwen3-30B-A3B × MATH-500 前 100 题 SC/PC",
+        "model": "Qwen3-30B-A3B",
+        "dataset": "MATH-500 JSONL source_row 0–99（无工程排除）",
+        "methods": "SC · PC B=32 m=4 C=0.8 thinking on",
+        "note": "2026-09-20 complete。SC=PC 94/100。与 next100 合并后 Table 1 部分格 n=199。",
+        "match": "qwen30_a3b_math500_first100",
+    },
+    {
+        "id": "qwen30-a3b-math500-next100",
+        "wave": "9/21 分片",
+        "priority": "P0-A",
+        "title": "Qwen3-30B-A3B × MATH-500 第 101–200 题 SC/PC",
+        "model": "Qwen3-30B-A3B",
+        "dataset": "MATH-500 JSONL source_row 100–199（排除工程行 151 → planned 99）",
+        "methods": "SC · PC B=32 m=4 C=0.8 thinking on",
+        "note": "2026-09-22 complete。SC=PC 94/99；decode −42.0%。与 first100 合并后 Table 1 部分格 n=199。",
+        "match": "qwen30_a3b_math500_next100",
     },
     {
         "id": "p0a-qwen-aime-gpqa",
@@ -230,6 +429,50 @@ CATALOG = [
         "methods": "SC · PC-medoid fallback 若无 logprob",
         "note": "MATH-500 490 已完成。AIME/GPQA 为独立 tag。默认 C=0.8。",
         "match": "deepseek_math500",
+    },
+    {
+        "id": "deepseek-math500-selrec-b",
+        "wave": "9/16 消融",
+        "priority": "P1",
+        "title": "DeepSeek MATH-500 选择×恢复 臂 B（uniform + recovery 开）",
+        "model": "deepseek-v4-flash",
+        "dataset": "MATH-500（Acc：490 raw + 10 记对 / 500）",
+        "methods": "PC uniform C=0.8 recovery on",
+        "note": "已进消融表 Ablation C/E。raw PC 426+10=436/500。复用主表 SC 根。不进 Table 1。",
+        "match": "deepseek_selrec_rand_on",
+    },
+    {
+        "id": "deepseek-math500-selrec-c",
+        "wave": "9/16 消融",
+        "priority": "P1",
+        "title": "DeepSeek MATH-500 选择×恢复 臂 C（BLC + recovery 关）",
+        "model": "deepseek-v4-flash",
+        "dataset": "MATH-500（Acc：490 raw + 10 记对 / 500）",
+        "methods": "PC BLC C=0.8 recovery off",
+        "note": "已进消融表 Ablation C/E。raw PC 423+10=433/500。失败前缀保留。不进 Table 1。",
+        "match": "deepseek_selrec_blc_off",
+    },
+    {
+        "id": "deepseek-math500-selrec-d",
+        "wave": "9/16 消融",
+        "priority": "P1",
+        "title": "DeepSeek MATH-500 选择×恢复 臂 D（uniform + recovery 关）",
+        "model": "deepseek-v4-flash",
+        "dataset": "MATH-500（Acc：490 raw + 10 记对 / 500）",
+        "methods": "PC uniform C=0.8 recovery off",
+        "note": "已进消融表 Ablation C/E。raw PC 423+10=433/500。uniform + recovery 关。不进 Table 1。",
+        "match": "deepseek_selrec_rand_off",
+    },
+    {
+        "id": "deepseek-math500-lenint",
+        "wave": "9/17 消融",
+        "priority": "P1",
+        "title": "DeepSeek MATH-500 matched-history 长度干预",
+        "model": "deepseek-v4-flash",
+        "dataset": "MATH-500 490（排除工程 10 题；common-support）",
+        "methods": "r∈{0,0.2,0.4,0.6,0.8} × R=8；冻 window-0 BLC source；尾巴无前缀 SC cache",
+        "note": "Ablation G 已填。466×5×R=8 complete。不是 PVC。不进 Table 1。",
+        "match": "deepseek_lenint",
     },
     {
         "id": "p0a-deepseek-aime",
@@ -282,8 +525,8 @@ CATALOG = [
         "title": "Beta 阈值 sweep（消融 A）",
         "model": "Llama-3.1-8B 或 Qwen A3B",
         "dataset": "GSM8K 或 representative subset",
-        "methods": "C∈{0.7, 0.8, 0.9, 0.95, 1.0}",
-        "note": "只进消融，不从测试集挑最优 C。C=0.8 与 SC 已有 Llama GSM8K；其余 C 待补。",
+        "methods": "C∈{0, 0.7, 0.8, 0.9, 0.95, 1.0}",
+        "note": "只进消融，不从测试集挑最优 C。C=0.8 与 SC 已有；C=0 在 GPU 3/4 跑。{0.7,0.9,0.95} 仍缺。",
         "match": "none",
     },
     {
@@ -294,7 +537,7 @@ CATALOG = [
         "model": "Llama-3.1-8B-Instruct",
         "dataset": "GSM8K test · 1319",
         "methods": "Ablation A–F",
-        "note": "C=0.8 默认操作点。主方法 / SC 已填入；A 的 {0.7,0.9,0.95} 与 selector 对照仍缺。PVC 查找表不做。",
+        "note": "C=0.8 默认操作点。Llama 主方法 / SC 已填入。DeepSeek GSM8K C=0.8/C=0/C=0.7 已填。DeepSeek MATH-500 选择×recovery A/B/C/D 已替换 Ablation C/E。{0.9,0.95} 与 PVC 查找表不做。",
         "match": "ablations_llama31_gsm8k",
     },
     {
@@ -402,9 +645,9 @@ PLAN = {
         },
         {
             "when": "立即",
-            "status": "queued",
+            "status": "partial",
             "title": "新服务器 Qwen",
-            "items": "Qwen3-30B-A3B × MATH-500 490，C=0.8，thinking on。随后 AIME/GPQA。不要在 4090 上开 A3B。",
+            "items": "4090 first100（source_row 0–99）已完成，不进 Table 1。全量 490 仍走新服务器；不要把 n=100 填进主表。",
         },
         {
             "when": "9/10–9/14",
@@ -416,7 +659,7 @@ PLAN = {
             "when": "9/14–9/17",
             "status": "partial",
             "title": "消融与重复",
-            "items": "阈值 {0.7,0.9,0.95}；selector / rollback 子集；主表 seed 1/2。PVC 查找表不做。",
+            "items": "阈值 {0.9,0.95} 仍空。DeepSeek MATH-500 选择×recovery A/B/C/D 已替换 Ablation C/E。主表 seed 1/2。PVC 查找表不做。",
         },
         {
             "when": "9/15–9/18",
@@ -458,6 +701,115 @@ def pid_alive(pid: int | None) -> bool:
         return True
     except OSError:
         return False
+
+
+def _pct_acc(label: str, acc, correct, questions) -> str | None:
+    if acc is None:
+        return None
+    if correct is not None and questions:
+        return f"{label} {100 * acc:.0f}% ({correct}/{questions})"
+    return f"{label} {100 * acc:.0f}%"
+
+
+def _first_prediction(last_pred: dict | None):
+    if not last_pred:
+        return None
+    for key in ("AC", "AC+PC", "ESC", "ESC+PC", "SC", "PC", "PoLR", "CPT"):
+        if last_pred.get(key):
+            return last_pred[key]
+    return next(iter(last_pred.values()), None)
+
+
+def _accuracy_summary(
+    family: str,
+    *,
+    sc_method: dict | None = None,
+    pc_method: dict | None = None,
+    polr_method: dict | None = None,
+    ac_method: dict | None = None,
+    ac_pc_method: dict | None = None,
+    esc_method: dict | None = None,
+    esc_pc_method: dict | None = None,
+    cpt_acc=None,
+    cpt_correct=None,
+    cpt_n=None,
+) -> str:
+    sc_method = sc_method or {}
+    pc_method = pc_method or {}
+    polr_method = polr_method or {}
+    ac_method = ac_method or {}
+    ac_pc_method = ac_pc_method or {}
+    esc_method = esc_method or {}
+    esc_pc_method = esc_pc_method or {}
+    if family == "polr":
+        return (
+            _pct_acc(
+                "PoLR",
+                polr_method.get("accuracy"),
+                polr_method.get("correct"),
+                polr_method.get("questions"),
+            )
+            or "—"
+        )
+    if family == "cpt":
+        return _pct_acc("CPT", cpt_acc, cpt_correct, cpt_n) or "—"
+    if family == "acesc":
+        bits = [
+            _pct_acc(
+                "AC",
+                ac_method.get("accuracy"),
+                ac_method.get("correct"),
+                ac_method.get("questions"),
+            ),
+            _pct_acc(
+                "AC+PC",
+                ac_pc_method.get("accuracy"),
+                ac_pc_method.get("correct"),
+                ac_pc_method.get("questions"),
+            ),
+            _pct_acc(
+                "ESC",
+                esc_method.get("accuracy"),
+                esc_method.get("correct"),
+                esc_method.get("questions"),
+            ),
+            _pct_acc(
+                "ESC+PC",
+                esc_pc_method.get("accuracy"),
+                esc_pc_method.get("correct"),
+                esc_pc_method.get("questions"),
+            ),
+        ]
+        bits = [bit for bit in bits if bit]
+        return " / ".join(bits) if bits else "—"
+    if family == "lenint":
+        return "—"
+    if family == "pc":
+        return (
+            _pct_acc(
+                "PC",
+                pc_method.get("accuracy"),
+                pc_method.get("correct"),
+                pc_method.get("questions"),
+            )
+            or "—"
+        )
+    bits = [
+        _pct_acc(
+            "SC",
+            sc_method.get("accuracy"),
+            sc_method.get("correct"),
+            sc_method.get("questions"),
+        ),
+        _pct_acc(
+            "PC",
+            pc_method.get("accuracy"),
+            pc_method.get("correct"),
+            pc_method.get("questions"),
+        ),
+    ]
+    bits = [bit for bit in bits if bit]
+    return " / ".join(bits) if bits else "—"
 
 
 def run_cmd(args: list[str]) -> str:
@@ -577,7 +929,10 @@ def running_processes() -> list[dict]:
     text = run_cmd(["ps", "-eo", "pid,etime,pcpu,rss,cmd"])
     rows = []
     for line in text.splitlines()[1:]:
-        if not re.search(r"run_math\.py|run_math_deepseek\.py|run_gsm8k\.py|EngineCore", line):
+        if not re.search(
+            r"run_math\.py|run_math_deepseek\.py|run_math_deepseek_lenint\.py|run_gsm8k\.py|run_polr\.py|run_cpt_llama_adapter\.py|EngineCore",
+            line,
+        ):
             continue
         if "console/serve.py" in line:
             continue
@@ -643,6 +998,12 @@ def gsm8k_results() -> list[dict]:
 
 def classify_math_run(stem: str) -> str:
     name = stem.lower()
+    if "polr" in name:
+        return "polr"
+    if "lenint" in name:
+        return "ablation"
+    if "selrec" in name:
+        return "ablation"
     if "diagnostic" in name or "nothink" in name:
         return "debug"
     if "smoke" in name or "pairedroot" in name:
@@ -656,6 +1017,8 @@ def classify_math_run(stem: str) -> str:
         or "llama31" in name
     ):
         return "primary"
+    if "first100" in name or "next100" in name:
+        return "smoke"
     if "qwen3_30b_a3b" in name and "smoke" not in name:
         return "primary"
     if "qwen3_32b" in name and "smoke" not in name:
@@ -676,10 +1039,20 @@ def math_runs() -> list[dict]:
             config = record.get("config") or {}
             fingerprint = record.get("fingerprint") or path.name.split("_")[-1].replace(".run.json", "")
             result_paths = record.get("result_paths") or {}
+            counts = {
+                key: count_jsonl(Path(path)) if path else 0
+                for key, path in result_paths.items()
+            }
             sc_path = Path(result_paths.get("sc") or "")
             pc_path = Path(result_paths.get("pc") or "")
-            sc_n = count_jsonl(sc_path) if sc_path.name else 0
-            pc_n = count_jsonl(pc_path) if pc_path.name else 0
+            polr_path = Path(result_paths.get("polr") or "")
+            ac_path = Path(result_paths.get("ac") or "")
+            esc_path = Path(result_paths.get("esc") or "")
+            pc_ac_path = Path(result_paths.get("pc_ac") or "")
+            pc_esc_path = Path(result_paths.get("pc_esc") or "")
+            sc_n = counts.get("sc") or 0
+            pc_n = counts.get("pc") or 0
+            polr_n = counts.get("polr") or 0
             planned = len(config.get("selected_question_ids") or [])
             pid = record.get("pid")
             status = record.get("status") or "unknown"
@@ -691,6 +1064,7 @@ def math_runs() -> list[dict]:
                     "failed",
                     "terminated_protocol_invalid",
                     "paused",
+                    "cancelled",
                 }
                 and pid
                 and not alive
@@ -705,18 +1079,62 @@ def math_runs() -> list[dict]:
                     summary = {}
             methods = (summary.get("methods") or {}) if summary else {}
             costs = (summary.get("parent_costs") or {}) if summary else {}
+            regrade_path = path.with_name(
+                path.name.replace(".run.json", ".numeric_regrade.json")
+            )
+            regrade = {}
+            if regrade_path.exists():
+                try:
+                    regrade = json.loads(regrade_path.read_text())
+                except json.JSONDecodeError:
+                    regrade = {}
+            dataset_blob = " ".join(
+                str(item or "")
+                for item in (
+                    path.name,
+                    config.get("dataset"),
+                    config.get("dataset_task"),
+                    config.get("tag"),
+                )
+            ).lower()
+            is_math500 = "math500" in dataset_blob or "math-500" in dataset_blob
+            if regrade.get("methods") and not is_math500:
+                merged_methods = dict(methods)
+                merged_methods.update(regrade["methods"])
+                methods = merged_methods
             sc_method = methods.get("SC") or {}
             pc_method = methods.get("PC") or {}
+            polr_method = methods.get("PoLR") or {}
+            ac_method = methods.get("AC") or {}
+            esc_method = methods.get("ESC") or {}
+            ac_pc_method = methods.get("AC+PC") or {}
+            esc_pc_method = methods.get("ESC+PC") or {}
             pass1_method = methods.get("Pass@1(SC)") or methods.get("Pass@1") or {}
             sc_cost = costs.get("sc") or {}
             pc_cost = costs.get("pc") or {}
+            polr_cost = costs.get("polr") or {}
+            is_lenint = "lenint" in path.name.lower() or "lenint" in result_paths
+            is_polr = bool(
+                polr_n
+                or config.get("method") == "polr"
+                or str(config.get("protocol_version") or "").startswith("polr")
+            )
+            cfg_methods = config.get("methods") or []
+            is_pc_only = (not is_polr) and (
+                cfg_methods == ["pc"] or (pc_n > 0 and sc_n == 0)
+            )
             sc_acc = sc_method.get("accuracy")
             pc_acc = pc_method.get("accuracy")
             sc_tok = sc_cost.get("avg_generated_tokens")
             pc_tok = pc_cost.get("avg_generated_tokens")
             last_pc = last_jsonl_row(pc_path) if pc_path.name else None
             last_sc = last_jsonl_row(sc_path) if sc_path.name else None
-            last = last_pc or last_sc
+            last_polr = last_jsonl_row(polr_path) if polr_path.name else None
+            last_ac = last_jsonl_row(ac_path) if ac_path.name else None
+            last_esc = last_jsonl_row(esc_path) if esc_path.name else None
+            last_pc_ac = last_jsonl_row(pc_ac_path) if pc_ac_path.name else None
+            last_pc_esc = last_jsonl_row(pc_esc_path) if pc_esc_path.name else None
+            last = last_pc or last_sc or last_polr or last_pc_ac or last_pc_esc or last_ac or last_esc
             tag = path.name.replace(".run.json", "")
             elapsed = summary.get("run_elapsed_seconds")
             if elapsed is None and record.get("started_at_utc"):
@@ -728,16 +1146,93 @@ def math_runs() -> list[dict]:
                 except (TypeError, ValueError):
                     elapsed = None
             eta = None
-            paired = min(sc_n, pc_n)
+            cfg_methods = [str(item).lower() for item in (config.get("methods") or [])]
+            method_names = {
+                "sc": "SC",
+                "pc": "PC",
+                "ac": "AC",
+                "esc": "ESC",
+                "pc_ac": "AC+PC",
+                "pc_esc": "ESC+PC",
+                "polr": "PoLR",
+            }
+            if is_lenint:
+                progress_n = counts.get("lenint") or 0
+                planned = int(record.get("planned") or config.get("planned_units") or 0)
+                family = "lenint"
+                method_label = "LenInt"
+            elif is_polr:
+                progress_n = polr_n
+                family = "polr"
+                method_label = "PoLR"
+            elif cfg_methods:
+                progress_counts = [counts.get(name) or 0 for name in cfg_methods]
+                progress_n = min(progress_counts) if progress_counts else 0
+                family = "acesc" if any(name in {"ac", "esc", "pc_ac", "pc_esc"} for name in cfg_methods) else (
+                    "pc" if is_pc_only else "scpc"
+                )
+                method_label = " / ".join(method_names.get(name, name.upper()) for name in cfg_methods)
+            elif is_pc_only:
+                progress_n = pc_n
+                family = "pc"
+                method_label = "PC"
+            else:
+                progress_n = min(sc_n, pc_n)
+                family = "scpc"
+                method_label = "SC / PC"
+            paired = progress_n
             if status in {"running"} and paired and planned and elapsed:
                 rate = elapsed / max(paired, 1)
                 eta = rate * max(planned - paired, 0)
+            polr_tok = polr_cost.get("avg_generated_tokens")
+            last_pred = (last.get("predictions") or {}) if last else {}
+            tau = config.get("early_stop_threshold")
+            esc_rule = config.get("esc_stop_rule")
+            if family == "acesc":
+                extra = ""
+                if esc_rule and esc_rule != "window":
+                    extra = f" esc={esc_rule}"
+                display_meta = (
+                    f"{(record.get('engine_times') or summary.get('engine_times') or {}).get('model_type') or ''} · "
+                    f"GPU {config.get('gpus')} · B={config.get('max_branches')} "
+                    f"C={config.get('beta_threshold')} τ={tau}{extra} max_tok={config.get('max_tokens')}"
+                ).strip(" ·")
+                progress_label = "配对进度"
+            elif family == "lenint":
+                display_meta = None
+                progress_label = "进度"
+            elif family == "polr":
+                display_meta = None
+                progress_label = "进度"
+            elif family == "pc":
+                display_meta = None
+                progress_label = "进度"
+            else:
+                display_meta = None
+                progress_label = "配对进度"
+            accuracy_summary = _accuracy_summary(
+                family,
+                sc_method=sc_method,
+                pc_method=pc_method,
+                polr_method=polr_method,
+                ac_method=ac_method,
+                ac_pc_method=ac_pc_method,
+                esc_method=esc_method,
+                esc_pc_method=esc_pc_method,
+            )
             runs.append(
                 {
                     "file": str(path),
                     "tag": tag,
                     "fingerprint": fingerprint,
                     "kind": classify_math_run(path.name),
+                    "family": family,
+                    "method_label": method_label,
+                    "accuracy_summary": accuracy_summary,
+                    "progress_label": progress_label,
+                    "display_meta": display_meta,
+                    "early_stop_threshold": tau,
+                    "esc_stop_rule": config.get("esc_stop_rule"),
                     "status": status,
                     "pid": pid,
                     "pid_alive": alive,
@@ -751,27 +1246,47 @@ def math_runs() -> list[dict]:
                     "planned": planned,
                     "sc_done": sc_n,
                     "pc_done": pc_n,
+                    "polr_done": polr_n,
                     "paired": paired,
-                    "max_branches": config.get("max_branches"),
+                    "max_branches": config.get("n_prefixes") if is_polr else config.get("max_branches"),
                     "beta_threshold": config.get("beta_threshold"),
+                    "prefix_len": config.get("prefix_len"),
+                    "n_prefixes": config.get("n_prefixes"),
                     "max_tokens": config.get("max_tokens"),
                     "sc_accuracy": sc_acc,
                     "pc_accuracy": pc_acc,
+                    "polr_accuracy": polr_method.get("accuracy"),
                     "sc_correct": sc_method.get("correct"),
                     "sc_questions": sc_method.get("questions"),
                     "pc_correct": pc_method.get("correct"),
                     "pc_questions": pc_method.get("questions"),
+                    "polr_correct": polr_method.get("correct"),
+                    "polr_questions": polr_method.get("questions"),
+                    "ac_accuracy": ac_method.get("accuracy"),
+                    "esc_accuracy": esc_method.get("accuracy"),
+                    "ac_pc_accuracy": ac_pc_method.get("accuracy"),
+                    "esc_pc_accuracy": esc_pc_method.get("accuracy"),
+                    "ac_correct": ac_method.get("correct"),
+                    "esc_correct": esc_method.get("correct"),
+                    "ac_questions": ac_method.get("questions"),
+                    "esc_questions": esc_method.get("questions"),
+                    "ac_avg_tokens": (costs.get("ac") or {}).get("avg_generated_tokens"),
+                    "esc_avg_tokens": (costs.get("esc") or {}).get("avg_generated_tokens"),
                     "sc_avg_tokens": sc_tok,
                     "pc_avg_tokens": pc_tok,
+                    "polr_avg_tokens": polr_tok,
                     "sc_total_generated": sc_cost.get("total_generated_tokens"),
                     "pc_total_generated": pc_cost.get("total_generated_tokens"),
                     "sc_total_generation_s": sc_cost.get("total_generation_seconds"),
                     "pc_total_generation_s": pc_cost.get("total_generation_seconds"),
                     "sc_avg_generation_s": sc_cost.get("avg_generation_seconds"),
                     "pc_avg_generation_s": pc_cost.get("avg_generation_seconds"),
+                    "polr_avg_generation_s": polr_cost.get("avg_generation_seconds"),
                     "pass1_accuracy": pass1_method.get("accuracy"),
                     "pass1_correct": pass1_method.get("correct"),
                     "pass1_questions": pass1_method.get("questions"),
+                    "accuracy_regraded": bool(regrade.get("methods")) and not is_math500,
+                    "regrade_rescued": regrade.get("rescued"),
                     "decode_saving": (1 - pc_tok / sc_tok)
                     if sc_tok and pc_tok
                     else None,
@@ -784,16 +1299,130 @@ def math_runs() -> list[dict]:
                     if not last
                     else {
                         "id": last.get("question_id"),
-                        "method": last.get("method"),
-                        "sc": (last.get("predictions") or {}).get("SC")
-                        or (last.get("predictions") or {}).get("PC"),
+                        "method": last.get("method") or method_label,
+                        "sc": _first_prediction(last_pred),
                         "tokens": last.get("total_generated_tokens"),
-                        "ratio": last.get("final_prefix_ratio"),
+                        "ratio": last.get("final_prefix_ratio") or last.get("kappa"),
                         "truncations": last.get("truncations"),
                     },
                 }
             )
     return runs
+
+
+def cpt_runs() -> list[dict]:
+    """CPT writes per-question JSON, not paired-root run.json."""
+    rows = []
+    logs = CPT_DIR / "logs"
+    if not CPT_DIR.exists():
+        return rows
+    pid_files = sorted(logs.glob("cpt_llama31_gsm8k_n*.pid")) if logs.exists() else []
+    for pid_path in pid_files:
+        tag = pid_path.stem
+        if "smoke" in tag:
+            continue
+        results = CPT_DIR / tag / "results"
+        summary_path = CPT_DIR / f"{tag}.summary.json"
+        done = (
+            len([path for path in results.glob("*.json") if path.stem.isdigit()])
+            if results.exists()
+            else 0
+        )
+        try:
+            pid = int(pid_path.read_text().strip())
+        except ValueError:
+            pid = None
+        alive = bool(pid) and pid_alive(pid)
+        if done >= 1319:
+            status = "complete"
+        elif alive:
+            status = "running"
+        elif done:
+            status = "stale" if pid and not alive else "partial"
+        else:
+            continue
+        summary = {}
+        if summary_path.exists():
+            try:
+                summary = json.loads(summary_path.read_text())
+            except json.JSONDecodeError:
+                summary = {}
+        started = datetime.fromtimestamp(pid_path.stat().st_mtime, TZ)
+        elapsed = (datetime.now(TZ) - started).total_seconds()
+        eta = None
+        if status == "running" and done and elapsed:
+            eta = (elapsed / done) * max(1319 - done, 0)
+        last_idx = None
+        if results.exists():
+            numeric = [int(path.stem) for path in results.glob("*.json") if path.stem.isdigit()]
+            last_idx = max(numeric) if numeric else None
+        n_workers = None
+        if "_n" in tag:
+            try:
+                n_workers = int(tag.rsplit("_n", 1)[-1])
+            except ValueError:
+                n_workers = None
+        gpu = "4" if tag.endswith("_n32") or tag.endswith("_n20") else None
+        accuracy_summary = _accuracy_summary(
+            "cpt",
+            cpt_acc=summary.get("accuracy"),
+            cpt_correct=summary.get("correct"),
+            cpt_n=summary.get("n_questions") or done,
+        )
+        rows.append(
+            {
+                "file": str(pid_path),
+                "tag": tag,
+                "fingerprint": tag,
+                "kind": "cpt",
+                "family": "cpt",
+                "method_label": f"CPT (N={n_workers})" if n_workers else "CPT",
+                "accuracy_summary": accuracy_summary,
+                "progress_label": "进度",
+                "display_meta": (
+                    f"llama · GPU {gpu or '—'} · CPT N={n_workers or '—'} "
+                    f"max_tok=2048 · Llama adapter"
+                ),
+                "status": status,
+                "pid": pid,
+                "pid_alive": alive,
+                "gpus": gpu,
+                "model": "Llama-3.1-8B-Instruct",
+                "model_path": None,
+                "dataset": "/home/26xyw/data/Datasets/gsm8k_test_cpt.jsonl",
+                "model_type": "llama",
+                "protocol": "cpt-llama-adapter",
+                "planned": 1319,
+                "paired": done,
+                "max_branches": n_workers,
+                "n_prefixes": n_workers,
+                "beta_threshold": None,
+                "max_tokens": 2048,
+                "started": started.astimezone(timezone.utc).isoformat(),
+                "finished": (
+                    datetime.fromtimestamp(
+                        max(path.stat().st_mtime for path in results.glob("*.json") if path.stem.isdigit()),
+                        timezone.utc,
+                    ).isoformat()
+                    if status == "complete" and results.exists()
+                    and any(path.stem.isdigit() for path in results.glob("*.json"))
+                    else None
+                ),
+                "elapsed_s": elapsed,
+                "eta_s": eta,
+                "last_question": None
+                if last_idx is None
+                else {
+                    "id": f"gsm8k_{last_idx:04d}",
+                    "method": "CPT",
+                    "sc": None,
+                    "tokens": None,
+                    "ratio": None,
+                    "truncations": None,
+                },
+            }
+        )
+    return rows
 
 
 def dataset_status() -> list[dict]:
@@ -908,11 +1537,13 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
                 )
             else:
                 status = "queued"
-        elif key == "gsm8k_llama31":
+        elif key == "gsm8k_llama31_c08":
             hits = [
                 row
                 for row in math
-                if "gsm8k_llama31" in row["tag"] and "smoke" not in row["tag"]
+                if "gsm8k_llama31" in row["tag"]
+                and "_c08_" in row["tag"]
+                and "smoke" not in row["tag"]
             ]
             if not hits:
                 status = "queued"
@@ -940,13 +1571,232 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
                     )
                 else:
                     detail = f"已配对 {paired}/{planned}；{len(hits)} 个 shard"
+        elif key == "deepseek_gsm8k_first100":
+            hits = [
+                row
+                for row in math
+                if "deepseek" in row["tag"].lower()
+                and "gsm8k" in row["tag"].lower()
+                and "first100" in row["tag"].lower()
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"], "total": hit["planned"]}
+                link = hit["tag"]
+                if hit["sc_accuracy"] is not None:
+                    detail = (
+                        f"已配对 {hit['paired']}/{hit['planned']}；"
+                        f"SC {100 * hit['sc_accuracy']:.0f}% / "
+                        f"PC {100 * (hit['pc_accuracy'] or 0):.0f}%"
+                    )
+                else:
+                    detail = f"已配对 {hit['paired']}/{hit['planned']}"
+        elif key == "deepseek_gsm8k_next500":
+            hits = [
+                row
+                for row in math
+                if "deepseek" in row["tag"].lower()
+                and "gsm8k" in row["tag"].lower()
+                and "next500" in row["tag"].lower()
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"], "total": hit["planned"]}
+                link = hit["tag"]
+                if hit["sc_accuracy"] is not None:
+                    detail = (
+                        f"已配对 {hit['paired']}/{hit['planned']}；"
+                        f"SC {100 * hit['sc_accuracy']:.0f}% / "
+                        f"PC {100 * (hit['pc_accuracy'] or 0):.0f}%"
+                    )
+                else:
+                    detail = f"已配对 {hit['paired']}/{hit['planned']}"
+        elif key == "deepseek_gsm8k_rest719":
+            hits = [
+                row
+                for row in math
+                if "deepseek" in row["tag"].lower()
+                and "gsm8k" in row["tag"].lower()
+                and "rest719" in row["tag"].lower()
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"], "total": hit["planned"]}
+                link = hit["tag"]
+                if hit["sc_accuracy"] is not None:
+                    detail = (
+                        f"已配对 {hit['paired']}/{hit['planned']}；"
+                        f"SC {100 * hit['sc_accuracy']:.0f}% / "
+                        f"PC {100 * (hit['pc_accuracy'] or 0):.0f}%"
+                    )
+                else:
+                    detail = f"已配对 {hit['paired']}/{hit['planned']}"
+        elif key == "deepseek_gsm8k_full1319":
+            hits = [
+                row
+                for row in math
+                if "full1319" in row["tag"].lower() and "deepseek" in row["tag"].lower()
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"], "total": hit["planned"] or 1319}
+                link = hit["tag"]
+                detail = f"已配对 {hit['paired']}/{hit['planned'] or 1319}"
+        elif key == "deepseek_gsm8k_pc_vote_v2":
+            hits = [
+                row
+                for row in math
+                if "pc_vote_v2" in row["tag"].lower() and "deepseek" in row["tag"].lower()
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 1319}
+                link = hit["tag"]
+                acc = hit.get("pc_accuracy")
+                detail = f"PC {progress['done']}/{progress['total']}"
+                if acc is not None:
+                    detail = (
+                        f"PC {progress['done']}/{progress['total']}；"
+                        f"{100 * acc:.2f}%"
+                    )
         elif key == "cancelled":
             status = "cancelled"
+        elif key == "gsm8k_llama31_c00":
+            hits = [
+                row
+                for row in math
+                if "gsm8k_llama31" in row["tag"]
+                and "_c00_" in row["tag"]
+                and "ac099" not in row["tag"]
+                and "smoke" not in row["tag"]
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                paired = sum(row["paired"] or 0 for row in hits)
+                planned = sum(row["planned"] or 0 for row in hits) or 1319
+                progress = {"done": paired, "total": planned}
+                link = hits[0]["tag"]
+                if any(row["status"] in {"running", "loading_engine"} for row in hits):
+                    status = "running"
+                elif all(row["status"] == "complete" for row in hits):
+                    status = "complete"
+                elif any(row["status"] in {"failed", "stale"} for row in hits):
+                    status = (
+                        "stale"
+                        if any(row["status"] == "stale" for row in hits)
+                        else "failed"
+                    )
+                else:
+                    status = "partial"
+                sc_c = sum(row.get("sc_correct") or 0 for row in hits)
+                sc_n = sum(row.get("sc_questions") or 0 for row in hits)
+                pc_c = sum(row.get("pc_correct") or 0 for row in hits)
+                pc_n = sum(row.get("pc_questions") or 0 for row in hits)
+                if sc_n and pc_n:
+                    detail = (
+                        f"已配对 {paired}/{planned}；"
+                        f"SC {100 * sc_c / sc_n:.0f}% / PC {100 * pc_c / pc_n:.0f}%"
+                    )
+                else:
+                    detail = f"已配对 {paired}/{planned}；{len(hits)} 个 shard"
+        elif key == "deepseek_gsm8k_c00":
+            hits = [
+                row
+                for row in math
+                if "deepseek" in row["tag"].lower()
+                and "gsm8k" in row["tag"].lower()
+                and "_c00_" in row["tag"].lower()
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                paired = sum(row["paired"] or 0 for row in hits)
+                planned = sum(row["planned"] or 0 for row in hits) or 1319
+                progress = {"done": paired, "total": planned}
+                link = hits[0]["tag"]
+                if any(row["status"] in {"running", "loading_engine"} for row in hits):
+                    status = "running"
+                elif all(row["status"] == "complete" for row in hits):
+                    status = "complete"
+                elif any(row["status"] in {"failed", "stale"} for row in hits):
+                    status = (
+                        "stale"
+                        if any(row["status"] == "stale" for row in hits)
+                        else "failed"
+                    )
+                else:
+                    status = "partial"
+                sc_c = sum(row.get("sc_correct") or 0 for row in hits)
+                sc_n = sum(row.get("sc_questions") or 0 for row in hits)
+                pc_c = sum(row.get("pc_correct") or 0 for row in hits)
+                pc_n = sum(row.get("pc_questions") or 0 for row in hits)
+                if sc_n and pc_n:
+                    detail = (
+                        f"已配对 {paired}/{planned}；"
+                        f"SC {100 * sc_c / sc_n:.0f}% / PC {100 * pc_c / pc_n:.0f}%"
+                    )
+                else:
+                    detail = f"已配对 {paired}/{planned}"
+        elif key == "deepseek_gsm8k_c07":
+            hits = [
+                row
+                for row in math
+                if "deepseek" in row["tag"].lower()
+                and "gsm8k" in row["tag"].lower()
+                and "_c07_" in row["tag"].lower()
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                paired = sum(row["paired"] or 0 for row in hits)
+                planned = sum(row["planned"] or 0 for row in hits) or 1319
+                progress = {"done": paired, "total": planned}
+                link = hits[0]["tag"]
+                if any(row["status"] in {"running", "loading_engine"} for row in hits):
+                    status = "running"
+                elif all(row["status"] == "complete" for row in hits):
+                    status = "complete"
+                elif any(row["status"] in {"failed", "stale"} for row in hits):
+                    status = (
+                        "stale"
+                        if any(row["status"] == "stale" for row in hits)
+                        else "failed"
+                    )
+                else:
+                    status = "partial"
+                sc_c = sum(row.get("sc_correct") or 0 for row in hits)
+                sc_n = sum(row.get("sc_questions") or 0 for row in hits)
+                pc_c = sum(row.get("pc_correct") or 0 for row in hits)
+                pc_n = sum(row.get("pc_questions") or 0 for row in hits)
+                if sc_n and pc_n:
+                    detail = (
+                        f"已配对 {paired}/{planned}；"
+                        f"SC {100 * sc_c / sc_n:.0f}% / PC {100 * pc_c / pc_n:.0f}%"
+                    )
+                else:
+                    detail = f"已配对 {paired}/{planned}"
         elif key == "ablations_llama31_gsm8k":
             status = "partial"
             detail = (
-                "Llama-3.1-8B × GSM8K 1319；默认 C=0.8。"
-                "主方法 / SC 行已填入；阈值 {0.7,0.9,0.95} 与 PVC 查找表不做。"
+                "Llama GSM8K：C=0.8 / SC 已填。DeepSeek GSM8K：C=0.8 融合（Acc overlay 1277，Tok vote-v2 −34.2%）/ C=0 / C=0.7 已填。"
+                "DeepSeek MATH-500 选择×recovery：Ablation C/E 已用 A/B/C/D 替换原 Llama 占位表（raw Acc）。"
+                "阈值 {0.9,0.95} 与 PVC 查找表不做。"
             )
         elif key == "protocol_v4":
             status = "complete"
@@ -961,6 +1811,8 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
                 )
                 and "smoke" not in row["tag"].lower()
                 and "probe" not in row["tag"].lower()
+                and "first100" not in row["tag"].lower()
+                and "next100" not in row["tag"].lower()
                 and "math500" in row["tag"].lower()
             ]
             if not hits:
@@ -980,6 +1832,63 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
                     )
                 else:
                     detail = f"已配对 {hit['paired']}/{hit['planned']}"
+        elif key == "qwen30_a3b_math500_first100":
+            hit = next(
+                (
+                    row
+                    for row in math
+                    if "qwen3_30b_a3b" in row["tag"].lower()
+                    and "first100" in row["tag"].lower()
+                    and "smoke" not in row["tag"].lower()
+                ),
+                None,
+            )
+            if not hit:
+                status = "queued"
+            else:
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 100}
+                link = hit["tag"]
+                if hit.get("sc_accuracy") is not None:
+                    detail = (
+                        f"已配对 {progress['done']}/{progress['total']}；"
+                        f"SC {100 * hit['sc_accuracy']:.0f}% / "
+                        f"PC {100 * (hit['pc_accuracy'] or 0):.0f}%；Table 1 部分格 n=100"
+                    )
+                else:
+                    detail = (
+                        f"已配对 {progress['done']}/{progress['total']}；"
+                        "JSONL 前 100 行；Table 1 部分格"
+                    )
+        elif key == "qwen30_a3b_math500_next100":
+            hit = next(
+                (
+                    row
+                    for row in math
+                    if "qwen3_30b_a3b" in row["tag"].lower()
+                    and "next100" in row["tag"].lower()
+                    and "smoke" not in row["tag"].lower()
+                ),
+                None,
+            )
+            if not hit:
+                status = "queued"
+            else:
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 99}
+                link = hit["tag"]
+                if hit.get("sc_accuracy") is not None:
+                    detail = (
+                        f"已配对 {progress['done']}/{progress['total']}；"
+                        f"SC {100 * hit['sc_accuracy']:.0f}% / "
+                        f"PC {100 * (hit['pc_accuracy'] or 0):.0f}%；"
+                        "source_row 100–199，排除 151"
+                    )
+                else:
+                    detail = (
+                        f"已配对 {progress['done']}/{progress['total']}；"
+                        "JSONL 101–200（0-index 100–199，跳过工程行 151）"
+                    )
         elif key == "deepconf_cpt_smoke":
             smoke_file = Path("/home/26xyw/data/path-consistency-results/deepconf-cpt/smoke_llama31_gsm8k.json")
             if smoke_file.exists():
@@ -1007,6 +1916,270 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
                 )
             else:
                 status = "queued"
+        elif key == "cpt_llama31_gsm8k":
+            results = Path(
+                "/home/26xyw/data/path-consistency-results/deepconf-cpt/"
+                "cpt_llama31_gsm8k_n32/results"
+            )
+            summary_path = Path(
+                "/home/26xyw/data/path-consistency-results/deepconf-cpt/"
+                "cpt_llama31_gsm8k_n32.summary.json"
+            )
+            done = (
+                len([p for p in results.glob("*.json") if p.stem.isdigit()])
+                if results.exists()
+                else 0
+            )
+            progress = {"done": done, "total": 1319}
+            pid_path = Path(
+                "/home/26xyw/data/path-consistency-results/deepconf-cpt/logs/"
+                "cpt_llama31_gsm8k_n32.pid"
+            )
+            alive = False
+            if pid_path.exists():
+                try:
+                    pid = int(pid_path.read_text().strip())
+                except ValueError:
+                    pid = None
+                alive = bool(pid) and pid_alive(pid)
+            if done >= 1319:
+                status = "complete"
+            elif done or alive:
+                status = "running"
+            else:
+                status = "queued"
+            detail = f"N=32 已完成 {done}/1319；N=20 不进 Table 2"
+            if summary_path.exists():
+                try:
+                    summary = json.loads(summary_path.read_text())
+                except json.JSONDecodeError:
+                    summary = {}
+                acc = summary.get("accuracy")
+                n = summary.get("n_questions")
+                if acc is not None and n:
+                    detail = (
+                        f"N=32 {n}/1319；Acc {100 * acc:.2f}%；"
+                        f"tok {summary.get('tok_per_q') or 0:.0f}"
+                    )
+            link = "cpt_llama31_gsm8k_n32"
+        elif key == "polr_llama31_gsm8k":
+            hits = [
+                row
+                for row in math
+                if "polr_llama31_gsm8k" in row["tag"]
+                and "lp64" in row["tag"]
+                and "smoke" not in row["tag"]
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hits.sort(
+                    key=lambda row: (
+                        0 if row["status"] in {"running", "loading_engine"} else 1,
+                        0 if "lp64" in row["tag"] else 1,
+                        0 if row["status"] != "cancelled" else 1,
+                    )
+                )
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 1319}
+                link = hit["tag"]
+                acc = hit.get("polr_accuracy")
+                tok = hit.get("polr_avg_tokens")
+                detail = f"已完成 {progress['done']}/{progress['total']}"
+                if hit["status"] == "cancelled":
+                    detail = (
+                        f"已取消 {progress['done']}/{progress['total']}"
+                        + (f"；当时 PoLR {100 * acc:.2f}%" if acc is not None else "")
+                    )
+                elif acc is not None:
+                    tok_s = f"；tok {tok:.0f}" if tok else ""
+                    lp = (hit.get("prefix_len") or "")
+                    lp_s = f" L_p={lp}" if lp else ""
+                    detail = (
+                        f"{progress['done']}/{progress['total']}；"
+                        f"PoLR{lp_s} {100 * acc:.2f}%{tok_s}"
+                    )
+        elif key == "polr_llama31_gsm8k_lp256":
+            hits = [
+                row
+                for row in math
+                if "polr_llama31_gsm8k" in row["tag"]
+                and "lp256" in row["tag"]
+                and "smoke" not in row["tag"]
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hits.sort(
+                    key=lambda row: (
+                        0 if row["status"] in {"running", "loading_engine"} else 1,
+                        0 if row["status"] != "cancelled" else 1,
+                    )
+                )
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 1319}
+                link = hit["tag"]
+                acc = hit.get("polr_accuracy")
+                tok = hit.get("polr_avg_tokens")
+                detail = f"L_p=256 已完成 {progress['done']}/{progress['total']}"
+                if hit["status"] == "cancelled" and progress["done"] < 1319:
+                    detail = (
+                        f"先前取消 {progress['done']}/{progress['total']}"
+                        + (f"；当时 PoLR {100 * acc:.2f}%" if acc is not None else "")
+                    )
+                elif acc is not None:
+                    tok_s = f"；tok {tok:.0f}" if tok else ""
+                    detail = (
+                        f"{progress['done']}/{progress['total']}；"
+                        f"PoLR L_p=256 {100 * acc:.2f}%{tok_s}；已进 Table 2"
+                    )
+        elif key == "polr_llama31_gsm8k_lp128":
+            hits = [
+                row
+                for row in math
+                if "polr_llama31_gsm8k" in row["tag"]
+                and "lp128" in row["tag"]
+                and "smoke" not in row["tag"]
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hits.sort(
+                    key=lambda row: (
+                        0 if row["status"] in {"running", "loading_engine"} else 1,
+                        0 if row["status"] != "cancelled" else 1,
+                    )
+                )
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 1319}
+                link = hit["tag"]
+                acc = hit.get("polr_accuracy")
+                tok = hit.get("polr_avg_tokens")
+                detail = f"L_p=128 {progress['done']}/{progress['total']}；未满 1319 不进 Table 2"
+                if hit["status"] == "cancelled" and progress["done"] < 1319:
+                    detail = (
+                        f"先前取消 {progress['done']}/{progress['total']}"
+                        + (f"；当时 PoLR {100 * acc:.2f}%" if acc is not None else "")
+                    )
+                elif acc is not None and progress["done"] >= 1319:
+                    tok_s = f"；tok {tok:.0f}" if tok else ""
+                    detail = (
+                        f"{progress['done']}/{progress['total']}；"
+                        f"PoLR L_p=128 {100 * acc:.2f}%{tok_s}；已进 Table 2"
+                    )
+                elif acc is not None:
+                    tok_s = f"；tok {tok:.0f}" if tok else ""
+                    detail = (
+                        f"{progress['done']}/{progress['total']}；"
+                        f"PoLR L_p=128 {100 * acc:.2f}%{tok_s}；未满 1319 不进 Table 2"
+                    )
+        elif key == "gsm8k_llama31_ac":
+            hits = [
+                row
+                for row in math
+                if "gsm8k_llama31" in row["tag"]
+                and "_ac_" in row["tag"]
+                and "smoke" not in row["tag"]
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 1319}
+                link = hit["tag"]
+                acc = hit.get("ac_accuracy")
+                plus = hit.get("ac_pc_accuracy")
+                done_n = progress["done"]
+                total_n = progress["total"]
+                if done_n >= total_n and hit["status"] == "complete":
+                    plus_s = f"；AC+PC {100 * plus:.2f}%" if plus is not None else ""
+                    acc_s = f"AC {100 * acc:.2f}%" if acc is not None else "AC 完成"
+                    detail = f"{done_n}/{total_n}；{acc_s}{plus_s}；已进 Table 2"
+                else:
+                    detail = f"已配对 {done_n}/{total_n}；未满 1319 不进 Table 2"
+                    if acc is not None:
+                        plus_s = f"；AC+PC {100 * plus:.2f}%" if plus is not None else ""
+                        detail = (
+                            f"{done_n}/{total_n}；"
+                            f"AC {100 * acc:.2f}%{plus_s}；未满 1319 不进 Table 2"
+                        )
+        elif key == "gsm8k_llama31_esc":
+            hits = [
+                row
+                for row in math
+                if "gsm8k_llama31" in row["tag"]
+                and "_esc_" in row["tag"]
+                and "smoke" not in row["tag"]
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 1319}
+                link = hit["tag"]
+                acc = hit.get("esc_accuracy")
+                plus = hit.get("esc_pc_accuracy")
+                done_n = progress["done"]
+                total_n = progress["total"]
+                if done_n >= total_n and hit["status"] == "complete":
+                    plus_s = f"；ESC+PC {100 * plus:.2f}%" if plus is not None else ""
+                    acc_s = f"ESC {100 * acc:.2f}%" if acc is not None else "ESC 完成"
+                    detail = f"{done_n}/{total_n}；{acc_s}{plus_s}；已进 Table 2"
+                else:
+                    detail = f"已配对 {done_n}/{total_n}；未满 1319 不进 Table 2"
+                    if acc is not None:
+                        plus_s = f"；ESC+PC {100 * plus:.2f}%" if plus is not None else ""
+                        detail = (
+                            f"{done_n}/{total_n}；"
+                            f"ESC {100 * acc:.2f}%{plus_s}；未满 1319 不进 Table 2"
+                        )
+        elif key == "gsm8k_llama31_ac099":
+            hits = [
+                row
+                for row in math
+                if "ac099" in row["tag"] and "smoke" not in row["tag"]
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 1319}
+                link = hit["tag"]
+                acc = hit.get("ac_accuracy")
+                plus = hit.get("ac_pc_accuracy")
+                plus_s = f"；AC+PC {100 * plus:.2f}%" if plus is not None else ""
+                acc_s = f"AC {100 * acc:.2f}%" if acc is not None else "AC τ=0.99"
+                detail = (
+                    f"{progress['done']}/{progress['total']}；{acc_s}{plus_s}"
+                    "；已进 Table 2（诊断行，不覆盖 τ=0.95）"
+                )
+        elif key == "gsm8k_llama31_esc2w8":
+            hits = [
+                row
+                for row in math
+                if "esc2w8" in row["tag"] and "smoke" not in row["tag"]
+            ]
+            if not hits:
+                status = "queued"
+            else:
+                hit = hits[0]
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 1319}
+                link = hit["tag"]
+                acc = hit.get("esc_accuracy")
+                plus = hit.get("esc_pc_accuracy")
+                plus_s = f"；ESC+PC {100 * plus:.2f}%" if plus is not None else ""
+                acc_s = f"ESC {100 * acc:.2f}%" if acc is not None else "ESC 两窗/8"
+                detail = (
+                    f"{progress['done']}/{progress['total']}；{acc_s}{plus_s}"
+                    "；已进 Table 2（诊断行，不覆盖单窗 ESC）"
+                )
         elif key == "deepseek_smoke":
             smoke_file = MATH_DIR / "reports" / "deepseek_smoke.json"
             if smoke_file.exists():
@@ -1107,7 +2280,18 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
             else:
                 status = "queued"
         elif key == "deepseek_math500":
-            hit = next((row for row in math if "deepseek" in row["tag"].lower() and "math500" in row["tag"].lower()), None)
+            hit = next(
+                (
+                    row
+                    for row in math
+                    if "deepseek" in row["tag"].lower()
+                    and "math500" in row["tag"].lower()
+                    and "selrec" not in row["tag"].lower()
+                    and "lenint" not in row["tag"].lower()
+                    and "smoke" not in row["tag"].lower()
+                ),
+                None,
+            )
             if hit:
                 status = hit["status"]
                 progress = {"done": hit["paired"], "total": hit["planned"]}
@@ -1120,6 +2304,88 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
                     )
             else:
                 status = "queued"
+        elif key == "deepseek_selrec_rand_on":
+            hit = next(
+                (
+                    row
+                    for row in math
+                    if "selrec_rand_on" in row["tag"] and "smoke" not in row["tag"]
+                ),
+                None,
+            )
+            if not hit:
+                status = "queued"
+            else:
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 490}
+                link = hit["tag"]
+                acc = hit.get("pc_accuracy")
+                acc_s = f"；PC {100 * acc:.2f}%" if acc is not None else ""
+                detail = (
+                    f"{progress['done']}/{progress['total']}{acc_s}"
+                    "；臂 B uniform+recovery 开；已进消融表 C/E；不进主表"
+                )
+        elif key == "deepseek_selrec_blc_off":
+            hit = next(
+                (
+                    row
+                    for row in math
+                    if "selrec_blc_off" in row["tag"] and "smoke" not in row["tag"]
+                ),
+                None,
+            )
+            if not hit:
+                status = "queued"
+            else:
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 490}
+                link = hit["tag"]
+                acc = hit.get("pc_accuracy")
+                acc_s = f"；PC {100 * acc:.2f}%" if acc is not None else ""
+                detail = (
+                    f"{progress['done']}/{progress['total']}{acc_s}"
+                    "；臂 C BLC+recovery 关；已进消融表 C/E；不进主表"
+                )
+        elif key == "deepseek_selrec_rand_off":
+            hit = next(
+                (
+                    row
+                    for row in math
+                    if "selrec_rand_off" in row["tag"] and "smoke" not in row["tag"]
+                ),
+                None,
+            )
+            if not hit:
+                status = "queued"
+            else:
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 490}
+                link = hit["tag"]
+                acc = hit.get("pc_accuracy")
+                acc_s = f"；PC {100 * acc:.2f}%" if acc is not None else ""
+                detail = (
+                    f"{progress['done']}/{progress['total']}{acc_s}"
+                    "；臂 D uniform+recovery 关；已进消融表 C/E；不进主表"
+                )
+        elif key == "deepseek_lenint":
+            hit = next(
+                (
+                    row
+                    for row in math
+                    if "lenint" in row["tag"] and "smoke" not in row["tag"]
+                ),
+                None,
+            )
+            if not hit:
+                status = "queued"
+            else:
+                status = hit["status"]
+                progress = {"done": hit["paired"] or 0, "total": hit["planned"] or 0}
+                link = hit["tag"]
+                detail = (
+                    f"{progress['done']}/{progress['total']}"
+                    "；r∈{0,.2,.4,.6,.8} R=8 complete；窗 Acc 88.2%→87.8%，tok −43.6%；已进 Ablation G；不进主表"
+                )
         elif key == "deepseek_aime":
             hits = [
                 row
@@ -1179,7 +2445,22 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
                 status = "queued"
         else:
             status = "queued"
-        out.append({**item, "status": status, "detail": detail, "progress": progress, "run_tag": link})
+        finished = None
+        if link:
+            for row in math:
+                if row.get("tag") == link or row.get("fingerprint") == link:
+                    finished = row.get("finished")
+                    break
+        out.append(
+            {
+                **item,
+                "status": status,
+                "detail": detail,
+                "progress": progress,
+                "run_tag": link,
+                "finished": finished,
+            }
+        )
     return out
 
 
@@ -1187,7 +2468,7 @@ def collect_state() -> dict:
     gpu_rows = gpus()
     procs = running_processes()
     gsm8k = gsm8k_results()
-    math = math_runs()
+    math = math_runs() + cpt_runs()
     datasets = dataset_status()
     catalog = catalog_status(math, gsm8k, datasets)
     counts = {"complete": 0, "running": 0, "partial": 0, "queued": 0, "stale": 0, "failed": 0}
@@ -1252,6 +2533,7 @@ PAGE = r"""<!DOCTYPE html>
     letter-spacing: 0.08em; margin: 28px 0 10px; }
   h3 { font-size: 15px; font-weight: 600; margin: 22px 0 6px; letter-spacing: -0.01em; }
   .caption { color: var(--muted); font-size: 12px; margin: 0 0 10px; max-width: 110ch; }
+  .footnote { color: var(--warn); font-size: 12px; margin: 8px 0 0; max-width: 110ch; }
   .paper-scroll { overflow-x: auto; border: 1px solid var(--line); background: var(--bg2); }
   table.paper { width: max-content; min-width: 100%; font-size: 12px; }
   table.paper th, table.paper td { padding: 6px 8px; white-space: nowrap; }
@@ -1262,6 +2544,9 @@ PAGE = r"""<!DOCTYPE html>
   table.paper td.empty { color: transparent; }
   table.paper .cont { color: var(--warn); }
   table.paper tr.method-pc td.left { color: var(--ok); }
+  table.paper tr.block-head td { color: var(--muted); font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+    background: var(--bg); padding-top: 10px; }
   table.paper .stub { color: var(--dim); font-size: 11px; }
   table.paper .stub.save { color: var(--run); }
   table.paper .stub.cost { color: var(--bad); }
@@ -1306,9 +2591,36 @@ PAGE = r"""<!DOCTYPE html>
   a { color: var(--accent); text-decoration: none; }
   .empty { color: var(--dim); padding: 12px 0; }
   .call { border: 1px solid var(--line); padding: 12px 14px; background: var(--bg2); margin: 8px 0 0; }
+  #toasts {
+    position: fixed; top: 16px; right: 16px; z-index: 50;
+    display: flex; flex-direction: column; gap: 8px;
+    width: min(400px, calc(100vw - 32px));
+    pointer-events: none;
+  }
+  .toast {
+    pointer-events: auto;
+    background: var(--bg2);
+    border: 1px solid #3d5a2c;
+    padding: 10px 12px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 10px;
+    align-items: start;
+  }
+  .toast .k { color: var(--run); font-size: 11px; letter-spacing: 0.06em;
+    text-transform: uppercase; }
+  .toast .t { font-weight: 600; }
+  .toast .d { color: var(--muted); font-size: 12px; grid-column: 1 / 2; }
+  .toast-x {
+    background: transparent; color: var(--muted); border: 1px solid var(--line);
+    width: 22px; height: 22px; cursor: pointer; font-size: 16px; line-height: 1;
+    padding: 0;
+  }
+  .toast-x:hover { color: var(--text); border-color: var(--text); }
 </style>
 </head>
 <body>
+<div id="toasts" aria-live="polite"></div>
 <div class="wrap">
   <h1>Path-Consistency 实验控制台</h1>
   <div class="host" id="hostline"></div>
@@ -1337,6 +2649,8 @@ PAGE = r"""<!DOCTYPE html>
   <div id="table1"></div>
   <div id="table2"></div>
   <div id="table3"></div>
+  <h2>试跑（不进 Table 1）</h2>
+  <div id="pilots"></div>
   <h2>消融实验</h2>
   <div id="ablations"></div>
 
@@ -1415,12 +2729,51 @@ function renderPlan(){
 }
 
 function acc(run, which){
-  const p = which==="sc" ? run.sc_accuracy : run.pc_accuracy;
-  const c = which==="sc" ? run.sc_correct : run.pc_correct;
-  const n = which==="sc" ? run.sc_questions : run.pc_questions;
+  const p = which==="sc" ? run.sc_accuracy : which==="polr" ? run.polr_accuracy : run.pc_accuracy;
+  const c = which==="sc" ? run.sc_correct : which==="polr" ? run.polr_correct : run.pc_correct;
+  const n = which==="sc" ? run.sc_questions : which==="polr" ? run.polr_questions : run.pc_questions;
   if(p==null) return "—";
   if(c==null || n==null) return pct(p,0);
   return pct(p,0) + " ("+c+"/"+n+")";
+}
+function isPolr(run){
+  return run.family==="polr" || (run.protocol||"").indexOf("polr")>=0 || (run.tag||"").indexOf("polr")>=0;
+}
+function isCpt(run){
+  return run.family==="cpt" || (run.tag||"").indexOf("cpt_")>=0;
+}
+function accSummary(run){
+  if(run.accuracy_summary) return run.accuracy_summary;
+  if(isCpt(run)) return "CPT —";
+  if(isPolr(run)) return "PoLR " + acc(run, "polr");
+  if(run.family==="acesc"){
+    const bits = [];
+    if(run.ac_accuracy!=null) bits.push("AC " + pct(run.ac_accuracy,0) + (run.ac_correct!=null && run.ac_questions!=null ? " ("+run.ac_correct+"/"+run.ac_questions+")" : ""));
+    if(run.ac_pc_accuracy!=null) bits.push("AC+PC " + pct(run.ac_pc_accuracy,0));
+    if(run.esc_accuracy!=null) bits.push("ESC " + pct(run.esc_accuracy,0) + (run.esc_correct!=null && run.esc_questions!=null ? " ("+run.esc_correct+"/"+run.esc_questions+")" : ""));
+    if(run.esc_pc_accuracy!=null) bits.push("ESC+PC " + pct(run.esc_pc_accuracy,0));
+    return bits.join(" / ") || "—";
+  }
+  if(run.family==="pc") return "PC " + acc(run, "pc");
+  return "SC " + acc(run,"sc") + " / PC " + acc(run,"pc");
+}
+function progressLabel(run){
+  if(run.progress_label) return run.progress_label;
+  return (isPolr(run) || isCpt(run) || run.family==="pc") ? "进度" : "配对进度";
+}
+function runMeta(run){
+  if(run.display_meta) return run.display_meta;
+  if(isCpt(run)){
+    const n = run.n_prefixes != null ? run.n_prefixes : run.max_branches;
+    return (run.model_type||"") + " · GPU " + (run.gpus||"—") + " · CPT N=" + n + " max_tok=" + run.max_tokens;
+  }
+  if(isPolr(run)){
+    const n = run.n_prefixes != null ? run.n_prefixes : run.max_branches;
+    const lp = run.prefix_len != null ? run.prefix_len : "—";
+    return (run.model_type||"") + " · GPU " + (run.gpus||"—") + " · PoLR N=" + n + " L_p=" + lp + " max_tok=" + run.max_tokens;
+  }
+  const tau = run.early_stop_threshold != null ? " τ=" + run.early_stop_threshold : "";
+  return (run.model_type||"") + " · GPU " + (run.gpus||"—") + " · B=" + run.max_branches + " C=" + run.beta_threshold + tau + " max_tok=" + run.max_tokens;
 }
 function where(run){
   if(run.gpus==="api" || (run.model_type||"").indexOf("deepseek")>=0) return "API";
@@ -1430,7 +2783,8 @@ function fmtAcc(cell){
   if(!cell || cell.acc==null) return "";
   const pctv = (100*cell.acc).toFixed(2);
   if(cell.correct==null || cell.n==null) return pctv;
-  return pctv + '<div class="stub">' + cell.correct + "/" + cell.n + "</div>";
+  const extra = cell.partial ? " · 部分" : "";
+  return pctv + '<div class="stub">' + cell.correct + "/" + cell.n + extra + "</div>";
 }
 function fmtTok(cell){
   if(!cell || cell.tok==null) return "";
@@ -1483,9 +2837,26 @@ function renderTable1(t){
 function renderTable2(t){
   if(!t) return "";
   const head = t.columns.map(c => `<th>${c.label}</th>`).join("");
+  const blockLabel = (id) => ((t.blocks||[]).find(b => b.id===id)||{}).label || id;
+  let lastBlock = null;
   const body = t.rows.map(row => {
-    const cells = t.columns.map(c => tdCell("", false)).join("");
-    return `<tr><td class="left">${row.method}</td>${cells}</tr>`;
+    let lead = "";
+    if (row.block && row.block !== lastBlock) {
+      lastBlock = row.block;
+      lead = `<tr class="block-head"><td class="left" colspan="${1+t.columns.length}">${blockLabel(row.block)}</td></tr>`;
+    }
+    const cells = t.columns.map(c => {
+      const v = (row.cells||{})[c.id];
+      if(c.kind==="acc") return tdCell(fmtAcc(v), !!v);
+      if(c.kind==="tok") return tdCell(fmtTok(v), !!(v && v.tok!=null));
+      if(c.kind==="lat") return tdCell(
+        (v && v.latency_s!=null) ? fmtNum(v.latency_s, 1, " s") : "",
+        !!(v && v.latency_s!=null)
+      );
+      return tdCell("", false);
+    }).join("");
+    const pc = row.method_id==="pc" ? " method-pc" : "";
+    return lead + `<tr class="${pc}"><td class="left">${row.method}</td>${cells}</tr>`;
   }).join("");
   return `
     <h3>${t.title}</h3>
@@ -1511,7 +2882,7 @@ function renderTable3(t){
       ? tokC + `<div class="stub ${row.saving>=0?"save":"cost"}">${sav}</div>`
       : tokC;
     const dLat = row.delta_latency_s==null ? "" : ((row.delta_latency_s>=0?"+":"")+row.delta_latency_s.toFixed(1)+" s");
-    const n = row.n ? `<div class="stub">n=${row.n}${row.planned?"":" · 已完成配对"}</div>` : "";
+    const n = row.n ? `<div class="stub">n=${row.n}${row.partial?" · 部分":row.planned?"":" · 已完成配对"}</div>` : "";
     return `<tr>
       <td class="left">${row.model} / ${row.dataset}${n}</td>
       <td class="left">${row.parent}</td>
@@ -1553,7 +2924,8 @@ function renderAblation(t){
     <div class="paper-scroll"><table class="paper">
       <thead><tr>${head}</tr></thead>
       <tbody>${body}</tbody>
-    </table></div>`;
+    </table></div>
+    ${t.note ? `<div class="footnote">${t.note}</div>` : ""}`;
 }
 function renderPaper(paper){
   if(!paper){
@@ -1565,6 +2937,8 @@ function renderPaper(paper){
   document.getElementById("table1").innerHTML = renderTable1(paper.table1);
   document.getElementById("table2").innerHTML = renderTable2(paper.table2);
   document.getElementById("table3").innerHTML = renderTable3(paper.table3);
+  document.getElementById("pilots").innerHTML =
+    (paper.pilots||[]).map(renderAblation).join("");
   document.getElementById("ablations").innerHTML =
     (paper.ablations||[]).map(renderAblation).join("");
 }
@@ -1593,7 +2967,7 @@ function renderKpis(){
   document.getElementById("kpis").innerHTML = `
     <div class="stat"><div class="v ${toneDays(abs.days, abs.overdue)}">${abs.text}</div><div class="l">距摘要 ${d.abstract||""}</div></div>
     <div class="stat"><div class="v ${toneDays(pap.days, pap.overdue)}">${pap.text}</div><div class="l">距全文 ${d.paper||""}</div></div>
-    <div class="stat"><div class="v live">${state.running.length}</div><div class="l">正在跑的 MATH</div></div>
+    <div class="stat"><div class="v live">${state.running.length}</div><div class="l">正在跑的实验</div></div>
     <div class="stat"><div class="v">${state.counts.complete}</div><div class="l">清单已完成</div></div>
     <div class="stat"><div class="v warn">${state.counts.queued}</div><div class="l">尚未开始</div></div>`;
 }
@@ -1610,14 +2984,14 @@ function render(){
   renderKpis();
 
   const stale = state.stale[0];
-  let head = "没有正在跑的 MATH 任务。";
+  let head = "没有正在跑的实验。";
   if(state.running.length){
     head = state.running.map(run => `
       <div style="margin:0 0 12px">
-        <b class="live">进行中</b> ${run.model} · ${where(run)} · 配对进度 ${run.paired}/${run.planned}
+        <b class="live">进行中</b> ${run.method_label || (isCpt(run)?"CPT":(isPolr(run)?"PoLR":"SC / PC"))} · ${run.model} · ${where(run)} · ${progressLabel(run)} ${run.paired}/${run.planned}
         ${bar(run.paired, run.planned)}
         <div class="note">PID ${run.pid} · 已用 ${eta(run.elapsed_s)} · 预计剩余 ${eta(run.eta_s)}
-        · 已完成题准确率 SC ${acc(run,"sc")} / PC ${acc(run,"pc")}
+        · 已完成题准确率 ${accSummary(run)}
         ${run.last_question ? " · 最近题 "+run.last_question.id : ""}</div>
       </div>`).join("");
   } else if(stale){
@@ -1633,14 +3007,14 @@ function render(){
     </div>`).join("") || '<div class="empty">无法读取 nvidia-smi</div>';
 
   if(!state.running.length && !state.processes.length){
-    document.getElementById("running").innerHTML = '<div class="empty">无 run_math / run_math_deepseek / run_gsm8k / EngineCore 进程。</div>';
+    document.getElementById("running").innerHTML = '<div class="empty">无 run_math / run_polr / run_cpt / run_math_deepseek / run_gsm8k / EngineCore 进程。</div>';
   } else {
     const procRows = state.processes.map(p =>
       `<tr><td class="mono">${p.pid}</td><td>${p.etime}</td><td>${p.cpu}%</td><td>${p.rss_mb} MB</td><td class="mono">${p.cmd}</td></tr>`
     ).join("");
     const runRows = state.running.map(r =>
-      `<tr><td>${pill(r.status)}</td><td class="mono">${r.model}<div class="note">${r.tag}</div></td><td>${where(r)}</td>
-       <td>${r.paired}/${r.planned}</td><td>SC ${acc(r,"sc")}<br>PC ${acc(r,"pc")}</td>
+      `<tr><td>${pill(r.status)}</td><td class="mono">${r.method_label || (isCpt(r)?"CPT":(isPolr(r)?"PoLR":"SC / PC"))} · ${r.model}<div class="note">${r.tag}</div></td><td>${where(r)}</td>
+       <td>${r.paired}/${r.planned}</td><td>${accSummary(r)}</td>
        <td>${eta(r.eta_s)}</td></tr>`
     ).join("");
     document.getElementById("running").innerHTML = `
@@ -1695,14 +3069,14 @@ function render(){
     <tr>
       <td>${pill(r.status)}</td>
       <td><span class="pill">${r.kind}</span></td>
-      <td class="mono">${r.fingerprint}<div class="note">${r.model_type||""} · GPU ${r.gpus||"—"} · B=${r.max_branches} C=${r.beta_threshold} max_tok=${r.max_tokens}</div></td>
+      <td class="mono">${r.method_label || "—"} · ${r.fingerprint}<div class="note">${r.tag || ""} · ${runMeta(r)}</div></td>
       <td>${r.paired}/${r.planned}</td>
-      <td>${pct(r.sc_accuracy,0)} (${r.sc_correct??"?"}/${r.sc_questions??"?"}) / ${pct(r.pc_accuracy,0)} (${r.pc_correct??"?"}/${r.pc_questions??"?"})</td>
+      <td>${accSummary(r)}</td>
       <td>${r.decode_saving==null?"—":pct(r.decode_saving)}</td>
       <td>${r.truncations_sc??"—"}</td>
     </tr>`).join("");
   document.getElementById("math").innerHTML = `<table>
-    <thead><tr><th>状态</th><th>类型</th><th>Run</th><th>配对</th><th>已完成准确率 SC / PC</th><th>Decode 节省</th><th>SC 截断</th></tr></thead>
+    <thead><tr><th>状态</th><th>类型</th><th>Run</th><th>进度</th><th>已完成准确率</th><th>Decode 节省</th><th>SC 截断</th></tr></thead>
     <tbody>${mathRows}</tbody></table>`;
 
   document.getElementById("datasets").innerHTML = `<table>
@@ -1712,11 +3086,112 @@ function render(){
       <td>${r.rows||0}</td><td class="mono">${r.path}</td></tr>`).join("")}</tbody></table>`;
 }
 
+const DISMISS_KEY = "pc.console.dismissedNotifs.v2";
+const SEEN_KEY = "pc.console.seenTaskStatus.v2";
+const PENDING_KEY = "pc.console.pendingNotifs.v2";
+const RECENT_MS = 12 * 3600 * 1000;
+
+function loadMap(key){
+  try { return JSON.parse(localStorage.getItem(key) || "{}") || {}; }
+  catch(e){ return {}; }
+}
+function saveMap(key, obj){
+  localStorage.setItem(key, JSON.stringify(obj));
+}
+function dismissToast(id){
+  const dismissed = loadMap(DISMISS_KEY);
+  dismissed[id] = Date.now();
+  saveMap(DISMISS_KEY, dismissed);
+  const pending = loadMap(PENDING_KEY);
+  delete pending[id];
+  saveMap(PENDING_KEY, pending);
+  const el = document.querySelector('#toasts .toast[data-id="'+id+'"]');
+  if(el) el.remove();
+}
+function makeToast(task){
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.dataset.id = task.id;
+  const body = document.createElement("div");
+  const k = document.createElement("div");
+  k.className = "k";
+  k.textContent = "任务完成";
+  const title = document.createElement("div");
+  title.className = "t";
+  title.textContent = task.title;
+  body.appendChild(k);
+  body.appendChild(title);
+  if(task.detail){
+    const d = document.createElement("div");
+    d.className = "d";
+    d.textContent = task.detail;
+    body.appendChild(d);
+  }
+  const x = document.createElement("button");
+  x.type = "button";
+  x.className = "toast-x";
+  x.setAttribute("aria-label", "关闭通知");
+  x.textContent = "×";
+  x.addEventListener("click", function(ev){
+    ev.preventDefault();
+    ev.stopPropagation();
+    dismissToast(task.id);
+  });
+  el.appendChild(body);
+  el.appendChild(x);
+  return el;
+}
+function syncNotifications(st){
+  const dismissed = loadMap(DISMISS_KEY);
+  const seen = loadMap(SEEN_KEY);
+  const pending = loadMap(PENDING_KEY);
+  const now = Date.now();
+  const live = new Set();
+  for(const it of (st.catalog || [])){
+    const prev = seen[it.id];
+    seen[it.id] = it.status;
+    live.add(it.id);
+    if(it.status !== "complete") continue;
+    if(dismissed[it.id]) continue;
+    const became = prev && prev !== "complete" &&
+      ["running","partial","loading_engine"].includes(prev);
+    let recent = false;
+    if(it.finished){
+      const ts = Date.parse(it.finished);
+      recent = Number.isFinite(ts) && (now - ts) < RECENT_MS && !prev;
+    }
+    if(became || recent || pending[it.id]){
+      pending[it.id] = {
+        id: it.id,
+        title: it.title,
+        detail: it.detail || "",
+        at: pending[it.id] && pending[it.id].at ? pending[it.id].at : now
+      };
+    }
+  }
+  for(const id of Object.keys(pending)){
+    if(dismissed[id] || !live.has(id)) delete pending[id];
+  }
+  saveMap(SEEN_KEY, seen);
+  saveMap(PENDING_KEY, pending);
+  const root = document.getElementById("toasts");
+  const have = new Set(Array.from(root.children).map(el => el.dataset.id));
+  const want = new Set(Object.keys(pending));
+  for(const el of Array.from(root.children)){
+    if(!want.has(el.dataset.id)) el.remove();
+  }
+  Object.keys(pending).forEach(id => {
+    if(have.has(id)) return;
+    root.appendChild(makeToast(pending[id]));
+  });
+}
+
 async function tick(){
   try {
     const res = await fetch("/api/state", {cache:"no-store"});
     state = await res.json();
     render();
+    syncNotifications(state);
   } catch(e) {
     document.getElementById("stamp").textContent = "无法刷新 /api/state";
   }
@@ -1758,14 +3233,21 @@ class Handler(BaseHTTPRequestHandler):
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--port", type=int, default=18787)
+    parser.add_argument("--host", default="0.0.0.0")
+    parser.add_argument("--port", type=int, default=28787)
     args = parser.parse_args()
     httpd = ThreadingHTTPServer((args.host, args.port), Handler)
     print(
         f"Experiment console at http://{args.host}:{args.port}/  ({iso_cst(now_cst())})",
         flush=True,
     )
+    if args.host in {"0.0.0.0", "::"}:
+        print(
+            "LAN: http://10.10.60.106:%s/  (no IDE tunnel). "
+            "Off-campus: ssh -N -L %s:127.0.0.1:%s USER@10.10.60.106"
+            % (args.port, args.port, args.port),
+            flush=True,
+        )
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

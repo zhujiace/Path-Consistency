@@ -1,0 +1,1166 @@
+{
+  "created_at_utc": "2026-09-15T17:34:23.478929+00:00",
+  "sets": [
+    {
+      "model": "Llama",
+      "dataset": "MATH-500",
+      "n": 490,
+      "sources": [
+        {
+          "tag": "math500_llama31_b32_mt8192_c08_seed0_abc27a862c6a",
+          "fingerprint": "abc27a862c6a",
+          "manifest_sha256": "405564947b3345e20dec523f4b5bc71d021cf1f52f1bed657149b64347a559aa",
+          "files": {
+            "math500_llama31_b32_mt8192_c08_seed0_abc27a862c6a_sc.jsonl": "2d0f3c318614fdd86e91e1958ff1c8fb1c9861dfddfe0431c0dc7e04e863e504",
+            "math500_llama31_b32_mt8192_c08_seed0_abc27a862c6a_pc.jsonl": "48d6ebc3991a0582543eefd4aa3a7efcdb08e76cad7ecaa4fe0b10488a4bc05a"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "8d7f3ce574aa25f69e9bbf87c2495b7073899fa0e2d07f02001a15e2ac2a2e85",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 8192,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        }
+      ],
+      "sc": {
+        "n": 490,
+        "raw_correct": 323,
+        "tok": 50213.21428571428,
+        "seconds": 486.4634687796615,
+        "parser_failures": 2401,
+        "truncations": 2101,
+        "traces": 15680,
+        "windows": 3920,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 490,
+        "raw_correct": 323,
+        "tok": 46038.436734693874,
+        "seconds": 448.3181142523543,
+        "parser_failures": 2294,
+        "truncations": 1999,
+        "traces": 15680,
+        "windows": 3920,
+        "proposals": 1011,
+        "nonfinite_blc": 0,
+        "rollback_windows": 54,
+        "prefix_questions": 267,
+        "disabled_questions": 9
+      },
+      "raw_pair": {
+        "gains": 1,
+        "losses": 1,
+        "delta_pp": 0.0,
+        "conservative_95_ci_pp": [
+          -1.2925353873693852,
+          1.2925353873693852
+        ],
+        "mcnemar_exact_p": 1.0
+      },
+      "overlay": {},
+      "raw_pass1": 225
+    },
+    {
+      "model": "Llama",
+      "dataset": "AIME 2024",
+      "n": 30,
+      "sources": [
+        {
+          "tag": "aime_2024_llama31_b32_mt8192_c08_seed0_8e57f7657fc7",
+          "fingerprint": "8e57f7657fc7",
+          "manifest_sha256": "8f711572223f931a592fc61016342f57348d63cc6063497b4c71860a75c194e8",
+          "files": {
+            "aime_2024_llama31_b32_mt8192_c08_seed0_8e57f7657fc7_sc.jsonl": "a7469acbc641b7b87ac265f8ed8a0871a73ebdf57937d96df901d75736490b07",
+            "aime_2024_llama31_b32_mt8192_c08_seed0_8e57f7657fc7_pc.jsonl": "df573a9fe1e51989dbe2a7dcd9f407a5b44f2d529956c6255c4c14d0c859e4f3"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "8d7f3ce574aa25f69e9bbf87c2495b7073899fa0e2d07f02001a15e2ac2a2e85",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 8192,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        }
+      ],
+      "sc": {
+        "n": 30,
+        "raw_correct": 5,
+        "tok": 124004.26666666666,
+        "seconds": 1136.2551610798264,
+        "parser_failures": 459,
+        "truncations": 374,
+        "traces": 960,
+        "windows": 240,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 30,
+        "raw_correct": 5,
+        "tok": 123430.66666666667,
+        "seconds": 1129.3295682966088,
+        "parser_failures": 457,
+        "truncations": 373,
+        "traces": 960,
+        "windows": 240,
+        "proposals": 4,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 1,
+        "disabled_questions": 0
+      },
+      "raw_pair": {
+        "gains": 0,
+        "losses": 0,
+        "delta_pp": 0.0,
+        "conservative_95_ci_pp": [
+          -13.590067257572858,
+          13.590067257572858
+        ],
+        "mcnemar_exact_p": 1.0
+      },
+      "overlay": {},
+      "raw_pass1": 1
+    },
+    {
+      "model": "Llama",
+      "dataset": "AIME 2025",
+      "n": 30,
+      "sources": [
+        {
+          "tag": "aime_2025_llama31_b32_mt8192_c08_seed0_54f0524edc4c",
+          "fingerprint": "54f0524edc4c",
+          "manifest_sha256": "c32e61beadc39a2d46abc596da03ed6dd940d42b4dc33c013bb9d71f97113963",
+          "files": {
+            "aime_2025_llama31_b32_mt8192_c08_seed0_54f0524edc4c_sc.jsonl": "8c02d10b2dccb5e19d8dda5a21fe3e8e2a68ad071ff007f67b16b137282af470",
+            "aime_2025_llama31_b32_mt8192_c08_seed0_54f0524edc4c_pc.jsonl": "95e398028fa35979e0f623b947fc372f4cfe9c89c6dd0b9e150ab61f0e656f72"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "dafe3215ef0d11aed9c99b13733ad6a1efc30cc0fdcf29517bacdc1e2e898d11",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 8192,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        }
+      ],
+      "sc": {
+        "n": 30,
+        "raw_correct": 0,
+        "tok": 123914.4,
+        "seconds": 1158.5659038263684,
+        "parser_failures": 465,
+        "truncations": 366,
+        "traces": 960,
+        "windows": 240,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 30,
+        "raw_correct": 0,
+        "tok": 123914.4,
+        "seconds": 1158.5659038263684,
+        "parser_failures": 465,
+        "truncations": 366,
+        "traces": 960,
+        "windows": 240,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "raw_pair": {
+        "gains": 0,
+        "losses": 0,
+        "delta_pp": 0.0,
+        "conservative_95_ci_pp": [
+          -13.590067257572858,
+          13.590067257572858
+        ],
+        "mcnemar_exact_p": 1.0
+      },
+      "overlay": {},
+      "raw_pass1": 0
+    },
+    {
+      "model": "Llama",
+      "dataset": "GPQA-D",
+      "n": 198,
+      "sources": [
+        {
+          "tag": "gpqa_diamond_llama31_b32_mt8192_c08_seed0_dc17da48aca4",
+          "fingerprint": "dc17da48aca4",
+          "manifest_sha256": "306b770f1f16b09355f0538e7150cbd616d5f81964f65332c37b5be644573608",
+          "files": {
+            "gpqa_diamond_llama31_b32_mt8192_c08_seed0_dc17da48aca4_sc.jsonl": "21bf3b903ea59aafa426e8900411b523b61ca9f23233e29016f9821b96b4567b",
+            "gpqa_diamond_llama31_b32_mt8192_c08_seed0_dc17da48aca4_pc.jsonl": "ad049aa5d3cb6fdfdc6956022f999b4d0a0d5b02f34e71fb2f17cedc1e9ca61c"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "8d7f3ce574aa25f69e9bbf87c2495b7073899fa0e2d07f02001a15e2ac2a2e85",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 8192,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        }
+      ],
+      "sc": {
+        "n": 198,
+        "raw_correct": 82,
+        "tok": 61187.38888888889,
+        "seconds": 542.7406580551913,
+        "parser_failures": 1546,
+        "truncations": 1081,
+        "traces": 6336,
+        "windows": 1584,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 198,
+        "raw_correct": 78,
+        "tok": 57939.080808080806,
+        "seconds": 513.7867907743731,
+        "parser_failures": 1507,
+        "truncations": 1077,
+        "traces": 6336,
+        "windows": 1584,
+        "proposals": 476,
+        "nonfinite_blc": 0,
+        "rollback_windows": 85,
+        "prefix_questions": 139,
+        "disabled_questions": 13
+      },
+      "raw_pair": {
+        "gains": 2,
+        "losses": 6,
+        "delta_pp": -2.0202020202020203,
+        "conservative_95_ci_pp": [
+          -6.944875266281006,
+          3.084070419100886
+        ],
+        "mcnemar_exact_p": 0.2890625
+      },
+      "overlay": {},
+      "raw_pass1": 56
+    },
+    {
+      "model": "DeepSeek",
+      "dataset": "MATH-500",
+      "n": 490,
+      "sources": [
+        {
+          "tag": "math500_deepseek_v4_flash_b32_c08_rep0_4856d4ef5673",
+          "fingerprint": "4856d4ef5673",
+          "manifest_sha256": "96317016ea6b97dedbbdfd32daddfc1150b4533ae82aa73f6e18e5783f8657cc",
+          "files": {
+            "math500_deepseek_v4_flash_b32_c08_rep0_4856d4ef5673_sc.jsonl": "a7324731c024ac1e53faa8dcdbc60ab1d37f5e6dd63d8e7e098f2e5d50391bf2",
+            "math500_deepseek_v4_flash_b32_c08_rep0_4856d4ef5673_pc.jsonl": "19835752801e2291cc9c84a61c4f36b992c86f0dc895d9b25a991c856659f935"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2-deepseek-api",
+            "implementation_sha256": "db372e1526810540a8527366646247d060893cfdec95e302f1c9ae4dacc2a35f",
+            "model": "deepseek-v4-flash",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 32768,
+            "temperature": null,
+            "top_p": null,
+            "top_k": null,
+            "thinking": true,
+            "selector": "blc"
+          },
+          "regrade_sha256": "a5d90bfc8ab2287a46b5b71571b8fa999a6d95c1c30f4fc91dc7000008c142a3"
+        }
+      ],
+      "sc": {
+        "n": 490,
+        "raw_correct": 430,
+        "tok": 41165.62040816327,
+        "seconds": 148.33990258749728,
+        "parser_failures": 27,
+        "truncations": 46,
+        "traces": 15680,
+        "windows": 3920,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 490,
+        "raw_correct": 428,
+        "tok": 26967.72857142857,
+        "seconds": 110.26662960374081,
+        "parser_failures": 16,
+        "truncations": 23,
+        "traces": 15680,
+        "windows": 3920,
+        "proposals": 1899,
+        "nonfinite_blc": 731,
+        "rollback_windows": 17,
+        "prefix_questions": 481,
+        "disabled_questions": 3
+      },
+      "raw_pair": {
+        "gains": 0,
+        "losses": 2,
+        "delta_pp": -0.40816326530612246,
+        "conservative_95_ci_pp": [
+          -1.6472823117964337,
+          0.8561720211474542
+        ],
+        "mcnemar_exact_p": 0.5
+      },
+      "overlay": {
+        "SC": 452,
+        "PC": 452,
+        "Pass@1(SC)": 453
+      },
+      "raw_pass1": 423
+    },
+    {
+      "model": "DeepSeek",
+      "dataset": "AIME 2024",
+      "n": 30,
+      "sources": [
+        {
+          "tag": "aime_2024_deepseek_v4_flash_b32_c08_rep0_e4cd6dcd6672",
+          "fingerprint": "e4cd6dcd6672",
+          "manifest_sha256": "ad99b12884abe2833853bc5b20b99a169ce4e858200874cde97e555de8b0b8b5",
+          "files": {
+            "aime_2024_deepseek_v4_flash_b32_c08_rep0_e4cd6dcd6672_sc.jsonl": "681713976c3c1d20bf84c601304d840c19cce4edf63e8d003fa500622e89d083",
+            "aime_2024_deepseek_v4_flash_b32_c08_rep0_e4cd6dcd6672_pc.jsonl": "705162a041808a2b747219bca351acedc2a292bbb6e5e5e629e5e4db429a43de"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2-deepseek-api",
+            "implementation_sha256": "d0079c87cfe5cebfef04267ff1e3874ae1780ac3132e7fd07773c513f45b8f66",
+            "model": "deepseek-v4-flash",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 32768,
+            "temperature": null,
+            "top_p": null,
+            "top_k": null,
+            "thinking": true,
+            "selector": "blc"
+          },
+          "regrade_sha256": "7fe4712a61bece0062b6623f1a984f3d7d25624785fbc6d99c904f7ac1e34e0f"
+        }
+      ],
+      "sc": {
+        "n": 30,
+        "raw_correct": 29,
+        "tok": 288229.93333333335,
+        "seconds": 677.9685466982424,
+        "parser_failures": 76,
+        "truncations": 87,
+        "traces": 960,
+        "windows": 240,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 30,
+        "raw_correct": 29,
+        "tok": 213162.03333333333,
+        "seconds": 530.5117086665084,
+        "parser_failures": 50,
+        "truncations": 56,
+        "traces": 960,
+        "windows": 240,
+        "proposals": 116,
+        "nonfinite_blc": 38,
+        "rollback_windows": 0,
+        "prefix_questions": 29,
+        "disabled_questions": 0
+      },
+      "raw_pair": {
+        "gains": 0,
+        "losses": 0,
+        "delta_pp": 0.0,
+        "conservative_95_ci_pp": [
+          -13.590067257572858,
+          13.590067257572858
+        ],
+        "mcnemar_exact_p": 1.0
+      },
+      "overlay": {
+        "SC": 29,
+        "PC": 29,
+        "Pass@1(SC)": 28
+      },
+      "raw_pass1": 28
+    },
+    {
+      "model": "DeepSeek",
+      "dataset": "AIME 2025",
+      "n": 30,
+      "sources": [
+        {
+          "tag": "aime_2025_deepseek_v4_flash_b32_c08_rep0_771c0b2351c6",
+          "fingerprint": "771c0b2351c6",
+          "manifest_sha256": "cf5186339c26086f573e54860118b894a8f6843c95eb947351e8ed0b4a66ff3c",
+          "files": {
+            "aime_2025_deepseek_v4_flash_b32_c08_rep0_771c0b2351c6_sc.jsonl": "4e70311a58211b05963fd0ecae6abe9d759e20781fe938d1fe5c6cd37f1665aa",
+            "aime_2025_deepseek_v4_flash_b32_c08_rep0_771c0b2351c6_pc.jsonl": "0a43d6c304a1cda8047bd33104e6e3e84a203a94ddd30123bb940d8ffc22746e"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2-deepseek-api",
+            "implementation_sha256": "d0079c87cfe5cebfef04267ff1e3874ae1780ac3132e7fd07773c513f45b8f66",
+            "model": "deepseek-v4-flash",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 32768,
+            "temperature": null,
+            "top_p": null,
+            "top_k": null,
+            "thinking": true,
+            "selector": "blc"
+          },
+          "regrade_sha256": "8b2651c662e0a3cb7a7670e3fa05c026c100537d9b3ea1394e5088de098b3347"
+        }
+      ],
+      "sc": {
+        "n": 30,
+        "raw_correct": 30,
+        "tok": 351229.9666666667,
+        "seconds": 785.8048508496335,
+        "parser_failures": 80,
+        "truncations": 104,
+        "traces": 960,
+        "windows": 240,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 30,
+        "raw_correct": 30,
+        "tok": 260523.16666666666,
+        "seconds": 615.5003489277636,
+        "parser_failures": 54,
+        "truncations": 74,
+        "traces": 960,
+        "windows": 240,
+        "proposals": 118,
+        "nonfinite_blc": 37,
+        "rollback_windows": 0,
+        "prefix_questions": 30,
+        "disabled_questions": 0
+      },
+      "raw_pair": {
+        "gains": 0,
+        "losses": 0,
+        "delta_pp": 0.0,
+        "conservative_95_ci_pp": [
+          -13.590067257572858,
+          13.590067257572858
+        ],
+        "mcnemar_exact_p": 1.0
+      },
+      "overlay": {
+        "SC": 30,
+        "PC": 30,
+        "Pass@1(SC)": 26
+      },
+      "raw_pass1": 26
+    },
+    {
+      "model": "DeepSeek",
+      "dataset": "GPQA-D",
+      "n": 198,
+      "sources": [
+        {
+          "tag": "gpqa_diamond_deepseek_v4_flash_b32_c08_rep0_a8a29bd70ad3",
+          "fingerprint": "a8a29bd70ad3",
+          "manifest_sha256": "e5a2d16a2e960ad5ae98a5e43535eecfcb75db6f61ec792d9b0ae2c899e84d66",
+          "files": {
+            "gpqa_diamond_deepseek_v4_flash_b32_c08_rep0_a8a29bd70ad3_sc.jsonl": "c5a73e5d01cd702898f873224ee84cec8594b33a636f4378c8849a9323cd195a",
+            "gpqa_diamond_deepseek_v4_flash_b32_c08_rep0_a8a29bd70ad3_pc.jsonl": "f8f49e4b3fa176aa0a4f177107096d5ef0124125e1292ff3734e53eb3953ae81"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2-deepseek-api",
+            "implementation_sha256": "d0079c87cfe5cebfef04267ff1e3874ae1780ac3132e7fd07773c513f45b8f66",
+            "model": "deepseek-v4-flash",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 32768,
+            "temperature": null,
+            "top_p": null,
+            "top_k": null,
+            "thinking": true,
+            "selector": "blc"
+          },
+          "regrade_sha256": "2a0339ff5381bead985446452f05862c20f4b7bad4359a58c061446bb11a34ce"
+        }
+      ],
+      "sc": {
+        "n": 198,
+        "raw_correct": 178,
+        "tok": 309325.202020202,
+        "seconds": 762.4324852644438,
+        "parser_failures": 804,
+        "truncations": 816,
+        "traces": 6336,
+        "windows": 1584,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 198,
+        "raw_correct": 178,
+        "tok": 221526.46464646465,
+        "seconds": 565.2788238285692,
+        "parser_failures": 595,
+        "truncations": 595,
+        "traces": 6336,
+        "windows": 1584,
+        "proposals": 742,
+        "nonfinite_blc": 240,
+        "rollback_windows": 3,
+        "prefix_questions": 188,
+        "disabled_questions": 0
+      },
+      "raw_pair": {
+        "gains": 0,
+        "losses": 0,
+        "delta_pp": 0.0,
+        "conservative_95_ci_pp": [
+          -2.188834387780968,
+          2.188834387780968
+        ],
+        "mcnemar_exact_p": 1.0
+      },
+      "overlay": {
+        "SC": 178,
+        "PC": 178,
+        "Pass@1(SC)": 165
+      },
+      "raw_pass1": 165
+    },
+    {
+      "model": "Llama",
+      "dataset": "GSM8K",
+      "n": 1319,
+      "sources": [
+        {
+          "tag": "gsm8k_llama31_b32_mt2048_c08_seed0_shard0of4_7bdaa31cd3ac",
+          "fingerprint": "7bdaa31cd3ac",
+          "manifest_sha256": "21750e499dc11f0c0e6bf02078f2e10bc79f7fadfbc3387171a55603c9304cd5",
+          "files": {
+            "gsm8k_llama31_b32_mt2048_c08_seed0_shard0of4_7bdaa31cd3ac_sc.jsonl": "774ad10e44cf881f14ff1cd72d3b0f34a250ce206773209df896808dd8946fe1",
+            "gsm8k_llama31_b32_mt2048_c08_seed0_shard0of4_7bdaa31cd3ac_pc.jsonl": "4ac12561c44a722ef5d73dc0b912b25f94e53725c7b1f499af13d9b909166e04"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "6b2aa01eb2383623e382bb67ebe155b179a6c9380e2536c800ddfe4099698e3a",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 2048,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        },
+        {
+          "tag": "gsm8k_llama31_b32_mt2048_c08_seed0_shard1of4_6ae254915afa",
+          "fingerprint": "6ae254915afa",
+          "manifest_sha256": "dd7f1af08379aedd2db1de4f2a712167808911dece309128ac539ae0626fc8b0",
+          "files": {
+            "gsm8k_llama31_b32_mt2048_c08_seed0_shard1of4_6ae254915afa_sc.jsonl": "c26a9cf55629ebf39c255bd47cfc2089ac819567263dfdd2850cc7e9856609ea",
+            "gsm8k_llama31_b32_mt2048_c08_seed0_shard1of4_6ae254915afa_pc.jsonl": "93d0088925b284dc7f873f3bd9dbee54c2265fa418e97b6322d5d2f0b917a2b1"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "6b2aa01eb2383623e382bb67ebe155b179a6c9380e2536c800ddfe4099698e3a",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 2048,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        },
+        {
+          "tag": "gsm8k_llama31_b32_mt2048_c08_seed0_shard2of4_203bd205a5ef",
+          "fingerprint": "203bd205a5ef",
+          "manifest_sha256": "d599ae3375992109a10b5348a0b9b2478bd20404e466148600c44b1ce9b0445a",
+          "files": {
+            "gsm8k_llama31_b32_mt2048_c08_seed0_shard2of4_203bd205a5ef_sc.jsonl": "b9d9d4fafd318e56bb2954a36ccb11c5d5ce1c30e21ba849f93c45e69f8d2bd7",
+            "gsm8k_llama31_b32_mt2048_c08_seed0_shard2of4_203bd205a5ef_pc.jsonl": "de270b5e2e9f558ee3fe97312ed22ebffca55eb8b0de3ba6c24daa46ae610fc3"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "6b2aa01eb2383623e382bb67ebe155b179a6c9380e2536c800ddfe4099698e3a",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 2048,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        },
+        {
+          "tag": "gsm8k_llama31_b32_mt2048_c08_seed0_shard3of4_34219eb19c54",
+          "fingerprint": "34219eb19c54",
+          "manifest_sha256": "b4d9a4b0e52c144c23afb24d7538661adc94247b44d157197e3f683e77cf766c",
+          "files": {
+            "gsm8k_llama31_b32_mt2048_c08_seed0_shard3of4_34219eb19c54_sc.jsonl": "e1cd8b146500c39c526d83f4116f2417e90034289550071a00d136167ed2cbc2",
+            "gsm8k_llama31_b32_mt2048_c08_seed0_shard3of4_34219eb19c54_pc.jsonl": "4b5040afb3ae83455c6e94e194916aa2b0578473ab62a5ce3d3f5ab54d205957"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "6b2aa01eb2383623e382bb67ebe155b179a6c9380e2536c800ddfe4099698e3a",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 2048,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        }
+      ],
+      "sc": {
+        "n": 1319,
+        "raw_correct": 1215,
+        "tok": 8315.758150113723,
+        "seconds": 54.37083513929966,
+        "parser_failures": 0,
+        "truncations": 281,
+        "traces": 42208,
+        "windows": 10552,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 1319,
+        "raw_correct": 1210,
+        "tok": 5038.73540561031,
+        "seconds": 33.810786256932396,
+        "parser_failures": 0,
+        "truncations": 242,
+        "traces": 42208,
+        "windows": 10552,
+        "proposals": 4804,
+        "nonfinite_blc": 0,
+        "rollback_windows": 129,
+        "prefix_questions": 1221,
+        "disabled_questions": 18
+      },
+      "raw_pair": {
+        "gains": 3,
+        "losses": 8,
+        "delta_pp": -0.37907505686125853,
+        "conservative_95_ci_pp": [
+          -1.2495019178555504,
+          0.5066516684677711
+        ],
+        "mcnemar_exact_p": 0.2265625
+      },
+      "overlay": {},
+      "raw_pass1": 1117
+    },
+    {
+      "model": "DeepSeek",
+      "dataset": "GSM8K (original)",
+      "n": 1319,
+      "sources": [
+        {
+          "tag": "gsm8k_deepseek_v4_flash_b32_c08_first100_rep0_4829b0ab9213",
+          "fingerprint": "4829b0ab9213",
+          "manifest_sha256": "06784b5b369a8047abe310d68a42db37c8db5235be7c89ced2a95e7b82399e96",
+          "files": {
+            "gsm8k_deepseek_v4_flash_b32_c08_first100_rep0_4829b0ab9213_sc.jsonl": "1a9e84f9fdf57210a90401174e2c373b3692f2f36ef9cfe848d4b1fef49b3e41",
+            "gsm8k_deepseek_v4_flash_b32_c08_first100_rep0_4829b0ab9213_pc.jsonl": "bf61c226ea584bcef24cfc7fd4d50379ee6810314aacfca68d85f0602ef82e98"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2-deepseek-api",
+            "implementation_sha256": "d0079c87cfe5cebfef04267ff1e3874ae1780ac3132e7fd07773c513f45b8f66",
+            "model": "deepseek-v4-flash",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 32768,
+            "temperature": null,
+            "top_p": null,
+            "top_k": null,
+            "thinking": true,
+            "selector": "blc"
+          },
+          "regrade_sha256": "26a195d1f725923d09eedf5bee109a23751ac0cf966ae89431f2b815fd2d6eef"
+        },
+        {
+          "tag": "gsm8k_deepseek_v4_flash_b32_c08_next500_rep0_7028521973e2",
+          "fingerprint": "7028521973e2",
+          "manifest_sha256": "e7f0681ca32db37225eca01b343418aaf307e348da586677fd7242d2d7f0e589",
+          "files": {
+            "gsm8k_deepseek_v4_flash_b32_c08_next500_rep0_7028521973e2_sc.jsonl": "e2248591257052a78df0558e77d46602d8e40b37f8e3b15e4bc5694d1ce84a2b",
+            "gsm8k_deepseek_v4_flash_b32_c08_next500_rep0_7028521973e2_pc.jsonl": "22507ebe0ba899573651344520a8f9c720aceb4ae45baf86d6947f67d7e740a3"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2-deepseek-api",
+            "implementation_sha256": "d0079c87cfe5cebfef04267ff1e3874ae1780ac3132e7fd07773c513f45b8f66",
+            "model": "deepseek-v4-flash",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 32768,
+            "temperature": null,
+            "top_p": null,
+            "top_k": null,
+            "thinking": true,
+            "selector": "blc"
+          },
+          "regrade_sha256": "55c62ed1f3c614a6ea21f739cf5b951ebb45397de74d2ac924be0997b305a23c"
+        },
+        {
+          "tag": "gsm8k_deepseek_v4_flash_b32_c08_rest719_rep0_455c760d2e21",
+          "fingerprint": "455c760d2e21",
+          "manifest_sha256": "b7695756357603c261f4603970e33e0d5dd4a171a69beeda381c0725025cefa1",
+          "files": {
+            "gsm8k_deepseek_v4_flash_b32_c08_rest719_rep0_455c760d2e21_sc.jsonl": "c93ff2fec52d1b2d630d36b950aa1284fd46a4ad99d146f4949c8dfaadb96c01",
+            "gsm8k_deepseek_v4_flash_b32_c08_rest719_rep0_455c760d2e21_pc.jsonl": "9a13ec3fa66136d2b77b72b5ec7cd1996972f1b1da8878dc470e1010253537ce"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2-deepseek-api",
+            "implementation_sha256": "63ddea51fc0bdb7ea314bd4e079ef77ac80749f132cb582f7594b2bf2dcb9b18",
+            "model": "deepseek-v4-flash",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 32768,
+            "temperature": null,
+            "top_p": null,
+            "top_k": null,
+            "thinking": true,
+            "selector": "blc"
+          },
+          "regrade_sha256": "16bdb554eba20024065b2bddcf96e9dc45c9ed93f168cfc58e05bfd7f8e11c77"
+        }
+      ],
+      "sc": {
+        "n": 1319,
+        "raw_correct": 1005,
+        "tok": 12514.241091736163,
+        "seconds": 40.74561875401357,
+        "parser_failures": 2,
+        "truncations": 2,
+        "traces": 42208,
+        "windows": 10552,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "pc": {
+        "n": 1319,
+        "raw_correct": 1004,
+        "tok": 10626.209249431387,
+        "seconds": 38.04371649807233,
+        "parser_failures": 3,
+        "truncations": 3,
+        "traces": 42208,
+        "windows": 10552,
+        "proposals": 4967,
+        "nonfinite_blc": 1954,
+        "rollback_windows": 193,
+        "prefix_questions": 1262,
+        "disabled_questions": 32
+      },
+      "raw_pair": {
+        "gains": 4,
+        "losses": 5,
+        "delta_pp": -0.0758150113722517,
+        "conservative_95_ci_pp": [
+          -0.8981677419150111,
+          0.7500432217070007
+        ],
+        "mcnemar_exact_p": 1.0
+      },
+      "overlay": {
+        "SC": 1277,
+        "PC": 1277,
+        "Pass@1(SC)": 1276
+      },
+      "raw_pass1": 981
+    }
+  ],
+  "combinations": [
+    {
+      "parent": "AC",
+      "sources": [
+        {
+          "tag": "gsm8k_llama31_b32_mt2048_ac_seed0_9d1997bfb7de",
+          "fingerprint": "9d1997bfb7de",
+          "manifest_sha256": "3ecb4c10a2447c4058cc718df463ec84934d99e7b1118eaf53a0415774417ec9",
+          "files": {
+            "gsm8k_llama31_b32_mt2048_ac_seed0_9d1997bfb7de_ac.jsonl": "e842bff8adb52d4eddfa8149ae2f582c6bca41b3c5842e0d981824b4df10574e",
+            "gsm8k_llama31_b32_mt2048_ac_seed0_9d1997bfb7de_pc_ac.jsonl": "5d3934ae843cdb889da6f4a387a7732b1e2647f14cab4a0b94662cfe5506149b"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "b65fdb8f14578f53033567a95b78bacebe0a143f5c61956f3e430c72514b99c1",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 2048,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        }
+      ],
+      "base": {
+        "n": 1319,
+        "raw_correct": 1220,
+        "tok": 2730.0022744503412,
+        "seconds": 19.309087870701855,
+        "parser_failures": 0,
+        "truncations": 207,
+        "traces": 11472,
+        "windows": 2868,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "plus": {
+        "n": 1319,
+        "raw_correct": 1217,
+        "tok": 2539.171341925701,
+        "seconds": 18.043142576216862,
+        "parser_failures": 0,
+        "truncations": 194,
+        "traces": 11136,
+        "windows": 2784,
+        "proposals": 1618,
+        "nonfinite_blc": 0,
+        "rollback_windows": 84,
+        "prefix_questions": 272,
+        "disabled_questions": 11
+      },
+      "pair": {
+        "gains": 3,
+        "losses": 6,
+        "delta_pp": -0.22744503411675512,
+        "conservative_95_ci_pp": [
+          -1.0380901664678706,
+          0.5940798162137519
+        ],
+        "mcnemar_exact_p": 0.5078125
+      }
+    },
+    {
+      "parent": "ESC",
+      "sources": [
+        {
+          "tag": "gsm8k_llama31_b32_mt2048_esc_seed0_ab1a20b858bd",
+          "fingerprint": "ab1a20b858bd",
+          "manifest_sha256": "ff456e0df7840dc979da009c96ea39c5e4d4934cd7b1b452584f46b3528fe126",
+          "files": {
+            "gsm8k_llama31_b32_mt2048_esc_seed0_ab1a20b858bd_esc.jsonl": "52d72addb97b117c0491c03728cb3e99c73fc4a002dc626f019355ffd8d0ca83",
+            "gsm8k_llama31_b32_mt2048_esc_seed0_ab1a20b858bd_pc_esc.jsonl": "0680ffca862a63096dfe51b0036cbd10d07f1e92966c7b122f46056f71c8efd4"
+          },
+          "config": {
+            "protocol_version": "math-pc-paired-root-v2",
+            "implementation_sha256": "b65fdb8f14578f53033567a95b78bacebe0a143f5c61956f3e430c72514b99c1",
+            "model": "/data/26xyw/huggingface/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+            "max_branches": 32,
+            "window_size": 4,
+            "beta_threshold": 0.8,
+            "max_tokens": 2048,
+            "temperature": 0.6,
+            "top_p": 0.9,
+            "top_k": -1,
+            "thinking": null,
+            "selector": null
+          }
+        }
+      ],
+      "base": {
+        "n": 1319,
+        "raw_correct": 1220,
+        "tok": 2552.3586050037907,
+        "seconds": 18.073657291012847,
+        "parser_failures": 0,
+        "truncations": 191,
+        "traces": 10808,
+        "windows": 2702,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      },
+      "plus": {
+        "n": 1319,
+        "raw_correct": 1217,
+        "tok": 2373.658832448825,
+        "seconds": 16.814392838692058,
+        "parser_failures": 0,
+        "truncations": 180,
+        "traces": 10444,
+        "windows": 2611,
+        "proposals": 1540,
+        "nonfinite_blc": 0,
+        "rollback_windows": 71,
+        "prefix_questions": 224,
+        "disabled_questions": 5
+      },
+      "pair": {
+        "gains": 3,
+        "losses": 6,
+        "delta_pp": -0.22744503411675512,
+        "conservative_95_ci_pp": [
+          -1.0380901664678706,
+          0.5940798162137519
+        ],
+        "mcnemar_exact_p": 0.5078125
+      }
+    }
+  ],
+  "baselines": [
+    {
+      "method": "PoLR",
+      "tag": "polr_llama31_gsm8k_n32_lp64_seed0_eb5fffd3c21f.run",
+      "files": {
+        "polr_llama31_gsm8k_n32_lp64_seed0_eb5fffd3c21f_polr.jsonl": "4dd70abf7075c22196df966edfea5e0bd785728d588117624501c988c11dde2a"
+      },
+      "stats": {
+        "n": 1319,
+        "raw_correct": 1211,
+        "tok": 4825.742228961334,
+        "seconds": 10.612494660575306,
+        "parser_failures": 0,
+        "truncations": 0,
+        "traces": 42208,
+        "windows": 0,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      }
+    },
+    {
+      "method": "PoLR",
+      "tag": "polr_llama31_gsm8k_n32_lp128_seed0_77b0d966405d.run",
+      "files": {
+        "polr_llama31_gsm8k_n32_lp128_seed0_77b0d966405d_polr.jsonl": "edcf79058a1df88ad8582ae991e3d8fbbeb66f9fa4507616b38b41dac367cad1"
+      },
+      "stats": {
+        "n": 1319,
+        "raw_correct": 1216,
+        "tok": 5863.42759666414,
+        "seconds": 11.19852678728847,
+        "parser_failures": 0,
+        "truncations": 0,
+        "traces": 42208,
+        "windows": 0,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      }
+    },
+    {
+      "method": "PoLR",
+      "tag": "polr_llama31_gsm8k_n32_lp256_seed0_0703b9899c8f.run",
+      "files": {
+        "polr_llama31_gsm8k_n32_lp256_seed0_0703b9899c8f_polr.jsonl": "7f590edbd53611d56120d0af7714e5eb79d5d0ec5688d8ebe8267b5f43ef66e4"
+      },
+      "stats": {
+        "n": 1319,
+        "raw_correct": 1208,
+        "tok": 7554.293404094011,
+        "seconds": 13.043299466939226,
+        "parser_failures": 0,
+        "truncations": 0,
+        "traces": 42208,
+        "windows": 0,
+        "proposals": 0,
+        "nonfinite_blc": 0,
+        "rollback_windows": 0,
+        "prefix_questions": 0,
+        "disabled_questions": 0
+      }
+    }
+  ],
+  "sc_prefix_k": {
+    "file": "sc_prefix_k_llama31_c08.json",
+    "sha256": "1280afc1396cfcfa103325a51eb151068ae372943c7342367ea1700c1f12e934",
+    "summary": {
+      "4": {
+        "k": 4,
+        "n": 1319,
+        "correct": 1181,
+        "accuracy": 0.8953752843062927,
+        "tok_per_q": 1036.811220621683,
+        "latency_s": 6.821109760736226,
+        "n_short": 0
+      },
+      "8": {
+        "k": 8,
+        "n": 1319,
+        "correct": 1197,
+        "accuracy": 0.9075056861258529,
+        "tok_per_q": 2070.1940864291128,
+        "latency_s": 13.488272915826581,
+        "n_short": 0
+      },
+      "12": {
+        "k": 12,
+        "n": 1319,
+        "correct": 1204,
+        "accuracy": 0.9128127369219106,
+        "tok_per_q": 3113.7975739196363,
+        "latency_s": 20.3154150377027,
+        "n_short": 0
+      },
+      "16": {
+        "k": 16,
+        "n": 1319,
+        "correct": 1202,
+        "accuracy": 0.9112964366944655,
+        "tok_per_q": 4161.472327520849,
+        "latency_s": 27.21729591364709,
+        "n_short": 0
+      },
+      "20": {
+        "k": 20,
+        "n": 1319,
+        "correct": 1204,
+        "accuracy": 0.9128127369219106,
+        "tok_per_q": 5213.73540561031,
+        "latency_s": 34.18482339706264,
+        "n_short": 0
+      },
+      "24": {
+        "k": 24,
+        "n": 1319,
+        "correct": 1212,
+        "accuracy": 0.9188779378316907,
+        "tok_per_q": 6251.630022744504,
+        "latency_s": 41.01812465046197,
+        "n_short": 0
+      },
+      "28": {
+        "k": 28,
+        "n": 1319,
+        "correct": 1211,
+        "accuracy": 0.9181197877179682,
+        "tok_per_q": 7282.740712661107,
+        "latency_s": 47.66610781106197,
+        "n_short": 0
+      },
+      "32": {
+        "k": 32,
+        "n": 1319,
+        "correct": 1215,
+        "accuracy": 0.9211523881728583,
+        "tok_per_q": 8315.758150113723,
+        "latency_s": 54.37083513929966,
+        "n_short": 0
+      }
+    }
+  },
+  "cpt_adapter": {
+    "file": "cpt_llama31_gsm8k_n32.summary.json",
+    "sha256": "d1a4cbd5eb06c077c62eca0eabd80666b9a6513270bec6160b02d1d112350792",
+    "summary": {
+      "status": "complete",
+      "n_questions": 1319,
+      "planned": 1319,
+      "correct": 1224,
+      "accuracy": 0.9279757391963609,
+      "tok_per_q": 8411.363912054587,
+      "latency_s": 34.88317064897655,
+      "results_dir": "/home/26xyw/data/path-consistency-results/deepconf-cpt/cpt_llama31_gsm8k_n32/results"
+    },
+    "verification": "existing per-question summarizer output; timer scope differs"
+  }
+}

@@ -58,7 +58,11 @@ if "--vllm-v1" not in sys.argv:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--methods", default="sc,pc", help="comma-separated: sc,pc")
+    parser.add_argument(
+        "--methods",
+        default="sc,pc",
+        help="comma-separated: sc,pc,ac,esc,pc_ac,pc_esc (aliases ac+pc, esc+pc)",
+    )
     parser.add_argument("--gpus", default="1,2,3,4")
     parser.add_argument("--model", default="/home/26xyw/data/Qwen3-30B-A3B")
     parser.add_argument(
@@ -80,6 +84,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-branches", type=int, default=32)
     parser.add_argument("--window-size", type=int, default=4)
     parser.add_argument("--beta-threshold", type=float, default=0.8)
+    parser.add_argument(
+        "--early-stop-threshold",
+        type=float,
+        default=0.95,
+        help="AC stop threshold (Adaptive-Consistency default 0.95; not PC C=0.8)",
+    )
+    parser.add_argument(
+        "--esc-stop-rule",
+        choices=["window", "two_window_or_8"],
+        default="window",
+        help="ESC: window = current window unanimous (Table 2); "
+        "two_window_or_8 = last two windows unanimous and equal, or >=8 identical answers",
+    )
     parser.add_argument("--ratios", default="0,0.2,0.4,0.6,0.8")
     parser.add_argument("--temperature", type=float, default=0.6)
     parser.add_argument("--top-p", type=float, default=0.95)
@@ -417,13 +434,18 @@ def summarize(rows: list[dict], config: dict, engine_times: dict) -> dict:
 
 def main() -> None:
     args = parse_args()
-    methods = [method.strip().lower() for method in args.methods.split(",") if method.strip()]
-    if not methods or any(method not in {"sc", "pc"} for method in methods):
-        raise SystemExit("--methods must contain only sc and/or pc")
-    if set(methods) == {"sc", "pc"}:
-        # SC must run first so PC can reuse the exact no-prefix windows. This
-        # makes the no-op part of PC a common-random-number comparison.
-        methods = ["sc", "pc"]
+    from path_consistency.generation_methods import (
+        is_root_for_any,
+        method_label,
+        method_spec,
+        pair_root_method,
+        parse_generation_methods,
+    )
+
+    try:
+        methods = parse_generation_methods(args.methods)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
     ratios = tuple(float(value) for value in args.ratios.split(","))
     if ratios[0] != 0.0 or sorted(ratios) != list(ratios):
         raise SystemExit("--ratios must be increasing and start at 0")
@@ -491,6 +513,7 @@ def main() -> None:
         Path(__file__).resolve().parent / "path_consistency" / "math_protocol.py",
         Path(__file__).resolve().parent / "path_consistency" / "math_eval.py",
         Path(__file__).resolve().parent / "path_consistency" / "confidence.py",
+        Path(__file__).resolve().parent / "path_consistency" / "generation_methods.py",
         Path(__file__).resolve().parent / "path_consistency" / "deepconf_offline.py",
         Path(__file__).resolve().parent / "path_consistency" / "vllm_nccl.py",
         Path(__file__).resolve().parent / "path_consistency" / "kv_accounting.py",
@@ -515,6 +538,8 @@ def main() -> None:
         "max_branches": args.max_branches,
         "window_size": args.window_size,
         "beta_threshold": args.beta_threshold,
+        "early_stop_threshold": args.early_stop_threshold,
+        "esc_stop_rule": args.esc_stop_rule,
         "ratios": ratios,
         "temperature": args.temperature,
         "top_p": args.top_p,
@@ -547,7 +572,9 @@ def main() -> None:
             "official offline top-20 confidence; Mean, Bottom-10% Group, Tail(2048), "
             "and LGC(2048); percentile retain top 90%/10%; weighted vote"
         ),
-        "paired_common_root_windows": set(methods) == {"sc", "pc"},
+        "paired_common_root_windows": any(
+            pair_root_method(method) in methods for method in methods
+        ),
     }
     fingerprint = hashlib.sha256(
         json.dumps(config, sort_keys=True, default=list).encode()
@@ -644,28 +671,34 @@ def main() -> None:
             store_confidence=args.store_confidence,
             paired_root_windows=paired_root_windows,
             return_internal_windows=return_internal_windows,
+            early_stop_threshold=args.early_stop_threshold,
+            esc_stop_rule=args.esc_stop_rule,
         )
 
     total_start = time.perf_counter()
     for question_number, item in enumerate(data, start=1):
-        paired_root_windows = None
+        root_windows_by_method: dict[str, list] = {}
         for method in methods:
+            root = pair_root_method(method)
+            cache_this = is_root_for_any(method, methods)
             if item["question_id"] in done[method]:
-                if (
-                    method == "sc"
-                    and "pc" in methods
-                    and item["question_id"] not in done["pc"]
+                if cache_this and any(
+                    item["question_id"] not in done[child]
+                    for child in methods
+                    if pair_root_method(child) == method
                 ):
                     cache_output = infer(
-                        item, "sc", return_internal_windows=True
+                        item, method, return_internal_windows=True
                     )
-                    paired_root_windows = cache_output.pop("_internal_root_windows")
+                    root_windows_by_method[method] = cache_output.pop(
+                        "_internal_root_windows"
+                    )
                     print(
                         json.dumps(
                             {
                                 "progress": f"{question_number}/{len(data)}",
                                 "question_id": item["question_id"],
-                                "method": "sc",
+                                "method": method,
                                 "event": "rebuilt_pair_cache_for_resume",
                             },
                             ensure_ascii=False,
@@ -676,14 +709,17 @@ def main() -> None:
             output = infer(
                 item,
                 method,
-                paired_root_windows=paired_root_windows if method == "pc" else None,
-                return_internal_windows=method == "sc" and "pc" in methods,
+                paired_root_windows=(
+                    root_windows_by_method.get(root) if root else None
+                ),
+                return_internal_windows=cache_this,
             )
-            if method == "sc" and "_internal_root_windows" in output:
-                paired_root_windows = output.pop("_internal_root_windows")
+            if cache_this and "_internal_root_windows" in output:
+                root_windows_by_method[method] = output.pop("_internal_root_windows")
             gold = item["answer"]
             first_answer = output["traces"][0]["answer"] if output["traces"] else None
-            parent_name = "SC" if method == "sc" else "PC"
+            parent_name = method_label(method)
+            spec = method_spec(method)
             predictions = {
                 parent_name: {
                     "answer": output["answer"],
@@ -696,7 +732,7 @@ def main() -> None:
             }
             if args.logprobs >= 20:
                 for policy_name, policy in output["deepconf"].items():
-                    suffix = "" if method == "sc" else "+PC"
+                    suffix = "+PC" if spec["share_prefix"] else ""
                     display_name = DEEPCONF_LABELS[policy_name] + suffix
                     predictions[display_name] = {
                         "answer": policy["answer"],
@@ -747,6 +783,8 @@ def main() -> None:
                         "parser_failures": output["parser_failures"],
                         "truncations": output["truncations"],
                         "final_prefix_ratio": output["final_prefix_ratio"],
+                        "early_stopped": output.get("early_stopped"),
+                        "launched_windows": output.get("launched_windows"),
                     },
                     ensure_ascii=False,
                 ),

@@ -246,7 +246,7 @@ class MathInference:
         logprobs: int,
         presence_penalty: float,
     ) -> tuple[list[dict], float]:
-        sampling = SamplingParams(
+        sampling = self._sampling_params(
             n=batch_size,
             temperature=temperature,
             top_p=top_p,
@@ -266,47 +266,145 @@ class MathInference:
         after_kv = snapshot_vllm_gpu_kv(self.llm)
         request = request_outputs[0]
         cached_tokens = getattr(request, "num_cached_tokens", None)
-        traces = []
-        for output in request.outputs:
-            new_ids = list(output.token_ids)
-            full_ids = prefix_ids + new_ids
-            full_text = self.tokenizer.decode(full_ids, skip_special_tokens=False)
-            suffix_text = self.tokenizer.decode(new_ids, skip_special_tokens=False)
-            raw_answer = extract_last_boxed(full_text)
-            if raw_answer is None and self.answer_fallback == "gsm8k":
-                raw_answer = extract_gsm8k_numeric(full_text)
-            sampled_logprobs, confidences = _step_logprobs(output)
-            reasoning_tokens = _reasoning_length(
-                full_ids, self.close_think_id, self.tokenizer
+        traces = [
+            self._pack_output(
+                output,
+                prefix_ids,
+                prompt_ids,
+                cached_tokens,
+                before_kv,
+                after_kv,
             )
-            traces.append(
-                {
-                    "full_token_ids": full_ids,
-                    "new_token_ids": new_ids,
-                    "sampled_logprobs": sampled_logprobs,
-                    "token_confidence": confidences,
-                    "full_text": full_text,
-                    "suffix_text": suffix_text,
-                    "raw_answer": raw_answer,
-                    "answer": canonicalize_vote_answer(self.task, raw_answer),
-                    "reasoning_tokens": reasoning_tokens,
-                    "finish_reason": output.finish_reason,
-                    "stop_reason": output.stop_reason,
-                    "generated_tokens": len(new_ids),
-                    "prompt_tokens": len(prompt_ids),
-                    "prefix_tokens": len(prefix_ids),
-                    "truncated": output.finish_reason == "length",
-                    "lgc_2048": lowest_group_confidence(confidences, 2048),
-                    "num_cached_tokens": cached_tokens,
-                    "gpu_cache_usage_before": before_kv.get("gpu_cache_usage"),
-                    "gpu_cache_usage_after": after_kv.get("gpu_cache_usage"),
-                    "gpu_kv_blocks_used": after_kv.get("gpu_kv_blocks_used"),
-                    "gpu_kv_blocks_total": after_kv.get("gpu_kv_blocks_total"),
-                    "gpu_kv_block_size": after_kv.get("gpu_kv_block_size"),
-                    "kv_bytes_per_token": self.kv_bytes_per_token,
-                }
-            )
+            for output in request.outputs
+        ]
         return traces, elapsed
+
+    def generate_continuations(
+        self,
+        base_prompt_ids: list[int],
+        prefix_ids_list: list[list[int]],
+        sampling_seed: int,
+        temperature: float,
+        top_p: float,
+        top_k: int,
+        max_tokens: int,
+        logprobs: int,
+        presence_penalty: float,
+    ) -> tuple[list[dict], float]:
+        """Continue distinct prefixes (n=1 each). Used by PoLR expansion."""
+        if not prefix_ids_list:
+            return [], 0.0
+        physical = self.physical_window_size or len(prefix_ids_list)
+        physical = min(max(physical, 1), len(prefix_ids_list))
+        traces: list[dict] = []
+        elapsed = 0.0
+        offset = 0
+        while offset < len(prefix_ids_list):
+            chunk_prefixes = prefix_ids_list[offset : offset + physical]
+            sampling = self._sampling_params(
+                n=1,
+                temperature=temperature,
+                top_p=top_p,
+                top_k=top_k,
+                max_tokens=max_tokens,
+                logprobs=logprobs,
+                presence_penalty=presence_penalty,
+                seed=sampling_seed + offset,
+            )
+            prompts = [
+                {"prompt_token_ids": base_prompt_ids + prefix_ids}
+                for prefix_ids in chunk_prefixes
+            ]
+            before_kv = snapshot_vllm_gpu_kv(self.llm)
+            start = time.perf_counter()
+            request_outputs = self.llm.generate(prompts, sampling, use_tqdm=False)
+            elapsed += time.perf_counter() - start
+            after_kv = snapshot_vllm_gpu_kv(self.llm)
+            for prefix_ids, request in zip(chunk_prefixes, request_outputs):
+                cached_tokens = getattr(request, "num_cached_tokens", None)
+                prompt_ids = base_prompt_ids + prefix_ids
+                traces.append(
+                    self._pack_output(
+                        request.outputs[0],
+                        prefix_ids,
+                        prompt_ids,
+                        cached_tokens,
+                        before_kv,
+                        after_kv,
+                    )
+                )
+            offset += len(chunk_prefixes)
+        return traces, elapsed
+
+    def _sampling_params(
+        self,
+        n: int,
+        temperature: float,
+        top_p: float,
+        top_k: int,
+        max_tokens: int,
+        logprobs: int,
+        presence_penalty: float,
+        seed: int,
+    ) -> SamplingParams:
+        kwargs = {
+            "n": n,
+            "temperature": temperature,
+            "top_p": top_p,
+            "top_k": top_k,
+            "max_tokens": max_tokens,
+            "presence_penalty": presence_penalty,
+            "seed": seed,
+        }
+        if logprobs and logprobs > 0:
+            kwargs["logprobs"] = logprobs
+        return SamplingParams(**kwargs)
+
+    def _pack_output(
+        self,
+        output,
+        prefix_ids: list[int],
+        prompt_ids: list[int],
+        cached_tokens,
+        before_kv: dict,
+        after_kv: dict,
+    ) -> dict:
+        new_ids = list(output.token_ids)
+        full_ids = prefix_ids + new_ids
+        full_text = self.tokenizer.decode(full_ids, skip_special_tokens=False)
+        suffix_text = self.tokenizer.decode(new_ids, skip_special_tokens=False)
+        raw_answer = extract_last_boxed(full_text)
+        if raw_answer is None and self.answer_fallback == "gsm8k":
+            raw_answer = extract_gsm8k_numeric(full_text)
+        sampled_logprobs, confidences = _step_logprobs(output)
+        reasoning_tokens = _reasoning_length(
+            full_ids, self.close_think_id, self.tokenizer
+        )
+        return {
+            "full_token_ids": full_ids,
+            "new_token_ids": new_ids,
+            "sampled_logprobs": sampled_logprobs,
+            "token_confidence": confidences,
+            "full_text": full_text,
+            "suffix_text": suffix_text,
+            "raw_answer": raw_answer,
+            "answer": canonicalize_vote_answer(self.task, raw_answer),
+            "reasoning_tokens": reasoning_tokens,
+            "finish_reason": output.finish_reason,
+            "stop_reason": output.stop_reason,
+            "generated_tokens": len(new_ids),
+            "prompt_tokens": len(prompt_ids),
+            "prefix_tokens": len(prefix_ids),
+            "truncated": output.finish_reason == "length",
+            "lgc_2048": lowest_group_confidence(confidences, 2048),
+            "num_cached_tokens": cached_tokens,
+            "gpu_cache_usage_before": before_kv.get("gpu_cache_usage"),
+            "gpu_cache_usage_after": after_kv.get("gpu_cache_usage"),
+            "gpu_kv_blocks_used": after_kv.get("gpu_kv_blocks_used"),
+            "gpu_kv_blocks_total": after_kv.get("gpu_kv_blocks_total"),
+            "gpu_kv_block_size": after_kv.get("gpu_kv_block_size"),
+            "kv_bytes_per_token": self.kv_bytes_per_token,
+        }
 
     def _select_prefix(
         self,

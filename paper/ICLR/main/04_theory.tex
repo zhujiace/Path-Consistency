@@ -1,0 +1,51 @@
+\section{Voting Accuracy under Prefix Reuse}
+\label{sec:theory}
+Prefix reuse reduces repeated generation but also changes the answer distributions and the dependence between sampled trajectories. We study how these changes affect final voting accuracy relative to self-consistency, and under what conditions voting remains reliable with adaptive sampling. First, we derive an exact decomposition of the accuracy difference into the expected contributions of individual windows. Second, we bound voting error when the correct answer has a sufficient accumulated conditional advantage over every competing answer. Together, these results characterize the benefits and risks of prefix reuse without assuming that answer agreement implies correctness. All probabilities concern a fixed question with correct answer $a^\star$, and multiple incorrect answers are allowed. The analysis uses standard telescoping and bounded-martingale arguments, with proofs in Appendix~\ref{app:proofs}.
+
+\subsection{Decomposing the effect of prefix reuse on accuracy}
+Let $H_j$ be the complete history before window $j\in\{0,\ldots,J-1\}$, including traces and controller state. A kernel $K_j^{P}(\cdot\mid h)$ generates the next window under path-consistency. Define $K_j^{S}(\cdot\mid h)$ to generate an unprefixed self-consistency window from any history $h$, including histories created by path-consistency. Let $V_j^S(h)\in[0,1]$ be the probability of final voting correctness if all remaining windows use these self-consistency kernels. The terminal value $V_J^S$ is the correctness indicator under a fixed tie rule. This construction retains all earlier votes when switching to self-consistency.
+
+\begin{theorem}[Exact intervention decomposition]
+\label{thm:decomposition}
+For a fixed finite budget and common initial state, define
+\begin{equation}
+ d_j(h)=\int V_{j+1}^{S}(h,u)\,
+       [K_j^{P}(du\mid h)-K_j^{S}(du\mid h)].
+\end{equation}
+Then the difference in final accuracy is exactly
+\begin{equation}
+ A_P-A_S=\sum_{j=0}^{J-1}\E_{H_j\sim P}[d_j(H_j)].
+ \label{eq:risk}
+\end{equation}
+In particular, if every expected increment is nonnegative, $A_P\geq A_S$. In general,
+\begin{equation}
+ |A_P-A_S|\leq
+ \min\left\{1,\sum_{j=0}^{J-1}\E_P\TV(K_j^P(\cdot\mid H_j),K_j^S(\cdot\mid H_j))\right\}.
+ \label{eq:tv}
+\end{equation}
+\end{theorem}
+
+Writing $d_j^+=\max(d_j,0)$ and $d_j^-=\max(-d_j,0)$ separates the accuracy change into total expected benefit minus total expected harm. This identity includes selection, correlation, failed trials, and rollback through the history and kernels. It makes no small-perturbation approximation. The sufficient condition is deliberately explicit: agreement does not establish the sign of $d_j$, since $V^S$ depends on correctness and remaining votes. A root window has identical conditional kernels and zero increment, even after earlier prefixes changed its history. Rollback can eliminate further prefix-induced increments but cannot undo earlier votes.
+
+\subsection{Bounding voting error under adaptive sampling}
+Consider a fixed finite answer alphabet $\mathcal A$ containing $a^\star$. Invalid outputs may be included as a separate symbol. Expose the $B$ sampled answers sequentially, using a filtration $\mathcal F_i$ that includes the information controlling their generation. For competitor $a\neq a^\star$, set
+\[
+ X_i(a)=\ind\{A_i=a^\star\}-\ind\{A_i=a\},\qquad
+ \mu_i(a)=\E[X_i(a)\mid\mathcal F_{i-1}].
+\]
+\begin{theorem}[Plurality under conditional margins]
+\label{thm:plurality}
+If deterministic constants $\Gamma_a>0$ satisfy
+$\sum_{i=1}^B\mu_i(a)\geq\Gamma_a$ almost surely for every incorrect answer, then
+\begin{equation}
+ \Prb(\widehat A\neq a^\star)
+ \leq \min\left\{1,\sum_{a\neq a^\star}
+                  \exp\left(-\frac{\Gamma_a^2}{2B}\right)\right\}.
+ \label{eq:margin}
+\end{equation}
+Ties are treated as failures, so the bound also covers any deterministic tie rule. If invalid answers are discarded, bounding a loss to the invalid symbol is conservative.
+\end{theorem}
+
+The bound accommodates adaptive, non-identically distributed samples and requires an accumulated conditional advantage over each incorrect answer, rather than a correct-answer probability above $1/2$. It therefore allows errors to be distributed among multiple answers. This condition is not established by observed marginal accuracy or a high Beta score, and an early incorrect prefix can reverse subsequent conditional advantages. The bound is informative only for sufficiently large margins and may be vacuous at $B=32$. Applying it to open-ended answers also requires justification of the finite-support assumption.
+
+Together, the two results distinguish accuracy preservation from voting reliability. Theorem~\ref{thm:decomposition} shows that prefix reuse preserves accuracy relative to self-consistency when its total expected benefit offsets its total expected harm. Theorem~\ref{thm:plurality} bounds the absolute voting error under sufficient conditional advantages, even when sampling adapts to earlier outcomes. These results provide a framework for analyzing path-consistency, not an unconditional guarantee for its agreement gate. Whether prefix selection and recovery achieve a favorable accuracy--cost trade-off is assessed empirically in Section~\ref{sec:evaluation}.

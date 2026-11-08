@@ -32,6 +32,9 @@ fi
 if [[ -n "${QWEN_MAX_QUESTIONS:-}" ]]; then
   EXTRA+=(--max-questions "${QWEN_MAX_QUESTIONS}")
 fi
+if [[ -n "${QWEN_SOURCE_ROWS:-}" ]]; then
+  EXTRA+=(--source-rows "${QWEN_SOURCE_ROWS}")
+fi
 
 cd "$ROOT"
 CMD=(

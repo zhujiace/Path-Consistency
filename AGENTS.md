@@ -48,6 +48,7 @@ Go/no-go 与 \(C^\*\)/PVC 查找表已被 2026-09-09 决策取代，见 `paper/r
 |---|---|---|
 | Llama-3.1-8B GSM8K 1319 | SC 1215/1319=92.12%；PC 1210/1319=91.74%（−0.38 pp）；decode 8316→5039（−39.4%） | 新协议；Pass@1 均为 84.69% |
 | DeepSeek-V4-Flash MATH-500 490 | SC 430/490=87.76%；PC 428/490=87.35%（−0.41 pp）；decode −34.5% | fingerprint `4856d4ef5673`；thinking + reasoning_effort=high |
+| Qwen3-30B-A3B MATH-500 first100+next100 | SC=PC 188/199=94.47%；Pass@1 187/199=93.97%；decode 156956→92106（−41.3%）；`generation_seconds` 622.3→377.2 s（−39.4%） | fingerprints `630825247308`+`664997212910`；source_row 0–199 排除工程 151；Table 1 **部分格**（n=199，不是 490） |
 | Llama MATH-50 | SC=PC 54%；decode −4.17% | 不可用于主表 / 选阈值 |
 | DeepConf+CPT Llama GSM8K smoke 10 题 | DeepConf-online majority 7/10；其它官方 vote 8/10；CPT-adapted-llama 8/10 | 隔离环境；**CPT 不公平** |
 
@@ -91,7 +92,7 @@ DeepSeek AIME24/25 + GPQA：`scripts/run_deepseek_aime_gpqa.sh`（API，不占�
 - 后台任务：`setsid nohup … < /dev/null &`。普通 `nohup … &` 会在启动 shell 结束时被杀。
 - DeepSeek key：**只读** `/data/26xyw/env/deepseek_api.env`，永不进 git。
 - math-verify 0.9.0 在 `/data/26xyw/python_packages/math_verify_0_9`（`MATH_VERIFY_PATH`）。不要把它的 SymPy 1.14 插到 vLLM 环境前面。
-- 控制台：`console/serve.py`，http://127.0.0.1:18787/ （避开本机常见 8787 占用）。改 HTML/API 后必须重启；用户需硬刷新。改过的 tag 分类：`llama31_math500` / `llama31_aime` / `llama31_gpqa`。Table 1 的 PC Tok 列是相对 SC 的节省（GSM8K −39.4%）。墙钟 `DD:HH:MM:SS`。
+- 控制台：`console/serve.py`，默认 **http://10.10.60.106:28787/**（绑 `0.0.0.0`，关 IDE 也能从实验室网段打开）。不要用旧的 8787 / 18787。改 HTML/API 后必须重启；用户需硬刷新。不在实验室网时：`ssh -N -L 28787:127.0.0.1:28787 26xyw@10.10.60.106`。改过的 tag 分类：`llama31_math500` / `llama31_aime` / `llama31_gpqa`。Table 1 的 PC Tok 列是相对 SC 的节省（GSM8K −39.4%）。墙钟 `DD:HH:MM:SS`。
 - TinyTeX：`export PATH=$HOME/.TinyTeX/bin/x86_64-linux:$PATH`。`pdflatex` + `bibtex` 两遍。不要用 tectonic 或 `/data/26xyw/envs/texlive`。
 
 ## GPU / vLLM 经验（两机通用）
@@ -107,8 +108,11 @@ DeepSeek AIME24/25 + GPQA：`scripts/run_deepseek_aime_gpqa.sh`（API，不占�
 # 旧 Sentence-PC GSM8K（附录连续性；不要当主表）
 run_gsm8k.py --method {sc,pc,ac,esc,margin} --gpu N --seed 0
 
-# 新协议 MATH / AIME / GPQA（本地 vLLM）
+# 新协议 MATH / AIME / GPQA / GSM8K（本地 vLLM）
 run_math.py --methods sc,pc --exclude-engineering-split ...
+# Table 2 组合：AC/ESC ± PC（B=32；AC τ=0.95）
+run_math.py --methods ac,pc_ac   # 或 esc,pc_esc
+scripts/run_llama31_gsm8k_ac_esc.sh
 
 # DeepSeek API
 run_math_deepseek.py ...
@@ -121,11 +125,11 @@ scripts/run_llama31_remaining.sh
 bash run_math500_qwen30a3b.sh
 ```
 
-- `pc` 的 `--confidence` / `--beta-threshold` 是 beta 门控阈值；`ac` 用它当 stop 阈值；`sc` = PC 且 C=1.0。
+- `pc` 的 `--beta-threshold` 是前缀门控阈值（默认 C=0.8）。新协议 `ac` 的停止阈值是 `--early-stop-threshold`（默认 0.95，Adaptive-Consistency 论文默认），**不要**把 C=0.8 写成 AC 的 τ。旧 `run_gsm8k.py` 的 `ac` 仍用 `--confidence` 当 stop 阈值，不得与新协议混表。
 - 默认新协议：32 分支 / 窗口 4，Qwen T=0.6 top-p=0.95 top-k=20；Llama T=0.6 top-p=0.9。
 - `--max-questions K` 做 smoke；`--store-text` 才存 `generations`+`prefixes_used`（离线分析需要；32k thinking 不要默认开）。
 - 输出：`results/<TAG>.jsonl` 或 `~/data/path-consistency-results/.../<TAG>.jsonl` **按题 id 增量追加**（可续跑）。改 flag 重跑必须先删旧 jsonl，否则所有 id 会被 skip。
-- 分析：`analyze_results.py`（旧 Table 1）；`analysis/offline_stats.py`（V(t)、门控、多样性）；`analysis/plot_accuracy_tokens.py`。分析脚本用系统 python 即可。
+- 分析：`analyze_results.py`（旧 Table 1）；`analysis/offline_stats.py`（V(t)、门控、多样性）；`analysis/plot_accuracy_tokens.py`；DeepSeek 格式复判 `scripts/regrade_deepseek_numeric.py`（不改 JSONL，写 `*.numeric_regrade.json` sidecar）。分析脚本用系统 python 即可。
 
 ## 论文 `paper/src/`
 

@@ -1,0 +1,19 @@
+\section{Background and Related Work}
+% Citation needed for self-consistency and answer aggregation.
+Self-consistency samples multiple reasoning trajectories and aggregates their answers by voting. Its generation cost can be reduced through early stopping or by sharing previously generated reasoning.
+
+\paragraph{Early-stopping methods.}
+These methods decide when to stop sampling or generation.
+% Citations needed for AC and ESC and their respective stopping criteria.
+Adaptive-Consistency (AC) uses cumulative answer agreement, whereas Early-Stopping Self-Consistency (ESC) uses agreement within a sampling window to stop further sampling.
+% Citation needed for DeepConf, distinguishing its online and offline variants.
+DeepConf uses model-internal confidence to filter traces during or after generation, although only online termination avoids generating further tokens. Path-consistency instead controls the starting prefix of later trajectories and can complement early-stopping methods while retaining their stopping and aggregation rules.
+
+\paragraph{Reasoning-sharing methods.}
+These methods reuse information from sampled trajectories to guide subsequent reasoning.
+% Citation needed for Progressive-Hint Prompting and its combination with SC.
+Progressive-Hint Prompting reuses previous answers as hints.
+% Citation needed for PoLR and its prefix-clustering procedure.
+PoLR clusters short prefixes and expands trajectories in the dominant cluster.
+% Citation needed for CPT and its pooled intermediate-information sharing.
+CPT pools and deduplicates intermediate information for sharing across branches. Path-consistency belongs to this family but shares one continuous reasoning prefix $z$ within each sampling window. Answer agreement gates its extension, prefix selection chooses its source, and trial and recovery determine whether to retain or retract it.
