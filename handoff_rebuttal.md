@@ -2,7 +2,9 @@
 
 日期：2026-11-08。本文件给**其他服务器**并行开工用。协议以 [`AGENTS.md`](AGENTS.md) 和 [`handoff.md`](handoff.md) 为准。审稿编号：R1 = rS6y，R2 = uwQR，R3 = zwLH。
 
-本机是 4090 实验室（`10.10.60.106`）。**不要在这台机器上再启动 Qwen3-30B-A3B**（要 TP=4，且 GPU 1–3 可能仍被 Llama 占用）。DeepSeek 重复不占卡，可以在任何能访问 API 的机器上跑。
+硬件：4090 实验室 5×24GB（`10.10.60.106`，共用，不跑 A3B）；A40 服务器 4×48GB（全部 Qwen3-30B-A3B）；5090 服务器 1×32GB（只跑 Llama）。A3B 的 BF16 权重大约 60GB。单张 4090、两张 4090、单张 A40、单张 5090 都装不下这个权重。
+
+DeepSeek 重复不占卡，放在 4090 实验室。
 
 C=0.8 是先验操作点。这些重复和对照**不得**用来重选 C，也不得把结果最好的一次换进表。
 
@@ -12,10 +14,10 @@ C=0.8 是先验操作点。这些重复和对照**不得**用来重选 C，也�
 
 | 实验 | 覆盖 | 放到哪台机器 | 占什么 |
 |---|---|---|---|
-| 1 满并行墙钟 | R1-W2，R1-Q1，R3-W2 | 能同时解码 32 条且吞吐未饱和的大显存机 | Qwen，1 张或 TP∈{1,2,4} |
-| 2 长链近期基线 | R1-W1，R1-Q3，R2-W1 的比较部分 | 同一台 Qwen 机，与实验 1 错开 GPU | Qwen |
-| 3 多次重复 | R1-W3，R1-Q2 | DeepSeek 部分：API 机。Qwen 部分：Qwen 机 | API 不占卡；Qwen 占卡 |
-| 4 相同 token 的树搜索 | R3-W1，R3-Q1 | GSM8K 全量放有空闲 4090 的机器；MATH-500 的 50 题放 Qwen 机 | Llama 单卡 + Qwen |
+| 1 显存受限的 32 路墙钟 | R1-W2，R1-Q1，R3-W2 | A40 的卡 0、1，TP=2。故意不用四张卡 | Qwen，batch 32 放不下长 thinking |
+| 2 长链近期基线 | R1-W1，R1-Q3，R2-W1 的比较部分 | A40 的卡 2、3，TP=2。MATH-500 长，可与实验 1 同时跑 | Qwen，正常窗口 4 |
+| 3 多次重复 | R1-W3，R1-Q2 | DeepSeek：4090 实验室，不占卡。Qwen AIME：卡 2、3 在实验 2 的 AIME 之后 | API；然后 Qwen |
+| 4 相同 token 的树搜索 | R3-W1，R3-Q1 | GSM8K 全量：单张 5090 上 ToT、beam、MCTS 依次跑。MATH-500 的 50 题：A40 卡 2、3 | Llama 单卡 + Qwen |
 
 不需要新跑、不要在别的机器重做：
 
@@ -52,37 +54,44 @@ C=0.8 是先验操作点。这些重复和对照**不得**用来重选 C，也�
 
 ---
 
-## 2. 实验 1：满并行墙钟
+## 2. 实验 1：两张 A40 上的 32 路墙钟
 
-**回答：** R1-W2，R1-Q1，R3-W2。
+**回答：** R1-W2，R1-Q1，R3-W2。主结果用显存受限的部署，不去做「32 路还把卡留空」的那一档。
 
-**问题：** 现有 `generation_seconds` 是每题 8 个窗口串行。DeepSeek MATH-500 上 SC 148 秒、PC 110 秒，只说明两边都串行时 PC 更快。审稿人要的是：SC 的 32 条可以一批并行，PC 必须 8 轮 × 4 条。
+**问题：** 现有 `generation_seconds` 是每题 8 个窗口串行。审稿人问的是 SC 把 32 条放进一批、PC 必须 8 轮 × 4 条时，墙钟还省不省。在权重和 KV 都紧的机器上，32 条长 thinking 驻留不住，SC 的满批优势不成立，PC 的小批才是实际调度。这是这项实验要测的条件。
 
-**机器：** 一张能同时解码 32 条、且 32 路还没有把吞吐打满的 GPU。24 GB 的 4090 上 A3B 做不到，不要在实验室 4090 上跑这项。Qwen3-30B-A3B，TP 只能是 1、2 或 4。大显存用 TP=1 或 2。`export QWEN_GPU_BLOCKS=`（空）去掉 8192 的 KV cap。
+**机器：** A40 服务器的卡 0 和卡 1，TP=2，BF16。`export QWEN_GPU_BLOCKS=`（空）。不要为了这项把四张 A40 合成 TP=4，那会让 batch 32 更容易放下，条件就变了。
 
-**数据：** MATH-500，抽 32 题即可，不必 490。建议固定 `source_row` 0–31 中去掉不在其中的工程行（这 32 行没有工程行），写死清单，两臂用同一批题。
+装不下、不要试：
 
-**两臂，必须同一模型、同一批题、prefix cache 打开：**
+- 单张 4090（24GB）和两张 4090（TP=2 时每卡权重大约 30GB）
+- 单张 A40（48GB）和单张 5090（32GB）
 
-1. **SC-parallel：** 32 条轨迹一次批进去，不按窗口串行。测的是这 32 条同时解码的墙钟。
-2. **PC-serial：** 维持现在的调度：8 个窗口顺序执行，每窗 4 条，后一窗等前一窗的前缀决定。prefix cache 开。
+两张 A40、TP=2 时，每卡权重大约 30GB，剩下大约 18GB。KV 按 TP 切开后每 token 每卡大约 48KB。batch 32 在 8k token 时大约 12GB，16k 时大约 24GB，超过剩下的显存。PC 每窗只有 4 条，同一对卡放得下。
 
-若现有 `run_math.py` 的 SC 也是 8 窗串行，这项不能直接拿它的 `generation_seconds` 交差。需要一段专门的计时脚本，或临时把 SC 收成一次 `max_num_seqs>=32` 的批。PC 臂保持 8×4。
+**数据：** MATH-500，固定 `source_row` 0–31（这 32 行没有工程行）。两臂同一批题。
+
+**两臂，同一模型、prefix cache 打开：**
+
+1. **SC：** 目标是 `max_num_seqs=32`，32 条同时解码，不按窗口串行。现有 `run_math.py` 的 SC 也是 8 窗串行，不能拿它的 `generation_seconds` 交差。
+2. **PC：** 8 个窗口顺序执行，每窗 4 条。
+
+SC 若在长 thinking 上 OOM，记下当时的长度、峰值显存，以及这张卡实际能驻留的最大 batch。墙钟用这个真实调度（能留下的 batch，多波次补满 32 条）。不要悄悄改成 8 仍叫 batch 32，也不要换四张卡重跑来躲开 OOM。
 
 **记录：**
 
-- 每题墙钟（秒）
-- 吞吐：题/小时，以及生成 token/秒
-- 生成 token（SC 与 PC）
-- GPU 利用率、显存
-- 确认这张卡在 batch 32 时没有打满。若利用率已经顶满，换更大的卡或更少的并发，并在记录里写明
+- 每题墙钟（秒），以及 32 题总墙钟
+- 吞吐：题/小时，生成 token/秒
+- 生成 token
+- 峰值显存、GPU 利用率
+- SC 是否 OOM，以及实际驻留 batch
 
-**完成标准：** 32 题两臂都有墙钟和吞吐。结论允许是「token 更少，但满并行墙钟不一定更快」。不要把串行的 25% 时间差写成满并行加速。
+**完成标准：** 32 题两臂都有墙钟。回复里写明这是两张 A40、TP=2 的显存受限结果：batch 32 的长序列放不下时，PC 的墙钟更短。不要写成「GPU 未打满时的满并行加速」。
 
 **建议 tag：**
 
-- `latency_qwen3_30b_a3b_math500_n32_sc_batch32`
-- `latency_qwen3_30b_a3b_math500_n32_pc_serial8x4`
+- `latency_qwen3_30b_a3b_math500_n32_sc_batch32_tp2_a40`
+- `latency_qwen3_30b_a3b_math500_n32_pc_serial8x4_tp2_a40`
 
 ---
 
@@ -130,14 +139,14 @@ export PC_PYTHON="$(command -v python)"
 export QWEN_A3B_MODEL="${HOME}/data/Qwen3-30B-A3B"
 export MATH500_JSONL="${HOME}/data/Datasets/math500_test.jsonl"
 export PC_RESULTS_MATH500="${HOME}/data/path-consistency-results/math500"
-export QWEN_GPUS=0
-export QWEN_TP=1
+export QWEN_GPUS=2,3
+export QWEN_TP=2
 export QWEN_GPU_BLOCKS=
 export QWEN_TAG=math500_qwen3_30b_a3b_b32_mt32768_c08_seed0
 bash run_math500_qwen30a3b.sh
 ```
 
-AIME 不要用这个 MATH-500 脚本硬跑。用 `run_math.py` 的同一组采样 flag，换数据集和 tag。TP 只能是 1、2、4。
+卡 0、1 留给实验 1，不要和这条长任务合成 TP=4。AIME 不要用这个 MATH-500 脚本硬跑。用 `run_math.py` 的同一组采样 flag，换数据集和 tag。TP 只能是 1、2、4；这台机器用 2。
 
 ---
 
@@ -200,7 +209,7 @@ Qwen 的 MATH-500 / GSM8K / GPQA **不**做 3 次重复。审稿人点名噪声�
 
 **两套数据：**
 
-1. **Llama-3.1-8B-Instruct / GSM8K 1319，全量。** 单卡即可。T=0.6，top-p=0.9，max_tokens=2048。PC 若已有 `gsm8k_llama31_b32` 的完整 JSONL，不要重跑 PC，只跑三个搜索方法，预算用那份 PC 的逐题 token。
+1. **Llama-3.1-8B-Instruct / GSM8K 1319，全量。** 放单张 5090，ToT、beam、MCTS 依次跑。T=0.6，top-p=0.9，max_tokens=2048。PC 若已有完整 JSONL，不要重跑 PC，只跑三个搜索方法，预算用那份 PC 的逐题 token。5090 的 32GB 装不下 A3B，不要在这张卡上跑 Qwen。
 2. **Qwen3-30B-A3B / MATH-500，只抽 50 题。** 固定 `source_row`：0–49（其中没有工程行）。thinking on，采样同第 1 节。这 50 题的 PC 若还没有，用实验 2 的协议只跑这 50 行，tag 与全量 490 分开，例如 `math500_qwen3_30b_a3b_totcmp_n50_b32_c08_seed0`。
 
 **建议 tag：**
