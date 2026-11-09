@@ -666,11 +666,16 @@ REBUTTAL = {
             "data": "两边都做 AIME 2024/2025。DeepSeek 再加 MATH-500。Qwen 的 MATH-500、GSM8K、GPQA 不做 3 次",
             "note": "论文那一次保留。再跑 2 个独立重复。DeepSeek 没有可依赖的 seed，rep1/rep2 是新请求，PC 复用这一次的 SC root。Qwen 的 seed 1/2 才改变抽样。不挑最好的一次。",
             "runs": [
-                {"what": "DeepSeek AIME 2024 · rep1 / rep2", "tag": "aime_2024_deepseek_v4_flash_b32_c08_rep1 · rep2"},
-                {"what": "DeepSeek AIME 2025 · rep1 / rep2", "tag": "aime_2025_deepseek_v4_flash_b32_c08_rep1 · rep2"},
-                {"what": "DeepSeek MATH-500 · rep1 / rep2", "tag": "math500_deepseek_v4_flash_b32_c08_rep1 · rep2"},
-                {"what": "Qwen AIME 2024 · seed1 / seed2", "tag": "aime_2024_qwen3_30b_a3b_b32_c08_seed1 · seed2"},
-                {"what": "Qwen AIME 2025 · seed1 / seed2", "tag": "aime_2025_qwen3_30b_a3b_b32_c08_seed1 · seed2"},
+                {"what": "DeepSeek AIME 2024 · rep1", "tag": "aime_2024_deepseek_v4_flash_b32_c08_rep1"},
+                {"what": "DeepSeek AIME 2024 · rep2", "tag": "aime_2024_deepseek_v4_flash_b32_c08_rep2"},
+                {"what": "DeepSeek AIME 2025 · rep1", "tag": "aime_2025_deepseek_v4_flash_b32_c08_rep1"},
+                {"what": "DeepSeek AIME 2025 · rep2", "tag": "aime_2025_deepseek_v4_flash_b32_c08_rep2"},
+                {"what": "DeepSeek MATH-500 · rep1", "tag": "math500_deepseek_v4_flash_b32_c08_rep1"},
+                {"what": "DeepSeek MATH-500 · rep2", "tag": "math500_deepseek_v4_flash_b32_c08_rep2"},
+                {"what": "Qwen AIME 2024 · seed1", "tag": "aime_2024_qwen3_30b_a3b_b32_c08_seed1"},
+                {"what": "Qwen AIME 2024 · seed2", "tag": "aime_2024_qwen3_30b_a3b_b32_c08_seed2"},
+                {"what": "Qwen AIME 2025 · seed1", "tag": "aime_2025_qwen3_30b_a3b_b32_c08_seed1"},
+                {"what": "Qwen AIME 2025 · seed2", "tag": "aime_2025_qwen3_30b_a3b_b32_c08_seed2"},
             ],
         },
         {
@@ -2590,41 +2595,203 @@ def catalog_status(math: list[dict], gsm8k: list[dict], datasets: list[dict]) ->
     return out
 
 
+PAPER = {
+    "source": "ICLR 2027 投稿稿 Table 3–6",
+    "note": "已有结果以投稿 PDF 为准，不从历史 JSONL 重算，也不再展示投稿前的运行记录。",
+    "tables": [
+        {
+            "title": "Table 3. Long-chain reasoning，thinking on",
+            "columns": ["Model", "Dataset", "Pass@1", "SC", "PC", "SC tokens", "PC tokens", "Save"],
+            "rows": [
+                ["DeepSeek-V4-Flash", "GSM8K", "96.74", "96.82", "96.82", "12,514", "8,230", "−34.2%"],
+                ["", "MATH-500", "86.60", "88.00", "87.60", "41,166", "26,968", "−34.5%"],
+                ["", "AIME 2024", "93.33", "96.67", "96.67", "288,230", "213,162", "−26.0%"],
+                ["", "AIME 2025", "86.67", "100.00", "100.00", "351,230", "260,523", "−25.8%"],
+                ["", "GPQA-D", "83.33", "89.90", "89.90", "309,325", "221,526", "−28.4%"],
+                ["Qwen3-30B-A3B", "GSM8K", "96.59", "96.74", "96.59", "57,859", "33,564", "−42.0%"],
+                ["", "MATH-500", "92.80", "93.40", "93.40", "156,956", "92,106", "−41.3%"],
+                ["", "AIME 2024", "73.33", "83.33", "83.33", "443,797", "261,149", "−41.2%"],
+                ["", "AIME 2025", "73.33", "83.33", "83.33", "559,278", "360,577", "−35.5%"],
+                ["", "GPQA-D", "63.64", "64.14", "64.14", "232,994", "151,886", "−34.8%"],
+            ],
+        },
+        {
+            "title": "Table 4. Llama-3.1-8B-Instruct / GSM8K",
+            "columns": ["Method", "Accuracy", "Δ pp", "Tokens", "Save"],
+            "rows": [
+                ["Self-consistency", "92.12", "—", "8,316", "—"],
+                ["Self-consistency (B=20)", "91.28", "−0.84", "5,214", "−37.3%"],
+                ["PoLR (Lp=128)", "92.19", "+0.07", "5,863", "−29.5%"],
+                ["CPT (32 workers)", "92.80", "+0.68", "8,411", "+1.1%"],
+                ["Path-consistency", "91.74", "−0.38", "5,039", "−39.4%"],
+                ["Adaptive-consistency", "92.04", "−0.08", "4,035", "−51.4%"],
+                ["+ Path-consistency", "92.27", "+0.15", "3,003", "−63.9%"],
+                ["Early-stopping self-consistency", "92.49", "+0.37", "4,299", "−48.3%"],
+                ["+ Path-consistency", "92.27", "+0.15", "3,501", "−57.9%"],
+            ],
+        },
+        {
+            "title": "Table 5. Prefix selection and recovery，DeepSeek-V4-Flash / MATH-500",
+            "columns": ["Method", "Accuracy", "Δ pp", "Tokens", "Save"],
+            "rows": [
+                ["Self-consistency", "88.00", "—", "41,166", "—"],
+                ["Path-consistency (full)", "87.60", "−0.40", "26,968", "−34.5%"],
+                ["w/ uniform selection", "87.20", "−0.80", "25,680", "−37.6%"],
+                ["w/o recovery", "86.60", "−1.40", "24,757", "−39.9%"],
+                ["w/ uniform selection, w/o recovery", "86.40", "−1.60", "25,405", "−38.3%"],
+            ],
+        },
+        {
+            "title": "Table 6. Agreement threshold，DeepSeek-V4-Flash / GSM8K",
+            "columns": ["C", "Accuracy", "Δ pp", "Tokens", "Save"],
+            "rows": [
+                ["1.0 (Self-consistency)", "96.82", "—", "12,514", "—"],
+                ["0.8", "96.82", "0.00", "8,230", "−34.2%"],
+                ["0.7", "96.74", "−0.08", "7,399", "−40.8%"],
+                ["0.0", "96.59", "−0.23", "7,070", "−43.5%"],
+            ],
+        },
+    ],
+}
+
+
+def _tag_bounded(tag: str, name: str) -> bool:
+    start = 0
+    while True:
+        index = name.find(tag, start)
+        if index < 0:
+            return False
+        end = index + len(tag)
+        before_ok = index == 0 or name[index - 1] in "._"
+        after_ok = end == len(name) or name[end] in "._"
+        if before_ok and after_ok:
+            return True
+        start = index + 1
+
+
+def _rebuttal_hit(tag: str) -> dict:
+    roots = [path for path in PROTOCOL_DIRS + [CPT_DIR] if path.exists()]
+    run_files: list[Path] = []
+    jsonl_files: list[Path] = []
+    for root in roots:
+        for path in root.glob(f"*{tag}*"):
+            if any(part in {"backups", "shards", "transfer_qwen_math500_n199"} for part in path.parts):
+                continue
+            if not _tag_bounded(tag, path.name):
+                continue
+            if path.name.endswith(".run.json"):
+                run_files.append(path)
+            elif path.suffix == ".jsonl":
+                jsonl_files.append(path)
+    if not run_files and not jsonl_files:
+        return {"status": "queued", "detail": "未开始", "done": None, "planned": None}
+    if not run_files:
+        return {"status": "partial", "detail": "有 JSONL，还没有 run.json", "done": None, "planned": None}
+    path = max(run_files, key=lambda item: item.stat().st_mtime)
+    try:
+        record = json.loads(path.read_text())
+    except (OSError, json.JSONDecodeError):
+        return {"status": "partial", "detail": path.name, "done": None, "planned": None}
+    status = record.get("status") or "unknown"
+    pid = record.get("pid")
+    terminal = {"complete", "failed", "terminated_protocol_invalid", "paused", "cancelled"}
+    if status not in terminal and pid and not pid_alive(pid):
+        status = "stale"
+    if status not in terminal | {"stale", "running", "loading_engine", "partial"}:
+        status = "partial"
+    config = record.get("config") or {}
+    planned = len(config.get("selected_question_ids") or []) or None
+    result_paths = record.get("result_paths") or {}
+    done = 0
+    counted = False
+    for key in ("pc", "sc", "polr", "cpt"):
+        result = result_paths.get(key)
+        if result:
+            done = max(done, count_jsonl(Path(result)))
+            counted = True
+    if not counted and jsonl_files:
+        done = max(count_jsonl(item) for item in jsonl_files)
+        counted = True
+    sc_done = count_jsonl(Path(result_paths["sc"])) if result_paths.get("sc") else None
+    pc_done = count_jsonl(Path(result_paths["pc"])) if result_paths.get("pc") else None
+    started = record.get("started_at_utc")
+    elapsed = None
+    if started:
+        try:
+            elapsed = (datetime.now(timezone.utc) - datetime.fromisoformat(started)).total_seconds()
+        except ValueError:
+            elapsed = None
+    progress_done = done if counted else None
+    if sc_done is not None and pc_done is not None:
+        progress_done = min(sc_done, pc_done)
+    eta = None
+    if elapsed and progress_done and planned and progress_done < planned:
+        eta = elapsed / progress_done * (planned - progress_done)
+    summary_path = path.with_name(path.name.replace(".run.json", ".summary.json"))
+    detail = ""
+    if summary_path.exists():
+        try:
+            summary = json.loads(summary_path.read_text())
+        except (OSError, json.JSONDecodeError):
+            summary = {}
+        methods = summary.get("methods") or {}
+        bits = []
+        for name in ("SC", "PC", "PoLR", "CPT", "DeepConf"):
+            method = methods.get(name) or {}
+            accuracy = method.get("accuracy")
+            if accuracy is not None:
+                bits.append(f"{name} {100 * float(accuracy):.2f}%")
+        detail = " / ".join(bits)
+    if not detail:
+        detail = {"complete": "完成", "running": "进行中", "loading_engine": "加载中", "queued": "未开始"}.get(status, status)
+    return {
+        "status": status,
+        "detail": detail,
+        "done": progress_done,
+        "planned": planned,
+        "sc_done": sc_done,
+        "pc_done": pc_done,
+        "pid": pid,
+        "model": config.get("model"),
+        "elapsed_s": elapsed,
+        "eta_s": eta,
+    }
+
+
+def rebuttal_view() -> tuple[dict, list[dict], dict]:
+    counts = {"queued": 0, "running": 0, "partial": 0, "complete": 0, "stale": 0, "failed": 0}
+    items: list[dict] = []
+    groups = []
+    for group in REBUTTAL["groups"]:
+        runs = []
+        for run in group["runs"]:
+            hit = _rebuttal_hit(run["tag"])
+            counts[hit["status"]] = counts.get(hit["status"], 0) + 1
+            row = {**run, **hit, "id": run["tag"], "title": f"{group['title']} · {run['what']}"}
+            runs.append(row)
+            items.append(row)
+        groups.append({**group, "runs": runs})
+    view = {**REBUTTAL, "groups": groups}
+    return view, items, counts
+
+
 def collect_state() -> dict:
     gpu_rows = gpus()
     procs = running_processes()
-    gsm8k = gsm8k_results()
-    math = math_runs() + cpt_runs()
-    datasets = dataset_status()
-    catalog = catalog_status(math, gsm8k, datasets)
-    counts = {"complete": 0, "running": 0, "partial": 0, "queued": 0, "stale": 0, "failed": 0}
-    for item in catalog:
-        counts[item["status"]] = counts.get(item["status"], 0) + 1
-    running = [row for row in math if row["status"] in {"running", "loading_engine"}]
-    running.sort(key=lambda row: row.get("started") or "", reverse=True)
-    stale = [row for row in math if row["status"] == "stale"]
+    rebuttal, items, counts = rebuttal_view()
+    running = [row for row in items if row["status"] in {"running", "loading_engine", "partial"}]
+    stale = [row for row in items if row["status"] in {"stale", "failed"}]
     return {
         "generated_at": iso_cst(now_cst()),
-        "deadlines": {
-            "abstract_iso": ABSTRACT_DEADLINE.isoformat(),
-            "paper_iso": PAPER_DEADLINE.isoformat(),
-            "abstract": "2026-09-18 23:59 AOE",
-            "paper": "2026-09-25 23:59 AOE",
-        },
         "counts": counts,
-        "running_math": len(running),
         "host": host_info(gpu_rows),
         "gpus": gpu_rows,
         "processes": procs,
         "running": running,
         "stale": stale,
-        "gsm8k": gsm8k,
-        "math": math,
-        "datasets": datasets,
-        "catalog": catalog,
-        "plan": PLAN,
-        "rebuttal": REBUTTAL,
-        "paper": build_paper_tables(math),
+        "paper_baseline": PAPER,
+        "rebuttal": rebuttal,
+        "rebuttal_items": items,
     }
 
 
@@ -2761,54 +2928,27 @@ PAGE = r"""<!DOCTYPE html>
 <div class="wrap">
   <h1>Path-Consistency 实验控制台</h1>
   <div class="host" id="hostline"></div>
-  <div class="sub">ICLR 2027 改稿 · 数据每 8 秒从磁盘与 <span class="mono">nvidia-smi</span> 刷新 · <span id="stamp"></span></div>
+  <div class="sub">论文结果为基线 · rebuttal 补实验单独记进度 · <span id="stamp"></span></div>
 
-  <h2>审稿补实验 · 平台与任务</h2>
+  <div class="row" id="kpis"></div>
+  <div class="call" id="headline"></div>
+
+  <h2>硬件状态</h2>
+  <div class="row" id="gpus"></div>
+
+  <h2>任务状态</h2>
+  <div id="running"></div>
+
+  <h2>论文已有结果</h2>
+  <div class="note" id="paper-source"></div>
+  <div id="paper-tables"></div>
+
+  <h2>Rebuttal 补实验</h2>
   <div class="call plan" id="rebuttal-headline"></div>
   <div class="plat-grid" id="rebuttal-platforms"></div>
   <div id="rebuttal-experiments"></div>
   <div class="note" id="rebuttal-skip" style="margin-top:8px"></div>
 
-  <div class="row" id="kpis"></div>
-  <div class="call" id="headline"></div>
-
-  <h2>GPU</h2>
-  <div class="row" id="gpus"></div>
-
-  <h2>正在进行</h2>
-  <div id="running"></div>
-
-  <h2>冻结协议（2026-09-09，仍有效）</h2>
-  <div class="call plan" id="plan-headline"></div>
-  <div class="plan-grid" id="plan-decisions"></div>
-  <h3>Go / no-go</h3>
-  <div id="plan-go"></div>
-  <h3>排期</h3>
-  <div id="plan-schedule"></div>
-  <div class="note" id="plan-cancelled" style="margin-top:8px"></div>
-
-  <h2>论文表格</h2>
-  <div class="note" id="paper-notes"></div>
-  <div id="table1"></div>
-  <div id="table2"></div>
-  <div id="table3"></div>
-  <h2>试跑（不进 Table 1）</h2>
-  <div id="pilots"></div>
-  <h2>消融实验</h2>
-  <div id="ablations"></div>
-
-  <h2>实验清单</h2>
-  <div class="tabs" id="tabs"></div>
-  <div id="catalog"></div>
-
-  <h2>GSM8K 已完成结果（Llama-3-8B，旧 Sentence-PC）</h2>
-  <div id="gsm8k"></div>
-
-  <h2>MATH-500 运行记录</h2>
-  <div id="math"></div>
-
-  <h2>数据集</h2>
-  <div id="datasets"></div>
 </div>
 <script>
 const FILTERS = ["全部","进行中","已完成","未开始","部分/卡住","已取消"];
@@ -2863,9 +3003,14 @@ function renderRebuttal(){
       <div class="note" style="max-width:none">${g.data}</div>
       <div class="note" style="max-width:none">${g.note}</div>
       <table>
-        <thead><tr><th>系统</th><th>tag</th></tr></thead>
+        <thead><tr><th>状态</th><th>系统</th><th>进度</th><th>tag</th></tr></thead>
         <tbody>${(g.runs||[]).map(run => `
-          <tr><td>${run.what}</td><td class="mono">${run.tag}</td></tr>`).join("")}
+          <tr>
+            <td>${pill(run.status||"queued")}<div class="note">${run.detail||""}</div></td>
+            <td>${run.what}</td>
+            <td>${run.done==null?"—":run.done+(run.planned?("/"+run.planned):"")}</td>
+            <td class="mono">${run.tag}</td>
+          </tr>`).join("")}
         </tbody>
       </table>
     </div>`).join("");
@@ -3105,20 +3250,21 @@ function renderAblation(t){
     </table></div>
     ${t.note ? `<div class="footnote">${t.note}</div>` : ""}`;
 }
-function renderPaper(paper){
+function renderPaperBaseline(){
+  const paper = state.paper_baseline;
+  const host = document.getElementById("paper-source");
+  const root = document.getElementById("paper-tables");
   if(!paper){
-    document.getElementById("paper-notes").textContent = "论文表格尚未生成。";
+    host.textContent = "论文基线未加载。";
+    root.innerHTML = "";
     return;
   }
-  document.getElementById("paper-notes").innerHTML =
-    (paper.notes||[]).map(x => `<div>${x}</div>`).join("");
-  document.getElementById("table1").innerHTML = renderTable1(paper.table1);
-  document.getElementById("table2").innerHTML = renderTable2(paper.table2);
-  document.getElementById("table3").innerHTML = renderTable3(paper.table3);
-  document.getElementById("pilots").innerHTML =
-    (paper.pilots||[]).map(renderAblation).join("");
-  document.getElementById("ablations").innerHTML =
-    (paper.ablations||[]).map(renderAblation).join("");
+  host.textContent = paper.source + "。 " + paper.note;
+  root.innerHTML = (paper.tables||[]).map(table => {
+    const head = table.columns.map(col => `<th>${col}</th>`).join("");
+    const body = table.rows.map(row => `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("");
+    return `<h3>${table.title}</h3><div class="paper-scroll"><table class="paper"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
+  }).join("");
 }
 
 function remainClock(iso){
@@ -3139,15 +3285,25 @@ function toneDays(days, overdue){
 }
 function renderKpis(){
   if(!state) return;
-  const d = state.deadlines || {};
-  const abs = remainClock(d.abstract_iso);
-  const pap = remainClock(d.paper_iso);
+  const c = state.counts || {};
+  const gpus = state.gpus || [];
+  const busy = gpus.filter(g => g.busy).length;
   document.getElementById("kpis").innerHTML = `
-    <div class="stat"><div class="v ${toneDays(abs.days, abs.overdue)}">${abs.text}</div><div class="l">距摘要 ${d.abstract||""}</div></div>
-    <div class="stat"><div class="v ${toneDays(pap.days, pap.overdue)}">${pap.text}</div><div class="l">距全文 ${d.paper||""}</div></div>
-    <div class="stat"><div class="v live">${state.running.length}</div><div class="l">正在跑的实验</div></div>
-    <div class="stat"><div class="v">${state.counts.complete}</div><div class="l">清单已完成</div></div>
-    <div class="stat"><div class="v warn">${state.counts.queued}</div><div class="l">尚未开始</div></div>`;
+    <div class="stat"><div class="v">${gpus.length}</div><div class="l">GPU</div></div>
+    <div class="stat"><div class="v ${busy?"warn":"ok"}">${busy}</div><div class="l">占用</div></div>
+    <div class="stat"><div class="v ok">${gpus.length-busy}</div><div class="l">空闲</div></div>
+    <div class="stat"><div class="v live">${(c.running||0)+(c.loading_engine||0)+(c.partial||0)}</div><div class="l">进行中</div></div>
+    <div class="stat"><div class="v warn">${c.queued||0}</div><div class="l">未开始</div></div>
+    <div class="stat"><div class="v">${c.complete||0}</div><div class="l">已完成</div></div>`;
+}
+function progressText(run){
+  if(run.sc_done==null && run.pc_done==null){
+    return run.done==null ? "—" : (run.done+"/"+(run.planned==null?"—":run.planned));
+  }
+  const sc = run.sc_done==null ? "—" : run.sc_done;
+  const pc = run.pc_done==null ? "—" : run.pc_done;
+  const total = run.planned==null ? "—" : run.planned;
+  return "SC "+sc+"/"+total+" · PC "+pc+"/"+total;
 }
 function render(){
   if(!state) return;
@@ -3157,112 +3313,54 @@ function render(){
   if(host.gpu_summary) hostBits.push(`<span class="chip">${host.gpu_summary}</span>`);
   if(host.label) hostBits.push(host.label);
   document.getElementById("hostline").innerHTML = hostBits.join(" · ");
-  try { renderPaper(state.paper); } catch (err) { console.error(err); }
+  try { renderPaperBaseline(); } catch (err) { console.error(err); }
   try { renderRebuttal(); } catch (err) { console.error(err); }
-  try { renderPlan(); } catch (err) { console.error(err); }
   renderKpis();
 
-  const stale = state.stale[0];
-  let head = "没有正在跑的实验。";
-  if(state.running.length){
-    head = state.running.map(run => `
+  const active = state.running || [];
+  const stale = state.stale || [];
+  let head = "没有正在跑的补实验。";
+  if(active.length){
+    head = active.map(run => `
       <div style="margin:0 0 12px">
-        <b class="live">进行中</b> ${run.method_label || (isCpt(run)?"CPT":(isPolr(run)?"PoLR":"SC / PC"))} · ${run.model} · ${where(run)} · ${progressLabel(run)} ${run.paired}/${run.planned}
-        ${bar(run.paired, run.planned)}
-        <div class="note">PID ${run.pid} · 已用 ${eta(run.elapsed_s)} · 预计剩余 ${eta(run.eta_s)}
-        · 已完成题准确率 ${accSummary(run)}
-        ${run.last_question ? " · 最近题 "+run.last_question.id : ""}</div>
+        <b class="live">进行中</b> ${run.what||run.tag} · ${run.model||"—"} · ${progressText(run)}
+        ${bar(run.done||0, run.planned||0)}
+        <div class="note">PID ${run.pid||"—"} · 已用 ${eta(run.elapsed_s)} · 预计剩余 ${eta(run.eta_s)} · ${run.tag}</div>
       </div>`).join("");
-  } else if(stale){
-    head = `<b class="bad">进程丢失</b> ${stale.tag} 标记为 running 但 PID ${stale.pid} 已不在。检查 orphan EngineCore 后决定是否续跑。`;
+  } else if(stale.length){
+    const run = stale[0];
+    head = `<b class="bad">进程丢失</b> ${run.tag} 标记为 ${run.status}，PID ${run.pid||"—"} 已不在。`;
   }
   document.getElementById("headline").innerHTML = head;
 
-  document.getElementById("gpus").innerHTML = state.gpus.map(g => `
+  document.getElementById("gpus").innerHTML = (state.gpus||[]).map(g => `
     <div class="gpu" title="${g.name||""}">
       <div>GPU ${g.index} · ${g.short||g.name||"—"} ${g.busy ? '<span class="pill run">占用</span>' : '<span class="pill queued">空闲</span>'}</div>
       <div class="mem">${num(g.used_mib,0)} / ${num(g.total_mib,0)} MiB · util ${num(g.util,0)}%</div>
       ${bar(g.used_mib, g.total_mib)}
     </div>`).join("") || '<div class="empty">无法读取 nvidia-smi</div>';
 
-  if(!state.running.length && !state.processes.length){
-    document.getElementById("running").innerHTML = '<div class="empty">无 run_math / run_polr / run_cpt / run_math_deepseek / run_gsm8k / EngineCore 进程。</div>';
-  } else {
-    const procRows = state.processes.map(p =>
-      `<tr><td class="mono">${p.pid}</td><td>${p.etime}</td><td>${p.cpu}%</td><td>${p.rss_mb} MB</td><td class="mono">${p.cmd}</td></tr>`
-    ).join("");
-    const runRows = state.running.map(r =>
-      `<tr><td>${pill(r.status)}</td><td class="mono">${r.method_label || (isCpt(r)?"CPT":(isPolr(r)?"PoLR":"SC / PC"))} · ${r.model}<div class="note">${r.tag}</div></td><td>${where(r)}</td>
-       <td>${r.paired}/${r.planned}</td><td>${accSummary(r)}</td>
-       <td>${eta(r.eta_s)}</td></tr>`
-    ).join("");
-    document.getElementById("running").innerHTML = `
-      <table><thead><tr><th>状态</th><th>Run</th><th>资源</th><th>配对进度</th><th>已完成准确率</th><th>ETA</th></tr></thead>
-      <tbody>${runRows || '<tr><td colspan="6" class="empty">无 MATH run.json 处于 running</td></tr>'}</tbody></table>
-      <table style="margin-top:12px"><thead><tr><th>PID</th><th>已运行</th><th>CPU</th><th>RSS</th><th>命令</th></tr></thead>
-      <tbody>${procRows}</tbody></table>`;
-  }
-
-  document.getElementById("tabs").innerHTML = FILTERS.map(f =>
-    `<button class="${f===filter?"on":""}" data-f="${f}">${f}</button>`
-  ).join("");
-  document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => { filter=b.dataset.f; render(); });
-
-  const want = {
-    "全部": () => true,
-    "进行中": x => x.status==="running",
-    "已完成": x => x.status==="complete",
-    "未开始": x => x.status==="queued",
-    "部分/卡住": x => ["partial","stale","failed"].includes(x.status),
-    "已取消": x => x.status==="cancelled",
-  }[filter];
-  const items = state.catalog.filter(want);
-  document.getElementById("catalog").innerHTML = `
-    <table>
-      <thead><tr><th></th><th>实验</th><th>波次 / 优先级</th><th>模型 · 数据</th><th>进度</th><th>说明</th></tr></thead>
-      <tbody>${items.map(it => `
-        <tr>
-          <td>${pill(it.status)}</td>
-          <td>${it.title}<div class="mono dim">${it.id}</div></td>
-          <td>${it.wave}<div class="note">${it.priority}</div></td>
-          <td>${it.model}<div class="note">${it.dataset}</div></td>
-          <td>${it.progress ? it.progress.done+" / "+it.progress.total + bar(it.progress.done, it.progress.total) : "—"}</td>
-          <td class="note">${it.detail||it.note||""}</td>
-        </tr>`).join("")}</tbody>
-    </table>`;
-
-  document.getElementById("gsm8k").innerHTML = `
-    <table>
-      <thead><tr><th>方法</th><th>题数</th><th>Accuracy</th><th>Decode tok/题</th><th>相对 SC</th><th>时延 s/题</th></tr></thead>
-      <tbody>${state.gsm8k.map(r => `
-        <tr>
-          <td>${r.label}</td><td>${r.done}/${r.total}</td>
-          <td>${pct(r.accuracy)}</td><td>${num(r.avg_tokens,1)}</td>
-          <td>${r.token_saving_vs_sc==null?"—":((r.token_saving_vs_sc>=0?"−":"+")+pct(Math.abs(r.token_saving_vs_sc)))}</td>
-          <td>${num(r.avg_latency_s,2)}</td>
-        </tr>`).join("")}</tbody>
-    </table>
-    <div class="note">相对 SC 的 token 列为减少量。这些是旧协议数字，不能与 MATH B=16/32 混算节省率。</div>`;
-
-  const mathRows = state.math.map(r => `
+  const taskRows = active.concat(stale).map(run => `
     <tr>
-      <td>${pill(r.status)}</td>
-      <td><span class="pill">${r.kind}</span></td>
-      <td class="mono">${r.method_label || "—"} · ${r.fingerprint}<div class="note">${r.tag || ""} · ${runMeta(r)}</div></td>
-      <td>${r.paired}/${r.planned}</td>
-      <td>${accSummary(r)}</td>
-      <td>${r.decode_saving==null?"—":pct(r.decode_saving)}</td>
-      <td>${r.truncations_sc??"—"}</td>
+      <td>${pill(run.status)}</td>
+      <td>${run.what||run.tag}<div class="mono note">${run.tag}</div></td>
+      <td>${progressText(run)}${bar(run.done||0, run.planned||0)}</td>
+      <td class="note">${run.detail||""}</td>
+      <td>${eta(run.elapsed_s)}</td>
+      <td>${eta(run.eta_s)}</td>
     </tr>`).join("");
-  document.getElementById("math").innerHTML = `<table>
-    <thead><tr><th>状态</th><th>类型</th><th>Run</th><th>进度</th><th>已完成准确率</th><th>Decode 节省</th><th>SC 截断</th></tr></thead>
-    <tbody>${mathRows}</tbody></table>`;
-
-  document.getElementById("datasets").innerHTML = `<table>
-    <thead><tr><th>数据集</th><th>状态</th><th>行数</th><th>路径</th></tr></thead>
-    <tbody>${state.datasets.map(r => `
-      <tr><td>${r.name}${r.required?"":"<div class=\"note\">不阻塞</div>"}</td><td>${pill(r.status==="ready"?"complete":r.status==="optional"?"optional":"queued")}</td>
-      <td>${r.rows||0}</td><td class="mono">${r.path}</td></tr>`).join("")}</tbody></table>`;
+  const procRows = (state.processes||[]).map(p =>
+    `<tr><td class="mono">${p.pid}</td><td>${p.etime}</td><td>${p.cpu}%</td><td>${p.rss_mb} MB</td><td class="mono">${p.cmd}</td></tr>`
+  ).join("");
+  document.getElementById("running").innerHTML = `
+    <table>
+      <thead><tr><th>状态</th><th>任务</th><th>进度</th><th>说明</th><th>已用</th><th>ETA</th></tr></thead>
+      <tbody>${taskRows || '<tr><td colspan="6" class="empty">没有正在跑的补实验</td></tr>'}</tbody>
+    </table>
+    <table style="margin-top:12px">
+      <thead><tr><th>PID</th><th>已运行</th><th>CPU</th><th>RSS</th><th>命令</th></tr></thead>
+      <tbody>${procRows || '<tr><td colspan="5" class="empty">本机当前没有评测进程</td></tr>'}</tbody>
+    </table>`;
 }
 
 const DISMISS_KEY = "pc.console.dismissedNotifs.v2";
@@ -3326,7 +3424,7 @@ function syncNotifications(st){
   const pending = loadMap(PENDING_KEY);
   const now = Date.now();
   const live = new Set();
-  for(const it of (st.catalog || [])){
+  for(const it of (st.rebuttal_items || [])){
     const prev = seen[it.id];
     seen[it.id] = it.status;
     live.add(it.id);
@@ -3377,7 +3475,6 @@ async function tick(){
 }
 tick();
 setInterval(tick, 8000);
-setInterval(renderKpis, 1000);
 </script>
 </body>
 </html>
